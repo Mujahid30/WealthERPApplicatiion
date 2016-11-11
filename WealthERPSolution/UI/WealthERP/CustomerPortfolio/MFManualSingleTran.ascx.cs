@@ -20,6 +20,7 @@ using VoUser;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
+using System.Data.Common;
 
 
 namespace WealthERP.CustomerPortfolio
@@ -42,10 +43,14 @@ namespace WealthERP.CustomerPortfolio
         float stt;
         static int schemePlanCode;
         int amcCode;
+        string message;
+        string mode;
+        string hghhhbh;
         int accountId;
         string categoryCode;
         DataTable AgentId;
         DataTable Agentname;
+        DbCommand getmodefromfolioNoCmd;
         int flag = 0;
         //string categoryName;
         int transactionId;
@@ -82,6 +87,8 @@ namespace WealthERP.CustomerPortfolio
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                 txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                txtPansearch_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtPansearch_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerPan";
                 //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
             }
@@ -91,7 +98,7 @@ namespace WealthERP.CustomerPortfolio
                 trCustomerSearch.Visible = false;
                 trtxtcustomerName.Visible = false;
                 hdntxtcustomerId.Value = customerVo.CustomerId.ToString();
-                BindPortfolioDropDown();
+              BindPortfolioDropDown();
             }
             if (!IsPostBack)
             {
@@ -571,9 +578,11 @@ namespace WealthERP.CustomerPortfolio
                 //if (txtSearchScheme.Text != "" && lblScheme.Text == txtSearchScheme.Text)
                 //if(ddlScheme.SelectedIndex !=0 && lblScheme.Text == ddlScheme.SelectedItem.Text)
                 //{
+
                 if (userType != "Customer")
                     customerId = int.Parse(hdntxtcustomerId.Value);
                 else
+
                     customerId = customerVo.CustomerId;
                 mfTransactionVo.CustomerId = customerId;
                 mfTransactionVo.AccountId = int.Parse(ddlFolioNum.SelectedItem.Value.ToString());
@@ -592,6 +601,24 @@ namespace WealthERP.CustomerPortfolio
                 mfTransactionVo.Area = txtArea.Text.Trim().ToString();
                 mfTransactionVo.EUIN = txtEUIN.Text.ToString();
 
+                DataSet dsGetMessage = new DataSet();
+                dsGetMessage = productMfBo.GetMessagefromFolioNo(schemePlanCode);
+
+                if (dsGetMessage.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dsGetMessage.Tables[0].Rows)
+                    {
+
+                        if ((dr["PASP_IsOnline"].ToString() == "False" && FolioMode.Text == "Online") || (dr["PASP_IsOnline"].ToString() == "True" && FolioMode.Text == "Offline"))
+                        {
+
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Scheme is not available for online trading')", true);
+                            return;
+                        }
+
+                    }
+
+                }
                 if (ddlTransactionType.SelectedItem.Value == "Buy")
                 {
                     mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
@@ -863,10 +890,11 @@ namespace WealthERP.CustomerPortfolio
             txtDividentRate.Enabled = false;
             lblScheme.Enabled = false;
             TxtsubBrokerCode.Enabled = false;
-            ddlPortfolio.Enabled = false;
+           ddlPortfolio.Enabled = false;
             lblSchemeName.Enabled = false;
             txtcustomerName.Enabled = false;
             txtCustCode.Enabled = false;
+            txtPansearch.Enabled = false;
             ddlSearchOption.Enabled = false;
             //RequiredFieldValidator3.Enabled = false;
             //RequiredFieldValidator2.Enabled = false;
@@ -989,7 +1017,7 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlTransactionType.SelectedItem.Value != "Dividend Payout")
                 {
                     txtUnits.Text = (Math.Round((double.Parse(txtAmount.Text) / double.Parse(txtPrice.Text)), 4)).ToString();
-                    txtSTT.Text = (Math.Round((double.Parse(txtAmount.Text) - Math.Round((double.Parse(txtUnits.Text) * double.Parse(txtNAV.Text)), 2)), 2)).ToString();
+                    txtSTT.Text = (Math.Round((double.Parse(txtAmount.Text) - Math.Round((double.Parse(txtUnits.Text) * Math.Round(double.Parse(txtNAV.Text))), 2)), 2)).ToString();
                     if (txtAmtPurchased.Visible)
                     {
                         txtAmtPurchased.Text = txtAmount.Text;
@@ -1201,14 +1229,19 @@ namespace WealthERP.CustomerPortfolio
         {
             if (ddlFolioNum.SelectedIndex != 0)
             {
-
+                DataSet dsGetMode = new DataSet();  
                 accountId = int.Parse(ddlFolioNum.SelectedValue);
+                mode = productMfBo.GetModefromFolioNo(accountId).ToString();
+                FolioMode.Text = mode;
+                FolioMode.Font.Bold = true;
+                FolioMode.Font.Size = 10;
                 amcCode = productMfBo.GetAMCfromFolioNo(accountId);
                 ddlAMC.SelectedValue = amcCode.ToString();
                 if (ddlScheme.SelectedIndex == 0)
                     BindScheme();
-
+                
             }
+           
         }
 
         protected void ddlSchemeType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1221,7 +1254,17 @@ namespace WealthERP.CustomerPortfolio
             if (!string.IsNullOrEmpty(hdntxtcustomerId.Value.ToString()))
             {
                 customerId = int.Parse(hdntxtcustomerId.Value);
-                BindPortfolioDropDown();
+               BindPortfolioDropDown();
+                BindAllDropdown();
+            }
+
+        }
+        protected void txtPansearch_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hdntxtcustomerId.Value.ToString()))
+            {
+                customerId = int.Parse(hdntxtcustomerId.Value);
+             BindPortfolioDropDown();
                 BindAllDropdown();
             }
 
@@ -1235,6 +1278,15 @@ namespace WealthERP.CustomerPortfolio
                 txtCustCode.Visible = false;
                 RequiredFieldValidator2.Enabled = true;
                 lblcustandcustomer.Visible = true;
+                txtPansearch.Visible = false;
+            }
+                else if (ddlSearchOption.SelectedValue == "Panno")
+            {
+                txtPansearch.Visible = true;
+                txtCustCode.Visible = false;
+                txtcustomerName.Visible = false;
+                lblcustandcustomer.Visible = true;
+                RequiredFieldValidator10.Enabled = true;
             }
             else
             {
@@ -1242,17 +1294,18 @@ namespace WealthERP.CustomerPortfolio
                 txtCustCode.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
                 lblcustandcustomer.Visible = true;
-
+                txtPansearch.Visible = false;                
 
             }
         }
-
+        
+           
         protected void txtCustCode_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(hdntxtcustomerId.Value.ToString()))
             {
                 customerId = int.Parse(hdntxtcustomerId.Value);
-                BindPortfolioDropDown();
+               BindPortfolioDropDown();
                 BindAllDropdown();
             }
 

@@ -10,6 +10,7 @@
 </body>
 </html>
 
+
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
@@ -111,7 +112,7 @@
   
 </script>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function PortfolioManageMessage(source, args) {
         //     function PortfolioManageMessage() {
         var e = document.getElementById("<%= ddlPortfolio.ClientID %>");
@@ -127,7 +128,7 @@
         }
 
     }
-</script>
+</script>--%>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
@@ -145,6 +146,7 @@
             {
                 width: 47px;
             }
+            
         </style>
         <%--<table width="100%" class="TableBackground">
             <tr>
@@ -188,7 +190,7 @@
                         OnSelectedIndexChanged="ddlSearchOption_SelectedIndexChanged">
                         <asp:ListItem Text="Select" Value="Select" Selected="true" />
                         <asp:ListItem Text="Name" Value="Name" />
-                        <%--   <asp:ListItem Text="PAN" Value="Panno" />--%>
+                        <asp:ListItem Text="PAN" Value="Panno" />
                         <asp:ListItem Text="Client Code" Value="Clientcode" />
                     </asp:DropDownList>
                 </td>
@@ -221,6 +223,19 @@
                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                         UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                         Enabled="True" />
+                         <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" Visible="false"
+                AutoPostBack="true" OnTextChanged="txtPansearch_TextChanged" ></asp:TextBox>
+           
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
+                WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
+            </cc1:TextBoxWatermarkExtender>
+            <cc1:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
+                TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                Enabled="True"></cc1:AutoCompleteExtender>
                     <asp:Label ID="lblcustandcustomer" runat="server" Text="*" CssClass="spnRequiredField"
                         Visible="false"></asp:Label>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtcustomerName"
@@ -229,15 +244,22 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCustCode"
                         ErrorMessage="<br />Please Enter Cust Code" Display="Dynamic" runat="server"
                         Enabled="false" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtPansearch"
+                        ErrorMessage="<br />Please Enter PAN" Display="Dynamic" runat="server"
+                        Enabled="false" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                        
+                        
+                  
+                        
                 </td>
             </tr>
-            <tr>
+           <%--<tr>
                 <td class="leftField" style="width: 20%;">
-                    <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Select the Portfolio :"></asp:Label>
+                    <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Visible="false" Text="Select the Portfolio :"></asp:Label>
                 </td>
                 <td class="rightField" style="width: 80%;" colspan="4">
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
+                        OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged" Visible="false">
                     </asp:DropDownList>
                     <br />
                     <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server" ValidationGroup="MFSubmit"
@@ -245,15 +267,15 @@
                         ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
                     <%-- <asp:CustomValidator ID="cv" runat="server" ValidationGroup="MFSubmit"
                          Display="Dynamic" ClientValidationFunction="PortfolioManageMessage" CssClass="revPCG"
-                          ErrorMessage="CustomValidator">You can't add transaction for Manage Portfolio.Please select unmanage Portfolio</asp:CustomValidator>--%>
+                          ErrorMessage="CustomValidator">You can't add transaction for Manage Portfolio.Please select unmanage Portfolio</asp:CustomValidator>
                 </td>
                 <%--<td style="width : 15%;">
                 </td>
                 <td style="width : 20%;">
                 </td>
                 <td style="width : 25%;">
-                </td>--%>
-            </tr>
+                </td>
+            </tr>--%>
             <tr>
                 <td class="leftField" id="td1" runat="server">
                     <asp:Label ID="Label1" runat="server" Text="SubBroker Code :" CssClass="FieldName"></asp:Label>
@@ -393,6 +415,10 @@
                             OnSelectedIndexChanged="ddlFolioNum_SelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span3" class="spnRequiredField">*</span>
+                      
+                        <asp:Label ID="Label" runat="server"  CssClass="FieldName" Font-Bold="true" Text="Mode:" ></asp:Label>
+                        <asp:Label ID="FolioMode" runat="server"  CssClass="rightField" Font-Bold="true"></asp:Label>
+                    
                         <br />
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a folio number"
                             ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" Operator="NotEqual"
@@ -721,8 +747,33 @@
         <td class="leftField">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
-                ValidationGroup="MFSubmit" OnClick="btnSubmit_Click" />
+                ValidationGroup="MFSubmit" OnClick="btnSubmit_Click"   />
+              
         </td>
     </tr>
+     <tr>
+                <td class="leftField" style="width: 20%;">
+                    <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Visible="false" Text="Select the Portfolio :"></asp:Label>
+                </td>
+                <td class="rightField" style="width: 80%;" colspan="4">
+                    <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged" Visible="false">
+                    </asp:DropDownList>
+                    <br />
+                    <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server" ValidationGroup="MFSubmit"
+                        Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                        ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
+                    <%-- <asp:CustomValidator ID="cv" runat="server" ValidationGroup="MFSubmit"
+                         Display="Dynamic" ClientValidationFunction="PortfolioManageMessage" CssClass="revPCG"
+                          ErrorMessage="CustomValidator">You can't add transaction for Manage Portfolio.Please select unmanage Portfolio</asp:CustomValidator>--%>
+                </td>
+                <%--<td style="width : 15%;">
+                </td>
+                <td style="width : 20%;">
+                </td>
+                <td style="width : 25%;">
+                </td>--%>
+            </tr>
 </table>
 <asp:HiddenField ID="hdntxtcustomerId" runat="server" />
+ 
