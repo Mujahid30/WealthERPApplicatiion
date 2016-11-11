@@ -749,6 +749,89 @@ namespace DaoProductMaster
             }
             return amcCode;
         }
+        public string GetModefromFolioNo(int accountId )
+        {
+            Database db;
+            DbCommand getmodefromfolioNoCmd;
+            DataSet dsGetMode;
+            DataRow dr;
+            string mode=string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getmodefromfolioNoCmd = db.GetStoredProcCommand("SP_GetModeFromFolioNo");
+                db.AddInParameter(getmodefromfolioNoCmd, "@accountId", DbType.Int32, accountId);
+                db.AddOutParameter(getmodefromfolioNoCmd, "@Mode", DbType.String, 100);
+                if(db.ExecuteNonQuery(getmodefromfolioNoCmd)!=0)
+                    mode = db.GetParameterValue(getmodefromfolioNoCmd, "Mode").ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetModefromFolioNo()");
+
+
+                object[] objects = new object[2];
+
+                    objects[0] = accountId;
+                    objects[1] = 100;
+               
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return mode;
+        }
+        public DataSet GetMessagefromFolioNo(int schemePlanCode)
+        {
+            Database db;
+            DbCommand getmessagefromfolioNoCmd;
+            DataSet dsGetMessage;
+            DataRow dr;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getmessagefromfolioNoCmd = db.GetStoredProcCommand("SP_GetSchemePlanDetails");
+                db.AddInParameter(getmessagefromfolioNoCmd, "@schemePlanCode", DbType.Int32, schemePlanCode);
+                dsGetMessage = db.ExecuteDataSet(getmessagefromfolioNoCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetMessagefromFolioNo()");
+
+
+                object[] objects = new object[2];
+
+                objects[0] = schemePlanCode;
+                
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetMessage;
+        }
         public string GetSChemeName(int schemePlanCode)
         {
             Database db;
