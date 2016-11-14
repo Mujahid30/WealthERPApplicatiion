@@ -145,6 +145,7 @@
             <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Staff">
             </asp:Label>
         </td>
+        <td></td>
         <td>
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mapped Staff">
             </asp:Label>
@@ -170,24 +171,57 @@
         <td>
         </td>
         <td>
-            <telerik:RadListBox ID="radStaffList" runat="server" CheckBoxes="true" CssClass="txtField"
-                Width="220px" Height="200px">
-            </telerik:RadListBox>
-            <asp:ImageButton ID="btnStaffList" ImageUrl="~/Images/rightArrow1.png" runat="server"
+       
+            <asp:ListBox ID="radStaffList" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
+          
+   <asp:ImageButton ID="btnStaffList" ImageUrl="~/Images/rightArrow1.png" runat="server" ImageAlign="Top" 
                 Height="25px" Width="25px" OnClick="btnStaffList_Click" ToolTip="To Right"></asp:ImageButton>
+            <%--<telerik:RadListBox ID="radStaffList" runat="server" CheckBoxes="true" CssClass="txtField"
+                Width="220px" Height="200px">
+            </telerik:RadListBox>--%>
+          
         </td>
         <td>
-            <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
+    <asp:ListBox ID="ExistingStaffList" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
+
+            <%--<telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
                 AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ExistingStaffList_Transferred"
                 EnableViewState="true" EnableMarkMatches="true" runat="server" ID="ExistingStaffList"
                 Height="200px" Width="250px" AllowTransfer="true" TransferToID="MappedStaffList"
                 CssClass="cmbFielde" CheckBoxes="false">
-            </telerik:RadListBox>
+            </telerik:RadListBox>--%>
         </td>
+         <td>
+                 <table>
+                   <tr>
+                     <td>
+                  <asp:Button ID="RightArrow" runat="server" Text=">" Width="45px" onclick="RightArrow_Click"  />
+                      </td>
+                      </tr>
+                      <tr>
+                <td>
+                <asp:Button ID="LeftArrow" runat="server" Text="<" Width="45px" onclick="LeftArrow_Click" />
+                   </td>
+                   </tr>
+                  <tr>
+                   <td>
+             <asp:Button ID="RightShift" runat="server" Text=">>" Width="45px" onclick="RightShift_Click" />
+                   </td>
+                  </tr>
+              <tr>
+                   <td>
+               <asp:Button ID="LeftShift" runat="server" Text="<<" Width="45px" onclick="LeftShift_Click" />
+           </td>
+                  </tr> 
+                  </table>
+                  </td>
+                  
         <td>
-            <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
+                            <asp:ListBox ID="MappedStaffList" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
+
+           <%-- <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
                 ID="MappedStaffList" Height="200px" Width="220px" CssClass="cmbField" CheckBoxes="true">
-            </telerik:RadListBox>
+            </telerik:RadListBox>--%>
         </td>
     </tr>
     <tr visible="True">

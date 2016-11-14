@@ -13,6 +13,7 @@ using BoCustomerProfiling;
 using BoCommon;
 using VoUser;
 using System.Data;
+using System.Collections;
 using BoAdvisorProfiling;
 namespace WealthERP.Associates
 {
@@ -22,6 +23,10 @@ namespace WealthERP.Associates
         AdvisorVo advisorVo = new AdvisorVo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
+        ArrayList arraylist1 = new ArrayList();
+        ArrayList arraylist2 = new ArrayList();
+        string message;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -176,17 +181,101 @@ namespace WealthERP.Associates
         //}
         //BindAssociateList(selectStaffAssociate.TrimEnd(','));
         //}
-        protected void ExistingStaffList_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        //protected void ExistingStaffList_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        //{
+        //    ExistingStaffList.Items.Sort();
+        //}
+        protected void RightArrow_Click(Object sender, EventArgs e)
         {
-            ExistingStaffList.Items.Sort();
+            if (ExistingStaffList.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < ExistingStaffList.Items.Count; i++)
+                {
+                    if (ExistingStaffList.Items[i].Selected)
+                    {
+                        if (!arraylist1.Contains(ExistingStaffList.Items[i]))
+                        {
+                            arraylist1.Add(ExistingStaffList.Items[i]);
+
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist1.Count; i++)
+                {
+                    if (!MappedStaffList.Items.Contains(((ListItem)arraylist1[i])))
+                    {
+                        MappedStaffList.Items.Add(((ListItem)arraylist1[i]));
+                    }
+                    ExistingStaffList.Items.Remove(((ListItem)arraylist1[i]));
+                }
+                MappedStaffList.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+        }
+
+        protected void LeftArrow_Click(Object sender, EventArgs e)
+        {
+            if (MappedStaffList.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < MappedStaffList.Items.Count; i++)
+                {
+                    if (MappedStaffList.Items[i].Selected)
+                    {
+                        if (!arraylist2.Contains(MappedStaffList.Items[i]))
+                        {
+                            arraylist2.Add(MappedStaffList.Items[i]);
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist2.Count; i++)
+                {
+                    if (!ExistingStaffList.Items.Contains(((ListItem)arraylist2[i])))
+                    {
+                        ExistingStaffList.Items.Add(((ListItem)arraylist2[i]));
+                    }
+                    MappedStaffList.Items.Remove(((ListItem)arraylist2[i]));
+                }
+                ExistingStaffList.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+        }
+        protected void RightShift_Click(Object sender, EventArgs e)
+        {
+            while (ExistingStaffList.Items.Count != 0)
+            {
+                for (int i = 0; i < ExistingStaffList.Items.Count; i++)
+                {
+                    MappedStaffList.Items.Add(ExistingStaffList.Items[i]);
+                    ExistingStaffList.Items.Remove(ExistingStaffList.Items[i]);
+                }
+            }
+        }
+        protected void LeftShift_Click(Object sender, EventArgs e)
+        {
+            while (MappedStaffList.Items.Count != 0)
+            {
+                for (int i = 0; i < MappedStaffList.Items.Count; i++)
+                {
+                    ExistingStaffList.Items.Add(MappedStaffList.Items[i]);
+                    MappedStaffList.Items.Remove(MappedStaffList.Items[i]);
+                }
+            }
         }
         protected void btnStaffList_Click(object sender, EventArgs e)
         {
             string selectStaffAssociate = string.Empty;
 
-            foreach (RadListBoxItem li in radStaffList.Items)
+            foreach (ListItem li in radStaffList.Items)
             {
-                if (li.Checked == true)
+                if (li.Selected == true)
                 {
                     selectStaffAssociate += li.Value + ',';
                 }
@@ -214,12 +303,12 @@ namespace WealthERP.Associates
             }
             if (MappedStaffList.Items.Count > 0)
             {
-                foreach (RadListBoxItem li in MappedStaffList.Items)
+                foreach (ListItem li in MappedStaffList.Items)
                 {
-                    if (li.Checked == true)
-                    {
+                    //if (li.Selected == true)
+                    //{
                         mappedStaffAssociate += li.Value + ',';
-                    }
+                    //}
                 }
                 if (mappedStaffAssociate == string.Empty)
                 {
