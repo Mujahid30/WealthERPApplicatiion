@@ -85,13 +85,13 @@
             var rdButton = document.getElementById('<%= File4.ClientID %>');
             rdButton.checked = true;
         }
-       
+
         else if (a == 'MFSS' && b == 'WPT') {
             var rdButton = document.getElementById('<%= File6.ClientID %>');
             rdButton.checked = true;
         }
-        
-       
+
+
     }
 
 </script>
@@ -201,6 +201,18 @@
                             Issue Upload
                         </td>
                     </tr>
+                    
+                    <tr>
+                        <td  align="right">
+                            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
+                                OnClientClick="return setRadioButtonForFileFormat();" OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
+                            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
+                                TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                                Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
+                                Drag="true" OnOkScript="DownloadScript();">
+                            </cc1:ModalPopupExtender>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </td>
@@ -242,6 +254,7 @@
         </td>
     </tr>
 </table>
+<br />
 <table width="100%">
     <tr id="trStepOneHeading" runat="server">
         <td class="tdSectionHeading" colspan="6">
@@ -463,15 +476,6 @@
             <asp:Button ID="btnUploadData" runat="server" Text="Upload Data:" CssClass="PCGLongButton"
                 OnClick="btnUploadData_Click" />
         </td>
-        <td align="right">
-            <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
-                OnClientClick="return setRadioButtonForFileFormat();" OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
-            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
-                TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
-                Drag="true" OnOkScript="DownloadScript();">
-            </cc1:ModalPopupExtender>
-        </td>
         <td>
             &nbsp;
         </td>
@@ -490,20 +494,23 @@
     <tr>
         <td>
             <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false" Width="450px">
-                <asp:RadioButton ID="File3" Text=" IPO - Offline" Checked="false" GroupName="colors" runat="server" />
-                <br />
-                <asp:RadioButton ID="File4" Text="NCD -Offline" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File3" Text="IPO-Offline" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File5" Text="IPO - Online" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File4" Text="NCD-Offline" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File6" Text="NCD - Online" Checked="false" GroupName="colors"
+                <asp:RadioButton ID="File5" Text="IPO-Online" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File15" Text="54EC - Offline" Checked="false" GroupName="colors" runat="server" />
+                <asp:RadioButton ID="File6" Text="NCD-Online" Checked="false" GroupName="colors"
+                    runat="server" />
                 <br />
-                <asp:RadioButton ID="File16" Text="CFD - Offline" Checked="false" GroupName="colors" runat="server" />
+                <asp:RadioButton ID="File15" Text="54EC-Offline" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                <asp:RadioButton ID="File16" Text="CFD-Offline" Checked="false" GroupName="colors"
+                    runat="server" />
                 <br />
                 <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
                 &nbsp;
