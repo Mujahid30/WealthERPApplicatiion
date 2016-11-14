@@ -33,6 +33,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Panel1.Visible = true;
+            Panel1.Style.Add("display", "none");
+            lnkbtnpup.Visible = true;
+            ModalPopupExtender1.Hide();
             OnlineUserSessionBo.CheckSession();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -43,7 +47,6 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!IsPostBack)
             {
                 if (Cache["UPLOAD" + userVo.UserId] != null) Cache.Remove("UPLOAD" + userVo.UserId);
-
 
             }
 
@@ -124,7 +127,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             string fileTypeError;
             hdnsavePath.Value = Server.MapPath("UploadFiles/");
-            DataTable dtUploadFile =new DataTable();
+            DataTable dtUploadFile = new DataTable();
             DataTable dtValidatedData;
             OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
             if (FileUpload.HasFile)
@@ -135,7 +138,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
 
                     FileUpload.SaveAs(hdnsavePath.Value);
-                    
+
                     if (onlineNCDBackOfficeBo == null) onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
                     if (ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15")
                     {
@@ -150,26 +153,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    ShowMessage(fileTypeError,"F");
+                    ShowMessage(fileTypeError, "F");
                     return;
                 }
 
             }
             else
             {
-                ShowMessage("Could not read the file","F");
+                ShowMessage("Could not read the file", "F");
                 return;
             }
 
             if (dtUploadFile == null)
             {
-                ShowMessage("Error in reading file","F");
+                ShowMessage("Error in reading file", "F");
                 return;
             }
 
             if (dtUploadFile.Rows.Count <= 0)
             {
-                ShowMessage("No data in the file","F");
+                ShowMessage("No data in the file", "F");
                 return;
             }
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
@@ -184,20 +187,20 @@ namespace WealthERP.OnlineOrderBackOffice
             BindGrid(dtValidatedData);
             ToggleUpload(dtValidatedData);
         }
-        private Boolean CheckUploadFileType(string fileName,out string fileTypErrorMessage)
+        private Boolean CheckUploadFileType(string fileName, out string fileTypErrorMessage)
         {
             fileTypErrorMessage = "";
             string FileExtension = fileName.Substring(fileName.LastIndexOf('.') + 1);
             Boolean relVal = true;
             if ((ddlFileType.SelectedValue == "18" || ddlFileType.SelectedValue == "25") && (FileExtension.ToLower() != "txt"))
             {
-                fileTypErrorMessage="Invalid File Type, Please Upload Data in Text Format,Pipe delimeter";
+                fileTypErrorMessage = "Invalid File Type, Please Upload Data in Text Format,Pipe delimeter";
                 relVal = false;
             }
             else if ((ddlFileType.SelectedValue == "12" || ddlFileType.SelectedValue == "13" || ddlFileType.SelectedValue == "14" || ddlFileType.SelectedValue == "15" || ddlFileType.SelectedValue == "10" || ddlFileType.SelectedValue == "22") && (FileExtension.ToLower() != "csv"))
             {
                 fileTypErrorMessage = "Invalid File Type, Please Upload Data in .CSV (MS-DOS) format, comma delimited, hearders required ";
-               relVal = false;
+                relVal = false;
             }
             return relVal;
 
@@ -211,14 +214,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (string.IsNullOrEmpty(row["Remarks"].ToString().Trim())) continue;
                 bUpload = false;
-                ShowMessage("Please check the data in the file & re-upload","F");
+                ShowMessage("Please check the data in the file & re-upload", "F");
                 return;
             }
 
 
             if (columnNameError.ToString().Contains("Actual Name:"))
             {
-                ShowMessage(columnNameError.ToString(),"F");
+                ShowMessage(columnNameError.ToString(), "F");
                 bUpload = false;
                 return;
             }
@@ -229,7 +232,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
                 btnUploadData.Enabled = true;
-                ShowMessage("File data has been uploaded, click Upload Data button to upload","S");
+                ShowMessage("File data has been uploaded, click Upload Data button to upload", "S");
             }
 
         }
@@ -237,7 +240,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             string isIssueAvailable = "";
             string result = "";
-            int acceptedOrders=0, rejectedOrders=0, totalOrder = 0;
+            int acceptedOrders = 0, rejectedOrders = 0, totalOrder = 0;
             ControlUploadMode(true);
             int nRows = 0;
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
@@ -245,25 +248,25 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             if (IsAllotmentUpload)
             {
-                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue),hdnddlSubCategory.Value.ToString(),ref totalOrder,ref rejectedOrders,ref acceptedOrders,0,int.Parse(ddlRgsttype.SelectedValue));
-                 GetUploadData(dtAllotmentUpload,totalOrder,rejectedOrders,acceptedOrders);
-                
+                dtAllotmentUpload = boNcdBackOff.UploadAllotmentFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, Convert.ToInt32(ddlType.SelectedValue), hdnddlSubCategory.Value.ToString(), ref totalOrder, ref rejectedOrders, ref acceptedOrders, 0, int.Parse(ddlRgsttype.SelectedValue));
+                GetUploadData(dtAllotmentUpload, totalOrder, rejectedOrders, acceptedOrders);
+
             }
             else
             {
-                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId,int.Parse(ddlType.SelectedValue));
+                nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), int.Parse(ddlIssueName.SelectedValue), ref isIssueAvailable, advisorVo.advisorId, ddlSource.SelectedValue, ref   result, ddlProduct.SelectedValue, hdnsavePath.Value, userVo.UserId, int.Parse(ddlType.SelectedValue));
             }
             if (isIssueAvailable == "NotEligble")
             {
-                ShowMessage("Uploaded file Issue and Selected issue Does not match","F");
+                ShowMessage("Uploaded file Issue and Selected issue Does not match", "F");
             }
             else if (result != string.Empty && result != "1")
             {
-                ShowMessage(result,"W");
+                ShowMessage(result, "W");
             }
             else
             {
-                ShowMessage("data uploaded","S");
+                ShowMessage("data uploaded", "S");
 
             }
 
@@ -271,7 +274,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void ShowMessage(string msg,string type)
+        private void ShowMessage(string msg, string type)
         {
             //tblMessage.Visible = true;
             //msgRecordStatus.InnerText = msg;
@@ -292,8 +295,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 hdnddlSubCategory.Value = ddSubCategory.SelectedValue;
                 BindIssuerIssue(hdnddlSubCategory.Value);
                 if (ddSubCategory.SelectedValue == "FICGCG" || ddSubCategory.SelectedValue == "FICDCD")
-                    HideControls(ddSubCategory.SelectedValue,sender,e);
-                
+                    HideControls(ddSubCategory.SelectedValue, sender, e);
+
             }
         }
         private void HideControls(string categoryType, object sender, EventArgs e)
@@ -327,8 +330,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BindIssuerIssue(hdnddlSubCategory.Value);
             }
-            
-           
+
+
         }
         private void SubCategory()
         {
@@ -349,7 +352,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!Page.IsValid)
             {
-                ShowMessage("Please check all required fields","W");
+                ShowMessage("Please check all required fields", "W");
                 return;
             }
             SetFileType();
@@ -404,12 +407,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (dtUploadData == null)
             {
-                ShowMessage("No data available","F");
+                ShowMessage("No data available", "F");
                 return;
             }
             if (dtUploadData.Rows.Count <= 0)
             {
-                ShowMessage("No data available","F");
+                ShowMessage("No data available", "F");
                 return;
             }
 
@@ -515,7 +518,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (Cache["UPLOAD" + userVo.UserId] == null)
             {
-                ShowMessage("No data to upload","W");
+                ShowMessage("No data to upload", "W");
 
                 btnUploadData.Enabled = false;
                 return;
@@ -529,10 +532,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
-        private void GetUploadData(DataTable DtUploadData, int totalOrders,int rejectedOrders,int acceptedOrders)
+        private void GetUploadData(DataTable DtUploadData, int totalOrders, int rejectedOrders, int acceptedOrders)
         {
             gvOnlineIssueUpload.Visible = false;
-            
+
             DtUploadData = boNcdBackOff.GetOnlineAllotment(int.Parse(ddlRgsttype.SelectedValue), ddlAlltmntTyp.SelectedValue, DtUploadData);
             if (DtUploadData.Rows.Count > 0)
             {
@@ -583,6 +586,69 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlRgsttype.DataBind();
             }
             ddlRgsttype.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+        }
+
+        protected void lnkbtnpup_Click1(object sender, EventArgs e)
+        {
+            ModalPopupExtender1.TargetControlID = "lnkbtnpup";
+            ModalPopupExtender1.Show();
+
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+          
+             if (File3.Checked)
+            {
+                Response.Redirect("Standard Upload Files/IPO -Offline.xlsx");
+            }
+            else if (File4.Checked)
+            {
+                Response.Redirect("Standard Upload Files/NCD -Offline.xlsx");
+            }
+            else if (File5.Checked)
+            {
+                Response.Redirect("Standard Upload Files/IPO -Online");
+            }
+            else if (File6.Checked)
+            {
+                Response.Redirect("Standard Upload Files/NCD -Online.xlsx");
+            }
+           
+            else if (File15.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/54EC -Offline.xlsx");
+            }
+            else if (File16.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/CFD -Offline.xlsx");
+            }
+
+        }
+
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlType.SelectedValue == "0" || ddlProduct.SelectedValue == "FI")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("R1"));
+           
+            }
+            else if (ddlType.SelectedValue == "1" || ddlProduct.SelectedValue == "FI")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
+
+            }
+            else if (ddlType.SelectedValue == "0" || ddlProduct.SelectedValue == "IP")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
+           
+            }
+            else if (ddlType.SelectedValue == "1" || ddlProduct.SelectedValue == "IP")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
+
+            }
         }
     }
 }
