@@ -42,16 +42,14 @@ namespace WealthERP.OnlineOrderBackOffice
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
-                BindRTAInitialReport();
+             
                 fromdate = DateTime.Now.AddDays(-1);
                 txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
                 BindAMC();
                 btnDownload.Visible = false;
                 ddlType.Visible = false;
-                //BindAdviserIssueAllotmentList();
-                // BindDropDownListIssuer();
-                //BindIssuerId();
+                
             }
 
 
@@ -70,10 +68,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     ddlAMC.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
                     ddlAMC.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                     ddlAMC.DataBind();
-                    //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+                    ddlAMC.Items.Insert(0, new ListItem("All", "0"));
 
                 }
-                ddlAMC.Items.Insert(0, new ListItem("Select", "0"));
+                ddlAMC.Items.Insert(0, new ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -171,15 +169,6 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
         }
-       // protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-       // {
-       // //    DataTable dsExtractData = new DataTable();
-       // //    if (dsExtractData != null) gvCustomerDetails.DataSource = dsExtractData;
-
-        
-       //}
-
-
         protected void GetExtractData()
         {
             try
@@ -237,11 +226,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 if (txtToDate.SelectedDate != null)
                     todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
-
-                //if (ddlOrderType.SelectedValue))
                 if (ddlOrderType.SelectedValue == "1")
                 {
-                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Convert.ToInt32((ddlOrderType.SelectedValue)), int.Parse(ddlAMC.SelectedValue));
+                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, 0, 0);
                     if (Cache["RTAInitialReport" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("RTAInitialReport" + advisorVo.advisorId);
@@ -257,8 +244,6 @@ namespace WealthERP.OnlineOrderBackOffice
                     btnDownload.Visible = false;
 
                 }
-
-               //if (!Boolean.Parse(ddlOrderType.SelectedValue))
                 else if (ddlOrderType.SelectedValue == "3")
                 {
                     dtBindRTAInitialReport = onlineOrderBackOffice.GetCustomerDetails(adviserVo.advisorId, ddlType.SelectedValue.ToString(), fromdate, todate);
@@ -272,16 +257,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlCustomerDetails.Visible = true;
                     pnlFATCA.Visible = false;
                     pnlOrderReport.Visible = false;
-                    //Button1.Visible = true;
-
                 }
-
-
-
                 else if (ddlOrderType.SelectedValue == "2")
                 {
 
-                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, Convert.ToInt32((ddlOrderType.SelectedValue)), int.Parse(ddlAMC.SelectedValue));
+                    dtBindRTAInitialReport = onlineOrderBackOffice.GetRTAInitialReport(ddlType.SelectedValue.ToString(), fromdate, todate, 1, int.Parse(ddlAMC.SelectedValue));
                     if (Cache["FATCAReport" + advisorVo.advisorId] != null)
                     {
                         Cache.Remove("FATCAReport" + advisorVo.advisorId);
@@ -295,8 +275,6 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlOrderReport.Visible = false;
                     btnDownload.Visible = false;
                 }
-
-
             }
 
             catch (BaseApplicationException Ex)
@@ -319,30 +297,29 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlOrderType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            //tdlblAMC.Visible = false;
-            //tdddlAMC.Visible = false;
-            //tdddlType.Visible = false;
-            //tdlblType.Visible = false;
             ddlType.Items.FindByValue("FCS").Enabled = false;
             ddlType.Items.FindByValue("FCD").Enabled = false;
             if (ddlOrderType.SelectedValue=="1")
             {
-                tdlblAMC.Visible = true;
-                tdddlAMC.Visible = true;
-                tdddlType.Visible = false;
-                tdlblType.Visible = false;
+                tdlblAMC.Visible = false ;
+                tdddlAMC.Visible = false ;
+                tdddlType.Visible = true;
+                tdlblType.Visible = true;
+                ddlType.Visible = true;
                 pnlOrderReport.Visible = true;
                 pnlCustomerDetails.Visible = false;
                 pnlFATCA.Visible = false;
+                ddlType.Items.FindByValue("EBSE").Enabled = false;
+                ddlType.Items.FindByValue("EMIS").Enabled = false;
                
 
             }
             if (ddlOrderType.SelectedValue == "2")
             {
-                tdddlType.Visible =true;
-                tdlblType.Visible = true;
-                tdlblAMC.Visible = false;
-                tdddlAMC.Visible = false;
+                tdddlType.Visible =false;
+                tdlblType.Visible = false;
+                tdlblAMC.Visible = true ;
+                tdddlAMC.Visible = true ;
                 pnlFATCA.Visible = true;
                 pnlCustomerDetails.Visible = false;
                 pnlOrderReport.Visible = false;
@@ -400,7 +377,6 @@ namespace WealthERP.OnlineOrderBackOffice
           
          
         }
-
         protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtCustomerDetailsReport = new DataTable();
@@ -411,7 +387,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvCustomerDetails.DataSource = dtCustomerDetailsReport;
             }
         }
-
         protected void gvOrderReport_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtBindRTAInitialReport = new DataTable();
@@ -476,60 +451,6 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
-        //protected void BindIssuerId()
-        //{
-        //    OnlineBondOrderBo OnlineBondOrderBo = new OnlineBondOrderBo();
-        //    try
-        //    {
-
-        //        DataTable dtissuerid;
-        //        dtissuerid = OnlineBondOrderBo.GetIssuerid(adviserid);
-        //        if (dtissuerid.Rows.Count > 0)
-        //        {
-        //            ddlIssuer.DataSource = dtissuerid;
-        //            ddlIssuer.DataValueField = dtissuerid.Columns["PI_IssuerId"].ToString();
-        //            ddlIssuer.DataBind();
-        //        }
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-
-        //        FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:BindCategoryDropDown()");
-
-        //        object[] objects = new object[3];
-
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //}
-
-
-        protected void BindDropDownListIssuer()
-        {
-            //OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
-            //DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList(advisorVo.advisorId);
-            //ddlIssuer.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
-            //ddlIssuer.DataValueField = dsStructureRules.Tables[0].Columns["AIM_IssueId"].ToString();
-            //if (dsStructureRules.Tables[0].Rows.Count > 0)
-            //{
-            //    ddlIssuer.DataSource = dsStructureRules.Tables[0];
-            //    ddlIssuer.DataBind();
-            //}
-            //ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
-        }
-
-
-
-
-
         public void AutoOrderExtract()
         {
             if (txtFromDate.SelectedDate != null)
@@ -559,15 +480,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 Response.End();
 
         }       
-
-
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            if (ddlType.SelectedValue == "EBSE")
+            if (ddlType.SelectedValue == "EBSE" )
             {
                 GetExtractData();
             }
-            if (ddlType.SelectedValue == "EMIS")
+            if (ddlType.SelectedValue == "0" || ddlType.SelectedValue == "AMC" || ddlType.SelectedValue == "RNT" || ddlType.SelectedValue == "EMIS")
             {
                 BindRTAInitialReport();
             }
@@ -576,7 +495,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 AutoOrderExtract();
             }
         }
-        
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
             if (ddlOrderType.SelectedValue=="1")
@@ -623,11 +541,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvAdviserIssueList.DataSource = dsGetAdviserissueallotmentList;
             }
         }
-
-
-
-
-
         protected void Button1_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -668,9 +581,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-        
-
-         protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (userVo.UserType == "Advisor")
             {

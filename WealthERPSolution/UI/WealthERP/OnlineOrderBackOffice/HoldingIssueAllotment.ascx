@@ -55,8 +55,8 @@
             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please select a Type" ControlToValidate="ddlAMC" Display="Dynamic"
-                InitialValue="0" ValidationGroup="Issueallotment">
+                ErrorMessage="Please select a AMC" ControlToValidate="ddlAMC" Display="Dynamic"
+                InitialValue="Select" ValidationGroup="Issueallotment">
             </asp:RequiredFieldValidator>
         </td>
         <td align="right" id="tdlblType" runat="server" visible="false">
