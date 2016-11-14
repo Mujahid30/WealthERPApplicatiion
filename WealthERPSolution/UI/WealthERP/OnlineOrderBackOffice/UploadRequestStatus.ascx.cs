@@ -38,10 +38,10 @@ namespace WealthERP.OnlineOrderBackOffice
             txtReqDate.SelectedDate = DateTime.Now.Date.AddDays(-2);
             rdpToDate.SelectedDate = DateTime.Now.Date;
             //tdCategory.Visible = false;
-            radGridOrderDetails.Visible = false;
-            rgBondsGrid.Visible = false;
-            rgRequests.Visible = false;
-            pnlRequest.Visible = false;
+            //radGridOrderDetails.Visible = false;
+            //rgBondsGrid.Visible = false;
+            //rgRequests.Visible = false;
+            ////pnlRequest.Visible = false;
           
             if (!IsPostBack)
             {
@@ -195,7 +195,6 @@ namespace WealthERP.OnlineOrderBackOffice
                             {
                                 rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
                                 rgRequests.MasterTableView.GetColumn("TotalNoOfRecords").Visible = true;
-                                rgRequests.MasterTableView.GetColumn("RejectReseaon").Visible = true;
                                 rgRequests.MasterTableView.GetColumn("InputRejects").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("Staging").Visible = false;
@@ -204,7 +203,7 @@ namespace WealthERP.OnlineOrderBackOffice
                                 rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
                                 rgRequests.MasterTableView.GetColumn("IsOnl").Visible = false;
                                 
-                                //rgRequests.MasterTableView.GetColumn("Success").Visible = false;
+                              
                             }
 
             }
@@ -213,15 +212,30 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw Ex;
             }
         }
+     
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            rgRequests.ExportSettings.OpenInNewWindow = true;
-            rgRequests.ExportSettings.IgnorePaging = true;
-            rgRequests.ExportSettings.HideStructureColumns = true;
-            rgRequests.ExportSettings.ExportOnlyData = true;
-            rgRequests.ExportSettings.FileName = "Upload Request Status";
-            rgRequests.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            rgRequests.MasterTableView.ExportToExcel();
+           
+                rgRequests.ExportSettings.OpenInNewWindow = true;
+                rgRequests.ExportSettings.IgnorePaging = true;
+                rgRequests.ExportSettings.HideStructureColumns = true;
+                rgRequests.ExportSettings.ExportOnlyData = true;
+                rgRequests.ExportSettings.FileName = "Upload Request Status";
+                rgRequests.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                rgRequests.MasterTableView.ExportToExcel();
+            
+        }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+                rgBondsGrid.ExportSettings.OpenInNewWindow = true;
+                rgBondsGrid.ExportSettings.IgnorePaging = true;
+                rgBondsGrid.ExportSettings.HideStructureColumns = true;
+                rgBondsGrid.ExportSettings.ExportOnlyData = true;
+                rgBondsGrid.ExportSettings.FileName = "Upload Request Status";
+                rgBondsGrid.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                rgBondsGrid.MasterTableView.ExportToExcel();
+            
+
         }
         protected void rgRequests_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -695,6 +709,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
             hdnProcessId.Value = radGridOrderDetails.MasterTableView.DataKeyValues[grd.ItemIndex]["processid"].ToString();
             BindBondIPOProductrejectedData(int.Parse(hdnProcessId.Value));
+            imgexportButton.Visible = true;
+
         }
         protected void BindBondIPOProductrejectedData(int processId)
         {

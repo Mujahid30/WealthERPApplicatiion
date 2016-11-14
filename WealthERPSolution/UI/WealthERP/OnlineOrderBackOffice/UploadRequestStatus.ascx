@@ -80,6 +80,12 @@
                         <td align="left">
                             Request Upload Status
                         </td>
+                        <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -235,8 +241,8 @@
     cellspacing="5">
     <tr>
         <td class="tdSectionHeading">
-<%--            <div class="divSectionHeading" style="vertical-align: text-bottom;">
---%>                <table width="100%">
+            <div class="divSectionHeading" style="vertical-align: text-bottom;">
+                <table width="100%">
                     <tr>
                         <td align="right">
                             <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -262,7 +268,7 @@
                 <table>
                     <tr>
                         <td>
-                            <telerik:RadGrid ID="rgRequests" Visible="false" Width="1500px" runat="server" AllowSorting="True" 
+                            <telerik:RadGrid ID="rgRequests" Visible="false" Width="1500px" runat="server" AllowSorting="True" AutoPostBack="true"
                                 enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="true"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="rgRequests_ItemDataBound"
