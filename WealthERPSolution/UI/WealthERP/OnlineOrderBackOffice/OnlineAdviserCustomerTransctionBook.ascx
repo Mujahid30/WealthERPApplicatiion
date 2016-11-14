@@ -84,7 +84,25 @@
             </asp:DropDownList>
         </td>
        
-        <td>
+       <td align="left" width="10%">
+            <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
+                Visible="false"></asp:Label>
+            <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="right" >
+            <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="500px">
+            </asp:DropDownList>
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
+                Visible="false">
+            </asp:DropDownList>
+        </td>
+      
+    </tr>
+    </table>
+    <table>
+    <tr>
+      <td>
             <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
         </td>
         <td  id="tdTxtFromDate" runat="server">
@@ -147,11 +165,6 @@
                 <asp:ListItem Text="Individual" Value="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
-      
-    </tr>
-    </table>
-    <table>
-    <tr>
        
         <td align="left">
             <asp:Label ID="lblCustomerSearch" Visible="false" runat="server" CssClass="FieldName"
@@ -220,19 +233,7 @@
         </td>
     </tr>
     <tr>
-        <td align="left" width="10%">
-            <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
-                Visible="false"></asp:Label>
-            <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td align="left" colspan="3">
-            <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="500px">
-            </asp:DropDownList>
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
-                Visible="false">
-            </asp:DropDownList>
-        </td>
+       
     </tr>
     <tr>
         <td id="tdBtnOrder" runat="server" colspan="4">
