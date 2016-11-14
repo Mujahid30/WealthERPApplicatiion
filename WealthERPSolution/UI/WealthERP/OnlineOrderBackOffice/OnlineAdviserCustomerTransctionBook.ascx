@@ -385,7 +385,7 @@
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="AREA" AllowFiltering="false"
+                                <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_Area"
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
