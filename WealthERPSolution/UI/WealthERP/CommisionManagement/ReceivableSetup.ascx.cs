@@ -17,6 +17,7 @@ using Telerik.Web.UI;
 using System.Text;
 using BoAdvisorProfiling;
 using BoOnlineOrderManagement;
+using System.Collections;
 using BoOps;
 
 namespace WealthERP.Receivable
@@ -34,6 +35,9 @@ namespace WealthERP.Receivable
         int issueid = 0;
         int categoryId = 0;
         string MappedruleId = string.Empty;
+        ArrayList arraylist1 = new ArrayList();
+        ArrayList arraylist2 = new ArrayList();
+        string message;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -120,7 +124,94 @@ namespace WealthERP.Receivable
             }
 
         }
+        protected void RightArrow_Click(Object sender, EventArgs e)
+        {
+            if (LBAgentCodes.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < LBAgentCodes.Items.Count; i++)
+                {
+                    if (LBAgentCodes.Items[i].Selected)
+                    {
+                        if (!arraylist1.Contains(LBAgentCodes.Items[i]))
+                        {
+                            arraylist1.Add(LBAgentCodes.Items[i]);
 
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist1.Count; i++)
+                {
+                    if (!RadListBoxSelectedAgentCodes.Items.Contains(((ListItem)arraylist1[i])))
+                    {
+                        RadListBoxSelectedAgentCodes.Items.Add(((ListItem)arraylist1[i]));
+                    }
+                    LBAgentCodes.Items.Remove(((ListItem)arraylist1[i]));
+                }
+                LBAgentCodes.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
+
+        protected void LeftArrow_Click(Object sender, EventArgs e)
+        {
+            if (RadListBoxSelectedAgentCodes.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < RadListBoxSelectedAgentCodes.Items.Count; i++)
+                {
+                    if (RadListBoxSelectedAgentCodes.Items[i].Selected)
+                    {
+                        if (!arraylist2.Contains(RadListBoxSelectedAgentCodes.Items[i]))
+                        {
+                            arraylist2.Add(RadListBoxSelectedAgentCodes.Items[i]);
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist2.Count; i++)
+                {
+                    if (!LBAgentCodes.Items.Contains(((ListItem)arraylist2[i])))
+                    {
+                        LBAgentCodes.Items.Add(((ListItem)arraylist2[i]));
+                    }
+                    RadListBoxSelectedAgentCodes.Items.Remove(((ListItem)arraylist2[i]));
+                }
+                LBAgentCodes.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
+        protected void RightShift_Click(Object sender, EventArgs e)
+        {
+            while (LBAgentCodes.Items.Count != 0)
+            {
+                for (int i = 0; i < LBAgentCodes.Items.Count; i++)
+                {
+                    RadListBoxSelectedAgentCodes.Items.Add(LBAgentCodes.Items[i]);
+                    LBAgentCodes.Items.Remove(LBAgentCodes.Items[i]);
+                }
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
+        protected void LeftShift_Click(Object sender, EventArgs e)
+        {
+            while (RadListBoxSelectedAgentCodes.Items.Count != 0)
+            {
+                for (int i = 0; i < RadListBoxSelectedAgentCodes.Items.Count; i++)
+                {
+                    LBAgentCodes.Items.Add(RadListBoxSelectedAgentCodes.Items[i]);
+                    RadListBoxSelectedAgentCodes.Items.Remove(RadListBoxSelectedAgentCodes.Items[i]);
+                }
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
 
         protected void imgBuyMapping_Click(object sender, ImageClickEventArgs e)
         {
@@ -3694,14 +3785,15 @@ namespace WealthERP.Receivable
                 btnCancelSelectedRule.Visible = true;
 
             }
-            gvPayaMapping.DataSource = dsPayable;
-            gvPayaMapping.DataBind();
-            gvPayaMapping.Visible = true;
-            ImageButton6.Visible = true;
-            if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
-                Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
-            Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
-
+          
+                gvPayaMapping.DataSource = dsPayable;
+                gvPayaMapping.DataBind();
+                gvPayaMapping.Visible = true;
+                ImageButton6.Visible = true;
+                if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
+                Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
+            
         }
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
@@ -3861,7 +3953,7 @@ namespace WealthERP.Receivable
                 RadListBoxSelectedAgentCodes.Items.Clear();
                 //BindPayableGrid(int.Parse(hdnStructId.Value));
             }
-
+            radAplicationPopUp.VisibleOnPageLoad = false;
         }
         private int CreatePayableMapping()
         {
@@ -3890,16 +3982,20 @@ namespace WealthERP.Receivable
                 {
                     ruleId = ruleId.Trim(',');
                     ruleId = ruleId.TrimEnd(',');
-
-                    dtRuleMapping.Columns.Add("agentId", typeof(string));
-                    dtRuleMapping.Columns.Add("ruleids");
+                    //if (RadListBoxSelectedAgentCodes.Items.Count > 0)
+                    //{
+                        dtRuleMapping.Columns.Add("agentId", typeof(string));
+                        dtRuleMapping.Columns.Add("ruleids");
+                    //}
                     DataRow drRuleMapping;
                     int mappingId = 0;
                     string agentId = string.Empty;
                     string categoryId = string.Empty;
                     if (ddlType.SelectedValue == "Custom")
                     {
-                        foreach (RadListBoxItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
+                        //if (RadListBoxSelectedAgentCodes.Items.Count > 0)
+                        //{
+                        foreach (ListItem ListItem in this.RadListBoxSelectedAgentCodes.Items)
                         {
 
                             agentId = ListItem.Value;
@@ -3912,16 +4008,17 @@ namespace WealthERP.Receivable
                                 dtRuleMapping.Rows.Add(drRuleMapping);
                             }
                         }
-
                     }
+
                     else
                     {
                         categoryId = ddlAdviserCategory.SelectedValue;
                     }
 
-                    commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), int.Parse(ddlAMFIAvaliable.SelectedValue), out mappingId);
-                    radAplicationPopUp.VisibleOnPageLoad = true;
-                    return mappingId;
+                        commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), int.Parse(ddlAMFIAvaliable.SelectedValue), out mappingId);
+                        radAplicationPopUp.VisibleOnPageLoad = true;
+                        return mappingId;
+                    
                 }
                 else
                 {

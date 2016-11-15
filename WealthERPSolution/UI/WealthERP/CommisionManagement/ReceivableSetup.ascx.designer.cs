@@ -1317,7 +1317,7 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label7;
-        
+
         /// <summary>
         /// LBAgentCodes control.
         /// </summary>
@@ -1325,8 +1325,8 @@ namespace WealthERP.Receivable {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListBox LBAgentCodes;
-        
+        protected global::System.Web.UI.WebControls.ListBox LBAgentCodes;
+
         /// <summary>
         /// RadListBoxSelectedAgentCodes control.
         /// </summary>
@@ -1334,7 +1334,8 @@ namespace WealthERP.Receivable {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListBox RadListBoxSelectedAgentCodes;
+        protected global::System.Web.UI.WebControls.ListBox RadListBoxSelectedAgentCodes;
+        
         
         /// <summary>
         /// btnGo control.

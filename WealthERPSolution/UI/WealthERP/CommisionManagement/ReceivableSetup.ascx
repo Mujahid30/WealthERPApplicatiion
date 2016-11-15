@@ -1978,7 +1978,7 @@
                                 IgnorePaging="true">
                             </ExportSettings>
                             <PagerStyle AlwaysVisible="True" />
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"  CommandItemSettings-ShowRefreshButton="true"
                                 Width="100%" DataKeyNames="CSRD_StructureRuleDetailsId,AAC_AdviserAgentId,AC_Category">
                                 <CommandItemSettings ExportToExcelText="Export to excel" />
                                 <Columns>
@@ -2189,22 +2189,45 @@
                                         <asp:TextBox ID="txtAssociateSearch" runat="server" Width="250px" onkeyup="return Associate();"></asp:TextBox>
                                     </div>
                                     <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                        --%>
                                         <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
                                         </asp:Label>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
+                                     <br />
+                                         <asp:ListBox ID="LBAgentCodes" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
+                                     
+                                          <td>
+                 <table align="right">
+                   <tr align="left">
+                     <td>
+                  <asp:Button ID="RightArrow" runat="server" Text=">" Width="45px" onclick="RightArrow_Click"  />
+                      </td>
+                      </tr>
+                      <tr>
+                <td>
+                <asp:Button ID="LeftArrow" runat="server" Text="<" Width="45px" onclick="LeftArrow_Click" />
+                   </td>
+                   </tr>
+                  <tr>
+                   <td>
+             <asp:Button ID="RightShift" runat="server" Text=">>" Width="45px" onclick="RightShift_Click" />
+                   </td>
+                  </tr>
+              <tr>
+                   <td>
+               <asp:Button ID="LeftShift" runat="server" Text="<<" Width="45px" onclick="LeftShift_Click" />
+           </td>
+                  </tr> 
+                  </table>
+                  </td>
+                  <td>
+                 <br />
+                   <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
                                         </asp:Label>
-                                        <br />
-                                        <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
-                                            AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" EnableViewState="true"
-                                            EnableMarkMatches="true" runat="server" ID="LBAgentCodes" Height="200px" Width="300px"
-                                            AllowTransfer="true" TransferToID="RadListBoxSelectedAgentCodes" Visible="true"
-                                            IsTextSearchEnable="true" TextSearchMode="Contains">
-                                        </telerik:RadListBox>
-                                        <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                            ID="RadListBoxSelectedAgentCodes" Height="200px" Width="300px">
-                                        </telerik:RadListBox>
+                                         <br />
+                   <asp:ListBox ID="RadListBoxSelectedAgentCodes" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" /></td>
+                                     
                                     </asp:Panel>
                                 </div>
                             </td>
