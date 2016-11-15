@@ -495,16 +495,12 @@
             <td>
                 <asp:DropDownList ID="ddlOption" runat="server" CssClass="cmbField" AutoPostBack="true"
                     OnSelectedIndexChanged="ddlOption_OnSelectedIndexChanged">
-                    <%--<asp:ListItem Text="Select" Value="Select" Selected="false" />
-                        <asp:ListItem Text="Dividend" Value="DV" />
-                        <asp:ListItem Text="Growth" Value="GR" />--%>
+                
                 </asp:DropDownList>
                 <span id="Span33" class="spnRequiredField">*</span>
                 <asp:DropDownList ID="ddlDFrequency" runat="server" CssClass="cmbField" AutoPostBack="true"
                     Visible="false" OnSelectedIndexChanged="ddlDFrequency_OnSelectedIndexChanged">
-                    <%--        <asp:ListItem Text="Select" Value="Select" Selected="False" />
-                            <asp:ListItem Text="Dividend Reinvestment" Value="DVR" />
-                            <asp:ListItem Text="Dividend Payout" Value="DVP" />--%>
+                   
                 </asp:DropDownList>
                 <asp:Label ID="lblddlDFrequency" runat="server" Text="*" CssClass="spnRequiredField"
                     Visible="false"></asp:Label>
@@ -517,6 +513,14 @@
                     Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
             </td>
         </tr>
+         <tr id="tr1" runat="server" visible="false">
+            <td id="td1" runat="server" visible="false" align="right">
+                <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="ISINNO"></asp:Label>
+            </td>
+            <td id="td2" runat="server" visible="false">
+                <asp:TextBox ID="txtisinno" runat="server"></asp:TextBox>
+                </td>
+                </tr>
         <tr id="trISISN" runat="server" visible="false">
             <td id="tdlblpay" runat="server" visible="false" align="right">
                 <asp:Label ID="LbldivPay" runat="server" CssClass="FieldName" Text="ISIN PayOut"></asp:Label>
@@ -571,23 +575,22 @@
             </td>
             <td>
                 <asp:DropDownList ID="ddlBname" runat="server" CssClass="cmbField" AutoPostBack="false">
-                    <%--<asp:ListItem Text="Select" Value="Select" Selected="true" />--%>
                 </asp:DropDownList>
-                <span id="Span9" class="spnRequiredField">*</span>
+                <%--<span id="Span9" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlBname" runat="server" ErrorMessage="Please Select Bank Name"
                     CssClass="rfvPCG" ControlToValidate="ddlBname" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue="Select"></asp:RequiredFieldValidator>
+                    InitialValue="Select"></asp:RequiredFieldValidator>--%>
             </td>
             <td align="right">
                 <asp:Label ID="lblBranch" runat="server" Text="Bank Branch:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtBranch" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span10" class="spnRequiredField">*</span>
+               <%-- <span id="Span10" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtBranch" runat="server" ErrorMessage="Please Enter Bank Branch"
-                    CssClass="rfvPCG" ControlToValidate="txtBranch" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtBranch" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>--%>
             </td>
         </tr>
         <tr>
@@ -596,11 +599,11 @@
             </td>
             <td>
                 <asp:TextBox ID="txtACno" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span11" class="spnRequiredField">*</span>
+                <%--<span id="Span11" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtACno" runat="server" ErrorMessage="Please Enter A/C no"
                     CssClass="rfvPCG" ControlToValidate="txtACno" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue=""></asp:RequiredFieldValidator>
+                    InitialValue=""></asp:RequiredFieldValidator>--%>
             </td>
             <td align="right">
                 <asp:Label ID="LalISnfo" runat="server" Text="Is NFO:" CssClass="FieldName" Visible="false"></asp:Label>
@@ -681,10 +684,7 @@
             </td>
         </tr>
         <tr>
-            <%-- <td align="right">
-            </td>
-            <td>
-            </td>--%>
+            
             <td align="right">
                 <asp:Label ID="lblGenerationfreq" runat="server" Text="File Generation Freq:" CssClass="FieldName"> </asp:Label>
             </td>
@@ -692,26 +692,14 @@
                 <asp:DropDownList ID="ddlGenerationfreq" runat="server" CssClass="cmbField" AutoPostBack="false">
                     <asp:ListItem Text="Select" Value="Select" Selected="false" />
                 </asp:DropDownList>
-                <%-- <span id="Span36" class="spnRequiredField">*</span>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvddlGenerationfreq" runat="server" ErrorMessage="Please select file generation freq."
-                        CssClass="rfvPCG" ControlToValidate="ddlGenerationfreq" ValidationGroup="btnsubmit"
-                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>--%>
+              
             </td>
             <td align="right">
                 <asp:Label ID="lblFvalue" runat="server" Text="Face Value:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtFvale" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <%-- <span id="Span12" class="spnRequiredField">*</span>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvtxtFvale" runat="server" ErrorMessage="Please Enter Face value"
-                        CssClass="rfvPCG" ControlToValidate="txtFvale" ValidationGroup="btnsubmit" Display="Dynamic"
-                        InitialValue=""></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="regtxtFvale" ControlToValidate="txtFvale" runat="server"
-                        ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[1-9]\d*$"
-                        ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>--%>
+                
             </td>
         </tr>
         <tr>
@@ -720,7 +708,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtEload" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span14" class="spnRequiredField">*</span>
+               <%-- <span id="Span14" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtEload" runat="server" ErrorMessage="Please Enter Entry Load"
                     CssClass="rfvPCG" ControlToValidate="txtEload" ValidationGroup="btnsubmit" Display="Dynamic"
@@ -728,22 +716,19 @@
                 <asp:RegularExpressionValidator ID="regtxtEload" ControlToValidate="txtEload" runat="server"
                     ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG" ValidationExpression="[0-9]\d*(\.\d?[0-9])?$"
                     ValidationGroup="btnsubmit">     
-                </asp:RegularExpressionValidator>
+                </asp:RegularExpressionValidator>--%>
             </td>
             <td align="right">
                 <asp:Label ID="lblELremark" runat="server" Text="Entry Load Remark:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtELremark" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span15" class="spnRequiredField">*</span>
+              <%--  <span id="Span15" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtELremark" runat="server" ErrorMessage="Please Enter Load Remark"
                     CssClass="rfvPCG" ControlToValidate="txtELremark" ValidationGroup="btnsubmit"
-                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                <%-- <asp:RegularExpressionValidator ID="regtxtELremark" ControlToValidate="txtELremark"
-                        ErrorMessage="Enter Only letters" runat="server" Display="Dynamic" CssClass="cvPCG"
-                        ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>--%>
+                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+               
             </td>
         </tr>
         <tr>
@@ -752,7 +737,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtExitLoad" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span16" class="spnRequiredField">*</span>
+              <%--  <span id="Span16" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtExitLoad" runat="server" ErrorMessage="Please Enter Exit Load"
                     CssClass="rfvPCG" ControlToValidate="txtExitLoad" ValidationGroup="btnsubmit"
@@ -760,22 +745,19 @@
                 <asp:RegularExpressionValidator ID="regtxtExitLoad" ControlToValidate="txtExitLoad"
                     ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                     ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnsubmit">     
-                </asp:RegularExpressionValidator>
+                </asp:RegularExpressionValidator>--%>
             </td>
             <td align="right">
                 <asp:Label ID="lblExitLremark" runat="server" Text="Exit Load Remark:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtExitLremark" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span25" class="spnRequiredField">*</span>
+               <%-- <span id="Span25" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtExitLremark" runat="server" ErrorMessage="Please Enter Exit Load Remark"
                     CssClass="rfvPCG" ControlToValidate="txtExitLremark" ValidationGroup="btnsubmit"
-                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                <%--  <asp:RegularExpressionValidator ID="regtxtExitLremark" ControlToValidate="txtExitLremark"
-                        ErrorMessage="Enter Only letters" runat="server" Display="Dynamic" CssClass="cvPCG"
-                        ValidationExpression="[a-zA-Z ]*$" ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>--%>
+                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+               
             </td>
         </tr>
         <tr>
@@ -831,9 +813,7 @@
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                                 ValidationExpression="^[0-9]*[1-9]\d*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
-                            <%-- <asp:CompareValidator ID="CmptxtInitalPamount" ControlToValidate="txtInitalPamount" runat="server"
-                ControlToCompare="txtAdditional" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
-                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
+                          
                         </td>
                         <td align="right" style="width: 20%;">
                             <asp:Label ID="lblIMultipleamount" runat="server" Text="New Purchase Multiple Amount:"
@@ -850,9 +830,7 @@
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                                 ValidationExpression="[1-9]\d*$" ValidationGroup="btnsubmit">     
                             </asp:RegularExpressionValidator>
-                            <%-- <asp:CompareValidator ID="CmptxtIMultipleamount" ControlToValidate="txtIMultipleamount" runat="server"
-                ControlToCompare="txtAddMultipleamount" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
-                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>--%>
+                           
                         </td>
                     </tr>
                     <tr>
@@ -862,17 +840,11 @@
                         </td>
                         <td style="width: 15%;">
                             <asp:TextBox ID="txtAdditional" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                            <%-- <span id="Span7" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:RequiredFieldValidator ID="rfvtxtAdditional" runat="server" ErrorMessage="Please Enter Min. Additional Purchase Amount"
-                                CssClass="rfvPCG" ControlToValidate="txtAdditional" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                          
                             <asp:RegularExpressionValidator ID="regfvtxtAdditional" ControlToValidate="txtAdditional"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                                 ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit" />
-                            <%-- <asp:CompareValidator ID="cmptxtAdditional" ControlToValidate="txtAdditional" runat="server"
-                ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
-                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
+                          
                         </td>
                         <td align="right" style="width: 20%;">
                             <asp:Label ID="lblAddMultipleamount" runat="server" Text="Additional Purchase Multiple Amount:"
@@ -880,17 +852,11 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtAddMultipleamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                            <%--    <span id="Span5" class="spnRequiredField">*</span>
-                            <br />
-                            <asp:RequiredFieldValidator ID="rfvtxtAddMultipleamount" runat="server" ErrorMessage="Please Enter Additional Purchase Multiple Amount"
-                                CssClass="rfvPCG" ControlToValidate="txtAddMultipleamount" ValidationGroup="btnsubmit"
-                                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
+                           
                             <asp:RegularExpressionValidator ID="regetxtAddMultipleamount" ControlToValidate="txtAddMultipleamount"
                                 ErrorMessage="Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                                 ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit" />
-                            <%-- <asp:CompareValidator ID="CmptxtAddMultipleamount" ControlToValidate="txtAddMultipleamount" runat="server"
-                ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
-                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>--%>
+                          
                         </td>
                     </tr>
                 </table>
