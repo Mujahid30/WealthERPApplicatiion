@@ -214,6 +214,7 @@
                         </td>
                     </tr>
                 </table>
+                
             </div>
         </td>
     </tr>
@@ -347,7 +348,7 @@
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlIssueName" runat="server" AutoPostBack="false" CssClass="cmbField">
+            <asp:DropDownList ID="ddlIssueName" runat="server" AutoPostBack="true" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <br />

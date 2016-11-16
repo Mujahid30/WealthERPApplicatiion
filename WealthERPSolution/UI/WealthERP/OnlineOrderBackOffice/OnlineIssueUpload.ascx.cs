@@ -298,6 +298,19 @@ namespace WealthERP.OnlineOrderBackOffice
                     HideControls(ddSubCategory.SelectedValue, sender, e);
 
             }
+            if (ddlType.SelectedValue == "0" && ddlProduct.SelectedValue == "FI" && ddSubCategory.SelectedValue == "FISDSD")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("R1"));
+
+            }
+           
+            else
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
+
+            }
+
+            
         }
         private void HideControls(string categoryType, object sender, EventArgs e)
         {
@@ -314,6 +327,16 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlType.SelectedValue == "0" && ddlProduct.SelectedValue == "IP")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
+
+            }
+            else if (ddlType.SelectedValue == "1" && ddlProduct.SelectedValue == "IP")
+            {
+                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
+
+            }
             tdlblSubCategory.Visible = false;
             tdddSubCategory.Visible = false;
             hdnddlSubCategory.Value = "FIFIIP";
@@ -629,26 +652,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlType.SelectedValue == "0" || ddlProduct.SelectedValue == "FI")
-            {
-                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("R1"));
            
-            }
-            else if (ddlType.SelectedValue == "1" || ddlProduct.SelectedValue == "FI")
-            {
-                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
-
-            }
-            else if (ddlType.SelectedValue == "0" || ddlProduct.SelectedValue == "IP")
-            {
-                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
            
-            }
-            else if (ddlType.SelectedValue == "1" || ddlProduct.SelectedValue == "IP")
-            {
-                ddlAlltmntTyp.Items.Remove(ddlAlltmntTyp.Items.FindByValue("WSR"));
-
-            }
         }
     }
 }
