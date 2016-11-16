@@ -735,16 +735,7 @@ namespace WealthERP.BusinessMIS
             {
                 if (ddlProduct.SelectedValue == "MF")
                 {
-
-                    ddlOrderStatus.Items[2].Enabled = false;
-                    ddlOrderStatus.Items[1].Enabled = true;
                     ddlCommType.Items[3].Enabled = false;
-                }
-                else
-                {
-                    ddlOrderStatus.Items[1].Enabled = false;
-                    ddlOrderStatus.Items[2].Enabled = true;
-
                 }
                 if (ddlProduct.SelectedValue == "FI")
                 {

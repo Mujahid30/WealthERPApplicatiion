@@ -194,8 +194,8 @@
                         <td>
                             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
                                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                                <asp:ListItem Text="EXECUTED" Value="IP"> </asp:ListItem>
-                                <asp:ListItem Text="ORDERED" Value="IP"> </asp:ListItem>
+                                <asp:ListItem Text="EXECUTED" Value="IP" Enabled="false"> </asp:ListItem>
+                                <asp:ListItem Text="ORDERED" Value="IP" Enabled="false"> </asp:ListItem>
                                 <asp:ListItem Text="ACCEPTED" Value="OR"></asp:ListItem>
                             </asp:DropDownList>
                             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlOrderStatus"
