@@ -19,13 +19,15 @@ using BoProductMaster;
 using WealthERP.Base;
 using VoAdvisorProfiling;
 using VOAssociates;
+using BoCustomerProfiling;
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineAdviserCustomerTransctionBook : System.Web.UI.UserControl
     {
+        CustomerVo customerVo = new CustomerVo();
+        CustomerBo customerBo = new CustomerBo();
         RMVo rmVo = new RMVo();
         AdvisorVo adviserVo = new AdvisorVo();
-        CustomerVo customerVO = new CustomerVo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
         UserVo userVo = new UserVo();
@@ -75,7 +77,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 OnlineUserSessionBo.CheckSession();
                 adviserVo = (AdvisorVo)Session["advisorVo"];
-                customerVO = (CustomerVo)Session["customerVo"];
+                customerVo = (CustomerVo)Session["customerVo"];
                 userVo = (UserVo)Session["userVo"];
                 BindTransactionGrid();
             }
@@ -83,7 +85,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 OnlineUserSessionBo.CheckSession();
                 adviserVo = (AdvisorVo)Session["advisorVo"];
-                customerVO = (CustomerVo)Session["customerVo"];
+                customerVo = (CustomerVo)Session["customerVo"];
                 userVo = (UserVo)Session["userVo"];
 
                 BindAMC();
@@ -118,6 +120,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
          
 
+        }
+        protected void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Bindscheme();
         }
         private void Bindscheme()
         {

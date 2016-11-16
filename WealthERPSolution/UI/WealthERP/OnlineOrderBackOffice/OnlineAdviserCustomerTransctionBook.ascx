@@ -28,7 +28,18 @@
     }
     
 </script>
+<script>
+    function fnJumpSize(cmbDrop) {
 
+        if (cmbDrop.style.width != "100px") {
+            cmbDrop.style.width = "100";
+        }
+        else {
+            cmbDrop.style.width = "40";
+        }
+
+    }
+</script>
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
@@ -79,19 +90,19 @@
             <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
         </td>
         <td id="tdlblFromDate" runat="server" align="right">
-            <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false"
-                Width="300px">
+            <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="true"
+                Width="300px"  OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
             </asp:DropDownList>
         </td>
        
-       <td align="left" width="10%">
+       <td align="right">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
                 Visible="false"></asp:Label>
             <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="right" >
-            <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="500px">
+        <td align="right" runat="server" >
+            <asp:DropDownList ID="ddlSchemeList"  runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="200px">
             </asp:DropDownList>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
                 Visible="false">
@@ -125,7 +136,7 @@
                     Display="Dynamic"></asp:CompareValidator>
           
         </td>
-       
+      <td></td>
       
           <td  id="tdlblToDate" runat="server">
             <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
@@ -141,7 +152,7 @@
                 </DateInput>
             </telerik:RadDatePicker>
          
-                <span id="Span2" class="spnRequiredField">*</span>
+                <span  id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
                     ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
                     runat="server" InitialValue="">
@@ -156,8 +167,8 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-       
-         <td id="tdCustomerGroup" runat="server" colspan="2">
+     <td></td>
+         <td id="tdCustomerGroup" runat="server" >
             <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Search Customer:"></asp:Label>
             <asp:DropDownList ID="ddlsearchcustomertype" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlsearchcustomertype_OnSelectedIndexChanged">
@@ -367,7 +378,7 @@
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="Brokerage(Rs)" AllowFiltering="false"
+                                <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="Brokerage (Rs)" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_ExternalBrokerageAmount"
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
@@ -403,7 +414,7 @@
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="WTS_TransactionStatus" HeaderText="TransactionStatus" AllowFiltering="false"
+                                <telerik:GridBoundColumn DataField="WTS_TransactionStatus" HeaderText="Transaction Status" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="WTS_TransactionStatus" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="WTS_TransactionStatus"
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
