@@ -159,6 +159,11 @@
               <xs:element name="WCD_Act_Rec_BrokerageDate" msprop:Generator_UserColumnName="WCD_Act_Rec_BrokerageDate" msprop:Generator_ColumnPropNameInRow="WCD_Act_Rec_BrokerageDate" msprop:Generator_ColumnVarNameInTable="columnWCD_Act_Rec_BrokerageDate" msprop:Generator_ColumnPropNameInTable="WCD_Act_Rec_BrokerageDateColumn" type="xs:dateTime" minOccurs="0" />
               <xs:element name="WCD_ACSR_KKC" msprop:Generator_UserColumnName="WCD_ACSR_KKC" msprop:Generator_ColumnPropNameInRow="WCD_ACSR_KKC" msprop:Generator_ColumnVarNameInTable="columnWCD_ACSR_KKC" msprop:Generator_ColumnPropNameInTable="WCD_ACSR_KKCColumn" type="xs:string" minOccurs="0" />
               <xs:element name="WCD_ACSR_SKC" msprop:Generator_UserColumnName="WCD_ACSR_SKC" msprop:Generator_ColumnPropNameInRow="WCD_ACSR_SKC" msprop:Generator_ColumnVarNameInTable="columnWCD_ACSR_SKC" msprop:Generator_ColumnPropNameInTable="WCD_ACSR_SKCColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Bank" msprop:Generator_UserColumnName="Bank" msprop:Generator_ColumnVarNameInTable="columnBank" msprop:Generator_ColumnPropNameInRow="Bank" msprop:Generator_ColumnPropNameInTable="BankColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="ECS" msprop:Generator_UserColumnName="ECS" msprop:Generator_ColumnVarNameInTable="columnECS" msprop:Generator_ColumnPropNameInRow="ECS" msprop:Generator_ColumnPropNameInTable="ECSColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Banck_Account" msprop:Generator_UserColumnName="Banck_Account" msprop:Generator_ColumnVarNameInTable="columnBanck_Account" msprop:Generator_ColumnPropNameInRow="Banck_Account" msprop:Generator_ColumnPropNameInTable="Banck_AccountColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Bank_branch" msprop:Generator_UserColumnName="Bank_branch" msprop:Generator_ColumnVarNameInTable="columnBank_branch" msprop:Generator_ColumnPropNameInRow="Bank_branch" msprop:Generator_ColumnPropNameInTable="Bank_branchColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PAN" msprop:Generator_UserColumnName="PAN" msprop:Generator_ColumnVarNameInTable="columnPAN" msprop:Generator_ColumnPropNameInRow="PAN" msprop:Generator_ColumnPropNameInTable="PANColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -258,6 +263,11 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="Bank" msprop:Generator_UserColumnName="Bank" msprop:Generator_ColumnPropNameInRow="Bank" msprop:Generator_ColumnVarNameInTable="columnBank" msprop:Generator_ColumnPropNameInTable="BankColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="ECS" msprop:Generator_UserColumnName="ECS" msprop:Generator_ColumnPropNameInRow="ECS" msprop:Generator_ColumnVarNameInTable="columnECS" msprop:Generator_ColumnPropNameInTable="ECSColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Banck_Account" msprop:Generator_UserColumnName="Banck_Account" msprop:Generator_ColumnPropNameInRow="Banck_Account" msprop:Generator_ColumnVarNameInTable="columnBanck_Account" msprop:Generator_ColumnPropNameInTable="Banck_AccountColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Bank_branch" msprop:Generator_UserColumnName="Bank_branch" msprop:Generator_ColumnPropNameInRow="Bank_branch" msprop:Generator_ColumnVarNameInTable="columnBank_branch" msprop:Generator_ColumnPropNameInTable="Bank_branchColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PAN" msprop:Generator_UserColumnName="PAN" msprop:Generator_ColumnPropNameInRow="PAN" msprop:Generator_ColumnVarNameInTable="columnPAN" msprop:Generator_ColumnPropNameInTable="PANColumn" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

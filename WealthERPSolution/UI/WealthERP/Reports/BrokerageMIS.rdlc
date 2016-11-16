@@ -9,7 +9,7 @@
       </ConnectionProperties>
     </DataSource>
     <DataSource Name="wealtherp">
-      <rd:DataSourceID>6675c0b7-46c8-4f1a-aba4-72cd31454773</rd:DataSourceID>
+      <rd:DataSourceID>07599fdc-d7df-42f2-a905-9d11f6084266</rd:DataSourceID>
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString />
@@ -167,6 +167,224 @@
         <rd:DataSetName>BranchDS</rd:DataSetName>
         <rd:TableName>SPROC_GetBranchBrokerageReceivable</rd:TableName>
         <rd:TableAdapterName>SPROC_GetBranchBrokerageReceivableTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="ProductAssociateBrokarageReceived_SPROC_GetAssociateWiseBrokerageReceived">
+      <Fields>
+        <Field Name="AAC_AgentCode">
+          <DataField>AAC_AgentCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AA_ContactPersonName">
+          <DataField>AA_ContactPersonName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAG_AssetGroupName">
+          <DataField>PAG_AssetGroupName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAISC_AssetInstrumentSubCategoryName">
+          <DataField>PAISC_AssetInstrumentSubCategoryName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AIM_IssueName">
+          <DataField>AIM_IssueName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AB_BranchName">
+          <DataField>AB_BranchName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Brokeragevalue">
+          <DataField>WCD_Brokeragevalue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Act_Rec_Brokerage">
+          <DataField>WCD_Act_Rec_Brokerage</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="WCD_ACSR_ServiceTaxValue">
+          <DataField>WCD_ACSR_ServiceTaxValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="WCD_ACSR_ReducedValue">
+          <DataField>WCD_ACSR_ReducedValue</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Act_Pay_Brokerage">
+          <DataField>WCD_Act_Pay_Brokerage</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Act_Pay_BrokerageDate">
+          <DataField>WCD_Act_Pay_BrokerageDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Act_Rec_BrokerageDate">
+          <DataField>WCD_Act_Rec_BrokerageDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="WCD_ACSR_KKC">
+          <DataField>WCD_ACSR_KKC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WCD_ACSR_SKC">
+          <DataField>WCD_ACSR_SKC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Bank">
+          <DataField>Bank</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ECS">
+          <DataField>ECS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Banck_Account">
+          <DataField>Banck_Account</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Bank_branch">
+          <DataField>Bank_branch</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAN">
+          <DataField>PAN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>wealtherp</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.SPROC_GetAssociateWiseBrokerageReceived</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ProductAssociateBrokarageReceived</rd:DataSetName>
+        <rd:TableName>SPROC_GetAssociateWiseBrokerageReceived</rd:TableName>
+        <rd:TableAdapterName>SPROC_GetAssociateWiseBrokerageReceivedTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="ProductAssociateBrokarageReceived_SPROC_GetBranchAssociateCommissionPayOuts">
+      <Fields>
+        <Field Name="AAC_AgentCode">
+          <DataField>AAC_AgentCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAG_AssetGroupName">
+          <DataField>PAG_AssetGroupName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAISC_AssetInstrumentSubCategoryName">
+          <DataField>PAISC_AssetInstrumentSubCategoryName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WCD_CommissionType">
+          <DataField>WCD_CommissionType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Act_Pay_BrokerageDate">
+          <DataField>WCD_Act_Pay_BrokerageDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="PayOut">
+          <DataField>PayOut</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NoOfApplication">
+          <DataField>NoOfApplication</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TDS">
+          <DataField>TDS</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ServiceTax">
+          <DataField>ServiceTax</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NetPayOut">
+          <DataField>NetPayOut</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="AgentCode">
+          <DataField>AgentCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AAC_AdviserAgentId">
+          <DataField>AAC_AdviserAgentId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AgentName">
+          <DataField>AgentName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WCD_Act_Pay_BrokerageDate1">
+          <DataField>WCD_Act_Pay_BrokerageDate1</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="WCD_CommissionType1">
+          <DataField>WCD_CommissionType1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AIM_IssueName">
+          <DataField>AIM_IssueName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAG_AssetGroupCode">
+          <DataField>PAG_AssetGroupCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AIM_IssueId">
+          <DataField>AIM_IssueId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PAISC_AssetInstrumentSubCategoryCode">
+          <DataField>PAISC_AssetInstrumentSubCategoryCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AB_BranchName">
+          <DataField>AB_BranchName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AB_City">
+          <DataField>AB_City</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Bank">
+          <DataField>Bank</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ECS">
+          <DataField>ECS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Banck_Account">
+          <DataField>Banck_Account</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Bank_branch">
+          <DataField>Bank_branch</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PAN">
+          <DataField>PAN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>wealtherp</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.SPROC_GetBranchAssociateCommissionPayOuts</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ProductAssociateBrokarageReceived</rd:DataSetName>
+        <rd:TableName>SPROC_GetBranchAssociateCommissionPayOuts</rd:TableName>
+        <rd:TableAdapterName>SPROC_GetBranchAssociateCommissionPayOutsTableAdapter</rd:TableAdapterName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
       </rd:DataSetInfo>
@@ -348,184 +566,6 @@
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="ProductAssociateBrokarageReceived_SPROC_GetBranchAssociateCommissionPayOuts">
-      <Fields>
-        <Field Name="AAC_AgentCode">
-          <DataField>AAC_AgentCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PAG_AssetGroupName">
-          <DataField>PAG_AssetGroupName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PAISC_AssetInstrumentSubCategoryName">
-          <DataField>PAISC_AssetInstrumentSubCategoryName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WCD_CommissionType">
-          <DataField>WCD_CommissionType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Act_Pay_BrokerageDate">
-          <DataField>WCD_Act_Pay_BrokerageDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="PayOut">
-          <DataField>PayOut</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="NoOfApplication">
-          <DataField>NoOfApplication</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="TDS">
-          <DataField>TDS</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ServiceTax">
-          <DataField>ServiceTax</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="NetPayOut">
-          <DataField>NetPayOut</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="AgentCode">
-          <DataField>AgentCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AAC_AdviserAgentId">
-          <DataField>AAC_AdviserAgentId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="AgentName">
-          <DataField>AgentName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Act_Pay_BrokerageDate1">
-          <DataField>WCD_Act_Pay_BrokerageDate1</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="WCD_CommissionType1">
-          <DataField>WCD_CommissionType1</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AIM_IssueName">
-          <DataField>AIM_IssueName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PAG_AssetGroupCode">
-          <DataField>PAG_AssetGroupCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AIM_IssueId">
-          <DataField>AIM_IssueId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PAISC_AssetInstrumentSubCategoryCode">
-          <DataField>PAISC_AssetInstrumentSubCategoryCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AB_BranchName">
-          <DataField>AB_BranchName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AB_City">
-          <DataField>AB_City</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>wealtherp</DataSourceName>
-        <CommandType>StoredProcedure</CommandType>
-        <CommandText>dbo.SPROC_GetBranchAssociateCommissionPayOuts</CommandText>
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
-      </Query>
-      <rd:DataSetInfo>
-        <rd:DataSetName>ProductAssociateBrokarageReceived</rd:DataSetName>
-        <rd:TableName>SPROC_GetBranchAssociateCommissionPayOuts</rd:TableName>
-        <rd:TableAdapterName>SPROC_GetBranchAssociateCommissionPayOutsTableAdapter</rd:TableAdapterName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="ProductAssociateBrokarageReceived_SPROC_GetAssociateWiseBrokerageReceived">
-      <Fields>
-        <Field Name="AAC_AgentCode">
-          <DataField>AAC_AgentCode</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AA_ContactPersonName">
-          <DataField>AA_ContactPersonName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PAG_AssetGroupName">
-          <DataField>PAG_AssetGroupName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PAISC_AssetInstrumentSubCategoryName">
-          <DataField>PAISC_AssetInstrumentSubCategoryName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AIM_IssueName">
-          <DataField>AIM_IssueName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AB_BranchName">
-          <DataField>AB_BranchName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Brokeragevalue">
-          <DataField>WCD_Brokeragevalue</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Act_Rec_Brokerage">
-          <DataField>WCD_Act_Rec_Brokerage</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="WCD_ACSR_ServiceTaxValue">
-          <DataField>WCD_ACSR_ServiceTaxValue</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="WCD_ACSR_ReducedValue">
-          <DataField>WCD_ACSR_ReducedValue</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Act_Pay_Brokerage">
-          <DataField>WCD_Act_Pay_Brokerage</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Act_Pay_BrokerageDate">
-          <DataField>WCD_Act_Pay_BrokerageDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="WCD_Act_Rec_BrokerageDate">
-          <DataField>WCD_Act_Rec_BrokerageDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="WCD_ACSR_KKC">
-          <DataField>WCD_ACSR_KKC</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WCD_ACSR_SKC">
-          <DataField>WCD_ACSR_SKC</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>wealtherp</DataSourceName>
-        <CommandType>StoredProcedure</CommandType>
-        <CommandText>dbo.SPROC_GetAssociateWiseBrokerageReceived</CommandText>
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
-      </Query>
-      <rd:DataSetInfo>
-        <rd:DataSetName>ProductAssociateBrokarageReceived</rd:DataSetName>
-        <rd:TableName>SPROC_GetAssociateWiseBrokerageReceived</rd:TableName>
-        <rd:TableAdapterName>SPROC_GetAssociateWiseBrokerageReceivedTableAdapter</rd:TableAdapterName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-      </rd:DataSetInfo>
-    </DataSet>
   </DataSets>
   <Code />
   <Width>40.875in</Width>
@@ -576,7 +616,7 @@
             <Value>=Switch(Parameters!Product.Value="MF","Mutual Fund",
 Parameters!Product.Value="FI","Bond",
 Parameters!Product.Value="IP","IPO"
-) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + Parameters!FromDate.Value + " " + Parameters!ToDate.Value</Value>
+) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + " " +CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
           </Textbox>
           <Table Name="table3">
             <DataSetName>ProductBrokerageApplicationWise_SPROC_GetProductBrokerageApplicationWise</DataSetName>
@@ -1638,6 +1678,9 @@ Parameters!Product.Value="IP","IPO"
                       <ReportItems>
                         <Textbox Name="textbox69">
                           <rd:DefaultName>textbox69</rd:DefaultName>
+                          <Visibility>
+                            <Hidden>=iif(Parameters!IsReceivable.Value=1,false,true)</Hidden>
+                          </Visibility>
                           <Style>
                             <BackgroundColor>LemonChiffon</BackgroundColor>
                             <BorderStyle>
@@ -2074,6 +2117,9 @@ Parameters!Product.Value="IP","IPO"
                 <Width>1in</Width>
               </TableColumn>
               <TableColumn>
+                <Visibility>
+                  <Hidden>=iif(Parameters!IsReceivable.Value=1,false,true)</Hidden>
+                </Visibility>
                 <Width>1.25in</Width>
               </TableColumn>
               <TableColumn>
@@ -2089,6 +2135,9 @@ Parameters!Product.Value="IP","IPO"
                 <Width>1.375in</Width>
               </TableColumn>
               <TableColumn>
+                <Visibility>
+                  <Hidden>= iif(Parameters!IsReceivable.Value= 1,true,false)</Hidden>
+                </Visibility>
                 <Width>1.25in</Width>
               </TableColumn>
               <TableColumn>
@@ -2303,7 +2352,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!WCD_Holdings.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -2378,7 +2427,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!WCD_Act_Rec_Brokerage.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -2453,7 +2502,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!WCD_Act_Pay_Brokerage.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -2674,12 +2723,12 @@ Parameters!Product.Value="IP","IPO"
             <Value>=Switch(Parameters!Product.Value="MF","Mutual Fund",
 Parameters!Product.Value="FI","Bond",
 Parameters!Product.Value="IP","IPO"
-) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + Parameters!FromDate.Value + " " + Parameters!ToDate.Value</Value>
+) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + " " + CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
           </Textbox>
           <Table Name="tbBranchBrokerage">
             <DataSetName>BranchDS_SPROC_GetBranchBrokerageReceivable</DataSetName>
             <Top>0.875in</Top>
-            <Width>14.5in</Width>
+            <Width>9.5in</Width>
             <Details>
               <TableRows>
                 <TableRow>
@@ -2872,111 +2921,6 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Bank">
-                          <rd:DefaultName>Bank</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <TextAlign>Right</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>=Fields!Bank.Value</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="ECS">
-                          <rd:DefaultName>ECS</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <TextAlign>Right</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>=Fields!ECS.Value</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Banck_Account">
-                          <rd:DefaultName>Banck_Account</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <TextAlign>Right</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>=Fields!Banck_Account.Value</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Bank_branch">
-                          <rd:DefaultName>Bank_branch</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <TextAlign>Right</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>=Fields!Bank_branch.Value</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="PAN">
-                          <rd:DefaultName>PAN</rd:DefaultName>
-                          <Style>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <TextAlign>Right</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>=Fields!PAN.Value</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
                   </TableCells>
                   <Height>0.25in</Height>
                 </TableRow>
@@ -3092,7 +3036,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value>NET Payable </Value>
+                          <Value>NET Payable</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -3211,121 +3155,6 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox17">
-                          <rd:DefaultName>textbox17</rd:DefaultName>
-                          <Style>
-                            <BackgroundColor>LemonChiffon</BackgroundColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>600</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>Bank</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox19">
-                          <rd:DefaultName>textbox19</rd:DefaultName>
-                          <Style>
-                            <BackgroundColor>LemonChiffon</BackgroundColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>600</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>ECS</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox21">
-                          <rd:DefaultName>textbox21</rd:DefaultName>
-                          <Style>
-                            <BackgroundColor>LemonChiffon</BackgroundColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>600</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>Banck Account</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox23">
-                          <rd:DefaultName>textbox23</rd:DefaultName>
-                          <Style>
-                            <BackgroundColor>LemonChiffon</BackgroundColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>600</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>Bank branch</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox25">
-                          <rd:DefaultName>textbox25</rd:DefaultName>
-                          <Style>
-                            <BackgroundColor>LemonChiffon</BackgroundColor>
-                            <BorderStyle>
-                              <Default>Solid</Default>
-                            </BorderStyle>
-                            <FontFamily>Times New Roman</FontFamily>
-                            <FontSize>8pt</FontSize>
-                            <FontWeight>600</FontWeight>
-                            <TextAlign>Center</TextAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value>PAN</Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
                   </TableCells>
                   <Height>0.25in</Height>
                 </TableRow>
@@ -3341,9 +3170,12 @@ Parameters!Product.Value="IP","IPO"
                 <Width>1in</Width>
               </TableColumn>
               <TableColumn>
-                <Width>1in</Width>
+                <Width>1.25in</Width>
               </TableColumn>
               <TableColumn>
+                <Visibility>
+                  <Hidden>= iif(Parameters!IsReceivable.Value= 1,true,false)</Hidden>
+                </Visibility>
                 <Width>1in</Width>
               </TableColumn>
               <TableColumn>
@@ -3360,21 +3192,6 @@ Parameters!Product.Value="IP","IPO"
               </TableColumn>
               <TableColumn>
                 <Width>1.25in</Width>
-              </TableColumn>
-              <TableColumn>
-                <Width>1in</Width>
-              </TableColumn>
-              <TableColumn>
-                <Width>0.875in</Width>
-              </TableColumn>
-              <TableColumn>
-                <Width>1.25in</Width>
-              </TableColumn>
-              <TableColumn>
-                <Width>1in</Width>
-              </TableColumn>
-              <TableColumn>
-                <Width>1.125in</Width>
               </TableColumn>
             </TableColumns>
             <Height>0.75in</Height>
@@ -3423,7 +3240,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!NET_Receivable.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -3438,7 +3255,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!NET_Payable_.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -3517,81 +3334,6 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox20">
-                          <rd:DefaultName>textbox20</rd:DefaultName>
-                          <Style>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox22">
-                          <rd:DefaultName>textbox22</rd:DefaultName>
-                          <Style>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox24">
-                          <rd:DefaultName>textbox24</rd:DefaultName>
-                          <Style>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox26">
-                          <rd:DefaultName>textbox26</rd:DefaultName>
-                          <Style>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="textbox28">
-                          <rd:DefaultName>textbox28</rd:DefaultName>
-                          <Style>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                          <CanGrow>true</CanGrow>
-                          <Value />
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
                   </TableCells>
                   <Height>0.25in</Height>
                 </TableRow>
@@ -3613,7 +3355,7 @@ Parameters!Product.Value="IP","IPO"
               <Hidden>=IIf(Parameters!IsReceivable.Value=0,false,true)</Hidden>
             </Visibility>
             <Top>2in</Top>
-            <Width>10.625in</Width>
+            <Width>20.625in</Width>
             <Details>
               <TableRows>
                 <TableRow>
@@ -3753,6 +3495,96 @@ Parameters!Product.Value="IP","IPO"
                       <ReportItems>
                         <Textbox Name="textbox110">
                           <rd:DefaultName>textbox110</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox19">
+                          <rd:DefaultName>textbox19</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox24">
+                          <rd:DefaultName>textbox24</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox184">
+                          <rd:DefaultName>textbox184</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox188">
+                          <rd:DefaultName>textbox188</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox192">
+                          <rd:DefaultName>textbox192</rd:DefaultName>
                           <Style>
                             <BorderStyle>
                               <Default>Solid</Default>
@@ -3916,6 +3748,96 @@ Parameters!Product.Value="IP","IPO"
                           </Style>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!WCD_Act_Pay_BrokerageDate1.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox20">
+                          <rd:DefaultName>textbox20</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Bank.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox25">
+                          <rd:DefaultName>textbox25</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!ECS.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox185">
+                          <rd:DefaultName>textbox185</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Banck_Account.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox189">
+                          <rd:DefaultName>textbox189</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Bank_branch.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox193">
+                          <rd:DefaultName>textbox193</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!PAN.Value</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -4120,6 +4042,126 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox17">
+                          <rd:DefaultName>textbox17</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value> Bank</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox22">
+                          <rd:DefaultName>textbox22</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>ECS</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox183">
+                          <rd:DefaultName>textbox183</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>Banck Account</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox187">
+                          <rd:DefaultName>textbox187</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>Bank branch</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox191">
+                          <rd:DefaultName>textbox191</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>PAN</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
                   </TableCells>
                   <Height>0.25in</Height>
                 </TableRow>
@@ -4146,6 +4188,21 @@ Parameters!Product.Value="IP","IPO"
               </TableColumn>
               <TableColumn>
                 <Width>1in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
               </TableColumn>
               <TableColumn>
                 <Width>2in</Width>
@@ -4276,6 +4333,81 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox21">
+                          <rd:DefaultName>textbox21</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox28">
+                          <rd:DefaultName>textbox28</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox186">
+                          <rd:DefaultName>textbox186</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox190">
+                          <rd:DefaultName>textbox190</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox194">
+                          <rd:DefaultName>textbox194</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
                   </TableCells>
                   <Height>0.25in</Height>
                 </TableRow>
@@ -4324,7 +4456,7 @@ Parameters!Product.Value="IP","IPO"
             <Value>=Switch(Parameters!Product.Value="MF","Mutual Fund",
 Parameters!Product.Value="FI","Bond",
 Parameters!Product.Value="IP","IPO"
-) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + Parameters!FromDate.Value + " " + Parameters!ToDate.Value</Value>
+) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + " " + CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
           </Textbox>
           <Table Name="tbReceivableDetails">
             <DataSetName>ProductAssociateBrokarageReceived_SPROC_GetAssociateWiseBrokerageReceived</DataSetName>
@@ -4562,6 +4694,96 @@ Parameters!Product.Value="IP","IPO"
                             </Textbox>
                           </ReportItems>
                         </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox166">
+                              <rd:DefaultName>textbox166</rd:DefaultName>
+                              <Style>
+                                <BackgroundColor>White</BackgroundColor>
+                                <FontFamily>Times New Roman</FontFamily>
+                                <FontWeight>600</FontWeight>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <CanGrow>true</CanGrow>
+                              <Value />
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox170">
+                              <rd:DefaultName>textbox170</rd:DefaultName>
+                              <Style>
+                                <BackgroundColor>White</BackgroundColor>
+                                <FontFamily>Times New Roman</FontFamily>
+                                <FontWeight>600</FontWeight>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <CanGrow>true</CanGrow>
+                              <Value />
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox174">
+                              <rd:DefaultName>textbox174</rd:DefaultName>
+                              <Style>
+                                <BackgroundColor>White</BackgroundColor>
+                                <FontFamily>Times New Roman</FontFamily>
+                                <FontWeight>600</FontWeight>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <CanGrow>true</CanGrow>
+                              <Value />
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox178">
+                              <rd:DefaultName>textbox178</rd:DefaultName>
+                              <Style>
+                                <BackgroundColor>White</BackgroundColor>
+                                <FontFamily>Times New Roman</FontFamily>
+                                <FontWeight>600</FontWeight>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <CanGrow>true</CanGrow>
+                              <Value />
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox26">
+                              <rd:DefaultName>textbox26</rd:DefaultName>
+                              <Style>
+                                <BackgroundColor>White</BackgroundColor>
+                                <FontFamily>Times New Roman</FontFamily>
+                                <FontWeight>600</FontWeight>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <CanGrow>true</CanGrow>
+                              <Value />
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
                       </TableCells>
                       <Height>0.22115in</Height>
                     </TableRow>
@@ -4569,7 +4791,6 @@ Parameters!Product.Value="IP","IPO"
                 </Header>
               </TableGroup>
             </TableGroups>
-            <Width>17.375in</Width>
             <Details>
               <TableRows>
                 <TableRow>
@@ -4816,6 +5037,106 @@ Parameters!Product.Value="IP","IPO"
                           </Style>
                           <CanGrow>true</CanGrow>
                           <Value>=Fields!WCD_Act_Pay_BrokerageDate.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox167">
+                          <rd:DefaultName>textbox167</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Bank.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox171">
+                          <rd:DefaultName>textbox171</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!ECS.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox175">
+                          <rd:DefaultName>textbox175</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Banck_Account.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox179">
+                          <rd:DefaultName>textbox179</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Bank_branch.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox181">
+                          <rd:DefaultName>textbox181</rd:DefaultName>
+                          <Style>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!PAN.Value</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -5104,6 +5425,121 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox106">
+                          <rd:DefaultName>textbox106</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>Bank</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox169">
+                          <rd:DefaultName>textbox169</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>ECS</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox173">
+                          <rd:DefaultName>textbox173</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>Banck Account</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox177">
+                          <rd:DefaultName>textbox177</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>Bank branch</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox23">
+                          <rd:DefaultName>textbox23</rd:DefaultName>
+                          <Style>
+                            <BackgroundColor>LemonChiffon</BackgroundColor>
+                            <BorderStyle>
+                              <Default>Solid</Default>
+                            </BorderStyle>
+                            <FontFamily>Times New Roman</FontFamily>
+                            <FontWeight>600</FontWeight>
+                            <TextAlign>Center</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>PAN</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
                   </TableCells>
                   <Height>0.25802in</Height>
                 </TableRow>
@@ -5139,10 +5575,31 @@ Parameters!Product.Value="IP","IPO"
                 <Width>1.125in</Width>
               </TableColumn>
               <TableColumn>
+                <Visibility>
+                  <Hidden>= iif(Parameters!IsReceivable.Value= 1,true,false)</Hidden>
+                </Visibility>
                 <Width>1.125in</Width>
               </TableColumn>
               <TableColumn>
                 <Width>1.75in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Visibility>
+                  <Hidden>= iif(Parameters!IsReceivable.Value= 1,true,false)</Hidden>
+                </Visibility>
+                <Width>1.625in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.625in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.625in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.625in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.625in</Width>
               </TableColumn>
               <TableColumn>
                 <Width>1.625in</Width>
@@ -5239,7 +5696,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!WCD_Act_Rec_Brokerage.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -5299,7 +5756,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!WCD_Act_Pay_Brokerage.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -5333,6 +5790,81 @@ Parameters!Product.Value="IP","IPO"
                         </Textbox>
                       </ReportItems>
                     </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox168">
+                          <rd:DefaultName>textbox168</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox172">
+                          <rd:DefaultName>textbox172</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox176">
+                          <rd:DefaultName>textbox176</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox180">
+                          <rd:DefaultName>textbox180</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox182">
+                          <rd:DefaultName>textbox182</rd:DefaultName>
+                          <Style>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value />
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
                   </TableCells>
                   <Height>0.22115in</Height>
                 </TableRow>
@@ -5342,7 +5874,7 @@ Parameters!Product.Value="IP","IPO"
           </Table>
         </ReportItems>
         <Top>2.375in</Top>
-        <Width>17.75in</Width>
+        <Width>25.75in</Width>
         <Height>3.25in</Height>
       </Rectangle>
     </ReportItems>
