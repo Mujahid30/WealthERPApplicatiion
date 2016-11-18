@@ -127,11 +127,11 @@ namespace BoOnlineOrderManagement
             }
             return dsSchemeMIS;
         }
-        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount, bool Isdemat,int schemePlanCode)
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount, bool Isdemat,int schemePlanCode,int customerid)
         {
             DataTable dtGetAdviserCustomerTransaction;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
-            dtGetAdviserCustomerTransaction = OnlineOrderMISDao.GetAdviserCustomerTransaction(adviserId, AmcCode, dtFrom, dtTo, PageSize, CurrentPage, CustomerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out RowCount, Isdemat,schemePlanCode);
+            dtGetAdviserCustomerTransaction = OnlineOrderMISDao.GetAdviserCustomerTransaction(adviserId, AmcCode, dtFrom, dtTo, PageSize, CurrentPage, CustomerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out RowCount, Isdemat, schemePlanCode, customerid);
             return dtGetAdviserCustomerTransaction;
         }
         public DataTable GetAdviserCustomerTransactionsBookSIP(int AdviserID, int customerId, int SystematicId, int IsSourceAA, int AccountId, int SchemePlanCode, int requestId)

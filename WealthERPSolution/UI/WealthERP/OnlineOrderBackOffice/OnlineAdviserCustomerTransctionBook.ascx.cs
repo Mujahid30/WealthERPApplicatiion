@@ -52,7 +52,7 @@ namespace WealthERP.OnlineOrderBackOffice
         int IsSourceAA = 0;
         int systematicId = 0;
         int schemeplanCode = 0;
-        int customerId = 0;
+        int customerid = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
                SessionBo.CheckSession();
@@ -105,7 +105,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     AccountId = int.Parse(Request.QueryString["AccountId"].ToString());
                     schemeplanCode = int.Parse(Request.QueryString["schemeplanCode"].ToString());
                     IsSourceAA = int.Parse(Request.QueryString["IsSourceAA"].ToString());
-                    customerId = int.Parse(Request.QueryString["customerId"].ToString());
+                    customerid = int.Parse(Request.QueryString["customerId"].ToString());
                     BindTransactionGrid();
 
 
@@ -290,7 +290,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ddlsearchcustomertype.SelectedValue != "All")
             {
                 if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
-                    customerId = int.Parse(txtCustomerId.Value);
+                    customerid = int.Parse(txtCustomerId.Value);
             }
            
             else
@@ -303,7 +303,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null)
             {
-                dtBindTransactionGrid = OnlineOrderMISBo.GetAdviserCustomerTransactionsBookSIP(adviserVo.advisorId, customerId, systematicId, IsSourceAA, AccountId, schemeplanCode, 0);
+                dtBindTransactionGrid = OnlineOrderMISBo.GetAdviserCustomerTransactionsBookSIP(adviserVo.advisorId, customerid, systematicId, IsSourceAA, AccountId, schemeplanCode, 0);
                 gvTransationBookMIS.DataSource = dtBindTransactionGrid;
                 gvTransationBookMIS.DataBind();
                 pnlTransactionBook.Visible = true;
@@ -353,7 +353,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
 
-                dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount, Isdemat, schemePlanCode);
+                dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount, Isdemat, schemePlanCode,customerid);
 
             }
             catch (BaseApplicationException Ex)

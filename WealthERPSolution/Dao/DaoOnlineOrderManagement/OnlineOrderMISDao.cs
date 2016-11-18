@@ -213,7 +213,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSchemeMIS;
         }
-        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount,bool Isdemat,int schemePlanCode)
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount,bool Isdemat,int schemePlanCode,int customerid)
         {
             DataTable dtGetAdviserCustomerTransaction;
             Database db;
@@ -274,7 +274,9 @@ namespace DaoOnlineOrderManagement
                 if (schemePlanCode != 0)
                     db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeCode", DbType.Int32, schemePlanCode);
                 else
-                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeCode", DbType.Int32, 0);
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeCode", DbType.Int32, DBNull.Value);
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@Customerid", DbType.Int32, customerid);
+
                 GetGetAdviserCustomerTransaction.CommandTimeout = 60 * 60;
                 dsGetAdviserCustomerTransaction = db.ExecuteDataSet(GetGetAdviserCustomerTransaction);
                 dtGetAdviserCustomerTransaction = dsGetAdviserCustomerTransaction.Tables[0];
