@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.Collections;
-using System.Data.Sql;
-using VoOnlineOrderManagemnet;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
@@ -219,7 +213,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSchemeMIS;
         }
-        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount,int Isdemat)
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount,bool Isdemat,int schemePlanCode)
         {
             DataTable dtGetAdviserCustomerTransaction;
             Database db;
@@ -276,7 +270,11 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetGetAdviserCustomerTransaction, "@CurrentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(GetGetAdviserCustomerTransaction, "@PageSize", DbType.Int32, PageSize);
                 db.AddOutParameter(GetGetAdviserCustomerTransaction, "@RowCount", DbType.Int32, 0);
-                db.AddInParameter(GetGetAdviserCustomerTransaction, "@Isdemat", DbType.Int32, Isdemat);
+                db.AddInParameter(GetGetAdviserCustomerTransaction, "@Isdemat", DbType.Boolean, Isdemat);
+                if (schemePlanCode != 0)
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeCode", DbType.Int32, schemePlanCode);
+                else
+                    db.AddInParameter(GetGetAdviserCustomerTransaction, "@SchemeCode", DbType.Int32, 0);
                 GetGetAdviserCustomerTransaction.CommandTimeout = 60 * 60;
                 dsGetAdviserCustomerTransaction = db.ExecuteDataSet(GetGetAdviserCustomerTransaction);
                 dtGetAdviserCustomerTransaction = dsGetAdviserCustomerTransaction.Tables[0];

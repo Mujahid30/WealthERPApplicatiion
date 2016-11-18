@@ -41,7 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice
         AssociatesUserHeirarchyVo assocUsrHeirVo;
         VoCustomerPortfolio.MFTransactionVo mfTransactionVo = new VoCustomerPortfolio.MFTransactionVo();
         DateTime fromDate;
-        int Isdemat;
+        bool Isdemat;
         DateTime toDate;
          string customerNamefilter;
          string custCode;
@@ -279,6 +279,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             hdnSchemeSearch.Value = string.Empty;
             hdnCustomerNameSearch.Value = string.Empty;
+           
             BindTransactionGrid();
             btnExport.Visible = true;
         }
@@ -319,27 +320,21 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
 
-                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, txtCustomerName.Text, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount, Isdemat);
+                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, txtCustomerName.Text, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount,Convert.ToBoolean(ddlMode.SelectedValue));
                 gvTransationBookMIS.DataSource = dtBindTransactionGrid;
                 gvTransationBookMIS.VirtualItemCount = rowCount;
                 gvTransationBookMIS.DataBind();
                 pnlTransactionBook.Visible = true;
-                if (Cache["gvTransationBookMIS" + userVo.UserId] == null)
-                {
-                    Cache.Insert("gvTransationBookMIS" + userVo.UserId, dtBindTransactionGrid);
-                }
-                else
-                {
-                    Cache.Remove("gvTransationBookMIS" + userVo.UserId);
-                    Cache.Insert("gvTransationBookMIS" + userVo.UserId, dtBindTransactionGrid);
-                }
+               
+              
             }
         }
-        protected DataTable BindTransaction(int adviserId, int AmcCode, DateTime fromDate, DateTime toDate, int pageSize, int currentPage, string customerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int rowCount, int Isdemat)
+        protected DataTable BindTransaction(int adviserId, int AmcCode, DateTime fromDate, DateTime toDate, int pageSize, int currentPage, string customerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int rowCount, bool Isdemat)
         {
             DataTable dtIPOIssueList = new DataTable();
             try
             {
+                //Isdemat = Convert.ToBoolean(Convert.ToInt16(ddlMode.SelectedItem.Value));
                 if (txtFrom.SelectedDate != null)
                     fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
                 if (txtTo.SelectedDate != null)
@@ -357,7 +352,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
                 }
 
-                dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount, Isdemat);
+
+                dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount, Isdemat, schemePlanCode);
 
             }
             catch (BaseApplicationException Ex)
@@ -397,7 +393,6 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvTransationBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtBindTransactionGrid = new DataTable();
-            dtBindTransactionGrid = (DataTable)Cache["gvTransationBookMIS" + userVo.UserId.ToString()];
             dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, hdncustomername.Value, hdncustcode.Value, hdnpanno.Value, hdnfoliono.Value, hdnschemename.Value, hdntype.Value, hdndividenttype.Value, hdnamcname.Value, 0, out rowCount, Isdemat);
             gvTransationBookMIS.DataSource = dtBindTransactionGrid;
             gvTransationBookMIS.VirtualItemCount = rowCount;

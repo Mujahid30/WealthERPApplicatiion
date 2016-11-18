@@ -91,8 +91,8 @@
             </td>
             <td>
             <asp:DropDownList ID="ddlMode"  runat="server" CssClass="cmbField">
-            <asp:ListItem Value="0" Text="Online"></asp:ListItem>
-            <asp:ListItem Value="1" Text="Demat"></asp:ListItem>
+            <asp:ListItem Value="false" Text="Online"></asp:ListItem>
+            <asp:ListItem Value="true" Text="Demat"></asp:ListItem>
             </asp:DropDownList>
             </td>
             <td></td>
