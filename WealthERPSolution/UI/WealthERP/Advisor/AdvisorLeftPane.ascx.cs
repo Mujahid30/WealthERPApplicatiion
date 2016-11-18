@@ -4119,8 +4119,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Brokerage_Received")
                 {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BulkRequestStatus','IsRecevableReport=" + "0" + "');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {
