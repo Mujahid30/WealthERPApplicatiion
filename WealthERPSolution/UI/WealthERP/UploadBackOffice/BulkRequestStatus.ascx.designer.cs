@@ -770,5 +770,9 @@ namespace WealthERP.UploadBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAgentCode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdlblReportType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdrbReportType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdcbIsDummyAgent;
+      
     }
 }

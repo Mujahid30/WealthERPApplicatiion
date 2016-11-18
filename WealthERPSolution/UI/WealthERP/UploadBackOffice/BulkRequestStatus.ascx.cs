@@ -27,7 +27,7 @@ namespace WealthERP.UploadBackOffice
 {
     public partial class BulkRequestStatus : System.Web.UI.UserControl
     {
-       
+
         PriceBo priceBo = new PriceBo();
         AdvisorVo advisorVo = new AdvisorVo();
         UserVo userVo = new UserVo();
@@ -40,7 +40,7 @@ namespace WealthERP.UploadBackOffice
         string AgentCode = "0";
         string categoryCode = string.Empty;
         int amcCode = 0;
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -48,37 +48,49 @@ namespace WealthERP.UploadBackOffice
             userType = Session[SessionContents.CurrentUserRole].ToString();
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session["userVo"];
-           
+
             if (!IsPostBack)
             {
                 if (Request.QueryString["IsRecevableReport"] != null)
                 {
                     dvReceivable.Visible = false;
                     dvAssocicateReport.Visible = false;
+
                     if (Request.QueryString["IsRecevableReport"].ToString() == "1")
                     {
                         dvReceivable.Visible = true;
                         BindMutualFundDropDowns();
-                       
+
                         LoadAllSchemeList(0);
                         BindProductDropdown();
                         BindMonthsAndYear();
-                        associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                        if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
-                        {
-                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                            
-                        }
+
                     }
                     else
                     {
                         dvAssocicateReport.Visible = true;
+                        if (Session["UserType"] == "Associates")
+                        {
+                            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                            if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
+                            {
+                                AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                                txtAgentCode.Text = AgentCode;
+                            }
+                            HideFieldsBasedOnUser();
+                        }
                     }
-                   
+
                 }
-                
+
             }
 
+        }
+        private void HideFieldsBasedOnUser()
+        {
+            tdlblReportType.Visible = false;
+            tdrbReportType.Visible = false;
+            tdcbIsDummyAgent.Visible = false;
         }
         protected void btnSubmit_OnClick(object sender, EventArgs e)
         {
@@ -90,7 +102,7 @@ namespace WealthERP.UploadBackOffice
             DataTable dtAssociatePayout = new DataTable();
             try
             {
-                dtAssociatePayout = commisionReceivableBo.GetAssociateCommissionPayout(adviserId, agentCode, fromDate, toDate,IsDummyAgent);
+                dtAssociatePayout = commisionReceivableBo.GetAssociateCommissionPayout(adviserId, agentCode, fromDate, toDate, IsDummyAgent);
                 rdAssociatePayout.DataSource = dtAssociatePayout;
                 rdAssociatePayout.DataBind();
                 pnlOrderList.Visible = true;
@@ -150,7 +162,7 @@ namespace WealthERP.UploadBackOffice
             rdAssociatePayout.ExportSettings.IgnorePaging = true;
             rdAssociatePayout.ExportSettings.HideStructureColumns = true;
             rdAssociatePayout.ExportSettings.ExportOnlyData = true;
-      
+
             rdAssociatePayout.ExportSettings.Excel.Format = GridExcelExportFormat.Html;
             rdAssociatePayout.MasterTableView.ExportToExcel();
 
@@ -177,20 +189,20 @@ namespace WealthERP.UploadBackOffice
 
                     DataTable dtIssueDetail;
                     int issueId = 0;
-                    string PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, AAC_AgentCode,commissionType;
+                    string PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, AAC_AgentCode, commissionType;
                     DateTime PayOutDate;
                     LinkButton button = (LinkButton)gvr.FindControl("lbDetails");
                     RadGrid gvChildDetails = (RadGrid)gvr.FindControl("rgNCDIPOMIS");
                     Panel PnlChild = (Panel)gvr.FindControl("pnlchild");
                     issueId = int.Parse(rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_IssueId"].ToString());
                     AAC_AgentCode = rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgentCode"].ToString();
-                    PAG_AssetGroupCode =rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAG_AssetGroupCode"].ToString();
-                    PAISC_AssetInstrumentSubCategoryCode =rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    PAG_AssetGroupCode = rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAG_AssetGroupCode"].ToString();
+                    PAISC_AssetInstrumentSubCategoryCode = rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                     commissionType = rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["WCD_CommissionType"].ToString();
                     PayOutDate = DateTime.Parse(rdAssociatePayout.MasterTableView.DataKeyValues[gvr.ItemIndex]["WCD_Act_Pay_BrokerageDate"].ToString());
                     dtIssueDetail = commisionReceivableBo.GetAgentProductWiseCommissionDetails(AAC_AgentCode, PAG_AssetGroupCode, PAISC_AssetInstrumentSubCategoryCode, issueId, advisorVo.advisorId, PayOutDate, commissionType);
-                     gvChildDetails.DataSource = dtIssueDetail;
-                     gvChildDetails.DataBind();
+                    gvChildDetails.DataSource = dtIssueDetail;
+                    gvChildDetails.DataBind();
                     if (PnlChild.Visible == false)
                     {
                         PnlChild.Visible = true;
@@ -251,7 +263,7 @@ namespace WealthERP.UploadBackOffice
         }
         private void BindMonthsAndYear()
         {
-           
+
 
         }
 
@@ -260,7 +272,7 @@ namespace WealthERP.UploadBackOffice
             if (ddlIssuer.SelectedIndex != 0)
             {
                 int amcCode = int.Parse(ddlIssuer.SelectedValue);
-               
+
                 LoadAllSchemeList(amcCode);
 
             }
@@ -282,7 +294,7 @@ namespace WealthERP.UploadBackOffice
 
             }
         }
-       
+
         protected void ddlIssueType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssueType.SelectedIndex != 0)
@@ -307,7 +319,7 @@ namespace WealthERP.UploadBackOffice
 
         }
 
-       
+
 
         public void BindMutualFundDropDowns()
         {
@@ -336,7 +348,7 @@ namespace WealthERP.UploadBackOffice
             {
                 trSelectMutualFund.Visible = true;
                 trNCDIPO.Visible = false;
-                
+
                 cvddlIssueType.Enabled = false;
                 Label1.Visible = true;
                 ddlCommType.Visible = true;
@@ -349,7 +361,7 @@ namespace WealthERP.UploadBackOffice
             {
                 trSelectMutualFund.Visible = false;
                 trNCDIPO.Visible = true;
-              
+
                 ddlIssueName.Items.Clear();
                 ddlIssueName.DataBind();
                 cvddlIssueType.Enabled = true;
@@ -368,7 +380,7 @@ namespace WealthERP.UploadBackOffice
             }
 
         }
-      
+
         protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
             if (ddlProductCategory.SelectedValue != "Select")
@@ -377,7 +389,7 @@ namespace WealthERP.UploadBackOffice
                 td2.Visible = false;
                 if (ddlProductCategory.SelectedValue != "FISDSD")
                 {
-                    
+
                     td1.Visible = true;
 
                     td2.Visible = true;
@@ -392,7 +404,7 @@ namespace WealthERP.UploadBackOffice
             if (ddlIssuer.SelectedIndex != 0)
             {
                 amcCode = int.Parse(ddlIssuer.SelectedValue.ToString());
-                
+
                 //dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
                 dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
                 dtLoadAllScheme = dsLoadAllScheme.Tables[0];
@@ -415,8 +427,8 @@ namespace WealthERP.UploadBackOffice
             else
                 hdnProductCategory.Value = "0";
             hdnFromDate.Value = rptTxtFromDate.Text.ToString();
-        hdnToDate.Value=  rpttxtToDate.Text.ToString();
-        hdnschemeId.Value = "0";
+            hdnToDate.Value = rpttxtToDate.Text.ToString();
+            hdnschemeId.Value = "0";
 
         }
 
