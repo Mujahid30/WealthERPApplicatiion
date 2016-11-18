@@ -257,6 +257,7 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                 Enabled="True" />
+                                <span  id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCustomerName"
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
@@ -268,7 +269,7 @@
     <tr>
         <td id="tdBtnOrder" runat="server" colspan="4">
             <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
-                ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
+                ValidationGroup="btnGo" OnClick="btnViewTransaction_Click" />
         </td>
     </tr>
 </table>
