@@ -27,6 +27,7 @@ namespace WealthERP.OnlineOrderBackOffice
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         RMVo rmVo = new RMVo();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         AdvisorVo adviserVo = new AdvisorVo();
         CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
         OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
@@ -40,6 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice
         AssociatesUserHeirarchyVo assocUsrHeirVo;
         VoCustomerPortfolio.MFTransactionVo mfTransactionVo = new VoCustomerPortfolio.MFTransactionVo();
         DateTime fromDate;
+        int Isdemat;
         DateTime toDate;
          string customerNamefilter;
          string custCode;
@@ -88,14 +90,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 customerVo = (CustomerVo)Session["customerVo"];
                 userVo = (UserVo)Session["userVo"];
 
-                BindAMC();
-                Bindscheme();
+               
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
             }
             if (!Page.IsPostBack)
             {
+                BindAMC();
+                Bindscheme();
                 if (Request.QueryString["systematicId"] != null && Request.QueryString["AccountId"] != null && Request.QueryString["schemeplanCode"] != null && Request.QueryString["IsSourceAA"] != null && Request.QueryString["customerId"] != null)
                 {
                     systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
@@ -113,6 +116,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
+                Bindscheme();
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
@@ -199,7 +203,6 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ddlsearchcustomertype.SelectedValue == "Individual")
             {
-                //trGroupHead.Visible = true;
                 ddlOptionSearch.Visible = true;
                 lblCustomerSearch.Visible = true;
                 txtCustomerName.Text = "";
@@ -208,46 +211,69 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                //trGroupHead.Visible = false;
+
                 lblCustomerSearch.Visible = false;
+                ddlOptionSearch.Visible = false;
+                    txtPansearch.Visible=false;
+                    txtClientCode.Visible = false;
+                    txtCustomerName.Visible = false;
             }
         }
-        private void BindAMC()
-        {
+        //private void BindAMC()
+        //{
             
-            try
-            {
-                ddlAmc.Items.Clear();
-                DataSet ds = new DataSet();
-                DataTable dtAmc = new DataTable();
-                ds = OnlineMFOrderBo.GetTransAllAmcDetails(customerId);
-                dtAmc = ds.Tables[0];
-                if (dtAmc.Rows.Count > 0)
-                {
-                    ddlAmc.DataSource = dtAmc;
-                    ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
-                    ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
-                    ddlAmc.DataBind();
-                    //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+        //    try
+        //    {
+        //        ddlAmc.Items.Clear();
+        //        DataSet ds = new DataSet();
+        //        DataTable dtAmc = new DataTable();
+        //        ds = OnlineMFOrderBo.GetTransAllAmcDetails(customerId);
+        //        dtAmc = ds.Tables[0];
+        //        if (dtAmc.Rows.Count > 0)
+        //        {
+        //            ddlAmc.DataSource = dtAmc;
+        //            ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+        //            ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+        //            ddlAmc.DataBind();
+        //            //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
 
-                }
-                ddlAmc.Items.Insert(0, new ListItem("All", "0"));
-            }
-            catch (BaseApplicationException Ex)
+        //        }
+        //        ddlAmc.Items.Insert(0, new ListItem("All", "0"));
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:BindAmcDropDown()");
+        //        object[] objects = new object[3];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+        protected void BindAMC()
+        {
+            ddlAmc.Items.Clear();
+            if (ddlAmc.SelectedIndex == 0) return;
+
+            DataTable dtAmc = commonLookupBo.GetProdAmc(0, true);
+            if (dtAmc == null) return;
+
+            if (dtAmc.Rows.Count > 0)
             {
-                throw Ex;
+                ddlAmc.DataSource = dtAmc;
+                ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+                ddlAmc.DataBind();
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:BindAmcDropDown()");
-                object[] objects = new object[3];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            
+            ddlAmc.Items.Insert(0, new ListItem("All", "0"));
+
         }
         protected void btnViewTransaction_Click(object sender, EventArgs e)
         {
@@ -265,21 +291,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                     customerId = int.Parse(txtCustomerId.Value);
             }
-            //if (!string.IsNullOrEmpty(txtClientCode.Text))
-            //{
-            //    string ClientCode = txtClientCode.Text;
-            //}
-            //if (!string.IsNullOrEmpty(txtPansearch.Text))
-            //{
-            //    string pansearch = txtPansearch.Text;
-            //}
-            //if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
-            //{
-            //    schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
-            //}
+           
             else
             {
-                ddlSchemeList.SelectedValue = "0";
+                
             }
             if (txtFrom.SelectedDate != null)
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
@@ -303,15 +318,24 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-               
-                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, txtCustomerName.Text, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount);
+
+                dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, txtCustomerName.Text, txtClientCode.Text, txtPansearch.Text, null, null, null, null, null, 0, out rowCount, Isdemat);
                 gvTransationBookMIS.DataSource = dtBindTransactionGrid;
                 gvTransationBookMIS.VirtualItemCount = rowCount;
                 gvTransationBookMIS.DataBind();
                 pnlTransactionBook.Visible = true;
+                if (Cache["gvTransationBookMIS" + userVo.UserId] == null)
+                {
+                    Cache.Insert("gvTransationBookMIS" + userVo.UserId, dtBindTransactionGrid);
+                }
+                else
+                {
+                    Cache.Remove("gvTransationBookMIS" + userVo.UserId);
+                    Cache.Insert("gvTransationBookMIS" + userVo.UserId, dtBindTransactionGrid);
+                }
             }
         }
-        protected DataTable BindTransaction(int adviserId, int AmcCode, DateTime fromDate, DateTime toDate, int pageSize, int currentPage, string customerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int rowCount)
+        protected DataTable BindTransaction(int adviserId, int AmcCode, DateTime fromDate, DateTime toDate, int pageSize, int currentPage, string customerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int rowCount, int Isdemat)
         {
             DataTable dtIPOIssueList = new DataTable();
             try
@@ -333,7 +357,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     schemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
                 }
 
-                dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount);
+                dtIPOIssueList = OnlineOrderMISBo.GetAdviserCustomerTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, customerNamefilter, custCode, panNo, folioNo, schemeName, type, dividentType, fundName, orderNo, out rowCount, Isdemat);
 
             }
             catch (BaseApplicationException Ex)
@@ -368,13 +392,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 hdnamcname.Value = (item["PA_AMCName"].Controls[0] as TextBox).Text;
                 hdndividenttype.Value = (item["CMFOD_DividendOption"].Controls[0] as TextBox).Text;
                 hdntype.Value = (item["WMTT_TransactionClassificationName"].Controls[0] as TextBox).Text;
-                //hdnOrderno.Value = (item["Co_OrderId"].Controls[0] as TextBox).Text;
             }
         }
         protected void gvTransationBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtBindTransactionGrid;
-            dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, hdncustomername.Value, hdncustcode.Value, hdnpanno.Value, hdnfoliono.Value, hdnschemename.Value, hdntype.Value, hdndividenttype.Value, hdnamcname.Value, 0, out rowCount);
+            DataTable dtBindTransactionGrid = new DataTable();
+            dtBindTransactionGrid = (DataTable)Cache["gvTransationBookMIS" + userVo.UserId.ToString()];
+            dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, hdncustomername.Value, hdncustcode.Value, hdnpanno.Value, hdnfoliono.Value, hdnschemename.Value, hdntype.Value, hdndividenttype.Value, hdnamcname.Value, 0, out rowCount, Isdemat);
             gvTransationBookMIS.DataSource = dtBindTransactionGrid;
             gvTransationBookMIS.VirtualItemCount = rowCount;
 

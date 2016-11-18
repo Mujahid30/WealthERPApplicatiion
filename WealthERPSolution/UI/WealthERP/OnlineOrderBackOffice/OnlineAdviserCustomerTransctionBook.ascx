@@ -86,6 +86,17 @@
 </table>
 <table >
     <tr id="trAMC" runat="server">
+     <td>
+                <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
+            </td>
+            <td>
+            <asp:DropDownList ID="ddlMode"  runat="server" CssClass="cmbField">
+            <asp:ListItem Value="0" Text="Online"></asp:ListItem>
+            <asp:ListItem Value="1" Text="Demat"></asp:ListItem>
+            </asp:DropDownList>
+            </td>
+            <td></td>
+            <td></td>
         <td id="tdlblAmc" runat="server" align="left">
             <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
         </td>
@@ -94,15 +105,16 @@
                 Width="300px"  OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
             </asp:DropDownList>
         </td>
-       
+        <td></td>
+        <td></td>
        <td align="right">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
                 Visible="false"></asp:Label>
             <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="right" runat="server" >
-            <asp:DropDownList ID="ddlSchemeList"  runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="200px">
+            <asp:DropDownList ID="ddlSchemeList"  runat="server" CssClass="cmbField" AutoPostBack="false"
+                Width="600px">
             </asp:DropDownList>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
                 Visible="false">
@@ -167,7 +179,9 @@
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-     <td></td>
+         <td></td>
+        <td></td>
+    
          <td id="tdCustomerGroup" runat="server" >
             <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Search Customer:"></asp:Label>
             <asp:DropDownList ID="ddlsearchcustomertype" runat="server" AutoPostBack="true" CssClass="cmbField"
@@ -176,7 +190,8 @@
                 <asp:ListItem Text="Individual" Value="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
-       
+        <td></td>
+        <td></td>
         <td align="left">
             <asp:Label ID="lblCustomerSearch" Visible="false" runat="server" CssClass="FieldName"
                 Text="Customer:"></asp:Label>
@@ -190,6 +205,8 @@
                 <asp:ListItem Text="Client Code" Value="Clientcode" />
             </asp:DropDownList>
         </td>
+        <td></td>
+        <td></td>
         <td align="left" id="tdtxtPansearch" runat="server" visible="false">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="false" onclientClick="ShowIsa()" Width="150px">
@@ -208,6 +225,7 @@
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
+       
         <td align="left" id="tdtxtClientCode" runat="server" visible="false">
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="false" onclientClick="ShowIsa()" ></asp:TextBox>
@@ -225,6 +243,7 @@
                 ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
+       
         <td align="left" id="tdtxtCustomerName" runat="server" visible="false">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
@@ -266,7 +285,7 @@
                         OnItemCommand="gvTransationBookMIS_ItemCommand">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                         </ExportSettings>
-                        <MasterTableView DataKeyNames="CMFT_MFTransId" Width="100%" AllowMultiColumnSorting="True"
+                        <MasterTableView DataKeyNames="CMFT_MFTransId,C_CustomerId" Width="100%" AllowMultiColumnSorting="True"
                             AllowFilteringByColumn="true" AutoGenerateColumns="false" CommandItemDisplay="None">
                             <Columns>
                                 <telerik:GridBoundColumn Visible="true" DataField="Name" HeaderText="Customer" AllowFiltering="true"
