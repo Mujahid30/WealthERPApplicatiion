@@ -232,10 +232,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     lblddlDFrequency.Visible = false;
                     lblESSchemecode.Visible = true;
                     txtESSchemecode.Visible = true;
-                    trISISN.Visible = true;
-                    tdlblpay.Visible = true;
-                    tdtxtpay.Visible = true;
-                    LbldivPay.Text = "ISINNO:";
+                    trISISN.Visible = false;
+                    tdlblpay.Visible = false;
+                    tdtxtpay.Visible = false;
+                    //LbldivPay.Text = "ISINNO:";
                     trDivReInv.Visible = false;
                     tdPayOurExternalCode.Visible = false;
                     tdtxtPayExternalCode.Visible = false;
@@ -550,15 +550,14 @@ namespace WealthERP.OnlineOrderBackOffice
 
             mfProductAMCSchemePlanDetailsVo.SchemeType = ddlSctype.SelectedValue;
             mfProductAMCSchemePlanDetailsVo.SchemeOption = ddlOption.SelectedValue;
-            if (!string.IsNullOrEmpty(ddlBname.SelectedItem.Value))
+            if (ddlBname.SelectedValue != "Select")
             {
-                mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedItem.Value);
-            }
-            else
-            {
-                ddlBname.SelectedValue = "0";
-            }
 
+                mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedValue);
+            }
+           
+            
+           
             mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
             mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
             if (!string.IsNullOrEmpty(ddlDFrequency.SelectedValue))
@@ -3034,7 +3033,7 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlSIPDetails.Visible = false;
             ChkISSwitch.Visible = false;
             LalChkISSwitch.Visible = false;
-            btnsubmit.Visible = false;
+            btnsubmit.Visible = true;
             lblESSchemecode.Visible = true;
             txtESSchemecode.Visible = true;
             ddlDFrequency.SelectedValue = "0";
@@ -3052,6 +3051,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtESSchemecode.Visible = true;
             trISISN.Visible = false;
             trDivReInv.Visible = false;
+            btnsubmit.Visible = true;
             ddlOption.SelectedValue = "0";
             ControlEditSubmit();
         }
