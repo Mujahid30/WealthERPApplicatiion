@@ -30,6 +30,13 @@ namespace WealthERP.UploadBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            if (Session[SessionContents.CurrentUserRole] == "Ops")
+            {
+              
+                ddlIssueType.Items.FindByValue("FI").Text = "Order Book NCD/SGB";
+                ddlSelectType.Items.FindByValue("FI").Text = "Order Book NCD/SGB";
+            }
+
 
             if (!IsPostBack)
             {

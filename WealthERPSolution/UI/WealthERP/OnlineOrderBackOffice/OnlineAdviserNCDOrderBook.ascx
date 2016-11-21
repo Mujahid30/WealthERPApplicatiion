@@ -16,7 +16,8 @@
                 <table width="100%">
                     <tr>
                         <td align="left">
-                            NCD Order Book
+                      
+                          <asp:Label ID="NCDOrderBook"  Text="NCD Order Book" runat="server"></asp:Label>
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"

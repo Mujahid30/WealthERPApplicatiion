@@ -26,6 +26,10 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             userVo = (UserVo)Session[SessionContents.UserVo];           
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            if (Session[SessionContents.CurrentUserRole] == "Ops")
+            {
+                NCDOrderBook.Text = "Bond Order Book";
+            }
             if (!IsPostBack)
             {
                 if (Request.QueryString["orderId"] == null)
