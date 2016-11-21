@@ -22,6 +22,9 @@ namespace WealthERP.OPS
         int UserTransactionNo;
         int onlineMFOrderFlag = 0;
         string type;
+       string Customername;
+        string panno;
+        string subbrokercode;
         double amount;
         DateTime orderDate;
         DataTable dtOrderRecon;
@@ -76,27 +79,39 @@ namespace WealthERP.OPS
             {
                 UserTransactionNo = Convert.ToInt32(Request.QueryString["userTranscationNo"]);
             }
+            //if (Request.QueryString["Customername"] != null)
+            //{
+            //    UserTransactionNo = Convert.ToInt32(Request.QueryString["Customername"]);
+            //}
+            //if (Request.QueryString["panno"] != null)
+            //{
+            //    UserTransactionNo = Convert.ToInt32(Request.QueryString["panno"]);
+            //}
+            //if (Request.QueryString["subbrokercode"] != null)
+            //{
+            //    UserTransactionNo = Convert.ToInt32(Request.QueryString["subbrokercode"]);
+            //}
 
             if (!IsPostBack)
             {
                 if (onlineMFOrderFlag == 1)
                 {
-                    Bind_Onl_MannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch,UserTransactionNo);
+                    Bind_Onl_MannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, UserTransactionNo, Customername, panno, subbrokercode);
                 }
                 else
                 {
-                    BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+                    BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, Customername, panno, subbrokercode);
                 }
 
             }
         }
-        private void Bind_Onl_MannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo)
+        private void Bind_Onl_MannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo, string Customername,string panno,string subbrokercode)
         {
             //string orderIds = Ids;
             string OrderType;
             DataSet dsOrderMannualMatch;
             DataTable dtOrderMannualMatch;
-            dsOrderMannualMatch = operationBo.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch,UserTransactionNo);
+            dsOrderMannualMatch = operationBo.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, UserTransactionNo, Customername, panno, subbrokercode);
             dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
             if (dtOrderMannualMatch.Rows.Count > 0)
             {
@@ -118,13 +133,13 @@ namespace WealthERP.OPS
                 ErrorMessage.InnerText = "No Records Found...!";
             }
         }
-        private void BindMannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        private void BindMannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, string Customername, string panno, string subbrokercode)
         {
             //string orderIds = Ids;
             string OrderType;
             DataSet dsOrderMannualMatch;
             DataTable dtOrderMannualMatch;
-            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, Customername, panno, subbrokercode);
             dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
             if (dtOrderMannualMatch.Rows.Count > 0)
             {
@@ -171,7 +186,7 @@ namespace WealthERP.OPS
             if (count == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, Customername, panno, subbrokercode);
             }
             else
             {

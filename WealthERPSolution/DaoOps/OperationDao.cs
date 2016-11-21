@@ -264,7 +264,7 @@ namespace DaoOps
         }
 
 
-        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo)
+        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo,string Customername,string panno,string subbrokercode)
         {
             DataSet dsmannualMatch;
             Database db;
@@ -277,10 +277,16 @@ namespace DaoOps
                 db.AddInParameter(getMannualMatchcmd, "@accountId", DbType.Int32, accountId);
                 db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
                 db.AddInParameter(getMannualMatchcmd, "@amount", DbType.Double, amount);
-                db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
-                db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
+                if (orderDate != DateTime.MinValue)
+                    db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
+                else
+                    db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, DBNull.Value); db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(getMannualMatchcmd, "@schemeSwitchCode", DbType.Int32, schemeSwitch);
                 db.AddInParameter(getMannualMatchcmd, "@CMFT_UserTransactionNo", DbType.Int32, UserTransactionNo);
+                db.AddInParameter(getMannualMatchcmd, "@Customername", DbType.String, Customername);
+                db.AddInParameter(getMannualMatchcmd, "@PanNo", DbType.String, panno);
+                db.AddInParameter(getMannualMatchcmd, "@Subbrokercode", DbType.String, subbrokercode);
+
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)
@@ -307,7 +313,7 @@ namespace DaoOps
             return dsmannualMatch;
         }
 
-        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, string Customername, string panno, string subbrokercode)
         {
             DataSet dsmannualMatch;
             Database db;
@@ -320,9 +326,16 @@ namespace DaoOps
                 db.AddInParameter(getMannualMatchcmd, "@accountId", DbType.Int32, accountId);
                 db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
                 db.AddInParameter(getMannualMatchcmd, "@amount", DbType.Double, amount);
-                db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
+                //db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
+                if (orderDate != DateTime.MinValue)
+                    db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
+                else
+                    db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(getMannualMatchcmd, "@schemeSwitchCode", DbType.Int32, schemeSwitch);
+                db.AddInParameter(getMannualMatchcmd, "@Customername", DbType.String, Customername);
+                db.AddInParameter(getMannualMatchcmd, "@PanNo", DbType.String, panno);
+                db.AddInParameter(getMannualMatchcmd, "@Subbrokercode", DbType.String, subbrokercode);
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)

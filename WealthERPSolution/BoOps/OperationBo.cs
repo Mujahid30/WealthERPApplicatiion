@@ -205,12 +205,12 @@ namespace BoOps
             return dsOrderMIS;
         }
 
-        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo)
+        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo, string Customername, string panno, string subbrokercode)
         {
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, UserTransactionNo);
+                dsMannualMatch = operationDao.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, UserTransactionNo,Customername,panno,subbrokercode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -235,12 +235,12 @@ namespace BoOps
             }
             return dsMannualMatch;
         }
-        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, string Customername, string panno, string subbrokercode)
         {
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch, Customername, panno, subbrokercode);
             }
             catch (BaseApplicationException Ex)
             {

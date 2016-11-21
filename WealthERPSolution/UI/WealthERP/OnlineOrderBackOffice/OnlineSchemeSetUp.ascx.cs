@@ -93,9 +93,9 @@ namespace WealthERP.OnlineOrderBackOffice
                             trISISN.Visible = true;
                             tdlblpay.Visible = true;
                             tdtxtpay.Visible = true;
-                            tr1.Visible = true;
-                            td1.Visible = true;
-                            td2.Visible = true;
+                            //tr1.Visible = false;
+                            //td1.Visible = false;
+                            //td2.Visible = false;
                             //BindSchemeLoockUpType();
                         }
                         if (Request.QueryString["Mode"] == "1")
@@ -144,9 +144,9 @@ namespace WealthERP.OnlineOrderBackOffice
                             trISISN.Visible = true;
                             tdlblpay.Visible = true;
                             tdtxtpay.Visible = true;
-                            tr1.Visible = true;
-                            td1.Visible = true;
-                            td2.Visible = true;
+                            //tr1.Visible = false;
+                            //td1.Visible = false;
+                            //td2.Visible = false;
                             //BindSchemeLoockUpType();
                         }
                         if (Request.QueryString["Mode"] == "1")
@@ -219,9 +219,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 trISISN.Visible=false;
                 tdlblpay.Visible=true;
                 tdtxtpay.Visible = true;
-                tr1.Visible=false;
-                td1.Visible=false;
-                td2.Visible = false;
+                //tr1.Visible=false;
+                //td1.Visible=false;
+                //td2.Visible = false;
                 BindSchemeLoockUpType();
             }
             else
@@ -239,6 +239,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     trDivReInv.Visible = false;
                     tdPayOurExternalCode.Visible = false;
                     tdtxtPayExternalCode.Visible = false;
+                    //tr1.Visible = false;
+                    //td1.Visible = false;
+                    //td2.Visible = false;
                 }
                 else
                 {
@@ -251,9 +254,9 @@ namespace WealthERP.OnlineOrderBackOffice
                     trISISN.Visible = false;
                     tdlblpay.Visible = false;
                     tdtxtpay.Visible = false;
-                    tr1.Visible = false;
-                    td1.Visible = false;
-                    td2.Visible = false;
+                    //tr1.Visible = false;
+                    //td1.Visible = false;
+                    //td2.Visible = false;
                 }
             }
         }
@@ -1324,6 +1327,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     if (ddlDFrequency.SelectedValue == "BT" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
                     {
+                        
+
                         trISISN.Visible = true;
                         tdlblINV.Visible = true;
                         tdTextINV.Visible = true;

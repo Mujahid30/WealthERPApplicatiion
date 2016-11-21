@@ -116,18 +116,18 @@ ShowFooter="True">
    <ItemStyle Wrap="False" />
 </asp:TemplateField>
 
- <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+ <%--<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
   <HeaderTemplate>
-<asp:Label ID="lblProcessId" runat="server" Text="Process Id"></asp:Label>
+<asp:Label ID="lblProcessId" runat="server" Text="Process Id"></asp:Label>--%>
 <%--<br />
 <asp:TextBox ID="txtProcessIdSearch" runat="server" CssClass="GridViewTxtField" />--%>
-</HeaderTemplate>
+<%--</HeaderTemplate>
   <ItemTemplate>
      <asp:Label ID="lblProcessIDCol" runat="server" Text='<%# Eval("ADUL_ProcessId").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
-</asp:TemplateField>
+</asp:TemplateField>--%>
 
  <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
   <HeaderTemplate>
@@ -136,7 +136,7 @@ ShowFooter="True">
 <asp:TextBox ID="txtTransactionNoSearch" runat="server" CssClass="GridViewTxtField" />--%>
 </HeaderTemplate>
   <ItemTemplate>
-     <asp:Label ID="lblTransactionNoCol" runat="server" Text='<%# Eval("CMFT_TransactionNumber").ToString() %>'></asp:Label>
+     <asp:Label ID="lblTransactionNoCol" runat="server"  Text='<%# Eval("CMFT_TransactionNumber").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -223,15 +223,28 @@ ShowFooter="True">
    <ItemStyle Wrap="False" />
 </asp:TemplateField>
 
-<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Type">
+<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="CustomerName">
   <ItemTemplate>
-     <asp:Label ID="lblUnitsCol" runat="server" Text='<%# Eval("WMTT_TransactionClassificationCode").ToString() %>'></asp:Label>
+     <asp:Label ID="lblcusname" runat="server" Text='<%# Eval("CustomerName").ToString() %>'></asp:Label>
+  </ItemTemplate>
+  <HeaderStyle Wrap="False" />
+   <ItemStyle Wrap="False" />
+</asp:TemplateField>
+<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Panno">
+  <ItemTemplate>
+     <asp:Label ID="lblPAN" runat="server" Text='<%# Eval("PanNo").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
 </asp:TemplateField>
 
-
+<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Subbroker code">
+  <ItemTemplate>
+     <asp:Label ID="lblSubbrokercode"  runat="server" Text='<%# Eval("Subbrokercode").ToString() %>'></asp:Label>
+  </ItemTemplate>
+  <HeaderStyle Wrap="False" />
+   <ItemStyle Wrap="False" />
+</asp:TemplateField>
 
  </Columns>
  <EditRowStyle CssClass="EditRowStyle" />
