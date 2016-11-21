@@ -86,6 +86,18 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtReInv.Enabled = true;
                         chkBSE.Enabled = true;
                         chkRTA.Enabled = true;
+                        if (ddlOption.SelectedValue == "DV")
+                        {
+                            ddlDFrequency.Visible = true;
+                            lblddlDFrequency.Visible = true;
+                            trISISN.Visible = true;
+                            tdlblpay.Visible = true;
+                            tdtxtpay.Visible = true;
+                            tr1.Visible = true;
+                            td1.Visible = true;
+                            td2.Visible = true;
+                            //BindSchemeLoockUpType();
+                        }
                         if (Request.QueryString["Mode"] == "1")
                         {
                             rbtnBSE.Enabled = false;
@@ -125,6 +137,18 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtReInv.Enabled = false;
                         chkBSE.Enabled = false;
                         chkRTA.Enabled = false;
+                        if (ddlOption.SelectedValue == "DV")
+                        {
+                            ddlDFrequency.Visible = true;
+                            lblddlDFrequency.Visible = true;
+                            trISISN.Visible = true;
+                            tdlblpay.Visible = true;
+                            tdtxtpay.Visible = true;
+                            tr1.Visible = true;
+                            td1.Visible = true;
+                            td2.Visible = true;
+                            //BindSchemeLoockUpType();
+                        }
                         if (Request.QueryString["Mode"] == "1")
                         {
                             rbtnBSE.Enabled = false;
@@ -192,12 +216,12 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlDFrequency.Visible = true;
                 lblddlDFrequency.Visible = true;
-                trISISN.Visible=true;
+                trISISN.Visible=false;
                 tdlblpay.Visible=true;
                 tdtxtpay.Visible = true;
-                tr1.Visible=true;
-                td1.Visible=true;
-                td2.Visible = true;
+                tr1.Visible=false;
+                td1.Visible=false;
+                td2.Visible = false;
                 BindSchemeLoockUpType();
             }
             else
@@ -1716,6 +1740,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             btnsubmit.Visible = false;
             btnupdate.Visible = true;
+            txtpayOutExtCode.Enabled = true;
         }
         protected void ddlSchemeList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2995,6 +3020,9 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void rbtnBSE_OnCheckedChanged(object sender, EventArgs e)
         {
+            //tdPayOurExternalCode.Visible = true;
+            //tdtxtPayExternalCode.Visible = true;
+            //txtpayOutExtCode.Enabled=true;
             ChkISSIP.Visible = false;
             ChkISSTP.Visible = false;
             ChkISSWP.Visible = false;
@@ -3002,8 +3030,8 @@ namespace WealthERP.OnlineOrderBackOffice
             ChkISSwitch.Visible = false;
             LalChkISSwitch.Visible = false;
             btnsubmit.Visible = false;
-            lblESSchemecode.Visible = false;
-            txtESSchemecode.Visible = false;
+            lblESSchemecode.Visible = true;
+            txtESSchemecode.Visible = true;
             ddlDFrequency.SelectedValue = "0";
             ControlEditSubmit();
 
