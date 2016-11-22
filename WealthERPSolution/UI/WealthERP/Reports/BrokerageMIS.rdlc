@@ -616,7 +616,7 @@
             <Value>=Switch(Parameters!Product.Value="MF","Mutual Fund",
 Parameters!Product.Value="FI","Bond",
 Parameters!Product.Value="IP","IPO"
-) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + " " +CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
+) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + "  " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + "  To   " +CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
           </Textbox>
           <Table Name="table3">
             <DataSetName>ProductBrokerageApplicationWise_SPROC_GetProductBrokerageApplicationWise</DataSetName>
@@ -2723,7 +2723,7 @@ Parameters!Product.Value="IP","IPO"
             <Value>=Switch(Parameters!Product.Value="MF","Mutual Fund",
 Parameters!Product.Value="FI","Bond",
 Parameters!Product.Value="IP","IPO"
-) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + " " + CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
+) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + "  To  " + CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
           </Textbox>
           <Table Name="tbBranchBrokerage">
             <DataSetName>BranchDS_SPROC_GetBranchBrokerageReceivable</DataSetName>
@@ -3330,7 +3330,7 @@ Parameters!Product.Value="IP","IPO"
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                           <CanGrow>true</CanGrow>
-                          <Value />
+                          <Value>=Sum(Fields!No_of_APPLICATION.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -4456,7 +4456,7 @@ Parameters!Product.Value="IP","IPO"
             <Value>=Switch(Parameters!Product.Value="MF","Mutual Fund",
 Parameters!Product.Value="FI","Bond",
 Parameters!Product.Value="IP","IPO"
-) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + " " + CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
+) + " " + IIf(Parameters!IsReceivable.Value=1 ,"Receivable","Payable") + " " + CDate(Parameters!FromDate.Value).ToString("dd/MMM/yyyy") + "  To  " + CDate(Parameters!ToDate.Value).ToString("dd/MMM/yyyy")</Value>
           </Textbox>
           <Table Name="tbReceivableDetails">
             <DataSetName>ProductAssociateBrokarageReceived_SPROC_GetAssociateWiseBrokerageReceived</DataSetName>
