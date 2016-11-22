@@ -273,12 +273,17 @@
         </td>
         <td class="rightData">
         <asp:CheckBox ID="chkIsBranchOps" Text="Branch Ops" Visible="false" runat="server" CssClass="cmbFielde"/>
- 
-        </td>
+                   <asp:CheckBox ID="chkMaker" Text="Maker" Visible="false" runat="server" CssClass="cmbFielde"/>
+
         
-        <td>
+      
+        
         <asp:CheckBox ID="chkIsOnPayrollOps" Text="OnPayroll Ops" Visible="false" runat="server" CssClass="cmbFielde"/>
+         <asp:CheckBox ID="chkChecker" Text="Checker" Visible="false" runat="server" CssClass="cmbFielde"/>
+
          </td>
+        
+         
          
     </tr>
     <tr>
@@ -297,6 +302,9 @@
     ErrorMessage="Please Selected One of the Role"></asp:CustomValidator>--%>
                 <%--<asp:RequiredFieldValidator runat="server" ID="RequiredFieldValidator8" ErrorMessage="Select a role!" ControlToValidate="chkbldepart" 
      ValidationGroup="btnSubmit" Display="Dynamic" CssClass="rfvPCG" />--%>
+    
+ 
+ 
             </asp:Panel>
         </td>
     </tr>
@@ -507,10 +515,13 @@
             <div class="clearfix" style="margin-bottom: 1em;">
                 <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;"
                     visible="false">
+                    <td></td>
                    <td>
                     
-                    <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Branches">
+                    <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Branches" >
                     </asp:Label>
+                    </td>
+                    <td>
                     <asp:ListBox ID="LBStaffBranch" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
                    </td>
                     </td>

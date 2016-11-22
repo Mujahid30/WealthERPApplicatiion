@@ -68,6 +68,7 @@ namespace WealthERP.Advisor
             associatesVo = (AssociatesVO)Session["associatesVo"];
             HdnAdviserId.Value = advisorVo.advisorId.ToString();
             string action = string.Empty;
+           
 
             if (!Page.IsPostBack)
             {
@@ -84,6 +85,7 @@ namespace WealthERP.Advisor
 
                     }
                 }
+              
                 BindTeamDropList();
                 BinddepartDropList(advisorVo.advisorId);
                 BindBranchDropList(userType);
@@ -175,11 +177,18 @@ namespace WealthERP.Advisor
                 rmStaffVo.AAC_AgentCode = hdnAgentCode.Value;
             else
                 rmStaffVo.AAC_AgentCode = null;
-            if (ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS")
+            if (ddlDepart.SelectedItem.Text.Trim().ToUpper() == "OPS")
+            {
                 rmStaffVo.IsAssociateUser = false;
+                rmStaffVo.IsMaker = Convert.ToBoolean(chkMaker.Checked);
+                rmStaffVo.IsChecker = Convert.ToBoolean(chkChecker.Checked);
+            }
             else
+            {
                 rmStaffVo.IsAssociateUser = true;
-
+                rmStaffVo.IsMaker = false;
+                rmStaffVo.IsChecker = false;
+            }
             if (ddlTeamList.SelectedItem.Text.Trim().ToUpper() == "SALES")
                 rmStaffVo.IsBranchOps = Convert.ToInt16(chkIsBranchOps.Checked);
             else
@@ -238,7 +247,18 @@ namespace WealthERP.Advisor
 
         protected void ddlDepart_SelectedIndexChanged(object sender, EventArgs e)
         {
+          
             BindingDepartmentRoles(int.Parse(ddlDepart.SelectedValue));
+            if (ddlDepart.SelectedItem.Text == "OPS")
+            {
+                chkMaker.Visible = true;
+                chkChecker.Visible = true;
+            }
+            else
+            {
+                chkMaker.Visible = false;
+                chkChecker.Visible = false;
+            }
         }
 
         private void BindingDepartmentRoles(int departId)
@@ -488,7 +508,14 @@ namespace WealthERP.Advisor
 
             if (ddlTeamList.SelectedIndex != -1)
             {
-
+                if (ddlTeamList.SelectedItem.ToString().ToUpper() == "OPS")
+                {
+                    ddlDepart.SelectedIndex = 1;
+                }
+                else
+                {
+                    ddlDepart.SelectedIndex = 2;
+                }
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
                 if (ddlTeamList.SelectedValue == "14")
                 {
@@ -498,6 +525,8 @@ namespace WealthERP.Advisor
                     PLCustomer.Visible = false;
                     chkIsBranchOps.Visible = false;
                     chkIsOnPayrollOps.Visible = false;
+                    chkMaker.Visible = true;
+                    chkChecker.Visible = true;
                     RequiredFieldValidator7.Enabled = false;
                     lblAgentCodeL.Visible = false;
                     Span10.Visible = false;
@@ -515,11 +544,14 @@ namespace WealthERP.Advisor
                     RequiredFieldValidator7.Enabled = true;
                     lblAgentCodeL.Visible = true;
                     Span10.Visible = true;
+                    chkMaker.Visible = false;
+                    chkChecker.Visible = false;
                     txtAgentCode.Visible = true;
                     Span9.Visible = true;
                 }
 
             }
+           
         }
 
         protected void ddlRportingRole_SelectedIndexChanged(object sender, EventArgs e)
@@ -582,6 +614,8 @@ namespace WealthERP.Advisor
                 chkbldepart.Enabled = false;
                 chkIsBranchOps.Enabled = false;
                 chkIsOnPayrollOps.Enabled = false;
+                chkMaker.Enabled = false;
+                chkChecker.Enabled = false;
             }
             else
             {
@@ -644,6 +678,8 @@ namespace WealthERP.Advisor
                 chkbldepart.Enabled = true;
                 chkIsBranchOps.Enabled = true;
                 chkIsOnPayrollOps.Enabled = true;
+                chkMaker.Enabled = true;
+                chkChecker.Enabled = true;
             }
 
         }
@@ -882,6 +918,8 @@ namespace WealthERP.Advisor
 
             chkIsBranchOps.Checked = false;
             chkIsOnPayrollOps.Checked = false;
+            chkMaker.Checked = false;
+            chkChecker.Checked = false;
             //imgBtnReferesh.Enabled = false;
             //imgAddAgentCode.Enabled = false;
 
@@ -899,7 +937,14 @@ namespace WealthERP.Advisor
             txtLastName.Text = rmStaffVo.LastName;
             txtStaffcode.Text = rmStaffVo.StaffCode;
             ddlBranch.SelectedValue = rmStaffVo.BranchId.ToString();
-
+            if (rmStaffVo.IsMaker == true)
+            {
+                chkMaker.Checked=true;
+            }
+            if (rmStaffVo.IsChecker == true)
+            {
+                chkChecker.Checked=true;
+            }
 
             ddlTeamList.SelectedValue = rmStaffVo.HierarchyTeamId.ToString();
             if (ddlTeamList.SelectedValue == "14")
@@ -910,6 +955,7 @@ namespace WealthERP.Advisor
                 PLCustomer.Visible = false;
                 chkIsBranchOps.Visible = false;
                 chkIsOnPayrollOps.Visible = false;
+                
                 RequiredFieldValidator7.Enabled = false;
                 lblAgentCodeL.Visible = false;
                 Span10.Visible = false;
@@ -936,7 +982,8 @@ namespace WealthERP.Advisor
             ddlReportingMgr.SelectedValue = rmStaffVo.ReportingManagerId.ToString();
             chkIsBranchOps.Checked = rmStaffVo.IsBranchOps == 1;
             chkIsOnPayrollOps.Checked = rmStaffVo.IsOnPayrollOps == 1;
-
+            chkMaker.Checked = rmStaffVo.IsMaker == true;
+            chkChecker.Checked = rmStaffVo.IsChecker == true;
             txtMobileNumber.Text = rmStaffVo.Mobile.ToString();
             txtEmail.Text = rmStaffVo.Email.ToString();
             if (ddlTeamList.SelectedItem.ToString().ToUpper() == "OPS")
@@ -947,6 +994,18 @@ namespace WealthERP.Advisor
             {
                 ddlDepart.SelectedIndex = 2;
             }
+           
+            if (ddlDepart.SelectedIndex==1)
+            {
+                chkMaker.Visible = true;
+                chkChecker.Visible = true;
+            }
+            else
+            {
+                chkMaker.Visible = false;
+                chkChecker.Visible = false;
+            }
+
             BindingDepartmentRoles(Convert.ToInt32(ddlDepart.SelectedValue));
             SetDepartmentRoleIds(rmStaffVo.roleIds);
             if (!string.IsNullOrEmpty(rmStaffVo.OfficePhoneDirectIsd) )

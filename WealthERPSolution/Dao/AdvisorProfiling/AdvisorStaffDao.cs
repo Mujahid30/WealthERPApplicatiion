@@ -351,7 +351,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 1);
                 else
                     db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 0);
-
+             
 
                 if (rmVo.HierarchyRoleId != 0)
                     db.AddInParameter(createRMCmd, "@HierarchyRoleId", DbType.Int32, rmVo.HierarchyRoleId);
@@ -362,10 +362,15 @@ namespace DaoAdvisorProfiling
 
                 db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
+                db.AddInParameter(createRMCmd, "@IsMaker", DbType.Boolean, rmVo.IsMaker);
+                db.AddInParameter(createRMCmd, "@IsChecker", DbType.Boolean, rmVo.IsChecker);
+             
                 if (rmVo.BranchId != 0)
                     db.AddInParameter(createRMCmd, "@BranchId", DbType.Int32, rmVo.BranchId);
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                     StaffId = int.Parse(db.GetParameterValue(createRMCmd, "AR_RMId").ToString());
+               
+                
 
 
             }
@@ -965,6 +970,8 @@ namespace DaoAdvisorProfiling
                     rmVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     //rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                     rmVo.IsBranchOps = short.Parse(dr["AR_IsBranchOps"].ToString());
+                    rmVo.IsMaker = bool.Parse((dr["AR_IsMaker"].ToString()));
+                    rmVo.IsChecker = bool.Parse(dr["AR_IsChecker"].ToString());
                     if(dr["AR_IsOnPayrollOps"].ToString() !="" )
                     rmVo.IsOnPayrollOps = short.Parse(dr["AR_IsOnPayrollOps"].ToString());
                     rmVo.FirstName = dr["AR_FirstName"].ToString();
@@ -1292,6 +1299,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
                 db.AddInParameter(updateAdvisorStaffCmd, "@IsBranchOps", DbType.Int16, rmVo.IsBranchOps);
                 db.AddInParameter(updateAdvisorStaffCmd, "@IsOnPayrollOps", DbType.Int16, rmVo.IsOnPayrollOps);
+                db.AddInParameter(updateAdvisorStaffCmd, "@IsMaker", DbType.Boolean, rmVo.IsMaker);
+                db.AddInParameter(updateAdvisorStaffCmd, "@IsChecker", DbType.Boolean, rmVo.IsChecker);
                 if (rmVo.BranchId != 0)
                     db.AddInParameter(updateAdvisorStaffCmd, "@AB_StaffBranchId", DbType.Int32, rmVo.BranchId);
                 if (rmVo.HierarchyRoleId != 0)

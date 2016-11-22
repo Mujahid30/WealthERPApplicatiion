@@ -45,6 +45,8 @@ namespace VoUser
         public string userRole { get; set; }
         public short IsBranchOps { get; set; }
         public short IsOnPayrollOps { get; set; }
+        public bool IsMaker { get; set; }
+        public bool IsChecker { get; set; }
         #endregion Fields
 
         #region Properties
