@@ -242,7 +242,7 @@
             <td width="100%" align="left">
                 <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true"
                     BorderColor="#789FC8" BorderStyle="Solid" BorderWidth="1" EnableDatabaseLogonPrompt="True"
-                     DisplayGroupTree="False" EnableViewState="true"  OnNavigate="CrystalReportViewer1_Navigate"
+                     DisplayGroupTree="False"  EnableViewState="true"  OnNavigate="CrystalReportViewer1_Navigate"
                     ToolbarStyle-Width="770px" Width="100%" />
                      
             </td>

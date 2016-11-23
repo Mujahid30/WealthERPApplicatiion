@@ -763,12 +763,13 @@ namespace BoReports
             return dtCustomerFPRatio;
 
         }
-        public DataSet GetWelComeNoteDetails(long associateId,out string footerText,out string headerText )
+        public DataSet GetWelComeNoteDetails(long associateId, out string footerText, out string headerText, out string ReportfooterText)
         {
             FinancialPlanningReportsDao financialPlanningReports = new FinancialPlanningReportsDao();
             DataSet dsWelComeNoteDetails;
             headerText = "";
             footerText = "";
+            ReportfooterText ="";
             dsWelComeNoteDetails = financialPlanningReports.GetWelComeNoteDetails(associateId);
             DataTable dtReportSectionAndText = dsWelComeNoteDetails.Tables["ReportSection"];
             DataTable dtAssociateDetails = dsWelComeNoteDetails.Tables["AssociateDetails"];
@@ -884,6 +885,13 @@ namespace BoReports
 
                                 break;
                             }
+                        case "WelCome_Note_PageFooter":
+                                {
+                                 if (string.IsNullOrEmpty(ReportfooterText.Trim()))
+                                 ReportfooterText = dr["TextParagraph"].ToString();
+                                break;
+                                }
+                      
 
                     }
                 }
