@@ -545,7 +545,8 @@ namespace WealthERP.Reports
                 string headerText = "";
                 string footerText = "";
                 string ReportfooterText = "";
-                DataSet dsWelComeNoteDetails = fpBo.GetWelComeNoteDetails(associateId, out footerText, out headerText, out ReportfooterText);
+                string TableContentText = "";
+                DataSet dsWelComeNoteDetails = fpBo.GetWelComeNoteDetails(associateId, out footerText, out headerText, out ReportfooterText, out TableContentText);
                 associateMailId = dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EmailId"].ToString().Trim();
                 crmain.Load(Server.MapPath("MultiAssetReport.rpt"));
 
@@ -556,6 +557,7 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Body", !string.IsNullOrEmpty(headerText.Trim()) ? headerText.ToString() : string.Empty);
                     crmain.SetParameterValue("footer", !string.IsNullOrEmpty(footerText.Trim()) ? footerText.ToString() : string.Empty);
                     crmain.SetParameterValue("Reportfooter", !string.IsNullOrEmpty(ReportfooterText.Trim()) ? ReportfooterText.ToString() : string.Empty);
+                    //crmain.SetParameterValue("TableContent", !string.IsNullOrEmpty(TableContentText.Trim()) ? TableContentText.ToString() : string.Empty);
                     crmain.SetParameterValue("RMName", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["RMName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["RMName"].ToString() : string.Empty);
                     crmain.SetParameterValue("Branch", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BranchName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BranchName"].ToString() : string.Empty);
                     crmain.SetParameterValue("EUIN", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EUIN"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EUIN"].ToString() : string.Empty);
@@ -5161,8 +5163,7 @@ namespace WealthERP.Reports
 
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             if (!File.Exists(logoPath))
-                //advisorLogo = @"ABC_Company_company_logo.png";
-                advisorLogo = "spacer.png";
+                advisorLogo = @"ABC_Company_company_logo.png";
             DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo));
             crmain.Database.Tables["Images"].SetDataSource(dt);
 
