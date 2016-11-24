@@ -544,7 +544,7 @@ namespace WealthERP.Reports
                 FinancialPlanningReportsBo fpBo = new FinancialPlanningReportsBo();
                 string headerText = "";
                 string footerText = "";
-                string ReportfooterText = "";
+                string ReportfooterText = "";   
                 string TableContentText = "";
                 DataSet dsWelComeNoteDetails = fpBo.GetWelComeNoteDetails(associateId, out footerText, out headerText, out ReportfooterText, out TableContentText);
                 associateMailId = dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EmailId"].ToString().Trim();
