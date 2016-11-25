@@ -66,6 +66,29 @@
                 ValidationGroup="btnSynch" Text="Sync" />
         </td>
     </tr>
+    <tr id="trFliters" runat="server" visible="false">
+        <td align="right">
+            <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
+                <asp:ListItem Text="All" Value="0"> </asp:ListItem>
+                <asp:ListItem Text="Exist In Both" Value="1"> </asp:ListItem>
+                <asp:ListItem Text="Only Exist In System" Value="2" Enabled="false"> </asp:ListItem>
+                <asp:ListItem Text="Only Exist In RTA File" Value="3"> </asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td align="right">
+            <asp:Label ID="lbldifference" runat="server" CssClass="FieldName" Text="Difference:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlDifference" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDifference_OnSelectedIndexChanged">
+                <asp:ListItem Text="All" Value="0"> </asp:ListItem>
+                <asp:ListItem Text="Equal To Zero" Value="1"> </asp:ListItem>
+                <asp:ListItem Text="Not Equal To Zero" Value="2"> </asp:ListItem>
+            </asp:DropDownList>
+        </td>
+    </tr>
 </table>
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
@@ -325,7 +348,7 @@
                             </Columns>
                         </MasterTableView>
                         <ClientSettings>
-                            <Scrolling AllowScroll="false" FrozenColumnsCount="1"  SaveScrollPosition="true" UseStaticHeaders="true" />
+                            <Scrolling AllowScroll="false" FrozenColumnsCount="1" SaveScrollPosition="true" UseStaticHeaders="true" />
                             <ClientEvents />
                         </ClientSettings>
                     </telerik:RadGrid>

@@ -89,9 +89,18 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+        protected void ddlType_OnSelectedIndexChanged(object sender,EventArgs e)
+        {
+            BindMFHoldingReconAfterSync();
+        }
+        protected void ddlDifference_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindMFHoldingReconAfterSync();
+        }
         protected void btnSync_OnClick(object sender, EventArgs e)
         {
             BindMFHoldingReconAfterSync();
+            trFliters.Visible = true;
         }
         protected void BindMFHoldingRecon()
         {
@@ -158,7 +167,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 DataTable dtMFHoldingReconSync = new DataTable();
-                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate));
+                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate),int.Parse(ddlType.SelectedValue),int.Parse(ddlDifference.SelectedValue));
                 if (dtMFHoldingReconSync.Rows.Count > 0)
                 {
                     if (Cache["MFHoldingMIS" + userVo.UserId] == null)

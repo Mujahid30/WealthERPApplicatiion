@@ -411,7 +411,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate)
+        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate,int typeFliter, int differentFliter)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdGetMFHoldingRecon;
@@ -424,6 +424,8 @@ namespace DaoOnlineOrderManagement
                 cmdGetMFHoldingRecon = db.GetStoredProcCommand("SPROC_SyncDataForMFHoldingRecon");
                 db.AddInParameter(cmdGetMFHoldingRecon, "@ReqId", DbType.Int32, requestNo);
                 db.AddInParameter(cmdGetMFHoldingRecon, "@ToDate", DbType.Date, toDate);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@TypeFliter", DbType.Int32, typeFliter);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@DifferentFliter", DbType.Int32, differentFliter);
                 dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
                 dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
 
