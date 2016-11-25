@@ -242,7 +242,7 @@ namespace WealthERP.Receivable
                 message = "Please select atleast one item";
                 Response.Write("<script>alert('" + message + "')</script>");
             }
-            radAplicationPopUp.VisibleOnPageLoad = true;
+         
         }
 
         protected void LeftArrow1_Click(Object sender, EventArgs e)
@@ -274,7 +274,7 @@ namespace WealthERP.Receivable
                 message = "Please select atleast one item";
                 Response.Write("<script>alert('" + message + "')</script>");
             }
-            radAplicationPopUp.VisibleOnPageLoad = true;
+            
         }
         protected void RightShift1_Click(Object sender, EventArgs e)
         {
@@ -286,7 +286,7 @@ namespace WealthERP.Receivable
                     rlbAvailSchemes.Items.Remove(rlbAvailSchemes.Items[i]);
                 }
             }
-            radAplicationPopUp.VisibleOnPageLoad = true;
+            
         }
         protected void LeftShift1_Click(Object sender, EventArgs e)
         {
@@ -298,7 +298,7 @@ namespace WealthERP.Receivable
                     rlbMappedSchemes.Items.Remove(rlbMappedSchemes.Items[i]);
                 }
             }
-            radAplicationPopUp.VisibleOnPageLoad = true;
+            
         }
         protected void imgBuyMapping_Click(object sender, ImageClickEventArgs e)
         {
