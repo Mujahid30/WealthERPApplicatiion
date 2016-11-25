@@ -20,40 +20,69 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script language="JavaScript" type="text/jscript">
+
     function SearchList() {
+
+
         var tb = document.getElementById('<%=TextBox1.ClientID%>').value;
-        var list = $find("<%= rlbAvailSchemes.ClientID %>"); var items = list.get_items();
-        if (tb == "") { ClearSelection(); } else {
-            for (var i = 0; i < items.get_count(); i++) {
-                var x = list.getItem(i).get_text().toLowerCase(); var y = tb.toLowerCase();
-                if (x.match(y)) {
-                    list.getItem(i).select(); list.getItem(i).ensureVisible(); //
-                    ////                    return false;
-                } else { list.getItem(i).unselect(); }
+
+        var l = document.getElementById("<%= rlbAvailSchemes.ClientID %>");
+
+        var items = l.options.length;
+        
+        if(tb == ""){
+            l.selectedIndex = -1;
+        }
+        else {
+            for (var i = 0; i < l.options.length; i++) {
+
+                if (l.options[i].text.toLowerCase().match(tb.toLowerCase())) {
+                    l.options[i].selected = true;
+                    return false;
+                }
+                else {
+                    l.selectedIndex = -1;
+                }
+              
             }
         }
-    } function ClearSelection() {
-        var list = $find("<%= rlbAvailSchemes.ClientID %>"); var items = list.get_items();
-        for (var i = 0; i < items.get_count(); i++) list.getItem(i).unselect();
-    } </script>
+    }
+   
+
+
+ </script>
 
 <script language="JavaScript" type="text/jscript">
+   
     function Associate() {
+
+
         var tb = document.getElementById('<%=txtAssociateSearch.ClientID%>').value;
-        var list = $find("<%= LBAgentCodes.ClientID %>"); var items = list.get_items();
-        if (tb == "") { ClearSelection(); } else {
-            for (var i = 0; i < items.get_count(); i++) {
-                var x = list.getItem(i).get_text().toLowerCase(); var y = tb.toLowerCase();
-                if (x.match(y)) {
-                    list.getItem(i).select(); list.getItem(i).ensureVisible(); //
-                    ////                    return false;
-                } else { list.getItem(i).unselect(); }
+
+        var l = document.getElementById("<%= LBAgentCodes.ClientID %>");
+
+        var items = l.options.length;
+
+        if (tb == "") {
+            l.selectedIndex = -1;
+        }
+        else {
+            for (var i = 0; i < l.options.length; i++) {
+
+                if (l.options[i].text.toLowerCase().match(tb.toLowerCase())) {
+                    l.options[i].selected = true;
+                    return false;
+                }
+                else {
+                    l.selectedIndex = -1;
+                }
+
             }
         }
-    } function ClearSelection() {
-        var list = $find("<%= LBAgentCodes.ClientID %>"); var items = list.get_items();
-        for (var i = 0; i < items.get_count(); i++) list.getItem(i).unselect();
-    } </script>
+    }
+   
+    
+     </script>
 
 <script language="JavaScript" type="text/jscript">
     function DeleteAllStructureRule() {
@@ -816,7 +845,7 @@
                         <td>
                             &nbsp;
                         </td>
-                        <td>
+                        <td align="center">
                             <asp:TextBox ID="TextBox1" runat="server" Width="412px" onkeyup="return SearchList();"></asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="TextBox1"
                                 WatermarkText="Search Scheme">
@@ -827,28 +856,40 @@
                         <td>
                             &nbsp;
                         </td>
-                        <td rowspan="2" class="rightData">
-                            <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AllowTransferOnDoubleClick="true"
-                                AllowTransferDuplicates="false" EnableViewState="true" EnableMarkMatches="true"
-                                runat="server" ID="rlbAvailSchemes" Height="200px" Width="450px" AllowTransfer="true"
-                                TransferToID="rlbMappedSchemes" CssClass="cmbFielde">
-                                <ButtonSettings TransferButtons="All" />
-                            </telerik:RadListBox>
-                        </td>
-                        <td rowspan="2" class="leftLabel">
-                            <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                                ID="rlbMappedSchemes" Height="200px" Width="450px" CssClass="cmbFielde">
-                            </telerik:RadListBox>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
+                        <td align="center">
+                                    
+                                         <asp:ListBox ID="rlbAvailSchemes" runat="server" Height="200px" Width="65%" SelectionMode="Multiple" />
+                                         </td>
+                                     
+                                          <td align="left">
+                 <table align="left">
+                   <tr >
+                     <td align="left" >
+                  <asp:Button ID="RightArrow1" runat="server" Text=">" Width="45px" onclick="RightArrow1_Click"  />
+                      </td>
+                      </tr>
+                      <tr>
+                <td>
+                <asp:Button ID="LeftArrow1" runat="server" Text="<" Width="45px" onclick="LeftArrow1_Click" />
+                   </td>
+                   </tr>
+                  <tr>
+                   <td>
+             <asp:Button ID="RightShift1" runat="server" Text=">>" Width="45px" onclick="RightShift1_Click" />
+                   </td>
+                  </tr>
+              <tr>
+                   <td>
+               <asp:Button ID="LeftShift1" runat="server" Text="<<" Width="45px" onclick="LeftShift1_Click" />
+           </td>
+                  </tr> 
+                  </table>
+                  </td>
+                  <td>
+                  
+                   <asp:ListBox ID="rlbMappedSchemes" runat="server" Height="200px" Width="350px" SelectionMode="Multiple" /></td>
+                                     
+                    
                     </tr>
                 </table>
                 <table width="100%" runat="server" visible="false" id="tbSchemeMapped">

@@ -212,7 +212,94 @@ namespace WealthERP.Receivable
             }
             radAplicationPopUp.VisibleOnPageLoad = true;
         }
+        protected void RightArrow1_Click(Object sender, EventArgs e)
+        {
+            if (rlbAvailSchemes.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < rlbAvailSchemes.Items.Count; i++)
+                {
+                    if (rlbAvailSchemes.Items[i].Selected)
+                    {
+                        if (!arraylist1.Contains(rlbAvailSchemes.Items[i]))
+                        {
+                            arraylist1.Add(rlbAvailSchemes.Items[i]);
 
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist1.Count; i++)
+                {
+                    if (!rlbMappedSchemes.Items.Contains(((ListItem)arraylist1[i])))
+                    {
+                        rlbMappedSchemes.Items.Add(((ListItem)arraylist1[i]));
+                    }
+                    rlbAvailSchemes.Items.Remove(((ListItem)arraylist1[i]));
+                }
+                rlbAvailSchemes.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
+
+        protected void LeftArrow1_Click(Object sender, EventArgs e)
+        {
+            if (rlbMappedSchemes.SelectedIndex >= 0)
+            {
+                for (int i = 0; i < rlbMappedSchemes.Items.Count; i++)
+                {
+                    if (rlbMappedSchemes.Items[i].Selected)
+                    {
+                        if (!arraylist2.Contains(rlbMappedSchemes.Items[i]))
+                        {
+                            arraylist2.Add(rlbMappedSchemes.Items[i]);
+                        }
+                    }
+                }
+                for (int i = 0; i < arraylist2.Count; i++)
+                {
+                    if (!rlbAvailSchemes.Items.Contains(((ListItem)arraylist2[i])))
+                    {
+                        rlbAvailSchemes.Items.Add(((ListItem)arraylist2[i]));
+                    }
+                    rlbMappedSchemes.Items.Remove(((ListItem)arraylist2[i]));
+                }
+                rlbAvailSchemes.SelectedIndex = -1;
+            }
+            else
+            {
+                message = "Please select atleast one item";
+                Response.Write("<script>alert('" + message + "')</script>");
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
+        protected void RightShift1_Click(Object sender, EventArgs e)
+        {
+            while (rlbAvailSchemes.Items.Count != 0)
+            {
+                for (int i = 0; i < rlbAvailSchemes.Items.Count; i++)
+                {
+                    rlbMappedSchemes.Items.Add(rlbAvailSchemes.Items[i]);
+                    rlbAvailSchemes.Items.Remove(rlbAvailSchemes.Items[i]);
+                }
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
+        protected void LeftShift1_Click(Object sender, EventArgs e)
+        {
+            while (rlbMappedSchemes.Items.Count != 0)
+            {
+                for (int i = 0; i < rlbMappedSchemes.Items.Count; i++)
+                {
+                    rlbAvailSchemes.Items.Add(rlbMappedSchemes.Items[i]);
+                    rlbMappedSchemes.Items.Remove(rlbMappedSchemes.Items[i]);
+                }
+            }
+            radAplicationPopUp.VisibleOnPageLoad = true;
+        }
         protected void imgBuyMapping_Click(object sender, ImageClickEventArgs e)
         {
             if (ddlProductType.SelectedValue == "MF")
@@ -2786,7 +2873,7 @@ namespace WealthERP.Receivable
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
 
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15" + " " + "UF" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "T15" + " " + "UF" + " " + "Normal";
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();
@@ -2810,7 +2897,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15" + " " + "UF" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "B15" + " " + "UF" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -2839,7 +2926,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 1st Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "T15 1st Year" + " " + "Trail" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -2868,7 +2955,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 1st Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "B15 1st Year" + " " + "Trail" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -2897,7 +2984,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 2nd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "T15 2nd Year" + " " + "Trail" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -2925,7 +3012,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 2nd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "B15 2nd Year" + " " + "Trail" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -2954,7 +3041,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "T15 3rd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "T15 3rd Year" + " " + "Trail" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -2983,7 +3070,7 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 5) + " " + "B15 3rd Year" + " " + "Trail" + " " + "Normal";
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "B15 3rd Year" + " " + "Trail" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
@@ -3252,8 +3339,9 @@ namespace WealthERP.Receivable
 
             bool mapOk = true;
             int structId = int.Parse(hidCommissionStructureName.Value);
-            foreach (RadListBoxItem item in rlbMappedSchemes.Items)
+            foreach (ListItem item in rlbMappedSchemes.Items)
             {
+                //int schemeId = int.Parse(item.Value);
                 int schemeId = int.Parse(item.Value);
                 if (commisionReceivableBo.checkSchemeAssociationExists(schemeId, structId, Convert.ToDateTime(txtValidityFrom.Text), Convert.ToDateTime(txtValidityTo.Text), ddlMFCategory.SelectedValue))
                 {
@@ -3267,7 +3355,7 @@ namespace WealthERP.Receivable
                 showMapError();
                 return;
             }
-            foreach (RadListBoxItem item in rlbMappedSchemes.Items)
+            foreach (ListItem item in rlbMappedSchemes.Items)
             {
                 try
                 {

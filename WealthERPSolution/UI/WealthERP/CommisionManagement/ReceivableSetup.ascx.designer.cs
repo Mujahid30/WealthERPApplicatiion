@@ -713,7 +713,7 @@ namespace WealthERP.Receivable {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListBox rlbAvailSchemes;
+        protected global::System.Web.UI.WebControls.ListBox rlbAvailSchemes;
         
         /// <summary>
         /// rlbMappedSchemes control.
@@ -722,7 +722,7 @@ namespace WealthERP.Receivable {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadListBox rlbMappedSchemes;
+        protected global::System.Web.UI.WebControls.ListBox rlbMappedSchemes;
         
         /// <summary>
         /// tbSchemeMapped control.

@@ -520,81 +520,83 @@ namespace WealthERP.Uploads
         protected void gvbrokerageRecon_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
 
-            if (Session[SessionContents.CurrentUserRole] == "Ops")
+
+            if (rmVo.IsChecker == true)
             {
-                if (rmVo.IsChecker == true)
+                if (lnk == false)
                 {
-                    if (lnk == false)
+
+                    if (e.Item is GridDataItem)
                     {
-                       
-                        if (e.Item is GridDataItem)
+
+                        GridDataItem dataItem = e.Item as GridDataItem;
+
+                        CheckBox chk = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
+
+                        if (chk.Checked)
                         {
+                            chk.Enabled = false;
 
-                            GridDataItem dataItem = e.Item as GridDataItem;
-
-                            CheckBox chk = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
-                           
-                                if (chk.Checked)
-                                {
-                                    chk.Enabled = false;
-                                  
-                                    TextBox text = (TextBox)dataItem["WCD_Act_Rec_Brokerage"].FindControl("txtActRecBrokerage");
-                                    text.Enabled = false;
-                                    TextBox text1 = (TextBox)dataItem["actionRec"].FindControl("txtRecDate");
-                                    text1.Enabled = false;
-                                }
-                                CheckBox chk2 = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
-                                if (chk2.Checked)
-                                {
-                                    chk2.Enabled = false;
-                                    TextBox text2 = (TextBox)dataItem["WCD_Act_Pay_brokerage"].FindControl("txtActPaybrokerage");
-                                    text2.Enabled = false;
-                                    TextBox text3 = (TextBox)dataItem["actionPay"].FindControl("txtPaybleDate");
-                                    text3.Enabled = false;
-                                }
-
-                            }
+                            TextBox text = (TextBox)dataItem["WCD_Act_Rec_Brokerage"].FindControl("txtActRecBrokerage");
+                            text.Enabled = false;
+                            TextBox text1 = (TextBox)dataItem["actionRec"].FindControl("txtRecDate");
+                            text1.Enabled = false;
                         }
-                        lnkEdit.Visible = true;
+                        CheckBox chk2 = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
+                        if (chk2.Checked)
+                        {
+                            chk2.Enabled = false;
+                            TextBox text2 = (TextBox)dataItem["WCD_Act_Pay_brokerage"].FindControl("txtActPaybrokerage");
+                            text2.Enabled = false;
+                            TextBox text3 = (TextBox)dataItem["actionPay"].FindControl("txtPaybleDate");
+                            text3.Enabled = false;
+                        }
+
                     }
-
-
                 }
+                lnkEdit.Visible = true;
+            }
 
-                if (rmVo.IsMaker == true)
+
+
+
+            if (rmVo.IsMaker == true)
+            {
+                if (btnUp == true)
                 {
-                    if (btnUp == true)
+
+                    if (e.Item is GridDataItem)
                     {
+
+                        GridDataItem dataItem = e.Item as GridDataItem;
+
+                        CheckBox chk = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
+                        if (chk.Checked)
+                        {
+                            chk.Enabled = false;
+
+                            TextBox text = (TextBox)dataItem["WCD_Act_Rec_Brokerage"].FindControl("txtActRecBrokerage");
+                            text.Enabled = false;
+                            TextBox text1 = (TextBox)dataItem["actionRec"].FindControl("txtRecDate");
+                            text1.Enabled = false;
+                        }
+                        CheckBox chk2 = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
+                        if (chk2.Checked)
+                        {
+                            chk2.Enabled = false;
+                            TextBox text2 = (TextBox)dataItem["WCD_Act_Pay_brokerage"].FindControl("txtActPaybrokerage");
+                            text2.Enabled = false;
+                            TextBox text3 = (TextBox)dataItem["actionPay"].FindControl("txtPaybleDate");
+                            text3.Enabled = false;
+                        }
+
+                    }
+                }
+            }
+        }
+
                     
-                        if (e.Item is GridDataItem)
-                        {
-
-                            GridDataItem dataItem = e.Item as GridDataItem;
-
-                            CheckBox chk = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
-                            if (chk.Checked)
-                            {
-                                chk.Enabled = false;
-                                
-                                TextBox text = (TextBox)dataItem["WCD_Act_Rec_Brokerage"].FindControl("txtActRecBrokerage");
-                                text.Enabled = false;
-                                TextBox text1 = (TextBox)dataItem["actionRec"].FindControl("txtRecDate");
-                                text1.Enabled = false;
-                            }
-                                CheckBox chk2 = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
-                            if(chk2.Checked)
-                            {
-                                chk2.Enabled = false;
-                                TextBox text2 = (TextBox)dataItem["WCD_Act_Pay_brokerage"].FindControl("txtActPaybrokerage");
-                                text2.Enabled = false;
-                                TextBox text3 = (TextBox)dataItem["actionPay"].FindControl("txtPaybleDate");
-                                text3.Enabled = false;
-                            }
-
-                            }
-                        }
-                    }
-                }
+                
             
             
         
