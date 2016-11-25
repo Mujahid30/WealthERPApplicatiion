@@ -191,6 +191,7 @@
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredDupData_OnClick"
                                 Height="25px" Width="25px" Visible="false"></asp:ImageButton>
                         </td>
+                      
                     </tr>
                 </table>
             </div>
@@ -202,7 +203,7 @@
         <td align="left" width="13%" class="leftField">
             <asp:Label ID="lblSelectProduct" runat="server" Text=" Product:" CssClass="FieldName"></asp:Label>
         </td>
-        <td width="20%">
+      <td width="20%">
             <asp:DropDownList ID="ddlProduct" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
             </asp:DropDownList>
@@ -227,9 +228,10 @@
         </td>
     </tr>
     <tr id="trSelectProduct" runat="server">
-        <td id="td1" align="left" runat="server" class="leftField" width="13%" visible="true">
+      
+         <td  id="td1" align="left" width="13%"  runat="server" class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Commission Type:"></asp:Label>
-        </td>
+       
         <td id="td2" width="20%" runat="server" visible="true">
             <asp:DropDownList ID="ddlCommType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
@@ -240,6 +242,7 @@
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlCommType"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Commission type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
         </td>
     </tr>
 </table>
@@ -304,16 +307,19 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" id="td3" width="13%" runat="server" visible="true">
+       
+          <td  id="td3" align="left" width="13%"  runat="server" class="leftField">
             <asp:Label ID="lblDateFilterType" runat="server" CssClass="FieldName" Text="Date Filter Type:"></asp:Label>
-        </td>
-        <td class="rightField" id="td4" width="20%" runat="server" visible="true">
+       
+        <td id="td4" width="20%" runat="server" visible="true">
+       
             <asp:DropDownList ID="ddlDateFilterType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Order Date" Selected="True" Value="1"></asp:ListItem>
                 <asp:ListItem Text="Received Date" Value="2"></asp:ListItem>
                 <asp:ListItem Text="Payable Date" Value="3"></asp:ListItem>
             </asp:DropDownList>
         </td>
+       </td>
         <td class="leftField" width="13%" align="left" id="tdTolbl" runat="server" visible="true">
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="Year:"></asp:Label>
         </td>
@@ -370,7 +376,7 @@
         AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
         OnItemCreated="gvbrokerageRecon_ItemCreated" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-        OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource">
+        OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource" OnItemDataBound="gvbrokerageRecon_OnItemDataBound">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Brokerage Reconciliation">
         </ExportSettings>
         <MasterTableView Width="1200px" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
@@ -502,10 +508,11 @@
                         </cc1:CalendarExtender>
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRecDate"
                             WatermarkText="dd/mm/yyyy">
-                        </cc1:TextBoxWatermarkExtender>
+                        </cc1:TextBoxWatermarkExtender>            
+         
                         <asp:CompareValidator ID="CompareValidator7" runat="server" CssClass="rfvPCG" ControlToValidate="txtRecDate"
                             Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
-                            Type="Date">
+                            Type="Date" >
                         </asp:CompareValidator>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
@@ -638,6 +645,9 @@
                 Type="Date">
             </asp:CompareValidator>
         </td>
+          <td>
+        <asp:LinkButton ID="lnkEdit" Text="Edit" Visible="false" runat="server" CssClass="LinkButtons"  OnClick="lnkEdit_Click" Font-Bold="true" Font-Size="Large"/>
+          </td>
         <td>
             <asp:Button ID="btnSave" CssClass="PCGButton" runat="server" Text="Update" Visible="true"
                 OnClick="btnSave_Click" ValidationGroup="btnSave" />

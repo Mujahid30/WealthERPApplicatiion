@@ -25,17 +25,21 @@ namespace WealthERP.Uploads
         AdvisorVo advisorVo = new AdvisorVo();
         UserVo userVo = new UserVo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
+        RMVo rmVo = new RMVo();
         AssociatesBo associatesBo = new AssociatesBo();
         CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         string categoryCode = string.Empty;
         int amcCode = 0;
         string AgentCode = "0";
-
+        bool lnk;
+        bool btnUp;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            rmVo = (RMVo)Session["rmVo"];
+            
             if (!IsPostBack)
             {
                 BindMutualFundDropDowns();
@@ -45,17 +49,21 @@ namespace WealthERP.Uploads
                 BindMonthsAndYear();
                 Session["fltrIsPayLocked"] = null;
                 Session["fltrIsRecLocked"] = null;
-                int day = 1;
-                // btnExportFilteredData.Visible = false;
-                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
-                {
-                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                    ddlSelectMode.Items.FindByText("Both").Enabled = false;
-                    ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
-                }
-            }
 
+                int day = 1;
+               
+                    // btnExportFilteredData.Visible = false;
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        ddlSelectMode.Items.FindByText("Both").Enabled = false;
+                        ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
+                    }
+
+                }
+
+            
         }
         private void BindMonthsAndYear()
         {
@@ -74,6 +82,13 @@ namespace WealthERP.Uploads
                 ddlYear.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
 
+        }
+        protected void lnkEdit_Click(object sender, EventArgs e)
+        {
+            lnk = true;
+            BindGrid();
+            lnkEdit.Visible = false;
+            btnSave.Visible = true;
         }
 
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
@@ -443,11 +458,11 @@ namespace WealthERP.Uploads
 
         protected void GdBind_Click(Object sender, EventArgs e)
         {
-
-
+           
             BindGrid();
             Session["fltrIsPayLocked"] = null;
             Session["fltrIsRecLocked"] = null;
+          
         }
 
         protected void gvbrokerageRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -500,7 +515,90 @@ namespace WealthERP.Uploads
                 }
                 filteringItemPay["IsPayLocked"].Controls.Add(ddlIsPayLocked);
             }
+           
         }
+        protected void gvbrokerageRecon_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+
+            if (Session[SessionContents.CurrentUserRole] == "Ops")
+            {
+                if (rmVo.IsChecker == true)
+                {
+                    if (lnk == false)
+                    {
+                       
+                        if (e.Item is GridDataItem)
+                        {
+
+                            GridDataItem dataItem = e.Item as GridDataItem;
+
+                            CheckBox chk = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
+                           
+                                if (chk.Checked)
+                                {
+                                    chk.Enabled = false;
+                                  
+                                    TextBox text = (TextBox)dataItem["WCD_Act_Rec_Brokerage"].FindControl("txtActRecBrokerage");
+                                    text.Enabled = false;
+                                    TextBox text1 = (TextBox)dataItem["actionRec"].FindControl("txtRecDate");
+                                    text1.Enabled = false;
+                                }
+                                CheckBox chk2 = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
+                                if (chk2.Checked)
+                                {
+                                    chk2.Enabled = false;
+                                    TextBox text2 = (TextBox)dataItem["WCD_Act_Pay_brokerage"].FindControl("txtActPaybrokerage");
+                                    text2.Enabled = false;
+                                    TextBox text3 = (TextBox)dataItem["actionPay"].FindControl("txtPaybleDate");
+                                    text3.Enabled = false;
+                                }
+
+                            }
+                        }
+                        lnkEdit.Visible = true;
+                    }
+
+
+                }
+
+                if (rmVo.IsMaker == true)
+                {
+                    if (btnUp == true)
+                    {
+                    
+                        if (e.Item is GridDataItem)
+                        {
+
+                            GridDataItem dataItem = e.Item as GridDataItem;
+
+                            CheckBox chk = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
+                            if (chk.Checked)
+                            {
+                                chk.Enabled = false;
+                                
+                                TextBox text = (TextBox)dataItem["WCD_Act_Rec_Brokerage"].FindControl("txtActRecBrokerage");
+                                text.Enabled = false;
+                                TextBox text1 = (TextBox)dataItem["actionRec"].FindControl("txtRecDate");
+                                text1.Enabled = false;
+                            }
+                                CheckBox chk2 = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
+                            if(chk2.Checked)
+                            {
+                                chk2.Enabled = false;
+                                TextBox text2 = (TextBox)dataItem["WCD_Act_Pay_brokerage"].FindControl("txtActPaybrokerage");
+                                text2.Enabled = false;
+                                TextBox text3 = (TextBox)dataItem["actionPay"].FindControl("txtPaybleDate");
+                                text3.Enabled = false;
+                            }
+
+                            }
+                        }
+                    }
+                }
+            
+            
+        
+        
         protected void ddlIsPayLocked_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             DropDownList ddList = (DropDownList)sender;
@@ -576,74 +674,98 @@ namespace WealthERP.Uploads
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
+         
             int i = 0;
             foreach (GridDataItem dr in gvbrokerageRecon.Items)
             {
-                int id = 0;
-                decimal ActRec = 0;
-                decimal ActPay = 0;
-                bool blResult = false;
-                bool IsPayLocked = false;
-                bool IsRecLocked = false;
-                DateTime? paybleDate = DateTime.MinValue;
-                DateTime? receivedDate = DateTime.MinValue;
-                DateTime? bulkPaybleDate = DateTime.MinValue;
-                DateTime? bulkReceivedDate = DateTime.MinValue;
-                CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
-                decimal rtaAmount = 0;
-                if (checkBox.Checked == true)
-                {
-                    i = i + 1;
-                    if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
+              
+                    int id = 0;
+                    decimal ActRec = 0;
+                    decimal ActPay = 0;
+                    bool blResult = false;
+                    bool IsPayLocked = false;
+                    bool IsRecLocked = false;
+                    DateTime? paybleDate = DateTime.MinValue;
+                    DateTime? receivedDate = DateTime.MinValue;
+                    DateTime? bulkPaybleDate = DateTime.MinValue;
+                    DateTime? bulkReceivedDate = DateTime.MinValue;
+                    CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
+                    decimal rtaAmount = 0;
+                    if ((checkBox.Checked == true)&&(checkBox.Enabled==true))
                     {
-
+                        i = i + 1;
+                        if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
+                        {
                         ActRec = Convert.ToDecimal(((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim());
-                    }
-                    if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
-                    {
+                        
+                        }
+                        IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
+                        IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
+                        
+                        if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
+                        {
 
-                        ActPay = Convert.ToDecimal(((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim());
+                            ActPay = Convert.ToDecimal(((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim());
 
-                    }
-                    if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() != "")
-                    {
-                        paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
-                    }
-                    if (((TextBox)dr.FindControl("txtRecDate")).Text.Trim() != "")
-                    {
-                        receivedDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtRecDate")).Text.Trim());
-                    }
-                    IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
-                    IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
-                    if (chkBulkReceivedDate.Checked)
-                    {
-                        bulkReceivedDate = rdpBulkReceivedDate.SelectedDate;
-                    }
-                    if (chkBulkPayableDate.Checked)
-                    {
-                        bulkPaybleDate = rdpBulkPayableDate.SelectedDate;
-                    }
+                        }
+                        if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() != "")
+                        {
+                            paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
+                        }
+                       
+                        if (((TextBox)dr.FindControl("txtRecDate")).Text.Trim() != "")
+                        {
+                            receivedDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtRecDate")).Text.Trim());
+                        }
+                        if ((((CheckBox)dr.FindControl("chkIdRec")).Checked)&&(!(chkBulkReceivedDate.Checked)))
+                        {
+                            if (((TextBox)dr.FindControl("txtRecDate")).Text.Trim() == "")
+                            {
 
-                    int selectedRow = 0;
-                    GridDataItem gdi;
-                    gdi = (GridDataItem)checkBox.NamingContainer;
-                    selectedRow = gdi.ItemIndex;
-                    if (chkBulkReceived.Checked)
-                    {
-                        rtaAmount = decimal.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["RTABrokerageAmt"].ToString()));
-                    }
-                    id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please select Actual Received Date.');", true);
+                                return;
+                            }
+                        }
+                        if ((((CheckBox)dr.FindControl("chkIdPay")).Checked)&&(!(chkBulkPayableDate.Checked)))
+                        {
+                            if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() == "")
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please select Actual Payout Date.');", true);
+                                return;
+                            }
+                        }
+                        
+                      
+                        if (chkBulkReceivedDate.Checked)
+                        {
+                            bulkReceivedDate = rdpBulkReceivedDate.SelectedDate;
+                        }
+                        if (chkBulkPayableDate.Checked)
+                        {
+                            bulkPaybleDate = rdpBulkPayableDate.SelectedDate;
+                        }
 
-                    blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked,
-                        IsRecLocked, chkBulkPayble.Checked,
-                        rtaAmount, chkBulkReceivedSys.Checked, chkBulkReceived.Checked, bulkReceivedDate, bulkPaybleDate);
+                        int selectedRow = 0;
+                        GridDataItem gdi;
+                        gdi = (GridDataItem)checkBox.NamingContainer;
+                        selectedRow = gdi.ItemIndex;
+                        if (chkBulkReceived.Checked)
+                        {
+                            rtaAmount = decimal.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["RTABrokerageAmt"].ToString()));
+                        }
+                        id = int.Parse((gvbrokerageRecon.MasterTableView.DataKeyValues[selectedRow]["WCD_Id"].ToString()));
 
+                        blResult = adviserMFMIS.UpdateActualPayAndRec(id, ActPay, ActRec, paybleDate, receivedDate, IsPayLocked,
+                            IsRecLocked, chkBulkPayble.Checked,
+                            rtaAmount, chkBulkReceivedSys.Checked, chkBulkReceived.Checked, bulkReceivedDate, bulkPaybleDate);
+
+                    //}
                 }
-
-            }
-
+                }
+            
+            btnUp = true;
             BindGrid();
-
+           
             if (i > 0)
                 ShowMessage("Updated Successfully", "S");
             else

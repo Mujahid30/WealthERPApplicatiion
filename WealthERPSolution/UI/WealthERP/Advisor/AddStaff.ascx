@@ -28,7 +28,7 @@
         document.getElementById("ctrl_AddStaff_hdnAgentCode").value = "SSLE" + document.getElementById("<%=txtStaffcode.ClientID%>").value
     }
     function checkInsuranceNoAvailability() {
-       
+
 
         if ($("#<%=txtAgentCode.ClientID %>").val() == "") {
             $("#spnLoginStatus").html("");
@@ -164,6 +164,7 @@
         </td>
     </tr>
     <tr>
+ 
         <td class="leftField">
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="First Name:"></asp:Label>
         </td>
@@ -513,18 +514,19 @@
     <tr visible="True" align="right">
         <td>
             <div class="clearfix" style="margin-bottom: 1em;">
-                <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 150px;"
+                <asp:Panel ID="PLCustomer" runat="server" Style="float: left; padding-left: 50px;"
                     visible="false">
-                    <td></td>
-                   <td>
                     
-                    <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Branches" >
+                 
+                   <td>
+                   
+                    <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing Branches"  >
                     </asp:Label>
-                    </td>
-                    <td>
+                    <%--</td>--%>
+                   <%-- <td>--%>
                     <asp:ListBox ID="LBStaffBranch" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
                    </td>
-                    </td>
+                   <%-- </td>--%>
                     <td>
                     <table>
                    <tr>
@@ -549,14 +551,16 @@
                   </tr> 
                   </table>
                   </td>
+                
                   <td>
                      <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Mapped Branches">
                     </asp:Label>
                     <asp:ListBox ID="lstMappedBranches" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
                    <%-- <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
                         ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField"  >
-                    </telerik:RadListBox>--%>
+                    </telerik:RadListBox>
                     </td>
+                    --%></td>
                 </asp:Panel>
             </div>
         </td>

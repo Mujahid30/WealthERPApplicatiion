@@ -845,6 +845,8 @@ namespace DaoAdvisorProfiling
                     rmVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                     rmVo.FirstName = dr["AR_FirstName"].ToString();
+                    rmVo.IsMaker = bool.Parse((dr["AR_IsMaker"].ToString()));
+                    rmVo.IsChecker = bool.Parse(dr["AR_IsChecker"].ToString());
                     if (dr["AR_MiddleName"] != DBNull.Value)
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
                     else

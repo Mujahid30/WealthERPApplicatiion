@@ -516,7 +516,9 @@ namespace WealthERP.Advisor
                 {
                     ddlDepart.SelectedIndex = 2;
                 }
+               
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
+                BindingDepartmentRoles(int.Parse(ddlDepart.SelectedValue));
                 if (ddlTeamList.SelectedValue == "14")
                 {
                     tdLb1Branch1.Visible = true;
@@ -619,6 +621,7 @@ namespace WealthERP.Advisor
             }
             else
             {
+                
                 txtFirstName.Enabled = true;
                 txtMiddleName.Enabled = true;
                 txtLastName.Enabled = true;
@@ -937,14 +940,7 @@ namespace WealthERP.Advisor
             txtLastName.Text = rmStaffVo.LastName;
             txtStaffcode.Text = rmStaffVo.StaffCode;
             ddlBranch.SelectedValue = rmStaffVo.BranchId.ToString();
-            if (rmStaffVo.IsMaker == true)
-            {
-                chkMaker.Checked=true;
-            }
-            if (rmStaffVo.IsChecker == true)
-            {
-                chkChecker.Checked=true;
-            }
+          
 
             ddlTeamList.SelectedValue = rmStaffVo.HierarchyTeamId.ToString();
             if (ddlTeamList.SelectedValue == "14")
@@ -955,7 +951,8 @@ namespace WealthERP.Advisor
                 PLCustomer.Visible = false;
                 chkIsBranchOps.Visible = false;
                 chkIsOnPayrollOps.Visible = false;
-                
+                chkMaker.Visible = true;
+                chkChecker.Visible = true;
                 RequiredFieldValidator7.Enabled = false;
                 lblAgentCodeL.Visible = false;
                 Span10.Visible = false;
@@ -970,6 +967,8 @@ namespace WealthERP.Advisor
                 tdDdl1Branch1.Visible = false;
                 chkIsBranchOps.Visible = true;
                 chkIsOnPayrollOps.Visible = true;
+                chkMaker.Visible = false;
+                chkChecker.Visible = false;
                 RequiredFieldValidator7.Enabled = true;
                 lblAgentCodeL.Visible = true;
                 Span10.Visible = true;
