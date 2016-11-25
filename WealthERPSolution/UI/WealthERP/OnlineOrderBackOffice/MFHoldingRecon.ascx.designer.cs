@@ -37,9 +37,12 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl MFHoldingRecons;
         protected global::System.Web.UI.WebControls.Panel pnlMFHoldingRecons;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell trSynch;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFliters;
         protected global::System.Web.UI.WebControls.Button btnSynch;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoRecords;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDifference;
 
     }
 }
