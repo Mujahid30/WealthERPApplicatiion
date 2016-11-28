@@ -543,21 +543,26 @@ namespace WealthERP.Reports
             {
                 FinancialPlanningReportsBo fpBo = new FinancialPlanningReportsBo();
                 string headerText = "";
+
                 string footerText = "";
                 string ReportfooterText = "";   
                 string TableContentText = "";
-                DataSet dsWelComeNoteDetails = fpBo.GetWelComeNoteDetails(associateId, out footerText, out headerText, out ReportfooterText, out TableContentText);
+                string HeaderLogo = "", setadviserlogoimagepath="";
+                DataSet dsWelComeNoteDetails = fpBo.GetWelComeNoteDetails(associateId, out footerText, out headerText, out ReportfooterText, out TableContentText, out HeaderLogo);
                 associateMailId = dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EmailId"].ToString().Trim();
+   
                 crmain.Load(Server.MapPath("MultiAssetReport.rpt"));
 
                 if (!string.IsNullOrEmpty(headerText.Trim()))
                 {
-                    setLogo();
+                    //setLogo();
+                    setAdviserLogo(HeaderLogo);
                     
                     crmain.SetParameterValue("Body", !string.IsNullOrEmpty(headerText.Trim()) ? headerText.ToString() : string.Empty);
                     crmain.SetParameterValue("footer", !string.IsNullOrEmpty(footerText.Trim()) ? footerText.ToString() : string.Empty);
                     crmain.SetParameterValue("Reportfooter", !string.IsNullOrEmpty(ReportfooterText.Trim()) ? ReportfooterText.ToString() : string.Empty);
                     //crmain.SetParameterValue("TableContent", !string.IsNullOrEmpty(TableContentText.Trim()) ? TableContentText.ToString() : string.Empty);
+                   
                     crmain.SetParameterValue("RMName", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["RMName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["RMName"].ToString() : string.Empty);
                     crmain.SetParameterValue("Branch", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BranchName"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["BranchName"].ToString() : string.Empty);
                     crmain.SetParameterValue("EUIN", !string.IsNullOrEmpty(dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EUIN"].ToString().Trim()) ? dsWelComeNoteDetails.Tables["AssociateDetails"].Rows[0]["EUIN"].ToString() : string.Empty);
@@ -5144,22 +5149,27 @@ namespace WealthERP.Reports
         private void setLogo()
         {
 
-            //string advisorLogo = "spacer.png";
+            //string advisorLogo = "Fincure Resized Logo.png";
             //if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
             //    advisorLogo = advisorVo.LogoPath;
 
             //string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             //if (!File.Exists(logoPath))
-            //    advisorLogo = "spacer.png";
+            //    advisorLogo = "Fincure Resized Logo.png";
 
             //crmain.Database.Tables["Images"].SetDataSource(ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo)));
 
-            string advisorLogo = "spacer.png";
+
+
+
+            string advisorLogo = "Fincure Resized Logo.png";
             if (advisorVo.LogoPath != null && advisorVo.LogoPath != string.Empty)
                 if (advisorVo.advisorId == 1021)
                     advisorLogo = ConfigurationManager.AppSettings["AdviserWelcomeLetterLogo"].ToString();
                 else
                     advisorLogo = advisorVo.LogoPath;
+
+
 
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             if (!File.Exists(logoPath))
@@ -5167,6 +5177,25 @@ namespace WealthERP.Reports
             DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo));
             crmain.Database.Tables["Images"].SetDataSource(dt);
 
+        }
+        private void setAdviserLogo(string setadviserlogoimagepath)
+        {
+            string logoPath=string.Empty;
+            if (setadviserlogoimagepath != null && setadviserlogoimagepath != string.Empty)
+            {
+
+             logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + setadviserlogoimagepath);
+             if (!File.Exists(logoPath))
+                 setadviserlogoimagepath = @"ABC_Company_company_logo.png";
+            }
+            else
+            {
+                setadviserlogoimagepath = @"ABC_Company_company_logo.png";
+            }
+            
+            DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + setadviserlogoimagepath));
+            crmain.Database.Tables["Images"].SetDataSource(dt); 
+           
         }
 
 
