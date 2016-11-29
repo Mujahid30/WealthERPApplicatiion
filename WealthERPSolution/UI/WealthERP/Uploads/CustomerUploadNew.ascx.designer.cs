@@ -30,7 +30,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredDupData;
-        
+
         /// <summary>
         /// lblSelectProduct control.
         /// </summary>
@@ -248,13 +248,31 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
 
         /// <summary>
-        /// chkIdRec control.
+        /// ChkBulkLockReceived control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIdRec;
+        protected global::System.Web.UI.WebControls.CheckBox ChkBulkLockReceived;
+
+        /// <summary>
+        /// chkId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkId;
+
+        /// <summary>
+        /// ChkBulkLockPayOut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ChkBulkLockPayOut;
         
         /// <summary>
         /// cvddlSelectMutualFund control.

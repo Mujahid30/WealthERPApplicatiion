@@ -47,21 +47,23 @@
 
         //get total number of rows in the gridview and do whatever
         //you want with it..just grabbing it just cause
-        var gvControl = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
-
+        var gvControl = document.getElementById('<%=gvbrokerageRecon.ClientID%>');
+       
         //this is the checkbox in the item template...this has to be the same name as the ID of it
         var gvChkBoxControl = "Ranjan";
-
+      
         //this is the checkbox in the header template
         var mainChkBox = document.getElementById("chkIdAll");
 
         //get an array of input types in the gridview
         var inputTypes = gvControl.getElementsByTagName("input");
+    
 
         for (var i = 0; i < inputTypes.length; i++) {
             //if the input type is a checkbox and the id of it is what we set above
             //then check or uncheck according to the main checkbox in the header template
             var chkIdAll = inputTypes[i].id;
+            
             if (inputTypes[i].type == 'checkbox' && chkIdAll.indexOf(gvChkBoxControl) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
         }
@@ -147,7 +149,7 @@
 
 <script type="text/javascript">
     function validation() {
-        var grid = document.getElementById('<%= gvbrokerageRecon.ClientID %>');
+        var grid = document.getElemetById('<%= gvbrokerageRecon.ClientID %>');
         var inputTypes = grid.getElementsByTagName("input");
         for (var i = 0; i < inputTypes.length; i++) {
 
@@ -176,6 +178,7 @@
         }
     }
 </script>
+
 
 <table width="100%">
     <tr>
@@ -307,11 +310,12 @@
         </td>
     </tr>
     <tr>
-       
+      
           <td  id="td3" align="left" width="13%"  runat="server" class="leftField">
+           
             <asp:Label ID="lblDateFilterType" runat="server" CssClass="FieldName" Text="Date Filter Type:"></asp:Label>
-       
-        <td id="td4" width="20%" runat="server" visible="true">
+      
+        <td id="td4" width="20%" runat="server" visible="true" align="left" class="leftfield">
        
             <asp:DropDownList ID="ddlDateFilterType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Order Date" Selected="True" Value="1"></asp:ListItem>
@@ -367,14 +371,16 @@
         </td>
     </tr>
 </table>
+<asp:CheckBox ID="chkId" Text="check All" runat="server" OnCheckedChanged="chkId_OnClick" visible="false" AutoPostBack="true" CssClass="cmbFielde"/>
+
 <div style="margin-left: auto; margin-right: auto;">
     <%-- <div id="divMessage" align="center">
     </div>--%>
 </div>
 <div runat="server" style="overflow: scroll;" id="divBtnActionSection" visible="true">
-    <telerik:RadGrid ID="gvbrokerageRecon" Visible="false" runat="server" GridLines="None"
-        AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
-        OnItemCreated="gvbrokerageRecon_ItemCreated" ShowStatusBar="True" ShowFooter="true"
+    <telerik:RadGrid ID="gvbrokerageRecon" Visible="false" runat="server" GridLines="None" 
+        AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="true" 
+        OnItemCreated="gvbrokerageRecon_ItemCreated" ShowStatusBar="True" ShowFooter="true" 
         Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
         OnNeedDataSource="gvbrokerageRecon_OnNeedDataSource" OnItemDataBound="gvbrokerageRecon_OnItemDataBound">
         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="Brokerage Reconciliation">
@@ -384,8 +390,10 @@
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
             <Columns>
+             
                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                     HeaderStyle-Width="70px">
+                  
                     <HeaderTemplate>
                         <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                     </HeaderTemplate>
@@ -510,10 +518,7 @@
                             WatermarkText="dd/mm/yyyy">
                         </cc1:TextBoxWatermarkExtender>            
          
-                        <asp:CompareValidator ID="CompareValidator7" runat="server" CssClass="rfvPCG" ControlToValidate="txtRecDate"
-                            Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
-                            Type="Date" >
-                        </asp:CompareValidator>
+                    
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="WCD_Rate" AutoPostBackOnFilter="true"
@@ -562,10 +567,7 @@
                         <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPaybleDate"
                             WatermarkText="dd/mm/yyyy">
                         </cc1:TextBoxWatermarkExtender>
-                        <asp:CompareValidator ID="CompareValidator9" runat="server" CssClass="rfvPCG" ControlToValidate="txtPaybleDate"
-                            Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="btnSave" Operator="DataTypeCheck"
-                            Type="Date">
-                        </asp:CompareValidator>
+                    
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn AllowFiltering="true" DataField="PerDayAsset" AutoPostBackOnFilter="true"
@@ -614,16 +616,21 @@
                 CssClass="cmbFielde" runat="server" onclick="toggle_visibility1('chkBulkReceivedSys','chkBulkReceived');" />
         </td>
         <td>
-            <asp:CheckBox ID="chkBulkReceivedDate" Visible="true" Text="Copy Received Date" onclick="toggle_visibility('chkBulkReceivedDate','rdpBulkReceivedDate','RequiredFieldValidator4');"
-                CssClass="cmbFielde" runat="server" />
+            <asp:CheckBox ID="chkBulkReceivedDate" Visible="true" Text="Copy Received Date"  onclick="toggle_visibility('chkBulkReceivedDate','rdpBulkReceivedDate','RequiredFieldValidator4');" 
+                CssClass="cmbFielde" runat="server"  />
             <br />
             <asp:CheckBox ID="chkBulkPayableDate" Visible="true" Text="Copy Payable Date" CssClass="cmbFielde"
                 onclick="toggle_visibility('chkBulkPayableDate','rdpBulkPayableDate','RequiredFieldValidator2');"
                 runat="server" />
+              <br /> 
+                <asp:CheckBox ID="ChkBulkLockReceived"  Text="Lock All Received" runat="server"   OnCheckedChanged="ChkBulkLockReceived_OnClick" Visible="true"   AutoPostBack="true" CssClass="cmbFielde" />
+              <br />
+                   <asp:CheckBox ID="ChkBulkLockPayOut"  Text="Lock All Payout" runat="server"   OnCheckedChanged="ChkBulkLockPayout_OnClick" Visible="true" AutoPostBack="true" CssClass="cmbFielde" />
+              
         </td>
         <td>
-            <telerik:RadDatePicker ID="rdpBulkReceivedDate" DateInput-EmptyMessage="Please Select a Date"
-                MinDate="01/01/1000" MaxDate="01/01/3000" Label="Received Date" CssClass="calender"
+            <telerik:RadDatePicker ID="rdpBulkReceivedDate" DateInput-EmptyMessage="Please Select a Date" visible="true" 
+                MinDate="01/01/1000" MaxDate="01/01/3000" Label="Received Date" CssClass="calender" 
                 runat="server">
             </telerik:RadDatePicker>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="rdpBulkReceivedDate"
@@ -654,6 +661,10 @@
         </td>
     </tr>
 </table>
+
+                 
+                
+                
 
 <script>
 

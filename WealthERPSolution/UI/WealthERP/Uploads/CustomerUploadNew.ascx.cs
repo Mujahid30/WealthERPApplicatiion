@@ -33,15 +33,19 @@ namespace WealthERP.Uploads
         int amcCode = 0;
         string AgentCode = "0";
         bool lnk;
-        bool btnUp;
+       // bool btnUp;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session["rmVo"];
-            
+
+
+
+
             if (!IsPostBack)
             {
+
                 BindMutualFundDropDowns();
                 BindNAVCategory();
                 LoadAllSchemeList(0);
@@ -51,17 +55,18 @@ namespace WealthERP.Uploads
                 Session["fltrIsRecLocked"] = null;
 
                 int day = 1;
-               
-                    // btnExportFilteredData.Visible = false;
-                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                    if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
-                    {
-                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                        ddlSelectMode.Items.FindByText("Both").Enabled = false;
-                        ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
-                    }
 
+                // btnExportFilteredData.Visible = false;
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (associateuserheirarchyVo != null && associateuserheirarchyVo.AgentCode != null)
+                {
+                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    ddlSelectMode.Items.FindByText("Both").Enabled = false;
+                    ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
                 }
+
+            }
+           
 
             
         }
@@ -101,7 +106,93 @@ namespace WealthERP.Uploads
 
             }
         }
+        protected void chkId_OnClick(object sender, EventArgs e)
+        {
+            int a = 0; int b = gvbrokerageRecon.CurrentPageIndex; 
+          
+            while ((b < gvbrokerageRecon.PageCount))
+            {
+                foreach (GridDataItem dataItem in gvbrokerageRecon.Items)
+                {
+                    a++;
+                    gvbrokerageRecon.CurrentPageIndex = b;
+                    CheckBox chkbox = (CheckBox)dataItem["action"].FindControl("Ranjan");
+                    if (chkId.Checked == true)
+                    {
+                        chkbox.Checked = true;
+                    }
+                    if (chkId.Checked == false)
+                    {
+                        chkbox.Checked = false;
+                    }
+                }
+                b++;
 
+            }
+            gvbrokerageRecon.CurrentPageIndex = 0;
+            }
+     
+        protected void ChkBulkLockReceived_OnClick(object sender, EventArgs e)
+        {
+
+            int a = 0; int b = gvbrokerageRecon.CurrentPageIndex;
+
+            while ((b < gvbrokerageRecon.PageCount))
+            {
+                foreach (GridDataItem dataItem in gvbrokerageRecon.Items)
+                {
+                    a++;
+                    gvbrokerageRecon.CurrentPageIndex = b;
+                      CheckBox chkbox = (CheckBox)dataItem["IsRecLocked"].FindControl("chkIdRec");
+                      if (ChkBulkLockReceived.Checked == true)
+                      {
+                          chkbox.Checked = true;
+                      }
+                      if (ChkBulkLockReceived.Checked == false)
+                      {
+                          chkbox.Checked = false;
+                      }
+                }
+                b++;
+
+            }
+          
+
+        }
+        protected void ChkBulkLockPayout_OnClick(object sender, EventArgs e)
+        {
+            int a = 0; int b = gvbrokerageRecon.CurrentPageIndex;
+
+            while ((b < gvbrokerageRecon.PageCount))
+            {
+                foreach (GridDataItem dataItem in gvbrokerageRecon.Items)
+                {
+                    a++;
+                    gvbrokerageRecon.CurrentPageIndex = b;
+                   
+                    CheckBox chkbox = (CheckBox)dataItem["IsPayLocked"].FindControl("chkIdPay");
+                    if (ChkBulkLockPayOut.Checked == true)
+                    {
+                        chkbox.Checked = true;
+                    }
+                    if (ChkBulkLockPayOut.Checked == false)
+                    {
+                        
+                        chkbox.Checked = false;
+                    }
+                }
+                b++;
+
+            }
+            //if (chkBulkPayableDate.Checked == true)
+            //{
+            if(rdpBulkPayableDate.SelectedDate!=null)
+            {
+                rdpBulkPayableDate.Visible = true;
+            }
+
+        }
+        
 
 
         protected void ddlSelectMode_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -462,23 +553,32 @@ namespace WealthERP.Uploads
             BindGrid();
             Session["fltrIsPayLocked"] = null;
             Session["fltrIsRecLocked"] = null;
+            chkId.Visible = true;
           
         }
 
         protected void gvbrokerageRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dt = new DataTable();
-            dt = (DataTable)Cache["gvbrokerageRecon" + userVo.UserId];
-            if (dt != null)
+            foreach (GridDataItem item in gvbrokerageRecon.Items)
             {
-                gvbrokerageRecon.DataSource = dt;
-                gvbrokerageRecon.Visible = true;
+                DataTable dt = new DataTable();
+                dt = (DataTable)Cache["gvbrokerageRecon" + userVo.UserId];
+                if (dt != null)
+                {
+                    gvbrokerageRecon.DataSource = dt;
+                    gvbrokerageRecon.Visible = true;
+                }
+                
             }
+         
+
 
         }
 
         protected void gvbrokerageRecon_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
+           
+ 
             if (e.Item is GridFilteringItem)
             {
                 //Is Receivable Locked Filter
@@ -519,8 +619,7 @@ namespace WealthERP.Uploads
         }
         protected void gvbrokerageRecon_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-
-
+           
             if (rmVo.IsChecker == true)
             {
                 if (lnk == false)
@@ -562,8 +661,8 @@ namespace WealthERP.Uploads
 
             if (rmVo.IsMaker == true)
             {
-                if (btnUp == true)
-                {
+            //    if (btnUp == true)
+            //    {
 
                     if (e.Item is GridDataItem)
                     {
@@ -591,8 +690,10 @@ namespace WealthERP.Uploads
                         }
 
                     }
-                }
+                //}
             }
+           
+            
         }
 
                     
@@ -677,10 +778,15 @@ namespace WealthERP.Uploads
         protected void btnSave_Click(object sender, EventArgs e)
         {
          
-            int i = 0;
-            foreach (GridDataItem dr in gvbrokerageRecon.Items)
+            int i = 0;  int a = 0; int b = 1;
+
+            while ((b < gvbrokerageRecon.PageCount))
             {
-              
+               
+                foreach (GridDataItem dr in gvbrokerageRecon.Items)
+                {
+                    a++;
+                    gvbrokerageRecon.CurrentPageIndex = b;
                     int id = 0;
                     decimal ActRec = 0;
                     decimal ActPay = 0;
@@ -692,18 +798,20 @@ namespace WealthERP.Uploads
                     DateTime? bulkPaybleDate = DateTime.MinValue;
                     DateTime? bulkReceivedDate = DateTime.MinValue;
                     CheckBox checkBox = (CheckBox)dr.FindControl("Ranjan");
+                    CheckBox check = (CheckBox)dr.FindControl("chkIdRec");
+                    CheckBox checkPay = (CheckBox)dr.FindControl("chkIdPay");
                     decimal rtaAmount = 0;
-                    if ((checkBox.Checked == true)&&(checkBox.Enabled==true))
+                    if (((checkBox.Checked == true) && (check.Enabled == true)) || ((checkBox.Checked == true) && (checkPay.Enabled == true)))
                     {
                         i = i + 1;
                         if (((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim() != "")
                         {
-                        ActRec = Convert.ToDecimal(((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim());
-                        
+                            ActRec = Convert.ToDecimal(((TextBox)dr.FindControl("txtActRecBrokerage")).Text.Trim());
+
                         }
                         IsPayLocked = ((CheckBox)dr.FindControl("chkIdPay")).Checked;
                         IsRecLocked = ((CheckBox)dr.FindControl("chkIdRec")).Checked;
-                        
+
                         if (((TextBox)dr.FindControl("txtActPaybrokerage")).Text.Trim() != "")
                         {
 
@@ -714,12 +822,12 @@ namespace WealthERP.Uploads
                         {
                             paybleDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim());
                         }
-                       
+
                         if (((TextBox)dr.FindControl("txtRecDate")).Text.Trim() != "")
                         {
                             receivedDate = Convert.ToDateTime(((TextBox)dr.FindControl("txtRecDate")).Text.Trim());
                         }
-                        if ((((CheckBox)dr.FindControl("chkIdRec")).Checked)&&(!(chkBulkReceivedDate.Checked)))
+                        if ((((CheckBox)dr.FindControl("chkIdRec")).Checked) && (!(chkBulkReceivedDate.Checked)))
                         {
                             if (((TextBox)dr.FindControl("txtRecDate")).Text.Trim() == "")
                             {
@@ -728,7 +836,7 @@ namespace WealthERP.Uploads
                                 return;
                             }
                         }
-                        if ((((CheckBox)dr.FindControl("chkIdPay")).Checked)&&(!(chkBulkPayableDate.Checked)))
+                        if ((((CheckBox)dr.FindControl("chkIdPay")).Checked) && (!(chkBulkPayableDate.Checked)))
                         {
                             if (((TextBox)dr.FindControl("txtPaybleDate")).Text.Trim() == "")
                             {
@@ -736,8 +844,8 @@ namespace WealthERP.Uploads
                                 return;
                             }
                         }
-                        
-                      
+
+
                         if (chkBulkReceivedDate.Checked)
                         {
                             bulkReceivedDate = rdpBulkReceivedDate.SelectedDate;
@@ -761,13 +869,17 @@ namespace WealthERP.Uploads
                             IsRecLocked, chkBulkPayble.Checked,
                             rtaAmount, chkBulkReceivedSys.Checked, chkBulkReceived.Checked, bulkReceivedDate, bulkPaybleDate);
 
-                    //}
+                        //}
+                    }
                 }
-                }
+                b++;
+            }
             
-            btnUp = true;
-            BindGrid();
-           
+           // btnUp = true;
+          BindGrid();
+            ChkBulkLockReceived.Checked = false;
+            ChkBulkLockPayOut.Checked = false;
+            chkId.Checked = false;
             if (i > 0)
                 ShowMessage("Updated Successfully", "S");
             else
