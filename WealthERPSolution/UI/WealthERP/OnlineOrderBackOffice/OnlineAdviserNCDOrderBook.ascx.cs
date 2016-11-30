@@ -9,6 +9,7 @@ using Telerik.Web.UI;
 using VoUser;
 using BoOnlineOrderManagement;
 using WealthERP.Base;
+using System.Text;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -22,6 +23,7 @@ namespace WealthERP.OnlineOrderBackOffice
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         int debitstatus = 0;
+        int count;
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];           
@@ -114,11 +116,64 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtNCDOrder = new DataTable();
             SetParameter();
             BindAdviserNCCOrderBook();
+            if ((ddlOrderStatus.SelectedValue == "IP")&&(ddlSubInstrCategory.SelectedValue=="FISSGB"))
+            {
+                gvNCDOrderBook.Columns[0].Visible = true;
+                btnChangeStatus.Visible = true;
+            }
+            else
+            {
+                gvNCDOrderBook.Columns[0].Visible = false;
+                btnChangeStatus.Visible = false;
+             }
+            
+           
+           
            
         }
         protected void btnChangeStatus_Click(object sender, EventArgs e)
         {
-            BindAdviserNCCOrderBook();
+            StringBuilder sbOrderIds = new StringBuilder();
+             bool blResult = false;
+             int i = 0;
+          
+            foreach (GridDataItem dr in gvNCDOrderBook.Items)
+            {
+                CheckBox checkBox = (CheckBox)dr.FindControl("chkChangeStatus");
+                if (checkBox.Checked)
+                {
+                    count++;
+                }
+                if (count >= 1)
+                {
+                    GridDataItem gdi;
+                    gdi = (GridDataItem)checkBox.NamingContainer;
+                    int selectedRow = gdi.ItemIndex;
+                    if (checkBox.Checked == true)
+                    {
+
+                        Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[selectedRow]["CO_OrderId"].ToString());
+                        sbOrderIds.Append(orderId + ",");
+
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                    return;
+                }
+            }
+            if (!string.IsNullOrEmpty(sbOrderIds.ToString()))
+            {
+                blResult = onlineNCDBackOfficeBo.GetChangeOrderStatus(sbOrderIds.ToString().Trim(','), userVo.UserId);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Status Successfully Updated !');", true);
+                BindAdviserNCCOrderBook();
+            }
+           
+            
+          
+               
+           
         }
         protected void ddlOrderStatus_OnSelectedIndexChanged(object sender, EventArgs e)
         {

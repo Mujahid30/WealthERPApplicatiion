@@ -160,7 +160,7 @@
                                                 <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="chkChangeStatus" runat="server" />
+                                                <asp:CheckBox ID="chkChangeStatus" runat="server"  />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -466,7 +466,7 @@
 <tr>
     <td id="tdBtnChangeStatus" runat="server">
         <asp:Button ID="btnChangeStatus" runat="server" Visible="false" CssClass="PCGButton"
-            Text="Change Status" OnClick="btnChangeStatus_Click" />
+            Text="Mark As Ordered" OnClick="btnChangeStatus_Click" />
     </td>
 </tr>
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
