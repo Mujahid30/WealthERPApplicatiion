@@ -58,6 +58,42 @@ namespace DaoOnlineOrderManagement
             }
             return dsExtSource;
         }
+        public bool GetChangeOrderStatus(string OrderId,int UserId)
+        {
+          
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand dbCommand;
+            bool result=false;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_MarkOrdersAsOrderedStastus");
+                db.AddInParameter(dbCommand, "@OrderId", DbType.String, OrderId);
+                db.AddInParameter(dbCommand, "@UserId", DbType.Int32, UserId);
+                count= db.ExecuteNonQuery(dbCommand);
+           if (count >0)
+               result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtSource()");
+                object[] objects = new object[2];
+                objects[1] = OrderId;
+                objects[2] = UserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
         public DataSet GetExtSource(string product, int issueId,string productSubType)
         {
             DataSet dsExtSource;
