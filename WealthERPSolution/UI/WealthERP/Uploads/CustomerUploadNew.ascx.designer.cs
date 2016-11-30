@@ -30,7 +30,7 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredDupData;
-
+        
         /// <summary>
         /// lblSelectProduct control.
         /// </summary>
@@ -246,33 +246,6 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
-
-        /// <summary>
-        /// ChkBulkLockReceived control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkBulkLockReceived;
-
-        /// <summary>
-        /// chkId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkId;
-
-        /// <summary>
-        /// ChkBulkLockPayOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkBulkLockPayOut;
         
         /// <summary>
         /// cvddlSelectMutualFund control.
@@ -282,15 +255,6 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvddlSelectMutualFund;
-
-        /// <summary>
-        /// lnkEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
         
         /// <summary>
         /// lblNAVCategory control.
@@ -624,6 +588,15 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator11;
+        
+        /// <summary>
+        /// lnkEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkEdit;
         
         /// <summary>
         /// btnSave control.
