@@ -111,8 +111,25 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
+            DataTable dtNCDOrder = new DataTable();
             SetParameter();
             BindAdviserNCCOrderBook();
+           
+        }
+        protected void btnChangeStatus_Click(object sender, EventArgs e)
+        {
+            BindAdviserNCCOrderBook();
+        }
+        protected void ddlOrderStatus_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+        protected void ChkChangeStatus_OnClick(object sender, EventArgs e)
+        {
+
+         
+         
+
         }
         protected void BindAdviserNCCOrderBook()
         {
@@ -146,6 +163,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvNCDOrderBook.DataBind();
                 ibtExportSummary.Visible = true;
                 pnlGrid.Visible = true;
+                
             }
             else
             {
@@ -154,6 +172,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvNCDOrderBook.DataBind();
                 pnlGrid.Visible = true;
             }
+            if (ddlSubInstrCategory.SelectedValue == "FISSGB" && ddlOrderStatus.SelectedValue == "IP" && dtNCDOrder.Rows.Count > 0)
+            {
+                tdBtnChangeStatus.Visible = true;
+                btnChangeStatus.Visible = true;
+
+            }
+
+            else
+            {
+                tdBtnChangeStatus.Visible = false;
+                btnChangeStatus.Visible = false;
+
+
+            }
+          
         }
         protected void gvNCDOrderBook_UpdateCommand(object source, GridCommandEventArgs e)
         {
@@ -299,12 +332,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            //RadGrid gvChildDetails = (RadGrid)sender; // Get reference to grid 
-            //GridDataItem nesteditem = (GridDataItem)gvChildDetails.NamingContainer;
-            //int strIssuerId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
-            //int orderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["CO_OrderId"].ToString());
-            //DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
-            //gvChildDetails.DataSource = ds.Tables[0];
+          
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
