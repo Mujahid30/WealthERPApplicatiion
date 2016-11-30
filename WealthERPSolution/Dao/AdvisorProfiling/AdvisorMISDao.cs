@@ -2823,7 +2823,52 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
+        public DataTable GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, Boolean isDemat, int IssueId,string productType,string productCategory, DateTime fromdate, DateTime todate)
+        {
+            Database db;
+            DbCommand getCommissionReconMisCmd;
+            DataSet dsGetCommissionReconMis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetAdviserProductMoblizedMIS");
+                db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getCommissionReconMisCmd, "@MobilizationType", DbType.String, TypeMIS);
+                db.AddInParameter(getCommissionReconMisCmd, "@mode", DbType.Int32, mode);
+                db.AddInParameter(getCommissionReconMisCmd, "@IsDemat", DbType.Boolean, isDemat);
+                db.AddInParameter(getCommissionReconMisCmd, "@IssueId", DbType.Int32, IssueId);
+                db.AddInParameter(getCommissionReconMisCmd, "@ProductType", DbType.String, productType);
+                db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String, productCategory);
+                db.AddInParameter(getCommissionReconMisCmd, "@fromDate", DbType.DateTime, fromdate);
+                db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, todate);
+                getCommissionReconMisCmd.CommandTimeout = 60 * 60;
+                dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorMISDao.cs:GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, DateTime fromdate, DataTable todate)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = TypeMIS;
+                objects[2] = mode;
+                objects[1] = fromdate;
+                objects[2] = todate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetCommissionReconMis.Tables[0];
+
+        }
         public DataSet GetWERPCommissionDetails(string product, int AdviserId, int month, int year, string category, int issueId, string productCategory, int amcCode, int schemeCode, int dateFilterType, int isOnline)
         {
             Database db;

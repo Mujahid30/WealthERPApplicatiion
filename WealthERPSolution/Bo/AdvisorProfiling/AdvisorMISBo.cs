@@ -1267,7 +1267,71 @@ namespace BoAdvisorProfiling
             }
             return dsGetMISCommission;
         }
+        public DataTable GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, Boolean isDemat, int IssueId, string productType, string productCategory, DateTime fromdate, DateTime todate)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataTable dtProductMobilizedReport= new DataTable();
 
+            try
+            {
+                dtProductMobilizedReport = MISDao.GetProductMobilizedReport(adviserId, TypeMIS, mode, isDemat,IssueId, productType, productCategory, fromdate, todate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFBo.cs:GetProductMobilizedReport(adviserId,TypeMIS,mode, fromdate, todate)");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = TypeMIS;
+                objects[2] = mode;
+                objects[1] = fromdate;
+                objects[2] = todate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtProductMobilizedReport;
+        }
+
+        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate,int customerid,int online)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsGetReturns;
+            try
+            {
+                dsGetReturns = MISDao.GetMFReturnsDetails(userType, adviserid, RmId, branchId, branchHeadId, All, strValuationDate, customerid,online);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetRMTransactionDeatails()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+                objects[1] = RmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetReturns;
+        }
+        
         public DataSet GetCommissionMISZoneClusterWise(int adviserId, DateTime dtFrom, DateTime dtTo)
         {
 
@@ -1301,37 +1365,7 @@ namespace BoAdvisorProfiling
             return dsGetMISCommission;
         }
 
-        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate,int customerid,int online)
-        {
-            AdvisorMISDao MISDao = new AdvisorMISDao();
-            DataSet dsGetReturns;
-            try
-            {
-                dsGetReturns = MISDao.GetMFReturnsDetails(userType, adviserid, RmId, branchId, branchHeadId, All, strValuationDate, customerid,online);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw (Ex);
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetRMTransactionDeatails()");
-
-                object[] objects = new object[3];
-                objects[0] = adviserid;
-                objects[1] = RmId;
-                objects[2] = branchId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return dsGetReturns;
-        }
-
+        
         public DataSet GetEQReturnsDetails(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, string strValuationDate)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();

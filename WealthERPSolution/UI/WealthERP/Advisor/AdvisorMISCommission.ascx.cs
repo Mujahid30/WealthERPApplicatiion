@@ -32,6 +32,8 @@ using VoUser;
 using System.Web.UI.WebControls;
 using BoWerpAdmin;
 using System.Drawing;
+using BoCommisionManagement;
+using BoOnlineOrderManagement;
 
 namespace WealthERP.Advisor
 {
@@ -48,35 +50,20 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         int amccode = 0;
         int Schemecode = 0;
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
-            //trCommissionMIS.Visible = false;
-            ////gvCommissionMIS.Visible = false;
-            //divCommissionMIS.Visible = false;
-            //pnlCommissionMIS.Visible = false;
-            //pnlZoneClusterWiseMIS.Visible = false;
-            //divZoneClusterWiseMIS.Visible = false;
-            //tdZoneClusterCommissionMIS.Visible = false;
-            //tdCategoryWise.Visible = false;
+          
             if (!Page.IsPostBack)
             {
-                if (!Convert.ToBoolean(advisorVo.MultiBranch))
-                {
-                    ddlMISType.Items.Remove(0);
-                }
-
-                BindPeriodDropDown();
-                RadioButtonClick(sender, e);
+                BindProduct();
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
             }
-            //if(rbtnPickDate.Checked == true)
-            //{
-            //    CompareValidator2.ErrorMessage = "";
-            //}
+          
         }
 
 
@@ -471,64 +458,37 @@ namespace WealthERP.Advisor
         }
         protected void btnView_Click(object sender, EventArgs e)
         {
-            hdnMISType.Value = ddlMISType.SelectedValue.ToString();
-            CalculateDateRange(out dtFrom, out dtTo);
-            hdnFromDate.Value = dtFrom.ToString();
-            hdnToDate.Value = dtTo.ToString();
-
-
-            if (hdnMISType.Value == "AMC_Folio_Type_AllMIS")
+            gvMISCommission.Visible = false;
+            pnlCommissionMIS.Visible = false;
+            gvCommissionMIS.Visible = false;
+            btnCommissionMIS.Visible = true;
+            DataTable dtGetProductMobilizedReport = new DataTable();
+            dtGetProductMobilizedReport = advisorMISBo.GetProductMobilizedReport(advisorVo.advisorId, int.Parse(ddlMISType.SelectedValue), int.Parse(rcbMode.SelectedValue), ((!string.IsNullOrEmpty(rcbOnlineMode.SelectedValue)) ? Convert.ToBoolean(rcbOnlineMode.SelectedValue) : false), (!string.IsNullOrEmpty(rcbIssueName.SelectedValue))?int.Parse(rcbIssueName.SelectedValue):0, rcbProductType.SelectedValue,(!string.IsNullOrEmpty(RcbProductCategory.SelectedValue))? RcbProductCategory.SelectedValue:string.Empty, DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()), DateTime.Parse((txtToDate.SelectedDate.Value).ToString()));
+            if (rcbProductType.SelectedValue == "MF")
             {
-                pnlCommissionMIS.Visible = true;
-                tblCommissionMIS.Visible = true;
-                tblZoneClusterWiseMIS.Visible = false;
-                trAMCSelection.Visible = true;
-                BindMISCommissionGrid();
-
-                gvCommissionMIS.Visible = false;
-            }
-            else if (hdnMISType.Value == "Category Wise")
-            {
-                hdnRecordCount.Value = "1";
-                trAMCSelection.Visible = false;
-                //GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
-                //column.CurrentFilterFunction = GridKnownFunction.Contains;
-                //column.CurrentFilterValue = null;
-                //gvCommissionMIS.MasterTableView.Rebind();
-
-                //gvCommissionMIS.MasterTableView.FilterExpression = null;
-                //gvCommissionMIS.MasterTableView.SortExpressions.Clear();
-                //gvCommissionMIS.MasterTableView.Rebind();
-                //gvCommissionMIS.MasterTableView.ClearEditItems();
-                //gvCommissionMIS.MasterTableView.IsItemInserted = false;
-                //gvCommissionMIS.Rebind();
-                BindCommissionMISGridCategoryWise();
-                //gvCommissionMIS.Visible = true;
-                pnlCommissionMIS.Visible = false;
-                tblZoneClusterWiseMIS.Visible = false;
-                //tdCategoryWise.Visible = true;
-                //trCommissionMIS.Visible = false;
-                // BindCommissionMISGridCategoryWise();
-
-            }
-            else if (hdnMISType.Value == "Zone_Cluster_Wise")
-            {
-                gvCommissionMIS.Visible = false;
-                pnlCommissionMIS.Visible = false;
-                tblCommissionMIS.Visible = false;
-                tblZoneClusterWiseMIS.Visible = true;
-                trAMCSelection.Visible = false;
-                //tdZoneClusterCommissionMIS.Visible = true;
-                BindMISCommissionGridZoneCluster();
+                gvCommissionMIS.DataSource = dtGetProductMobilizedReport;
+                gvCommissionMIS.DataBind();
+                gvCommissionMIS.Visible = true;
+                if (Cache["ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId] != null)
+                {
+                    Cache.Remove("ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId);
+                }
+                Cache.Insert("ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId, dtGetProductMobilizedReport);
             }
             else
             {
-                tblCommissionMIS.Visible = false;
-                tblZoneClusterWiseMIS.Visible = false;
-                gvCommissionMIS.Visible = false;
-                pnlCommissionMIS.Visible = false;
-            }
 
+                gvMISCommission.DataSource = dtGetProductMobilizedReport;
+                gvMISCommission.DataBind();
+                gvMISCommission.Visible = true;
+                pnlCommissionMIS.Visible = true;
+                if (Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId] != null)
+                {
+                    Cache.Remove("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId);
+                }
+                Cache.Insert("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId, dtGetProductMobilizedReport);
+            
+            }
         }
         /// <summary>
         /// Get the From and To Date of reports
@@ -591,13 +551,27 @@ namespace WealthERP.Advisor
 
         protected void btnCommissionMIS_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvMISCommission.ExportSettings.OpenInNewWindow = true;
-            gvMISCommission.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvMISCommission.MasterTableView.GetItems(GridItemType.FilteringItem))
+            if (rcbProductType.SelectedValue != "MF")
             {
-                filter.Visible = false;
+                gvMISCommission.ExportSettings.OpenInNewWindow = true;
+                gvMISCommission.ExportSettings.IgnorePaging = true;
+                foreach (GridFilteringItem filter in gvMISCommission.MasterTableView.GetItems(GridItemType.FilteringItem))
+                {
+                    filter.Visible = false;
+                }
+                gvMISCommission.MasterTableView.ExportToExcel();
             }
-            gvMISCommission.MasterTableView.ExportToExcel();
+            else
+            {
+                gvCommissionMIS.ExportSettings.OpenInNewWindow = true;
+                gvCommissionMIS.ExportSettings.IgnorePaging = true;
+                foreach (GridFilteringItem filter in gvCommissionMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+                {
+                    filter.Visible = false;
+                }
+                gvCommissionMIS.MasterTableView.ExportToExcel();
+
+            }
         }
 
 
@@ -616,9 +590,8 @@ namespace WealthERP.Advisor
         public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
             gvCommissionMIS.Visible = true;
-            //tdCategoryWise.Visible = true;
             DataTable dtMIS = new DataTable();
-            dtMIS = (DataTable)Cache["MIS" + advisorVo.advisorId];
+            dtMIS = (DataTable)Cache["ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId];
             gvCommissionMIS.DataSource = dtMIS;
         }
         public void gvMISCommission_OnNeedDataSource(object sender, EventArgs e)
@@ -626,7 +599,7 @@ namespace WealthERP.Advisor
             gvMISCommission.Visible = true;
             //tdCategoryWise.Visible = true;
             DataTable dtFolioDetails = new DataTable();
-            dtFolioDetails = (DataTable)Cache["AllMIS" + advisorVo.advisorId + userVo.UserId];
+            dtFolioDetails = (DataTable)Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId];
             gvMISCommission.DataSource = dtFolioDetails;
             gvMISCommission.Visible = true;
         }
@@ -742,5 +715,82 @@ namespace WealthERP.Advisor
 
             }
         }
+        private void BindProduct()
+        {
+            CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
+            DataTable DtProductType = new DataTable();
+            DtProductType = commisionReceivableBo.GetProductType().Tables[0];
+            rcbProductType.DataSource = DtProductType;
+            rcbProductType.DataValueField = DtProductType.Columns["PAG_AssetGroupCode"].ToString();
+            rcbProductType.DataTextField = DtProductType.Columns["PAG_AssetGroupName"].ToString();
+            rcbProductType.DataBind();
+            rcbProductType.Items.Insert(0, new RadComboBoxItem("Select", "Select"));
+            rcbProductType.SelectedIndex = 0;
+
+        }
+        protected void rcbProductType_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            if (rcbProductType.SelectedValue == "FI")
+            {
+                tdCategory.Visible = true;
+                tdDdlCategory.Visible = true;
+                BindBondCategories();
+                ddlMISType.Items.FindItemByValue("1").Enabled = false;
+            }
+            else
+            {
+                tdCategory.Visible = false;
+                tdDdlCategory.Visible = false;
+                tdIssueName.Visible = false;
+                tdlblIssueName.Visible = false;
+                ddlMISType.Items.FindItemByValue("1").Enabled = true;
+            }
+        }
+        protected void RcbProductCategory_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            tdIssueName.Visible = true;
+            tdlblIssueName.Visible = true;
+            BindIssueName();
+        }
+        protected void rcbMode_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            tdOnline.Visible = false;
+            tdrcbOnlineMode.Visible = false;
+            if (rcbMode.SelectedValue == "1")
+            {
+                tdOnline.Visible = true;
+                tdrcbOnlineMode.Visible = true;
+            }
+
+        }
+        protected void BindIssueName()
+        {
+            DataTable dtGetIssueName = new DataTable();
+            dtGetIssueName = onlineNCDBackOfficeBo.GetNCDSGBIssueName(advisorVo.advisorId, RcbProductCategory.SelectedValue);
+            rcbIssueName.DataSource = dtGetIssueName;
+            rcbIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
+            rcbIssueName.DataTextField = dtGetIssueName.Columns["AIM_IssueName"].ToString();
+            rcbIssueName.DataBind();
+            rcbIssueName.Items.Insert(0, new RadComboBoxItem("ALL", "0"));
+            rcbIssueName.SelectedIndex = 0;
+
+        }
+        private void BindBondCategories()
+        {
+            OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory("SubInstrumentCat", RcbProductCategory.SelectedValue).Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                RcbProductCategory.DataSource = dtCategory;
+                RcbProductCategory.DataValueField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                RcbProductCategory.DataTextField = dtCategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                RcbProductCategory.DataBind();
+            }
+            RcbProductCategory.Items.Insert(0, new RadComboBoxItem("Select", "Select"));
+            RcbProductCategory.SelectedIndex = 0;
+
+        }
+
     }
 }
