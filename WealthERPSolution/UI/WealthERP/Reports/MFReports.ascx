@@ -961,7 +961,7 @@
                                     </td>
                                     <td align="left" width="87%">
                                         <asp:DropDownList ID="ddlReportSubType" runat="server" width="210px" CssClass="cmbField" onChange="ChangeDates()">
-                                            <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
+                                           <%-- <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>--%>
                                             <asp:ListItem Text="Portfolio Returns-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
                                             <asp:ListItem Text="Comprehensive Report" Value="COMPREHENSIVE"></asp:ListItem>
                                             <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
@@ -971,7 +971,7 @@
                                             <asp:ListItem Text="Capital Gain Details" Value="CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                             <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                             <asp:ListItem Text="Eligible Capital Gain Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
-                                            <asp:ListItem Text="Closing Balance Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>
+                                           <%-- <asp:ListItem Text="Closing Balance Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>--%>
                                             <asp:ListItem Text="Realized Report" Value="REALIZED_REPORT"></asp:ListItem>
 <%--                                            <asp:ListItem Text="Portfolio Composition Report" Value="COMPOSITION_REPORT"></asp:ListItem>
 --%>                                       

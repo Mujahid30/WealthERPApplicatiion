@@ -554,5 +554,551 @@ namespace BoReports
             }
             return dsGetARNNoAndJointHoldings;
         }
+
+
+
+
+        //-------------------------------------------------------------------------New Calculation---------------------------
+        //----------Pairing Starts
+        public DataSet CreateInvetmentsPairingAccountStockWise(DataTable dtTransactions)
+        {
+            string FolioNum = "";
+            int ScripCode = 0;
+            DataTable dtAccountList = new DataTable();
+            DataTable dtBuyTransactions = new DataTable();
+            DataTable dtSellTransactions = new DataTable();
+            DataSet dsTransactoinsAfterPairing = new DataSet();
+            DataSet ds = new DataSet();
+            DataTable dtCustomerTransactionToProcess = new DataTable();
+            DataTable dtAcountWiseBuyTransaction = new DataTable();
+            DataTable dtAcountWiseSellTransaction = new DataTable();
+            string[] columnNames = new string[] { "ScripCode", "FolioNum" };
+            dtAccountList = new DataView(dtTransactions).ToTable(true, columnNames);
+            dtCustomerTransactionToProcess = dtTransactions.Copy();
+            foreach (DataRow drAccounts in dtAccountList.Rows)
+            {
+
+                FolioNum = drAccounts["FolioNum"].ToString();
+                ScripCode = int.Parse(drAccounts["ScripCode"].ToString());
+
+                try
+                {
+                    if (dtCustomerTransactionToProcess.Select("FolioNum='" + FolioNum + "' AND ScripCode='" + ScripCode + "' AND BuySell<>'S' ").Count() > 0)
+                    {
+                        dtAcountWiseBuyTransaction = dtCustomerTransactionToProcess.Select("FolioNum='" + FolioNum + "' AND ScripCode='" + ScripCode + "' AND BuySell<>'S' ", "TransactionDate ASC").CopyToDataTable();
+                        if (dtCustomerTransactionToProcess.Select("FolioNum='" + FolioNum + "' AND ScripCode='" + ScripCode + "' AND BuySell='S' ").Count() > 0)
+                        {
+                            dtAcountWiseSellTransaction = dtCustomerTransactionToProcess.Select("FolioNum='" + FolioNum + "' AND ScripCode='" + ScripCode + "' AND BuySell='S' ", "TransactionDate ASC").CopyToDataTable();
+                        }
+                        else
+                            dtAcountWiseSellTransaction = dtCustomerTransactionToProcess.Clone();
+                        ds = CreateMFNetPositionPairing(dtAcountWiseBuyTransaction, dtAcountWiseSellTransaction);
+                        dtBuyTransactions.Merge(ds.Tables[0]);
+                        dtSellTransactions.Merge(ds.Tables[1]);
+                        ds.Clear();
+                    }
+
+                    ScripCode = 0;
+                    FolioNum = "";
+
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+            dsTransactoinsAfterPairing.Tables.Add(dtBuyTransactions);
+            dsTransactoinsAfterPairing.Tables.Add(dtSellTransactions);
+            return dsTransactoinsAfterPairing;
+        }
+        public DataSet CreateMFNetPositionPairing(DataTable tempBuyTransaction, DataTable tempSellTransaction)
+        {
+            DataSet ds = new DataSet();
+            decimal sellQuantity = 0;
+            decimal buyQuantity = 0;
+            int rowCountBuy = 0;
+            foreach (DataRow drSell in tempSellTransaction.Rows)
+            {
+                sellQuantity = decimal.Parse(drSell["Units"].ToString());
+                while (sellQuantity > 0)
+                {
+                    DataRow drBuy;
+                    if (rowCountBuy < (tempBuyTransaction.Rows.Count - 1))
+                        drBuy = tempBuyTransaction.Rows[rowCountBuy];
+                    else
+                        if (tempBuyTransaction.Rows.Count > 0)
+                            drBuy = tempBuyTransaction.Rows[tempBuyTransaction.Rows.Count - 1];//tempBuyTransaction.Select("CET_IsSpeculative='" + tranxType + "'  ").Last();//
+                        else
+                            drBuy = null;
+
+                    if (drBuy != null)
+                    {
+                        buyQuantity = decimal.Parse(drBuy["Units"].ToString());
+                        if (buyQuantity >= sellQuantity)
+                        {
+                            buyQuantity = buyQuantity - sellQuantity;
+                            sellQuantity = 0;
+                            drBuy["Units"] = buyQuantity.ToString();
+                            drSell["Units"] = 0;
+                            if (buyQuantity == 0)
+                                rowCountBuy = rowCountBuy + 1;
+                        }
+                        else
+                        {
+                            if (rowCountBuy >= (tempBuyTransaction.Rows.Count - 1))
+                            {
+                                buyQuantity = buyQuantity - sellQuantity;
+                                drBuy["Units"] = buyQuantity.ToString();
+                                drSell["Units"] = 0;
+                                sellQuantity = 0;
+                            }
+                            else
+                            {
+                                sellQuantity = sellQuantity - buyQuantity;
+                                drBuy["Units"] = 0;
+                                drSell["Units"] = sellQuantity.ToString();
+                                rowCountBuy = rowCountBuy + 1;
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        //Exception code goes here
+
+                        drSell["Units"] = (-sellQuantity).ToString();
+                        sellQuantity = -sellQuantity;
+                    }
+
+                }
+
+            }
+            ds.Tables.Add(tempBuyTransaction);
+            ds.Tables.Add(tempSellTransaction);
+            return ds;
+        }
+        //----------Pairing Ends
+
+
+
+
+
+
+        public DataSet CreateCustomerMFReturnsHolding(int C_CustomerId, string PortfolioIds, DateTime? FromDate, DateTime ToDate)
+        {
+
+            MFReportsDao mfReports = new MFReportsDao();
+            DataTable dtTranxn = mfReports.GetCustomerMFTransactions(C_CustomerId, PortfolioIds, FromDate, ToDate).Tables[0];
+            DataTable dtMFReturnsHolding = new DataTable();
+            //dtMFReturnsHolding.Columns.Add("C_CustomerId");
+            dtMFReturnsHolding.Columns.Add("CustomerName");
+            //dtMFReturnsHolding.Columns.Add("PASP_SchemePlanCode");
+
+            //dtMFReturnsHolding.Columns.Add("Scheme");
+            dtMFReturnsHolding.Columns.Add("PASP_SchemePlanShortName");
+            dtMFReturnsHolding.Columns.Add("FolioNo");
+            dtMFReturnsHolding.Columns.Add("PortfolioId");
+            //dtMFReturnsHolding.Columns.Add("portfolioName");
+            dtMFReturnsHolding.Columns.Add("InvestmentStartDate");
+
+            dtMFReturnsHolding.Columns.Add("InvestedCost", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("All_Current", typeof(decimal));
+
+            dtMFReturnsHolding.Columns.Add("UnitsAll", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("Avg_Nav", typeof(decimal));
+
+            dtMFReturnsHolding.Columns.Add("NAV", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("CMFNP_NAVDate");
+            dtMFReturnsHolding.Columns.Add("Divident_DVR", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("Divident_DVP", typeof(decimal));
+
+            dtMFReturnsHolding.Columns.Add("Divident_Total", typeof(decimal));
+
+            dtMFReturnsHolding.Columns.Add("PL", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("AbsoluteReturn");
+            dtMFReturnsHolding.Columns.Add("XIRR");
+
+            dtMFReturnsHolding.Columns.Add("Category");
+
+
+            DataTable dtMFCustomerTotalXIRR = new DataTable();
+            dtMFCustomerTotalXIRR.Columns.Add("CustomerName");
+            dtMFCustomerTotalXIRR.Columns.Add("PortfolioName");
+            dtMFCustomerTotalXIRR.Columns.Add("XIRR");
+            dtMFCustomerTotalXIRR.Columns.Add("AbsoluteReturn");
+            DataSet dsMFHoldingReturns = new DataSet();
+            DataTable dtAllXirr = new DataTable();
+            if (dtTranxn.Rows.Count > 0)
+            {
+                DataSet ds = CreateInvetmentsPairingAccountStockWise(dtTranxn.Select("TranxnTypeCode <>'DVP'", "CustomerName ASC,ScripName ASC,TransactionDate ASC").CopyToDataTable());
+
+                DataTable dtBuy = ds.Tables[0];
+                dtBuy.Columns.Add("AmountNew", typeof(decimal), "Units*Price");
+                dtBuy.Columns.Add("CurrentAmount", typeof(decimal), "Units*MktPrice");
+                dtBuy.Columns.Add("CostOfSales", typeof(decimal), "(UnitsBefore-Units)*Price");
+                dtTranxn.Columns.Add("AmountNew", typeof(decimal), "Amount");
+                DataTable dtSchemeList = new DataView(dtBuy).ToTable(true, new[] { "CustomerName", "CustomerId", "PortfolioName", "PortfolioId", "FolioNum", "ScripCode", "ScripName", "MktPrice", "MktPriceDate", "PAIC_AssetInstrumentCategoryName" });
+                DataTable dtCustomerList = new DataView(dtBuy).ToTable(true, new[] { "CustomerName", "CustomerId", "PortfolioName", "PortfolioId" });
+
+                foreach (DataRow dr in dtSchemeList.Rows)
+                {
+
+                    decimal BalanceUnits = 0;
+                    BalanceUnits = decimal.Parse(dtBuy.Compute("Sum(Units)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                    if (BalanceUnits > 1)
+                    {
+                        DataRow drNew = dtMFReturnsHolding.NewRow();
+                        drNew["CustomerName"] = dr["CustomerName"].ToString();
+                        drNew["PortfolioId"] = dr["PortfolioId"].ToString();
+                        drNew["PASP_SchemePlanShortName"] = dr["ScripName"].ToString();
+                        drNew["FolioNo"] = dr["FolioNum"].ToString();
+                        drNew["Category"] = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        drNew["InvestmentStartDate"] = DateTime.Parse(dtBuy.Compute("MIN(TransactionDate)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0").ToString()).ToString("dd/MM/yyyy");
+                        drNew["NAV"] = decimal.Parse(dr["MktPrice"].ToString());
+
+
+                        if (dr["MktPriceDate"].ToString() != "")
+                            drNew["CMFNP_NAVDate"] = DateTime.Parse(dr["MktPriceDate"].ToString()).ToString("dd/MM/yyyy");
+
+                        drNew["UnitsAll"] = BalanceUnits.ToString();
+                        if (dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode <>'DVR'").Count() > 0)
+                            drNew["InvestedCost"] = decimal.Parse(dtBuy.Compute("Sum(AmountNew)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode <>'DVR'").ToString());
+                        else
+                            drNew["InvestedCost"] = 0;
+                        drNew["Avg_Nav"] = decimal.Parse(drNew["InvestedCost"].ToString()) / BalanceUnits;
+                        drNew["All_Current"] = decimal.Parse(dr["MktPrice"].ToString()) * BalanceUnits;
+                        drNew["PL"] = decimal.Parse(drNew["All_Current"].ToString()) - decimal.Parse(drNew["InvestedCost"].ToString());
+                        if (dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode='DVR'").Count() > 0)
+                            drNew["Divident_DVR"] = decimal.Parse(dtBuy.Compute("Sum(AmountNew)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode='DVR'").ToString());
+                        else
+                            drNew["Divident_DVR"] = 0;
+
+
+
+
+                        if (dtTranxn.Select("TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvestmentStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").Count() > 0)
+                            drNew["Divident_DVP"] = decimal.Parse(dtTranxn.Compute("Sum(Amount)", "TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvestmentStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").ToString());
+                        else
+                            drNew["Divident_DVP"] = 0;
+
+                        drNew["Divident_Total"] = decimal.Parse(drNew["Divident_DVP"].ToString()) + decimal.Parse(drNew["Divident_DVR"].ToString());
+
+                        if (decimal.Parse(drNew["InvestedCost"].ToString()) != 0)
+                            drNew["AbsoluteReturn"] = Math.Round((decimal.Parse(drNew["PL"].ToString()) / (decimal.Parse(drNew["InvestedCost"].ToString()))) * 100, 2);
+                        if (dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0 AND AmountNew<>0 AND TranxnTypeCode<>'DVR'").Count() > 0)
+                        {
+                            DataTable dtXirr = new DataView(dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0 AND AmountNew<>0 AND TranxnTypeCode<>'DVR'", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "AmountNew", "BuySell", "PortfolioId" });
+                            dtAllXirr.Merge(dtXirr);
+                            if (dtTranxn.Select("TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvestmentStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").Count() > 0)
+                            {
+                                dtAllXirr.Merge(new DataView(dtTranxn.Select("TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvestmentStartDate"].ToString()).ToString("MM/dd/yyyy") + "'", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "AmountNew", "BuySell", "PortfolioId" }));
+                                dtXirr.Merge(new DataView(dtTranxn.Select("TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvestmentStartDate"].ToString()).ToString("MM/dd/yyyy") + "'", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "AmountNew", "BuySell", "PortfolioId" }));
+                            }
+                            dtXirr.Columns["TransactionDate"].DataType = Type.GetType("System.DateTime");
+                            dtXirr.DefaultView.Sort = "TransactionDate ASC";
+                            DataTable dt = dtXirr.DefaultView.ToTable();
+                            double[] transactionAmount = new double[dtXirr.Rows.Count + 1];
+                            DateTime[] transactionDate = new DateTime[dtXirr.Rows.Count + 1];
+                            int tempCount = 0;
+                            foreach (DataRow drRow in dt.Rows)
+                            {
+                                if (drRow["BuySell"].ToString() != "S")
+                                    transactionAmount[tempCount] = -(double.Parse(drRow["AmountNew"].ToString()));
+                                else
+                                    transactionAmount[tempCount] = (double.Parse(drRow["AmountNew"].ToString()));
+                                transactionDate[tempCount] = DateTime.Parse(drRow["TransactionDate"].ToString());
+                                tempCount++;
+                            }
+
+                            transactionAmount[tempCount] = double.Parse(drNew["All_Current"].ToString());
+                            transactionDate[tempCount] = ToDate;
+
+                            double xirr = CalculateXIRR(transactionAmount, transactionDate);
+                            if (xirr < 10000)
+                                drNew["XIRR"] = decimal.Parse(xirr.ToString());
+                            else
+                                drNew["XIRR"] = 0;
+                        }
+                        else
+                            drNew["XIRR"] = 0;
+
+                        dtMFReturnsHolding.Rows.Add(drNew);
+                    }
+                }
+                dsMFHoldingReturns.Tables.Add(dtMFReturnsHolding);
+                if (dtAllXirr.Rows.Count > 0 && dtMFReturnsHolding.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dtCustomerList.Rows)
+                    {
+                        if (dtAllXirr.Select("PortfolioId='" + dr["PortfolioId"].ToString() + "'").Count() > 0)
+                        {
+                            DataRow drPortfolioXirr = dtMFCustomerTotalXIRR.NewRow();
+                            drPortfolioXirr["CustomerName"] = dr["CustomerName"].ToString();
+                            drPortfolioXirr["PortfolioName"] = dr["PortfolioName"].ToString();
+
+                            DataTable dtXirr = new DataView(dtAllXirr.Select("PortfolioId='" + dr["PortfolioId"].ToString() + "'", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "AmountNew", "BuySell", "PortfolioId" });
+                            dtXirr.Columns["TransactionDate"].DataType = Type.GetType("System.DateTime");
+                            dtXirr.DefaultView.Sort = "TransactionDate ASC";
+                            DataTable dt = dtXirr.DefaultView.ToTable();
+                            double[] transactionAmount = new double[dtXirr.Rows.Count + 1];
+                            DateTime[] transactionDate = new DateTime[dtXirr.Rows.Count + 1];
+                            int tempCount = 0;
+                            foreach (DataRow drRow in dt.Rows)
+                            {
+                                if (drRow["BuySell"].ToString() != "S")
+                                    transactionAmount[tempCount] = -(double.Parse(drRow["AmountNew"].ToString()));
+                                else
+                                    transactionAmount[tempCount] = (double.Parse(drRow["AmountNew"].ToString()));
+                                transactionDate[tempCount] = DateTime.Parse(drRow["TransactionDate"].ToString());
+                                tempCount++;
+                            }
+
+                            transactionAmount[tempCount] = double.Parse(dtMFReturnsHolding.Compute("Sum(All_Current)", "PortfolioId='" + dr["PortfolioId"].ToString() + "'").ToString());
+                            transactionDate[tempCount] = DateTime.Now;
+
+                            double xirr = CalculateXIRR(transactionAmount, transactionDate);
+                            if (xirr < 10000)
+                                drPortfolioXirr["XIRR"] = decimal.Parse(xirr.ToString());
+                            else
+                                drPortfolioXirr["XIRR"] = 0;
+
+                            drPortfolioXirr["AbsoluteReturn"] = Math.Round(double.Parse(dtMFReturnsHolding.Compute("Sum(PL)", "PortfolioId='" + dr["PortfolioId"].ToString() + "'").ToString()) * 100 / double.Parse(dtMFReturnsHolding.Compute("Sum(InvestedCost)", "PortfolioId='" + dr["PortfolioId"].ToString() + "'").ToString()), 2);
+                            dtMFCustomerTotalXIRR.Rows.Add(drPortfolioXirr);
+                        }
+                    }
+
+                }
+                dsMFHoldingReturns.Tables.Add(dtMFCustomerTotalXIRR);
+            }
+            else
+            {
+                dsMFHoldingReturns.Tables.Add(dtMFReturnsHolding);
+                dsMFHoldingReturns.Tables.Add(dtMFCustomerTotalXIRR);
+            }
+            return dsMFHoldingReturns;
+
+        }
+        public DataSet CreateCustomerMFComprehensive(int C_CustomerId, string PortfolioIds, DateTime? FromDate, DateTime ToDate)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            DataTable dtTranxn = mfReports.GetCustomerMFTransactions(C_CustomerId, PortfolioIds, FromDate, ToDate).Tables[0];
+            DataSet dsMFComprehensive = new DataSet();
+            DataTable dtMFReturnsHolding = new DataTable();
+            dtMFReturnsHolding.Columns.Add("CustomerName");
+            // dtMFReturnsHolding.Columns.Add("CustomerId");
+            dtMFReturnsHolding.Columns.Add("PortfolioName");
+            dtMFReturnsHolding.Columns.Add("PortfolioId");
+            dtMFReturnsHolding.Columns.Add("PASP_SchemePlanShortName");
+            dtMFReturnsHolding.Columns.Add("Folio");
+            dtMFReturnsHolding.Columns.Add("CMFNP_FolioSchemeStartDate");
+            dtMFReturnsHolding.Columns.Add("Units", typeof(decimal));
+            //dtMFReturnsHolding.Columns.Add("AvgPrice", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("InvestedCost", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("NAV", typeof(decimal));
+            //dtMFReturnsHolding.Columns.Add("CurrentNAVDate");
+            dtMFReturnsHolding.Columns.Add("CurrentValue", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("RedeemedAmount", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("DVR", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("DVP", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("PL", typeof(decimal));
+            dtMFReturnsHolding.Columns.Add("AbsReturn");
+            dtMFReturnsHolding.Columns.Add("TotalXIRR");
+            dtMFReturnsHolding.Columns.Add("Category");
+            DataTable dtMFCustomerTotalXIRR = new DataTable();
+            dtMFCustomerTotalXIRR.Columns.Add("CustomerName");
+            dtMFCustomerTotalXIRR.Columns.Add("PortfolioName");
+            dtMFCustomerTotalXIRR.Columns.Add("XIRR");
+            dtMFCustomerTotalXIRR.Columns.Add("AbsoluteReturn");
+            if (dtTranxn.Rows.Count > 0)
+            {
+                DataSet ds = CreateInvetmentsPairingAccountStockWise(dtTranxn.Select("TranxnTypeCode <>'DVP'", "CustomerName ASC,ScripName ASC,TransactionDate ASC").CopyToDataTable());
+                DataTable dtBuy = ds.Tables[0];
+                DataTable dtSell = ds.Tables[1];
+                dtBuy.Columns.Add("AmountNew", typeof(decimal), "Units*Price");
+                dtBuy.Columns.Add("CurrentAmount", typeof(decimal), "Units*MktPrice");
+                dtBuy.Columns.Add("CostOfSales", typeof(decimal), "(UnitsBefore-Units)*Price");
+                DataTable dtSchemeList = new DataView(dtBuy).ToTable(true, new[] { "CustomerName", "CustomerId", "PortfolioName", "PortfolioId", "FolioNum", "ScripCode", "ScripName", "MktPrice", "MktPriceDate", "PAIC_AssetInstrumentCategoryName" });
+                DataTable dtCustomerList = new DataView(dtBuy).ToTable(true, new[] { "CustomerName", "CustomerId", "PortfolioName", "PortfolioId" });
+
+                foreach (DataRow dr in dtSchemeList.Rows)
+                {
+
+                    decimal BalanceUnits = 0;
+                    BalanceUnits = decimal.Parse(dtBuy.Compute("Sum(Units)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+
+                    DataRow drNew = dtMFReturnsHolding.NewRow();
+                    drNew["CustomerName"] = dr["CustomerName"].ToString();
+                    //drNew["CustomerId"] = dr["CustomerId"].ToString();
+                    drNew["PortfolioName"] = dr["PortfolioName"].ToString();
+                    drNew["PortfolioId"] = dr["PortfolioId"].ToString();
+                    drNew["PASP_SchemePlanShortName"] = dr["ScripName"].ToString();
+                    drNew["Folio"] = dr["FolioNum"].ToString();
+                    drNew["Category"] = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                    drNew["CMFNP_FolioSchemeStartDate"] = DateTime.Parse(dtBuy.Compute("MIN(TransactionDate)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString()).ToString("dd/MM/yyyy");
+                    drNew["NAV"] = decimal.Parse(dr["MktPrice"].ToString());
+                    //if (dr["MktPriceDate"].ToString() != "")
+                    //    drNew["CurrentNAVDate"] = DateTime.Parse(dr["MktPriceDate"].ToString()).ToString("dd-MMM-yy");
+                    //else
+                    //    drNew["CurrentNAVDate"] = "";
+                    if (dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode <>'DVR'").Count() > 0)
+                        drNew["InvestedCost"] = decimal.Parse(dtBuy.Compute("Sum(Amount)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode <>'DVR'").ToString());
+                    else
+                        drNew["InvestedCost"] = 0;
+                    if (BalanceUnits > 0)
+                    {
+                        drNew["Units"] = BalanceUnits.ToString();
+                        // drNew["AvgPrice"] = decimal.Parse(dtBuy.Compute("Sum(AmountNew)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString()) / BalanceUnits;
+                        drNew["CurrentValue"] = decimal.Parse(dr["MktPrice"].ToString()) * BalanceUnits;
+                    }
+                    else
+                    {
+                        drNew["CurrentValue"] = drNew["Units"] = 0;
+                    }
+
+
+                    if (dtTranxn.Select("TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count() > 0)
+                        drNew["DVP"] = decimal.Parse(dtTranxn.Compute("Sum(Amount)", "TranxnTypeCode ='DVP' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                    else
+                        drNew["DVP"] = 0;
+
+                    if (dtSell.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count() > 0)
+                        drNew["RedeemedAmount"] = decimal.Parse(dtSell.Compute("Sum(Amount)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                    else
+                        drNew["RedeemedAmount"] = 0;
+
+                    if (dtBuy.Select("TranxnTypeCode ='DVR' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count() > 0)
+                        drNew["DVR"] = decimal.Parse(dtBuy.Compute("Sum(Amount)", "TranxnTypeCode ='DVR' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                    else
+                        drNew["DVR"] = 0;
+
+                    drNew["PL"] = decimal.Parse(drNew["RedeemedAmount"].ToString()) + decimal.Parse(drNew["CurrentValue"].ToString()) - decimal.Parse(drNew["InvestedCost"].ToString()) + decimal.Parse(drNew["DVP"].ToString());
+
+                    if (decimal.Parse(drNew["InvestedCost"].ToString()) != 0)
+                        drNew["AbsReturn"] = Math.Round((decimal.Parse(drNew["PL"].ToString()) / (decimal.Parse(drNew["InvestedCost"].ToString()))) * 100, 2);
+                    if (dtTranxn.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode <>'DVR' ").Count() > 0)
+                    {
+                        DataTable dtXirr = new DataView(dtTranxn.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TranxnTypeCode <>'DVR' ", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "Units", "Amount", "MktPrice", "BuySell", "PAIC_AssetInstrumentCategoryCode" });
+                        dtXirr.Columns["TransactionDate"].DataType = Type.GetType("System.DateTime");
+                        dtXirr.DefaultView.Sort = "TransactionDate ASC";
+                        DataTable dt = dtXirr.DefaultView.ToTable();
+                        double[] transactionAmount = new double[dtXirr.Rows.Count + 1];
+                        DateTime[] transactionDate = new DateTime[dtXirr.Rows.Count + 1];
+                        int tempCount = 0;
+                        foreach (DataRow drRow in dt.Rows)
+                        {
+                            if (drRow["BuySell"].ToString() != "S")
+                                transactionAmount[tempCount] = -(double.Parse(drRow["Amount"].ToString()));
+                            else
+                                transactionAmount[tempCount] = (double.Parse(drRow["Amount"].ToString()));
+                            transactionDate[tempCount] = DateTime.Parse(drRow["TransactionDate"].ToString());
+                            tempCount++;
+                        }
+
+                        transactionAmount[tempCount] = double.Parse(drNew["CurrentValue"].ToString());
+                        transactionDate[tempCount] = ToDate;
+
+                        double xirr = CalculateXIRR(transactionAmount, transactionDate);
+                        if (xirr < 10000)
+                            drNew["TotalXIRR"] = decimal.Parse(xirr.ToString());
+                        else
+                            drNew["TotalXIRR"] = 0;
+                    }
+                    else
+                        drNew["TotalXIRR"] = 0;
+
+                    dtMFReturnsHolding.Rows.Add(drNew);
+                }
+
+                dsMFComprehensive.Tables.Add(dtMFReturnsHolding);
+                foreach (DataRow dr in dtCustomerList.Rows)
+                {
+
+                    DataRow drPortfolioXirr = dtMFCustomerTotalXIRR.NewRow();
+                    drPortfolioXirr["CustomerName"] = dr["CustomerName"].ToString();
+                    drPortfolioXirr["PortfolioName"] = dr["PortfolioName"].ToString();
+                    if (dtTranxn.Select("PortfolioId='" + dr["PortfolioId"].ToString() + "'  AND TranxnTypeCode <>'DVR' AND Amount<>0").Count() > 0)
+                    {
+                        DataTable dtXirr = new DataView(dtTranxn.Select("PortfolioId='" + dr["PortfolioId"].ToString() + "' AND TranxnTypeCode <>'DVR' AND Amount<>0 ", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "Units", "Amount", "MktPrice", "BuySell" });
+                        dtXirr.Columns["TransactionDate"].DataType = Type.GetType("System.DateTime");
+                        dtXirr.DefaultView.Sort = "TransactionDate ASC";
+                        DataTable dt = dtXirr.DefaultView.ToTable();
+                        double[] transactionAmount = new double[dtXirr.Rows.Count + 1];
+                        DateTime[] transactionDate = new DateTime[dtXirr.Rows.Count + 1];
+                        int tempCount = 0;
+                        foreach (DataRow drRow in dt.Rows)
+                        {
+                            if (drRow["BuySell"].ToString() != "S")
+                                transactionAmount[tempCount] = -(double.Parse(drRow["Amount"].ToString()));
+                            else
+                                transactionAmount[tempCount] = (double.Parse(drRow["Amount"].ToString()));
+                            transactionDate[tempCount] = DateTime.Parse(drRow["TransactionDate"].ToString());
+                            tempCount++;
+                        }
+
+                        transactionAmount[tempCount] = double.Parse(dtMFReturnsHolding.Compute("Sum(CurrentValue)", "PortfolioId='" + dr["PortfolioId"].ToString() + "'").ToString());
+                        transactionDate[tempCount] = DateTime.Now;
+
+                        double xirr = CalculateXIRR(transactionAmount, transactionDate);
+                        if (xirr < 10000)
+                            drPortfolioXirr["XIRR"] = decimal.Parse(xirr.ToString());
+                        else
+                            drPortfolioXirr["XIRR"] = 0;
+                    }
+                    else
+                        drPortfolioXirr["XIRR"] = 0;
+                    drPortfolioXirr["AbsoluteReturn"] = Math.Round(double.Parse(dtMFReturnsHolding.Compute("Sum(PL)", "PortfolioId='" + dr["PortfolioId"].ToString() + "'").ToString()) * 100 / double.Parse(dtMFReturnsHolding.Compute("Sum(InvestedCost)", "PortfolioId='" + dr["PortfolioId"].ToString() + "'").ToString()), 2);
+                    dtMFCustomerTotalXIRR.Rows.Add(drPortfolioXirr);
+                }
+
+                dsMFComprehensive.Tables.Add(dtMFCustomerTotalXIRR);
+            }
+            else
+            {
+                dsMFComprehensive.Tables.Add(dtMFReturnsHolding);
+                dsMFComprehensive.Tables.Add(dtMFCustomerTotalXIRR);
+            }
+            return dsMFComprehensive;
+        }
+
+
+        public static double CalculateXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
+        {
+
+            double result = 0;
+            float guess = 0.1f;
+
+            try
+            {
+                if (values.Sum() < 0)
+                    guess = -guess;
+                result = System.Numeric.Financial.XIrr(values, date);
+                //This 'if' loop is a temporary fix for the error where calculation is done for XIRR instead of average
+                if (result.ToString().Contains("E") || result.ToString().Contains("e"))
+                {
+                    result = 0;
+                }
+                return Math.Round(result * 100, 2);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    result = System.Numeric.Financial.XIrr(values, date, guess * 5);
+                    if (result.ToString().Contains("E") || result.ToString().Contains("e"))
+                    {
+                        result = 0;
+                    }
+                    return Math.Round(result * 100, 2); ;
+                }
+                catch (Exception e)
+                {
+                    return Math.Round(result * 100, 2); ;
+                }
+
+            }
+
+        }
+
+
+
     }
 }

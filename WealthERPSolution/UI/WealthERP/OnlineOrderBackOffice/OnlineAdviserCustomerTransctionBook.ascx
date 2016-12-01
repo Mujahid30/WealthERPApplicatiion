@@ -1,14 +1,15 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineAdviserCustomerTransctionBook.ascx.cs" Inherits="WealthERP.OnlineOrderBackOffice.OnlineAdviserCustomerTransctionBook" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineAdviserCustomerTransctionBook.ascx.cs"
+    Inherits="WealthERP.OnlineOrderBackOffice.OnlineAdviserCustomerTransctionBook" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-
 <asp:ScriptManager ID="ScriptManager" runat="server">
-<Services >
-<asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
-</Services>
+    <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
 </asp:ScriptManager>
+
 <script type="text/javascript">
 
     var isItemSelected = false;
@@ -28,6 +29,7 @@
     }
     
 </script>
+
 <script>
     function fnJumpSize(cmbDrop) {
 
@@ -40,10 +42,11 @@
 
     }
 </script>
+
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         isItemSelected = true;
-     
+
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
 
         return false;
@@ -55,7 +58,7 @@
     }
     function GetRealInvester(source, eventArgs) {
         isItemSelected = true;
-      
+
         document.getElementById("<%= hdnIsRealInvester.ClientID %>").value = eventArgs.get_value();
 
         return false;
@@ -84,51 +87,54 @@
         </td>
     </tr>
 </table>
-<table >
+<table>
     <tr id="trAMC" runat="server">
-     <td>
-                <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
-            </td>
-            <td>
-            <asp:DropDownList ID="ddlMode"  runat="server" CssClass="cmbField">
-            <asp:ListItem Value="false" Text="Online"></asp:ListItem>
-            <asp:ListItem Value="true" Text="Demat"></asp:ListItem>
+        <td>
+            <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField">
+                <asp:ListItem Value="false" Text="Online"></asp:ListItem>
+                <asp:ListItem Value="true" Text="Demat"></asp:ListItem>
             </asp:DropDownList>
-            </td>
-            <td></td>
-            <td></td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
         <td id="tdlblAmc" runat="server" align="left">
             <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
         </td>
         <td id="tdlblFromDate" runat="server" align="right">
             <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="true"
-                Width="300px"  OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                Width="300px" OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td></td>
-        <td></td>
-       <td align="right">
+        <td>
+        </td>
+        <td>
+        </td>
+        <td align="right">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"
                 Visible="false"></asp:Label>
             <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="right" runat="server" >
-            <asp:DropDownList ID="ddlSchemeList"  runat="server" CssClass="cmbField" AutoPostBack="false"
+        <td align="right" runat="server">
+            <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="false"
                 Width="600px">
             </asp:DropDownList>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false"
                 Visible="false">
             </asp:DropDownList>
         </td>
-      
     </tr>
-    </table>
-    <table>
+</table>
+<table>
     <tr>
-      <td>
+        <td>
             <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
         </td>
-        <td  id="tdTxtFromDate" runat="server">
+        <td id="tdTxtFromDate" runat="server">
             <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -138,19 +144,18 @@
                 <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-                <span id="Span1" class="spnRequiredField">*</span>
-                <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtFrom"
-                    ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
-                    runat="server" InitialValue="">
-                </asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                    Type="Date" ControlToValidate="txtFrom" CssClass="cvPCG" Operator="DataTypeCheck"
-                    Display="Dynamic"></asp:CompareValidator>
-          
+            <span id="Span1" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtFrom"
+                ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
+                runat="server" InitialValue="">
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtFrom" CssClass="cvPCG" Operator="DataTypeCheck"
+                Display="Dynamic"></asp:CompareValidator>
         </td>
-      <td></td>
-      
-          <td  id="tdlblToDate" runat="server">
+        <td>
+        </td>
+        <td id="tdlblToDate" runat="server">
             <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
         </td>
         <td id="tdTxtToDate" runat="server">
@@ -163,26 +168,25 @@
                 <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-         
-                <span  id="Span2" class="spnRequiredField">*</span>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
-                    ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
-                    runat="server" InitialValue="">
-                </asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                    Type="Date" ControlToValidate="txtTo" CssClass="cvPCG" Operator="DataTypeCheck"
-                    Display="Dynamic"></asp:CompareValidator>
-            
+            <span id="Span2" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
+                ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
+                runat="server" InitialValue="">
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtTo" CssClass="cvPCG" Operator="DataTypeCheck"
+                Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
                 ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                 ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewTransaction"
                 Display="Dynamic">
             </asp:CompareValidator>
         </td>
-         <td></td>
-        <td></td>
-    
-         <td id="tdCustomerGroup" runat="server" >
+        <td>
+        </td>
+        <td>
+        </td>
+        <td id="tdCustomerGroup" runat="server">
             <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Search Customer:"></asp:Label>
             <asp:DropDownList ID="ddlsearchcustomertype" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlsearchcustomertype_OnSelectedIndexChanged">
@@ -190,8 +194,10 @@
                 <asp:ListItem Text="Individual" Value="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td></td>
-        <td></td>
+        <td>
+        </td>
+        <td>
+        </td>
         <td align="left">
             <asp:Label ID="lblCustomerSearch" Visible="false" runat="server" CssClass="FieldName"
                 Text="Customer:"></asp:Label>
@@ -205,8 +211,10 @@
                 <asp:ListItem Text="Client Code" Value="Clientcode" />
             </asp:DropDownList>
         </td>
-        <td></td>
-        <td></td>
+        <td>
+        </td>
+        <td>
+        </td>
         <td align="left" id="tdtxtPansearch" runat="server" visible="false">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="false" onclientClick="ShowIsa()" Width="150px">
@@ -225,10 +233,9 @@
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
-       
         <td align="left" id="tdtxtClientCode" runat="server" visible="false">
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="false" onclientClick="ShowIsa()" ></asp:TextBox>
+                AutoPostBack="false" onclientClick="ShowIsa()"></asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtClientCode"
                 WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -243,7 +250,6 @@
                 ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
-       
         <td align="left" id="tdtxtCustomerName" runat="server" visible="false">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
@@ -257,14 +263,13 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                 Enabled="True" />
-                                <span  id="Span4" class="spnRequiredField">*</span>
+            <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCustomerName"
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
-       
     </tr>
     <tr>
         <td id="tdBtnOrder" runat="server" colspan="4">
@@ -398,49 +403,49 @@
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="Brokerage (Rs)" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_ExternalBrokerageAmount"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="Brokerage (Rs)"
+                                    AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="CMFT_ExternalBrokerageAmount" FooterStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="CMFT_STT" HeaderText="STT (Rs)" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="CMFT_STT" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_STT"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                    HeaderStyle-Wrap="false" SortExpression="CMFT_STT" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="CMFT_STT" FooterStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CP_PortfolioName" HeaderText="Portfolio Name" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="CP_PortfolioName" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CP_PortfolioName"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                <telerik:GridBoundColumn DataField="CP_PortfolioName" HeaderText="Portfolio Name"
+                                    AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CP_PortfolioName"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="CP_PortfolioName" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_Area"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                    HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="CMFT_EUIN" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="false"
+                                    HeaderStyle-Wrap="false" SortExpression="CMFT_EUIN" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN" FooterStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="IsT15" HeaderText="City Group" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="IsT15" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="IsT15"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                    HeaderStyle-Wrap="false" SortExpression="IsT15" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="IsT15" FooterStyle-HorizontalAlign="Right"
+                                    DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="WTS_TransactionStatus" HeaderText="Transaction Status" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="WTS_TransactionStatus" ShowFilterIcon="false"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="WTS_TransactionStatus"
-                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                <telerik:GridBoundColumn DataField="WTS_TransactionStatus" HeaderText="Transaction Status"
+                                    AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="WTS_TransactionStatus"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="WTS_TransactionStatus" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                
                                 <%-- <telerik:GridBoundColumn Visible="false" DataField="CurrentNav" HeaderText="Current NAV"
                                     AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CurrentNav" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CurrentNav"
@@ -575,5 +580,5 @@
 <asp:HiddenField ID="hdnPincode" runat="server" />
 <asp:HiddenField ID="hdnIsRealInvester" runat="server" />
 <asp:HiddenField ID="hdnRequestId" runat="server" />
-  <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
-                    <asp:HiddenField ID="hdnSchemeSearch" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnSchemeSearch" runat="server" Visible="false" />

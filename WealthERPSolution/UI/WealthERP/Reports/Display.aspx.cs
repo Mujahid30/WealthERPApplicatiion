@@ -2884,30 +2884,7 @@ namespace WealthERP.Reports
         }
 
 
-        /// <summary>
-        /// Display Portfolio Reports.
-        /// </summary>
-        //private DataTable portfolioXirr(DataSet dsabc, DataTable dtxyz)
-        //{
-        //    try
-        //    {
-        //        DataTable dtabc = dsabc.Tables[0];
-        //        object sumObject;
-        //        sumObject = dtabc.Compute("Sum(TotalPL)", string.Empty);
-        //        double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
-
-        //        sumObject = dtxyz.Compute("Sum(InvestedCost)", string.Empty);
-        //        double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
-
-        //        if (totalHoldingInvestedCost != 0)
-        //            totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost) * 100;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw (ex);
-        //    }
-        //}
+     
 
         private void DisplayReport(PortfolioReportVo report)
         {
@@ -3535,6 +3512,7 @@ namespace WealthERP.Reports
             {
                 MFReportsBo mfReports = new MFReportsBo();
                 report = (MFReportVo)Session["reportParams"];
+                int newHeaderParameter = 1;
                 CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                 if (Session["CusVo"] != null)
                     customerVo = (CustomerVo)Session["CusVo"];
@@ -3807,32 +3785,21 @@ namespace WealthERP.Reports
                         }
                         break;
 
+                
+
                     case "RETURNS_PORTFOLIO":
-                        DataTable dtReturnsPortfolio;
-                        DataSet dsReturnsPortfolioHoldings;
+                        DataTable dtReturnsPortfolios;
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        if (userVo.UserType != "SuperAdmin")
-                            dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
-                        else
-                            dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
-
-                        dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[0];
-                        DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[1];
-                        dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
-
-
-                        if (dsReturnsPortfolioHoldings.Tables[0].Rows.Count > 0)
+                        DataSet dsReturnsPortfolioHolding = mfReports.CreateCustomerMFReturnsHolding(report.CustomerId, report.PortfolioIds, null, report.FromDate);
+                        if (dsReturnsPortfolioHolding.Tables[0].Rows.Count > 0)
                         {
-                            crmain.SetDataSource(dsReturnsPortfolioHoldings.Tables[0]);
+                            crmain.SetDataSource(dsReturnsPortfolioHolding.Tables[0]);
                             setLogo();
-                            crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
+                            crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dsReturnsPortfolioHolding.Tables[1]);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
-
-                            //For PDF View In Browser
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
@@ -3850,38 +3817,17 @@ namespace WealthERP.Reports
                         }
                         break;
                     case "COMPREHENSIVE":
-                        //crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
-                        DataSet dsReturnsPortfolio;
-                        if (userVo.UserType != "SuperAdmin")
-                            dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
-                        else
-                            dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
-                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[0];
-                        //dtReturnsPortfolio.Columns.Add("FolioStartDate");
-                        DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[1];
-
-                        dtPortfolioXIRRComp = GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
-
-                        //  portfolioXirr(dsReturnsPortfolio,dtPortfolioXIRRComp);
-                        //DataTable dtMFSchemePerformance = dsReturnsPortfolio.Tables["SchemeComprehensive"];
+                        DataSet dsReturnsPortfolio = mfReports.CreateCustomerMFComprehensive(report.CustomerId, report.PortfolioIds, null, report.FromDate);
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
                             crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
-
-                            //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dtMFSchemePerformance);
-                            crmain.Subreports["Portfolio_XIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRRComp);
-                            //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dsReturnsPortfolio.Tables[1]);
-                            //crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsReturnsPortfolio.Tables[2]);
-                            //crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsReturnsPortfolio.Tables[5]);
-
+                            crmain.Subreports["Portfolio_XIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dsReturnsPortfolio.Tables[1]);
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
-                            //For PDF View In Browser
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
@@ -3900,11 +3846,8 @@ namespace WealthERP.Reports
                         break;
                     case "COMPOSITION_REPORT":
                         crmain.Load(Server.MapPath("SchemePerformance.rpt"));
-                        DataSet dsCustomerPortfolioComposition;
-                        if (userVo.UserType != "SuperAdmin")
-                            dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
-                        else
-                            dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+                        DataSet dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
+
                         if (dsCustomerPortfolioComposition.Tables[0].Rows.Count > 0)
                         {
                             //crmain.SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
@@ -3934,6 +3877,46 @@ namespace WealthERP.Reports
                             lblClosingBalanceNote.Visible = false;
                         }
                         break;
+
+
+
+
+                    //case "COMPOSITION_REPORT":
+                    //    crmain.Load(Server.MapPath("SchemePerformance.rpt"));
+                    //    DataSet dsCustomerPortfolioCompositions;
+                    //    if (userVo.UserType != "SuperAdmin")
+                    //        dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
+                    //    else
+                    //        dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+                    //    if (dsCustomerPortfolioComposition.Tables[0].Rows.Count > 0)
+                    //    {
+                    //        //crmain.SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                    //        crmain.Database.Tables["PortfolioComposition"].SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
+                    //        crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsCustomerPortfolioComposition.Tables[1]);
+                    //        crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsCustomerPortfolioComposition.Tables[4]);
+
+                    //        setLogo();
+                    //        crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                    //        crmain.SetParameterValue("DateRange", "As on: " + report.FromDate.ToShortDateString());
+                    //        crmain.SetParameterValue("AsOnDate", report.ToDate.ToShortDateString());
+                    //        AssignReportViewerProperties();
+                    //        //For PDF View In Browser
+                    //        if (Request.QueryString["mail"] == "2")
+                    //        {
+                    //            ExportInPDF();
+                    //        }
+                    //        if (Request.QueryString["mail"] == "4")
+                    //        {
+                    //            ExportInDOC();
+                    //        }
+                    //        lblClosingBalanceNote.Visible = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        SetNoRecords();
+                    //        lblClosingBalanceNote.Visible = false;
+                    //    }
+                    //    break;
 
                     //Added Three more cases for Display three new report : Author-Pramod
                     case "RETURNS_PORTFOLIO_REALIZED":
@@ -4131,38 +4114,43 @@ namespace WealthERP.Reports
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line1))
                     formatstring = customerVo.Adr1Line1.Trim();
                 //array[0] = customerVo.Adr1Line1.Trim();
+                //if (!string.IsNullOrEmpty(customerVo.Adr1Line2))
+                //{
+                //    if (formatstring == "")
+                //    {
+                //        formatstring = customerVo.Adr1Line2.Trim();
+                //    }
+                //    else
+                //    {
+                //        formatstring = formatstring + "," + customerVo.Adr1Line2.Trim();
+                //    }
+                //}
                 if (!string.IsNullOrEmpty(customerVo.Adr1Line2))
-                {
-                    if (formatstring == "")
-                    {
-                        formatstring = customerVo.Adr1Line2.Trim();
-                    }
-                    else
-                    {
-                        formatstring = formatstring + "," + customerVo.Adr1Line2.Trim();
+                    formatstring = customerVo.Adr1Line2.Trim();
+                //if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
+                //    if (formatstring == "")
+                //    {
+                //        formatstring = customerVo.Adr1City.Trim();
+                //    }
+                //    else
+                //    {
+                //        formatstring = formatstring + "," + customerVo.Adr1City.Trim();
                         //array[1] = customerVo.Adr1Line2.Trim();
-                    }
-                }
-                if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
-                    if (formatstring == "")
-                    {
-                        formatstring = customerVo.Adr1City.Trim();
-                    }
-                    else
-                    {
-                        formatstring = formatstring + "," + customerVo.Adr1City.Trim();
+                //    }
+                //if (!string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()))
+                //    if (formatstring == "")
+                //    {
+                //        formatstring = customerVo.Adr1PinCode.ToString();
+                //    }
+                //    else
+                    //{
+                        //formatstring = formatstring + "," + customerVo.Adr1PinCode;
                         //array[1] = customerVo.Adr1Line2.Trim();
-                    }
+                    //}
+                if (!string.IsNullOrEmpty(customerVo.Adr1City))
+                    formatstring = customerVo.Adr1City.Trim();
                 if (!string.IsNullOrEmpty(customerVo.Adr1PinCode.ToString()))
-                    if (formatstring == "")
-                    {
-                        formatstring = customerVo.Adr1PinCode.ToString();
-                    }
-                    else
-                    {
-                        formatstring = formatstring + "," + customerVo.Adr1PinCode;
-                        //array[1] = customerVo.Adr1Line2.Trim();
-                    }
+                    formatstring = customerVo.Adr1PinCode.ToString();
 
                 crmain.SetParameterValue("CustomerAddress", formatstring);
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
@@ -5173,7 +5161,7 @@ namespace WealthERP.Reports
 
             string logoPath = System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo);
             if (!File.Exists(logoPath))
-                advisorLogo = @"ABC_Company_company_logo.png";
+                advisorLogo = @"Fincure Resized Logo.png";
             DataTable dt = ImageTable(System.Web.HttpContext.Current.Request.MapPath("\\Images\\" + advisorLogo));
             crmain.Database.Tables["Images"].SetDataSource(dt);
 

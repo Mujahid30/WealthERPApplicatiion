@@ -90,9 +90,9 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             ddlDFrequency.Visible = true;
                             lblddlDFrequency.Visible = true;
-                            trISISN.Visible = true;
-                            tdlblpay.Visible = true;
-                            tdtxtpay.Visible = true;
+                            trISISN.Visible = false;
+                            tdlblpay.Visible = false;
+                            tdtxtpay.Visible = false;
                             //tr1.Visible = false;
                             //td1.Visible = false;
                             //td2.Visible = false;
@@ -141,9 +141,9 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             ddlDFrequency.Visible = true;
                             lblddlDFrequency.Visible = true;
-                            trISISN.Visible = true;
-                            tdlblpay.Visible = true;
-                            tdtxtpay.Visible = true;
+                            trISISN.Visible = false;
+                            tdlblpay.Visible = false;
+                            tdtxtpay.Visible = false;
                             //tr1.Visible = false;
                             //td1.Visible = false;
                             //td2.Visible = false;
