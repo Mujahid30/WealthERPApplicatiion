@@ -254,10 +254,31 @@ namespace WealthERP.BusinessMIS
         }
         protected void ddlRSProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
-           
+          
+          
         }
         protected void ddlProductCategory_OnSelectedIndexChanged(object Sender, EventArgs e)
         {
+            if (ddlProduct.SelectedValue == "FI" && ddlProductCategory.SelectedValue == "FISSGB")
+            {
+                ddlSelectMode.Items.FindByText("Both").Enabled = false;
+                ddlSelectMode.Items.FindByText("Offline-Only").Enabled = false;
+                ddlSelectMode.Items.FindByText("Online-Only").Enabled = true;
+            }
+            else if ((ddlProduct.SelectedValue == "FI" && ((ddlProductCategory.SelectedValue == "FICGCG") || (ddlProductCategory.SelectedValue == "FICDCD"))))
+            {
+                ddlSelectMode.Items.FindByText("Both").Enabled = false;
+                ddlSelectMode.Items.FindByText("Offline-Only").Enabled = true;
+                ddlSelectMode.Items.FindByText("Online-Only").Enabled = false;
+            }
+            else 
+            {
+                ddlSelectMode.Items.FindByText("Both").Enabled = true;
+                ddlSelectMode.Items.FindByText("Offline-Only").Enabled = true;
+                ddlSelectMode.Items.FindByText("Online-Only").Enabled = true;
+               
+               
+            }
             if (ddlProductCategory.SelectedValue != "Select")
             {
                 td1.Visible = false;
@@ -271,6 +292,8 @@ namespace WealthERP.BusinessMIS
                 }
                 BindMappedIssues(ddlIssueType.SelectedValue, ddlProduct.SelectedValue, int.Parse(ddlSelectMode.SelectedValue), (ddlProductCategory.SelectedValue == "") ? "FIFIIP" : ddlProductCategory.SelectedValue,ddlIssueName);
             }
+            
+
         }
         private void LoadAllSchemeList(int amcCode)
         {
@@ -652,6 +675,18 @@ namespace WealthERP.BusinessMIS
                 gvBrokerageRequestStatus.Visible = false;
                 btnReprocess.Visible = false;
                 btnDelete.Visible = false;
+                if (((ddlRequestProduct.SelectedValue == "FI") && (ddlRSProductCategory.SelectedValue == "FISDSD" || ddlRSProductCategory.SelectedValue == "FITFTF")))
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Mode").Visible = true;
+                }
+                if (ddlRequestProduct.SelectedValue == "IP")
+                {
+                    rgNCDIPOMIS.MasterTableView.GetColumn("Mode").Visible = true;
+                }
+                if (ddlRequestProduct.SelectedValue == "MF")
+                {
+                    gvCommissionReceiveRecon.MasterTableView.GetColumn("Mode").Visible = true;
+                }
             }
         }
         private void bindProductWiseBrokerageGrid(int reqId)
@@ -725,6 +760,7 @@ namespace WealthERP.BusinessMIS
                 tdddlRequestAmc.Visible = true;
                 tdlblRequestAmc.Visible = true;
             }
+           
         }
         protected void ddlProduct_SelectedIndexChanged(object source, EventArgs e)
         {

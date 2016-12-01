@@ -208,7 +208,7 @@
                         <td>
                             <asp:DropDownList ID="ddlSelectMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlSelectMode_OnSelectedIndexChanged"
                                 AutoPostBack="true">
-                                <asp:ListItem Text="Both" Value="2">
+                                <asp:ListItem Text="Both" Value="2" Selected="True">
                                 </asp:ListItem>
                                 <asp:ListItem Text="Online-Only" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="Offline-Only" Value="0"></asp:ListItem>
@@ -997,6 +997,13 @@
                                     Aggregate="Sum">
                                     <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridCalculatedColumn>
+                                 <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Online/Offline" Visible="false"
+                                    DataField="Mode" HeaderStyle-HorizontalAlign="Center" UniqueName="Mode"
+                                    SortExpression="Mode" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                
                                 <telerik:GridTemplateColumn HeaderStyle-Width="2%" HeaderText="Commission Adjustment Amount"
                                     DataField="CMFT_ReceivedCommissionAdjustment" SortExpression="CMFT_ReceivedCommissionAdjustment"
                                     HeaderStyle-HorizontalAlign="Center" AutoPostBackOnFilter="true" ShowFilterIcon="false"
@@ -1267,7 +1274,12 @@
                                     FooterStyle-HorizontalAlign="Right" Visible="false">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                
+                                   <telerik:GridBoundColumn HeaderStyle-Width="2%" HeaderText="Online/Offline" Visible="false"
+                                    DataField="Mode" HeaderStyle-HorizontalAlign="Center" UniqueName="Mode"
+                                    SortExpression="Mode" AutoPostBackOnFilter="true" AllowFiltering="false"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="90px" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                 
                                 
                                 <telerik:GridCalculatedColumn DataFields="RecborkageExpectedvalue,borkageExpectedvalue"
