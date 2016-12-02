@@ -4692,7 +4692,10 @@ namespace WealthERP.OffLineOrderManagement
 
             GetDematAccountDetails(int.Parse(txtCustomerId.Value));
             Panel1.Visible = true;
+            if (customerPortfolioVo!=null)
+            {
             hdnPortfolioId.Value = customerPortfolioVo.PortfolioId.ToString();
+            }
         }
         protected void BindDocument(int orderid)
         {
