@@ -300,6 +300,10 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, mforderVo.ARNNo);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(mforderVo.EUIN.ToString().Trim()))
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CO_EUIN", DbType.String, mforderVo.EUIN);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CO_EUIN", DbType.String, DBNull.Value);
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
@@ -525,7 +529,10 @@ namespace DaoOps
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, mforderVo.ARNNo);
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
-
+                if (!string.IsNullOrEmpty(mforderVo.EUIN.ToString().Trim()))
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CO_EUIN", DbType.String, mforderVo.EUIN);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CO_EUIN", DbType.String, DBNull.Value);
                 if (orderVo.AgentId != 0)
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, orderVo.AgentId);
                 else
@@ -1085,6 +1092,24 @@ namespace DaoOps
                 throw (Ex);
             }
             return dsARNNo;
+        }
+        public DataSet GetEUIN(int adviserId)
+        {
+            DataSet dsEUIN;
+            Database db;
+            DbCommand getEUINcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEUINcmd = db.GetStoredProcCommand("SPROC_GetEUIN");
+                db.AddInParameter(getEUINcmd, "@AdviserId", DbType.Int32, adviserId);
+                dsEUIN = db.ExecuteDataSet(getEUINcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsEUIN;
         }
 
         public void GetPanDetails(string Pannum, string Subbrokercode, int AdviserId, out int customerId, out string CustomerName, out int AgentId)

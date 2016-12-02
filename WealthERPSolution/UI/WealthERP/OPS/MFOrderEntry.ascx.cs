@@ -101,6 +101,7 @@ namespace WealthERP.OPS
 
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             GetUserType();
+           
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -478,12 +479,27 @@ namespace WealthERP.OPS
                     AgentCode = "0";
             }
         }
+      
+         private void BindEUIN(int adviserId)
+        {
+            DataSet dsEUIN = mfOrderBo.GetEUIN(adviserId);
+            if (dsEUIN.Tables[0].Rows.Count > 0)
+            {
+                ddlEUIN.DataSource = dsEUIN;
+                ddlEUIN.DataValueField = dsEUIN.Tables[0].Columns["Identifier"].ToString();
+                ddlEUIN.DataTextField = dsEUIN.Tables[0].Columns["Identifier"].ToString();
+                ddlEUIN.DataBind();
+            }
+            ddlEUIN.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlEUIN.SelectedIndex = 0;
+        }
+
 
         private void DefaultBindings()
         {
             cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
             BindARNNo(advisorVo.advisorId);
-
+            BindEUIN(advisorVo.advisorId);
             //BindScheme(0);
             //Sflag = 0;
             //BindAMC(0);
@@ -575,6 +591,10 @@ namespace WealthERP.OPS
                         ddlARNNo.SelectedValue = Convert.ToString(dr["CMFOD_ARNNo"]);
                         //trCust.Visible = true;
                         //ddlsearch.SelectedValue = "1";
+                    }
+                    if (!String.IsNullOrEmpty(dr["CO_EUIN"].ToString()))
+                    {
+                        ddlEUIN.SelectedValue = Convert.ToString(dr["CO_EUIN"]);
                     }
                     trCust.Visible = true;
                     ddlsearch.SelectedValue = "1";
@@ -4981,6 +5001,11 @@ namespace WealthERP.OPS
 
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
+            if (ddlEUIN.SelectedIndex != 0)
+            {
+                mforderVo.EUIN = ddlEUIN.SelectedItem.Text;
+            }
+
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
             if (AgentId.Rows.Count > 0)
@@ -5259,7 +5284,7 @@ namespace WealthERP.OPS
                 txtCorrAdrPinCode.Enabled = false;
                 ddlCorrAdrCountry.Enabled = false;
                 ddlARNNo.Enabled = false;
-
+                ddlEUIN.Enabled = false;
                 ddlsearch.Enabled = false;
                 txtAssociateSearch.Enabled = false;
                 txtSearchScheme.Enabled = false;
@@ -5326,6 +5351,7 @@ namespace WealthERP.OPS
                 txtCorrAdrPinCode.Enabled = true;
                 ddlCorrAdrCountry.Enabled = true;
                 ddlARNNo.Enabled = true;
+                ddlEUIN.Enabled = true;
 
                 btnSubmit.Enabled = true;
                 btnAddMore.Visible = false;
@@ -5592,6 +5618,8 @@ namespace WealthERP.OPS
             mforderVo.Country = ddlCorrAdrCountry.SelectedValue;
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
+            if (ddlEUIN.SelectedIndex != 0)
+                mforderVo.EUIN = ddlEUIN.SelectedItem.Text;
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
 

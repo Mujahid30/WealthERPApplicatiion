@@ -1374,6 +1374,11 @@ namespace WealthERP.OPS
                         mforderVo.ARNNo = Convert.ToString(dr["CMFOD_ARNNo"]);
                     }
 
+                    if (!string.IsNullOrEmpty(dr["CO_EUIN"].ToString()))
+                    {
+                        mforderVo.EUIN = Convert.ToString(dr["CO_EUIN"]);
+                    }
+
                 }
                 Session["orderVo"] = orderVo;
                 Session["mforderVo"] = mforderVo;

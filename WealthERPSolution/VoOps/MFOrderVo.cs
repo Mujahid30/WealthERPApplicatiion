@@ -46,6 +46,7 @@ namespace VoOps
         private DateTime m_EndDate;
         private string m_PanNo;
         private string m_ARNNo;
+        private string m_EUIN;
         private string m_DivOption;
         private string m_Remarks;
         public int AssociateId { get; set; }
@@ -249,6 +250,11 @@ namespace VoOps
         {
             get { return m_ARNNo; }
             set { m_ARNNo = value; }
+        }
+        public string EUIN
+        {
+            get { return m_EUIN; }
+            set { m_EUIN = value; }
         }
 
         public string DivOption

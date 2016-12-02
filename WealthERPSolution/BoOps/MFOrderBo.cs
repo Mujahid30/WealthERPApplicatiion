@@ -337,7 +337,7 @@ namespace BoOps
             }
             return dsGetCustomerMFOrderDetails;
         }
-
+      
 
         public DataSet GetSipControlDetails(int scheme, string frequency)
         {
@@ -518,6 +518,19 @@ namespace BoOps
                 throw (Ex);
             }
             return dsARNNo;
+        }
+        public DataSet GetEUIN(int adviserId)
+        {
+            DataSet dsEUIN;
+            try
+            {
+                dsEUIN = mfOrderDao.GetEUIN(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsEUIN;
         }
         public void GetPanDetails(string Pannum, string Subbrokercode, int AdviserId, out int customerId, out string CustomerName, out int AgentId)
         {

@@ -759,6 +759,14 @@
                     </td>
                     <td align="right">
                         <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td >
+                        <asp:DropDownList ID="ddlEUIN" runat="server" CssClass="cmbField" >
+                        </asp:DropDownList>
+                         <span id="Span37" class="spnRequiredField">*</span>
+                        <asp:CompareValidator ID="cvEUIN" runat="server" ControlToValidate="ddlEUIN"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an EUIN"
+                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                     <td>
                         <asp:Label ID="lb1EUIN" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -900,7 +908,7 @@
                     </td>
                     <td>
                         <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1980-01-01"
                             AutoPostBack="true" OnSelectedDateChanged="txtReceivedDate_SelectedDateChanged"
                             TabIndex="8">
                             <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"

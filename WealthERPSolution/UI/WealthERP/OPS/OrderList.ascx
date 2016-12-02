@@ -375,6 +375,11 @@
                                 UniqueName="CMFOD_ARNNo" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CO_EUIN" HeaderText="EUIN" AllowFiltering="true"
+                            HeaderStyle-Wrap="false" SortExpression="CO_EUIN" ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px" 
+                            UniqueName="CO_EUIN" FooterStyle-HorizontalAlign="Left">
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Address" HeaderText="Address" AllowFiltering="true"
                                 Visible="false" HeaderStyle-Wrap="false" SortExpression="Address" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
