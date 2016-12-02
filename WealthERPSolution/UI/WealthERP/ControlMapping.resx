@@ -2137,4 +2137,12 @@
     <value>FP//CustomerCashFlowDetailsView.ascx</value>
     <comment>FP//CustomerCashFlowDetailsView.ascx</comment>
   </data>
+  <data name="EQReportUI" xml:space="preserve">
+    <value>SSRS//EQReportUI.ascx</value>
+    <comment>SSRS//EQReportUI.ascx</comment>
+  </data>
+  <data name="MFReportUI" xml:space="preserve">
+    <value>SSRS//MFReportUI.ascx</value>
+    <comment>SSRS//MFReportUI.ascx</comment>
+  </data>
 </root>

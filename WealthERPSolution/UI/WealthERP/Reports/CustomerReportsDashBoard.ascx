@@ -40,7 +40,7 @@
                                             </asp:LinkButton>
                                         </div>
                                     </td>
-                                    <td id="td2" runat="server" align="center">
+                                    <td id="td2" runat="server" visible="false" align="center">
                                       <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
 
                                         

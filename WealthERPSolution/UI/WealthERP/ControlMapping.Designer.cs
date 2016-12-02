@@ -1771,6 +1771,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSRS//EQReportUI.ascx.
+        /// </summary>
+        internal static string EQReportUI {
+            get {
+                return ResourceManager.GetString("EQReportUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//EQTradeAccountInputRejects.ascx.
         /// </summary>
         internal static string EQTradeAccountInputRejects {
@@ -2631,6 +2640,15 @@ namespace WealthERP {
         internal static string MFReports {
             get {
                 return ResourceManager.GetString("MFReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSRS//MFReportUI.ascx.
+        /// </summary>
+        internal static string MFReportUI {
+            get {
+                return ResourceManager.GetString("MFReportUI", resourceCulture);
             }
         }
         

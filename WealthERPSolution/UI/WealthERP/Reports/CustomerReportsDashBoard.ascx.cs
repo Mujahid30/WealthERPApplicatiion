@@ -141,7 +141,7 @@ namespace WealthERP.Reports
 
                 if ( lnkbtn1.CommandArgument == "3012")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MFReports','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MFReportUI','login');", true);
                 }
                 //else if (imgBtn1.CommandArgument == "3015" || lnkbtn1.CommandArgument == "3015")
                 //{
@@ -150,7 +150,7 @@ namespace WealthERP.Reports
 
                 if (lnkbtn1.CommandArgument == "3014")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('EquityReports','login');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('EQReportUI','login');", true);
                 }
             }
             if (e.CommandName == "Tree_Navi_Row2")
