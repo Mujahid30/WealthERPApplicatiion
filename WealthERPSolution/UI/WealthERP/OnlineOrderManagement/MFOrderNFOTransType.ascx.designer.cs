@@ -616,5 +616,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::WealthERP.OnlineOrder.Banner MyHeader;
+        protected global::System.Web.UI.WebControls.Label lblDemate;
     }
 }
