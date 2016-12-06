@@ -327,7 +327,9 @@ namespace WealthERP.OffLineOrderManagement
             string agentId = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             OrderStepCode = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStepCode"]).Trim();
             string CloseDate = Convert.ToString(gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_CloseDate"]);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "');", true);
+            string EmpId = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_StaffCode"].ToString();
+            string EmpName = gvIPOOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_FirstName"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IPOIssueTransactOffline", "loadcontrol( 'IPOIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&EmpId=" + EmpId + "&EmpName=" + EmpName + "');", true);
         }
     }
 }

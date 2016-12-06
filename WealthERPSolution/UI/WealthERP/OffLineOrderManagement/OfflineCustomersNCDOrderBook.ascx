@@ -131,7 +131,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 OnItemDataBound="gvNCDOrderBook_OnItemDataCommand" Skin="Telerik" AllowFilteringByColumn="false"
                                 OnNeedDataSource="gvNCDOrderBook_OnNeedDataSource" OnUpdateCommand="gvNCDOrderBook_UpdateCommand">
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,CO_IsAuthenticated,WES_Code,WOS_OrderStep,AIM_IsCancelAllowed,AAC_AgentCode,AgenId,BBEndDate"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode,WOS_OrderStepCode,BBAmounttoinvest,CO_IsAuthenticated,WES_Code,WOS_OrderStep,AIM_IsCancelAllowed,AAC_AgentCode,AgenId,BBEndDate,AR_StaffCode,AR_FirstName"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">

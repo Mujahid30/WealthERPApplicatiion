@@ -3263,6 +3263,50 @@ namespace DaoCustomerProfiling
             }
             return dtAssociatesNames;
         }
+        public DataTable GetBLPNameDetails(string prefixText, int Adviserid)
+        {
+
+            Database db;
+            DbCommand cmdGetBLPDetails;
+            DataSet dsBLPNames;
+            DataTable dtBLPNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetBLPDetails = db.GetStoredProcCommand("GetBLPNameDetails");
+                db.AddInParameter(cmdGetBLPDetails, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetBLPDetails, "@A_AdviserId", DbType.Int32, Adviserid);
+                dsBLPNames = db.ExecuteDataSet(cmdGetBLPDetails);
+                dtBLPNames = dsBLPNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAssociateNameDetails()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtBLPNames;
+        }
+
         public DataTable GetCustomerName(string prefixText, int rmId)
         {
 
@@ -6086,6 +6130,45 @@ namespace DaoCustomerProfiling
 
             }
             return dtCustomerNames;
+        }
+        public DataTable GetBLPName(int adviserid, string EmpName)
+        {
+
+            Database db;
+            DbCommand cmdGetGroupBLPNames;
+            DataSet dsBLPNames;
+            DataTable dtBLPNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetGroupBLPNames = db.GetStoredProcCommand("GetBLPName");
+                db.AddInParameter(cmdGetGroupBLPNames, "@adviserid", DbType.Int32, adviserid);
+                db.AddInParameter(cmdGetGroupBLPNames, "@EmpName", DbType.String, EmpName);
+
+                dsBLPNames = db.ExecuteDataSet(cmdGetGroupBLPNames);
+                dtBLPNames = dsBLPNames.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAdviserCustomerName()");
+                object[] objects = new object[1];
+                objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtBLPNames;
         }
 
         public DataTable GetSubBrokerName(int agentId)

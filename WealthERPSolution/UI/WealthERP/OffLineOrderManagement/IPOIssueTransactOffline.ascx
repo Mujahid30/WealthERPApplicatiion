@@ -339,6 +339,51 @@
                 </td>
             </tr>
             <tr>
+             
+                    <td align="right" >
+                        <asp:Label ID="lblBusinessLeadProvider" runat="server" CssClass="FieldName" Text="Business Lead Provider:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtBLPSearch" runat="server" CssClass="txtField" AutoComplete="Off"
+                            OnTextChanged="OnBLPTextchanged" AutoPostBack="True" TabIndex="5">
+                        </asp:TextBox><span id="Span38" class="spnRequiredField">*</span>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtBLPSearch"
+                            WatermarkText="Enter few chars of Employee Code" runat="server" EnableViewState="false">
+                        </cc1:TextBoxWatermarkExtender>
+                        <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender4" runat="server" TargetControlID="txtBLPSearch"
+                            ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                             MinimumPrefixLength="1" EnableCaching="False"
+                            CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtBLPSearch"
+                            ErrorMessage="<br />Please Enter a Business Lead Provider" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblBLPName" runat="server" CssClass="FieldName" Text="BLP Name:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblBLPText" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td align="right">
+                    </td>
+                    <td>
+                    </td>
+                    <td class="Page_Left_Padding">
+                </td>
+                    <td align="right">
+                        <asp:Label ID="lblBLPCode" runat="server" CssClass="FieldName" Text="BLP Code:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblBLPCodeText" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            <tr>
                 <td colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
                         Order Detail Section

@@ -311,6 +311,10 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, mforderVo.AgentId);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
+                if (mforderVo.EmpId != 0)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@EmpId", DbType.Int32, mforderVo.EmpId);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@EmpId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
 
@@ -537,6 +541,10 @@ namespace DaoOps
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, orderVo.AgentId);
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
+                if (mforderVo.EmpId != 0)
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@EmpId", DbType.Int32, mforderVo.EmpId);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@EmpId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
 

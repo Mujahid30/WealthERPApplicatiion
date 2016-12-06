@@ -3386,6 +3386,38 @@ namespace BoCustomerProfiling
             }
             return dtAssociatesNames;
         }
+        public DataTable GetBLPNameDetails(string prefixText, int Adviserid)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtAssociatesNames = new DataTable();
+            try
+            {
+                dtAssociatesNames = customerDao.GetBLPNameDetails(prefixText, Adviserid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAssociateNameDetails()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtAssociatesNames;
+        }
         public DataTable GetAgentId(int adviserid, int agentid)
         {
             CustomerDao customerDao = new CustomerDao();
@@ -3466,6 +3498,38 @@ namespace BoCustomerProfiling
 
             }
             return dtCustomerNames;
+        }
+        public DataTable GetBLPName(int adviserId, string EmpName)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtBLPNames = new DataTable();
+            try
+            {
+                dtBLPNames = customerDao.GetBLPName(adviserId, EmpName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[0];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtBLPNames;
         }
         public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode)
         {

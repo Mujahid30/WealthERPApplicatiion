@@ -927,6 +927,26 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
         [WebMethod]
+        public string[] GetBLPNameDetails(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtBLPName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtBLPName = customerBo.GetBLPNameDetails(prefixText, int.Parse(contextKey));
+           
+            foreach (DataRow dr in dtBLPName.Rows)
+            {
+                if (!string.IsNullOrEmpty(dr["AR_FirstName"].ToString()))
+                {
+                    string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AR_FirstName"].ToString(), dr["AR_StaffCode"].ToString());
+                    names.Add(item);
+                }
+            }
+            return names.ToArray();
+        }
+        [WebMethod]
         public string[] GetAssociateName(string prefixText, int count, string contextKey)
         {
             CustomerBo customerBo = new CustomerBo();

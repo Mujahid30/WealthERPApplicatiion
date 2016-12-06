@@ -383,12 +383,12 @@ namespace BoOps
             }
             return dsCustomerAssociates;
         }
-        public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo fiorderVo, int userId,string Mode)
+        public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo fiorderVo, int userId,string Mode,int EmpId)
         {
             List<int> orderIds = new List<int>();
             try
             {
-                orderIds = fiOrderDao.CreateOrderFIDetails(orderVo, fiorderVo, userId, Mode);
+                orderIds = fiOrderDao.CreateOrderFIDetails(orderVo, fiorderVo, userId, Mode,EmpId);
             }
             catch (BaseApplicationException Ex)
             {

@@ -175,6 +175,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dsExtractData = new DataTable();
                 dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
+               
                 if (dsExtractData.Rows.Count > 0)
                 {
                     if (Cache["pnlCustomerDetails" + advisorVo.advisorId] == null)
@@ -190,6 +191,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     btnDownload.Visible = true;
+                    imgexportButton.Visible = true;
                 }
                 else
                 {
@@ -256,6 +258,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     pnlFATCA.Visible = false;
+                    imgexportButton.Visible = true;
                     pnlOrderReport.Visible = false;
                 }
                 else if (ddlOrderType.SelectedValue == "2")
@@ -380,7 +383,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtCustomerDetailsReport = new DataTable();
-            dtCustomerDetailsReport = (DataTable)Cache["BSEReport" + advisorVo.advisorId];
+            dtCustomerDetailsReport = (DataTable)Cache["pnlCustomerDetails" + advisorVo.advisorId];
 
             if (dtCustomerDetailsReport != null)
             {
@@ -523,13 +526,15 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (ddlOrderType.SelectedValue == "3")
             {
+                gvCustomerDetails.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
                 gvCustomerDetails.ExportSettings.OpenInNewWindow = true;
                 gvCustomerDetails.ExportSettings.IgnorePaging = true;
                 gvCustomerDetails.ExportSettings.HideStructureColumns = true;
                 gvCustomerDetails.ExportSettings.ExportOnlyData = true;
-                //gvCustomerDetails.ExportSettings.FileName = "FATCA Report For " + ddlAMC.SelectedItem.Text + " " + fromdate.ToShortDateString() + "-" + todate.ToShortDateString();
+                gvCustomerDetails.ExportSettings.FileName = "Report for Extract BSE Client";
                 gvCustomerDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-                gvCustomerDetails.MasterTableView.ExportToExcel(); 
+                gvCustomerDetails.MasterTableView.ExportToExcel();
+
             }
         }
         protected void gvAdviserIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

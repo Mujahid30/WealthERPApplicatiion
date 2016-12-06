@@ -83,7 +83,7 @@ namespace WealthERP.OffLineOrderManagement
         int minQty = 0;
         int maxQty = 0;
         int EligblecatId = 0;
-
+        DataTable BLPName;
         SystematicSetupVo systematicSetupVo = new SystematicSetupVo();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -105,6 +105,8 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+                    AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
 
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
@@ -146,11 +148,17 @@ namespace WealthERP.OffLineOrderManagement
                     ViewOrderList(orderId);
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
+                    txtBLPSearch.Text = Request.QueryString["EmpName"];
+                    lblBLPText.Text = Request.QueryString["EmpName"];
+                    lblBLPCodeText.Text = Request.QueryString["EmpId"];
                     if (action1 == "View")
                     {
                         SetCOntrolsEnablity(false);
                         btnUpdate.Visible = false;
                         gvCommMgmt.Enabled = false;
+                        txtBLPSearch.Enabled = false;
+                        lblBLPText.Enabled = false;
+                        lblBLPCodeText.Enabled = false;
                         Label3.Visible = false;
                         if (Request.QueryString["OrderStepCode"].ToString() == "REJECTED")
                         {
@@ -182,7 +190,9 @@ namespace WealthERP.OffLineOrderManagement
                         }
                         btnUpdate.Visible = true;
                         Label3.Visible = false;
-
+                        txtBLPSearch.Enabled = true;
+                        lblBLPText.Enabled = true;
+                        lblBLPCodeText.Enabled = true;
 
                     }
                 }
@@ -250,7 +260,17 @@ namespace WealthERP.OffLineOrderManagement
             ddlDepositoryName.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
+        protected void OnBLPTextchanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtBLPSearch.Text))
+            {
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+                if (BLPName != null)
+                    lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
+                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+            }
 
+        }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
@@ -877,8 +897,18 @@ namespace WealthERP.OffLineOrderManagement
                     {
                         agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
                     }
+                    if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                        BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+                    if (BLPName.Rows.Count > 0)
+                    {
+                        mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+                    }
+                    else
+                    {
+                        mforderVo.EmpId = 0;
+                    }
 
-                    orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId);
+                    orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId, mforderVo.EmpId);
                     orderId = int.Parse(orderIds["Order_Id"].ToString());
                     aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
                     ViewState["OrderId"] = orderId;
@@ -1203,6 +1233,16 @@ namespace WealthERP.OffLineOrderManagement
             {
                 agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
             }
+            if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+            if (BLPName.Rows.Count > 0)
+            {
+                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+            }
+            else
+            {
+                mforderVo.EmpId = 0;
+            }
             Page.Validate("btnConfirmOrder");
             if (Page.IsValid)
             {
@@ -1214,7 +1254,7 @@ namespace WealthERP.OffLineOrderManagement
                 else
                 {
                     bool resule = false;
-                    resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails, ddlBrokerCode.SelectedValue, agentId, OnlineBondVo);
+                    resule = OfflineNCDIPOBackOfficeBo.UpdateNCDDetails(int.Parse(hdnOrderId.Value), userVo.UserId, dtOrderDetails, ddlBrokerCode.SelectedValue, agentId, OnlineBondVo, mforderVo.EmpId);
                     if (resule != false)
                     {
                         lnkEdit.Visible = true;
@@ -1241,6 +1281,9 @@ namespace WealthERP.OffLineOrderManagement
                 SetCOntrolsEnablity(true);
                 gvCommMgmt.Enabled = true;
             }
+            txtBLPSearch.Enabled = true;
+            lblBLPText.Enabled = true;
+            lblBLPCodeText.Enabled = true;
         }
 
         protected void BindSubbroker(int issueId)

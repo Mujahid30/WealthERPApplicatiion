@@ -139,7 +139,7 @@
                                 AllowAutomaticInserts="false" Width="120%" Height="400px" OnItemDataBound="gv54FDOrderBook_ItemDataBound"
                                 OnUpdateCommand="gv54FDOrderBook_UpdateCommand">
                           
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName,Orderstep,CO_IsAuthenticated,AIM_CloseDate"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,C_CustomerId,AAC_AgentCode,AssociatesName,Orderstep,CO_IsAuthenticated,AIM_CloseDate,AR_StaffCode,AR_FirstName"
                                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" AllowFilteringByColumn="true"
                                     EditMode="PopUp">
                                     <Columns>

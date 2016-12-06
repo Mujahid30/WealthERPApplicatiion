@@ -31,6 +31,7 @@ namespace WealthERP.OffLineOrderManagement
         string AgentCode;
         string agentCode;
         int orderno = 0;
+        MFOrderVo mforderVo;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         OfflineNCDIPOBackOfficeBo offlineNCDBackOfficeBo = new OfflineNCDIPOBackOfficeBo();
@@ -340,7 +341,9 @@ namespace WealthERP.OffLineOrderManagement
             int associateid = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AgenId"].ToString());
             string agentId = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["WOS_OrderStep"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransactOffline", "loadcontrol( 'NCDIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "');", true);
+            string EmpId = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_StaffCode"].ToString();
+            string EmpName = gvNCDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_FirstName"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransactOffline", "loadcontrol( 'NCDIssueTransactOffline','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&associateid=" + associateid + "&agentId=" + agentId + "&OrderStepCode=" + OrderStepCode + "&EmpId=" + EmpId + "&EmpName="+EmpName+"');", true);
         }
     }
 }

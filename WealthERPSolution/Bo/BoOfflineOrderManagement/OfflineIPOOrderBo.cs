@@ -42,13 +42,13 @@ namespace BoOfflineOrderManagement
             }
             return dtIPOIssueList;
         }
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, int agentId, string agentCode)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, int agentId, string agentCode,int EmpId)
         {
             int orderId = 0;
             OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
             try
             {
-                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo, agentId, agentCode);
+                orderId = OfflineIPOOrderDao.CreateIPOBidOrderDetails(adviserId, userId, dtIPOBidList, onlineIPOOrderVo, agentId, agentCode,EmpId);
 
             }
             catch (BaseApplicationException Ex)
@@ -85,13 +85,13 @@ namespace BoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
-        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId, OnlineIPOOrderVo onlineIPOOrderVo)
+        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId, OnlineIPOOrderVo onlineIPOOrderVo,int EmpId)
         {
             bool bResult = false;
             OfflineIPOOrderDao OfflineIPOOrderDao = new OfflineIPOOrderDao();
             try
             {
-                bResult = OfflineIPOOrderDao.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, benificialAcc, brokerCode, userId, onlineIPOOrderVo);
+                bResult = OfflineIPOOrderDao.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, benificialAcc, brokerCode, userId, onlineIPOOrderVo,EmpId);
             }
             catch (BaseApplicationException Ex)
             {

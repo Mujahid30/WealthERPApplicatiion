@@ -510,7 +510,7 @@ namespace DaoOps
             return bResult;
         }
 
-        public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo FIorderVo, int userId, string Mode)
+        public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo FIorderVo, int userId, string Mode,int EmpId)
         {
             List<int> orderIds = new List<int>();
             int OrderId;
@@ -537,6 +537,8 @@ namespace DaoOps
               db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, DBNull.Value);
             // db.AddInParameter(createFIOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate );
                 db.AddInParameter(createFIOrderTrackingCmd, "@CustomerId", DbType.Int32, orderVo.CustomerId);
+                db.AddInParameter(createFIOrderTrackingCmd, "@EmpId", DbType.Int32, EmpId);
+
                 db.AddInParameter(createFIOrderTrackingCmd, "@WOSR_SourceCode", DbType.String, "");
                 db.AddInParameter(createFIOrderTrackingCmd, "@ApplicationNumber", DbType.String, orderVo.ApplicationNumber);
                 if (orderVo.ApplicationReceivedDate != DateTime.MinValue)

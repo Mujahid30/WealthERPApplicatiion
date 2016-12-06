@@ -132,7 +132,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetNCDIssueOrderDetails;
         }
-        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode, int agentId, OnlineBondOrderVo OnlineBondOrderVo)
+        public bool UpdateNCDDetails(int orderid, int userid, DataTable dtOrderDetails, string brokerCode, int agentId, OnlineBondOrderVo OnlineBondOrderVo,int EmpId)
         {
 
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
@@ -160,6 +160,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematDPId", DbType.String, OnlineBondOrderVo.DematDPId);
                 db.AddInParameter(UpdateNCDDetailscmd, "@AID_Sequence", DbType.Int32, OnlineBondOrderVo.PFISM_SchemeId);
                 db.AddInParameter(UpdateNCDDetailscmd, "@customerbankAccId", DbType.Int64, OnlineBondOrderVo.BankAccountNo);
+                db.AddInParameter(UpdateNCDDetailscmd, "@EmpId", DbType.Int32, EmpId);
                 db.ExecuteNonQuery(UpdateNCDDetailscmd);
                 bResult = true;
             }

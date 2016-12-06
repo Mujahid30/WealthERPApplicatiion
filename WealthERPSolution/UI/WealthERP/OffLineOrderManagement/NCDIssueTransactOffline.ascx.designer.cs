@@ -166,6 +166,16 @@ namespace WealthERP.OffLineOrderManagement
         protected global::System.Web.UI.WebControls.TextBox txtRejectReseaon;
 
         /// <summary>
+        /// txtBLPSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBLPSearch;
+
+
+        /// <summary>
         /// RequiredFieldValidator6 control.
         /// </summary>
         /// <remarks>
@@ -237,6 +247,26 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblinsufficent;
+        
+        /// <summary>
+        /// lblBLPCodeText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBLPCodeText;
+
+        /// <summary>
+        /// lblBLPText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBLPText;
+
+
 
         /// <summary>
         /// pnl_OrderSection control.
@@ -291,6 +321,15 @@ namespace WealthERP.OffLineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
+
+        /// <summary>
+        /// AutoCompleteExtender4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender4;
 
         /// <summary>
         /// RequiredFieldValidator1 control.

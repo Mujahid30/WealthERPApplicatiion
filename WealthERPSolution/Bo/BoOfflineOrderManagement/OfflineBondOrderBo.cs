@@ -95,7 +95,7 @@ namespace BoOfflineOrderManagement
             }
 
         }
-        public IDictionary<string, string> OfflineBOndtransact(DataTable OnlineBondOrder, int adviserId, OnlineBondOrderVo OnlineBondVo, int agentId, string agentCode, int userId)
+        public IDictionary<string, string> OfflineBOndtransact(DataTable OnlineBondOrder, int adviserId, OnlineBondOrderVo OnlineBondVo, int agentId, string agentCode, int userId,int EmpId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             OfflineBondOrderDao offlineBondDao = new OfflineBondOrderDao();
@@ -103,7 +103,7 @@ namespace BoOfflineOrderManagement
             //int orderIds = 0; 
             try
             {
-                OrderIds = offlineBondDao.CreateOfflineBondTransact(OnlineBondOrder, adviserId, OnlineBondVo, agentId, agentCode, userId);
+                OrderIds = offlineBondDao.CreateOfflineBondTransact(OnlineBondOrder, adviserId, OnlineBondVo, agentId, agentCode, userId,EmpId);
 
             }
             catch (BaseApplicationException Ex)

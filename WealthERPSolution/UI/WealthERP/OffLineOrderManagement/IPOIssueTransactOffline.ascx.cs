@@ -97,6 +97,7 @@ namespace WealthERP.OffLineOrderManagement
         DataTable AgentId;
         CustomerPortfolioVo customerportfoliovo = new CustomerPortfolioVo();
         FIOrderBo fiorderBo = new FIOrderBo();
+        DataTable BLPName;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -114,6 +115,9 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+                    AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
+
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                 {
@@ -144,10 +148,16 @@ namespace WealthERP.OffLineOrderManagement
                     btnConfirmOrder.Visible = false;
                     btnAddMore.Visible = false;
                     lblAssociateReport.Visible = true;
+                    txtBLPSearch.Text = Request.QueryString["EmpName"];
+                    lblBLPText.Text = Request.QueryString["EmpName"];
+                    lblBLPCodeText.Text = Request.QueryString["EmpId"];
                     if (action1 == "View")
                     {
                         SetFICOntrolsEnablity(false);
                         RadGridIPOBid.Enabled = false;
+                        txtBLPSearch.Enabled = false;
+                        lblBLPText.Enabled = false;
+                        lblBLPCodeText.Enabled = false;
                         if (("RJ" == Request.QueryString["OrderStepCode"].ToString()) || (DateTime.Now > Convert.ToDateTime(Request.QueryString["CloseDate"].ToString())))
                         {
                             lnkEdit.Visible = false;
@@ -171,6 +181,9 @@ namespace WealthERP.OffLineOrderManagement
                             SetFICOntrolsEnablity(true);
                         }
                         btnUpdate.Visible = true;
+                        txtBLPSearch.Enabled = true;
+                        lblBLPText.Enabled = true;
+                        lblBLPCodeText.Enabled = true;
                         if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
                             GetUserType();
                     }
@@ -216,7 +229,9 @@ namespace WealthERP.OffLineOrderManagement
         protected void lnkEdit_OnClick(object sender, EventArgs e)
         {
             btnUpdate.Visible = true;
-
+            txtBLPSearch.Enabled = true;
+            lblBLPText.Enabled = true;
+            lblBLPCodeText.Enabled = true;
             lnkEdit.Visible = false;
             if (("ORDERED" == Request.QueryString["OrderStepCode"].ToString()))
             {
@@ -383,6 +398,16 @@ namespace WealthERP.OffLineOrderManagement
             {
                 agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
             }
+            if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+            if (BLPName.Rows.Count > 0)
+            {
+                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+            }
+            else
+            {
+                mforderVo.EmpId = 0;
+            }
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))
                 cutOff = Convert.ToDateTime(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString());
@@ -521,7 +546,7 @@ namespace WealthERP.OffLineOrderManagement
                 }
                 else
                 {
-                    OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, string.Empty, ddlBrokerCode.SelectedValue, userVo.UserId, onlineIPOOrderVo);
+                    OfflineIPOOrderBo.UpdateIPOBidOrderDetails(dtIPOBidTransactionDettails, orderNo, string.Empty, ddlBrokerCode.SelectedValue, userVo.UserId, onlineIPOOrderVo, mforderVo.EmpId);
                     ShowMessage("IPO Order Updated Successfully,Order reference no. is " + orderNo.ToString());
                     btnUpdate.Visible = false;
                     lnkEdit.Visible = true;
@@ -529,6 +554,9 @@ namespace WealthERP.OffLineOrderManagement
                     RadGridIPOBid.Enabled = false;
                 }
             }
+            txtBLPSearch.Enabled = false;
+            lblBLPText.Enabled = false;
+            lblBLPCodeText.Enabled = false;
         }
 
         public void GetUserType()
@@ -670,6 +698,17 @@ namespace WealthERP.OffLineOrderManagement
                 //txtPansearch.Text = "";
             }
             txtPansearch.Focus();
+        }
+        protected void OnBLPTextchanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtBLPSearch.Text))
+            {
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+                if (BLPName != null)
+                    lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
+                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+            }
+
         }
         protected void HiddenField1_ValueChanged1(object sender, EventArgs e)
         {
@@ -1582,7 +1621,18 @@ namespace WealthERP.OffLineOrderManagement
             {
                 agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
             }
-            orderId = OfflineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, agentId, txtAssociateSearch.Text);
+            if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+            if (BLPName.Rows.Count > 0)
+            {
+                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+            }
+            else
+            {
+                mforderVo.EmpId = 0;
+            }
+
+            orderId = OfflineIPOOrderBo.CreateIPOBidOrderDetails(advisorVo.advisorId, userVo.UserId, dtIPOBidTransactionDettails, onlineIPOOrderVo, agentId, txtAssociateSearch.Text, mforderVo.EmpId);
             if (orderId != 0)
             {
                 userMessage = CreateUserMessage(orderId, accountDebitStatus, isCutOffTimeOver);

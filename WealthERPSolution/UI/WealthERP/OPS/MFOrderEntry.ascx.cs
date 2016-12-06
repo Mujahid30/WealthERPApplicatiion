@@ -86,6 +86,7 @@ namespace WealthERP.OPS
         string AgentCode;
         DataTable AgentId;
         DataTable Agentname;
+        DataTable BLPName;
         SystematicSetupVo systematicSetupVo = new SystematicSetupVo();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -110,6 +111,9 @@ namespace WealthERP.OPS
                 AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                 AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+                AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
+
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
@@ -550,6 +554,8 @@ namespace WealthERP.OPS
         {
             int agentId = 0;
             string agentCode = "";
+            int EmpId=0;
+             string EmpName = "";
 
             DataSet dsGetMFOrderDetails = mfOrderBo.GetCustomerMFOrderDetails(orderId);
             if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
@@ -583,7 +589,20 @@ namespace WealthERP.OPS
                         }
                         else
                             lblAssociatetext.Text = string.Empty;
+                       
+                    }
+                    if (!string.IsNullOrEmpty(dr["AR_RMId"].ToString()))
+                    {
+                        EmpId = Convert.ToInt32(dr["AR_StaffCode"].ToString());
+                        EmpName = dr["AR_FirstName"].ToString();
+                    }
+                    if (EmpId != 0)
+                    {
 
+                        txtBLPSearch.Text = EmpName;
+                        lblBLPCodeText.Text = Convert.ToInt32(EmpId).ToString();
+                        lblBLPText.Text = EmpName;
+                       
                     }
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
@@ -3236,6 +3255,17 @@ namespace WealthERP.OPS
             }
 
         }
+        protected void OnBLPTextchanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtBLPSearch.Text))
+            {
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+                if(BLPName!=null)
+                    lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
+                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+            }
+           
+        }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
@@ -3319,6 +3349,7 @@ namespace WealthERP.OPS
             if (agentId == 0)
                 return;
             Agentname = customerBo.GetSubBrokerName(agentId);
+
             if (Agentname.Rows.Count > 0)
             {
                 lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
@@ -3330,15 +3361,18 @@ namespace WealthERP.OPS
                 {
                     lb1EUIN.Text = string.Empty;
                 }
+               
                 if (!string.IsNullOrEmpty(Agentname.Rows[0][4].ToString()))
                 {
-                    lb1RepTo.Text = Agentname.Rows[0][4].ToString();
+                   lb1RepTo.Text = Agentname.Rows[0][4].ToString();
                 }
-                else
+                    else
                 {
-                    lb1RepTo.Text = string.Empty;
+                   lb1RepTo.Text = string.Empty;
                 }
+              
             }
+            
         }
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
@@ -5008,6 +5042,7 @@ namespace WealthERP.OPS
 
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+           
             if (AgentId.Rows.Count > 0)
             {
                 mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
@@ -5016,6 +5051,17 @@ namespace WealthERP.OPS
             {
                 mforderVo.AgentId = 0;
             }
+            if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+            if (BLPName.Rows.Count > 0)
+            {
+                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+            }
+            else
+            {
+                mforderVo.EmpId = 0;
+            }
+                
             if (!String.IsNullOrEmpty(txtSystematicdates.Text))
                 systematicSetupVo.SystematicDate = Convert.ToInt32(txtSystematicdates.Text);
 
@@ -5632,6 +5678,16 @@ namespace WealthERP.OPS
                     orderVo.AgentId = 0;
             }
 
+            if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+            if (BLPName.Rows.Count > 0)
+            {
+                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+            }
+            else
+            {
+                mforderVo.EmpId = 0;
+            }
 
 
             if (!String.IsNullOrEmpty(txtSystematicdates.Text))

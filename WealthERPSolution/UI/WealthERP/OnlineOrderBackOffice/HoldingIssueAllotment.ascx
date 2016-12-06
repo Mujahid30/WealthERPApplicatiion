@@ -17,7 +17,7 @@
                         <td align="right">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px" 
                                 Width="25px"></asp:ImageButton>
                         </td>
                     </tr>

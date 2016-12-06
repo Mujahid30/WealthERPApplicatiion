@@ -52,7 +52,7 @@ namespace DaoOfflineOrderManagement
             }
             return dtIPOIssueList;
         }
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, int agentId, string agentCode)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo, int agentId, string agentCode,int EmpId)
         {
             int orderId = 0;
             Database db;
@@ -77,7 +77,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(CreateIPOBidOrderCmd, "@XMLIPOBids", DbType.Xml, dsIssueBidList.GetXml().ToString());
                 db.AddInParameter(CreateIPOBidOrderCmd, "@AgentId", DbType.Int32, agentId);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@AgentCode", DbType.String, agentCode);
-
+                db.AddInParameter(CreateIPOBidOrderCmd, "@EmpId", DbType.Int32, EmpId);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerName", DbType.String, onlineIPOOrderVo.CustomerName);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerPAN", DbType.String, onlineIPOOrderVo.CustomerPAN);
                 db.AddInParameter(CreateIPOBidOrderCmd, "@CustomerType", DbType.String, onlineIPOOrderVo.CustomerType);
@@ -134,7 +134,7 @@ namespace DaoOfflineOrderManagement
             }
             return dsGetIPOIssueOrderDetails;
         }
-        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId, OnlineIPOOrderVo onlineIPOOrderVo)
+        public bool UpdateIPOBidOrderDetails(DataTable dtIPOBidTransactionDettails, int orderNo, string benificialAcc, string brokerCode, int userId, OnlineIPOOrderVo onlineIPOOrderVo,int EmpId)
         {
             Database db;
             DataSet dsIssueBidList = new DataSet(); ;
@@ -163,6 +163,8 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematDepositoryName", DbType.String, onlineIPOOrderVo.DematDepositoryName);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@DematDPId", DbType.String, onlineIPOOrderVo.DematDPId);
                 db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@customerbankAccId", DbType.Int64, onlineIPOOrderVo.BankAccountNo);
+                db.AddInParameter(cmdUpdateIPOBidOrderDetails, "@EmpId", DbType.Int64, EmpId);
+
                 if (db.ExecuteNonQuery(cmdUpdateIPOBidOrderDetails) != 0)
                     bResult = true;
             }

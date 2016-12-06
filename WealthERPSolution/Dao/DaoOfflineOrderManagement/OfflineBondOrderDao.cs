@@ -127,7 +127,7 @@ namespace DaoOfflineOrderManagement
                 throw exBase;
             }
         }
-        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, OnlineBondOrderVo OnlineBondVo, int agentId, string agentCode, int userId)
+        public IDictionary<string, string> CreateOfflineBondTransact(DataTable BondORder, int adviserId, OnlineBondOrderVo OnlineBondVo, int agentId, string agentCode, int userId,int EmpId)
         {
             //List<int> orderIds = new List<int>();
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
@@ -161,7 +161,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDepositoryName", DbType.String, OnlineBondVo.DematDepositoryName);
                 db.AddInParameter(cmdOfflineBondTransact, "@DematDPId", DbType.String, OnlineBondVo.DematDPId);
                 db.AddInParameter(cmdOfflineBondTransact, "@customerBankAccountID", DbType.Double, OnlineBondVo.BankAccountNo);
-
+                db.AddInParameter(cmdOfflineBondTransact, "@EmpId", DbType.Int32, EmpId);
                 if (db.ExecuteNonQuery(cmdOfflineBondTransact) != 0)
                 {
 
@@ -239,7 +239,9 @@ namespace DaoOfflineOrderManagement
                 if (orderNo != 0)
                     db.AddInParameter(cmdGetFD54IssueOrder, "@orderNo", DbType.Int32, orderNo);
                 db.AddInParameter(cmdGetFD54IssueOrder, "@userId", DbType.Int32, userId);
+                cmdGetFD54IssueOrder.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(cmdGetFD54IssueOrder);
+              
                 dtGetFD54IssueOrder = ds.Tables[0];
             }
             catch (BaseApplicationException Ex)

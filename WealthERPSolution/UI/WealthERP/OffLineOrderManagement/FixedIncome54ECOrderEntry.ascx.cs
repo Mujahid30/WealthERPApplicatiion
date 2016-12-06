@@ -123,7 +123,7 @@ namespace WealthERP.OffLineOrderManagement
         DataSet dsCustomerAssociates;
         DataTable dtCustomerAssociates = new DataTable();
         DataTable dtCustomerAssociatesRaw = new DataTable();
-
+        DataTable BLPName;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -149,6 +149,8 @@ namespace WealthERP.OffLineOrderManagement
                     AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                     AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+                    AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
 
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
@@ -187,7 +189,7 @@ namespace WealthERP.OffLineOrderManagement
                     lblProductTypess.Text = "Add FD Order Entry";
                     ddlCategory.Items.FindByValue("FICGCG").Enabled = false;
                 }
-                else
+                else if (Request.QueryString["FDOrder"] == "FICDCD")
                 {
                     lblProductTypess.Text = "Add 54EC Order Entry";
                     ddlCategory.Items.FindByValue("FICDCD").Enabled = false;
@@ -260,8 +262,9 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociateReport.Visible = true;
                         btnImgAddCustomer.Visible = false;
                         lblAssociatetext.Text = Request.QueryString["associatename"].ToString();
-
-                        
+                        txtBLPSearch.Text = Request.QueryString["EmpName"];
+                        lblBLPText.Text = Request.QueryString["EmpName"];
+                        lblBLPCodeText.Text = Request.QueryString["EmpId"];
                         txtAssociateSearch.Text = Request.QueryString["agentcode"].ToString();
                         txtRemarks.Text = Request.QueryString["Remarks"].ToString();
                         GetcustomerDetails();
@@ -275,6 +278,9 @@ namespace WealthERP.OffLineOrderManagement
                         SetFICOntrolsEnablity(true);
                         ddlCategory.Enabled = false;
                         ddlScheme.Enabled = false;
+                        txtBLPSearch.Enabled = true;
+                        lblBLPText.Enabled = true;
+                        lblBLPCodeText.Enabled = true;
                     }
 
                     else
@@ -292,6 +298,13 @@ namespace WealthERP.OffLineOrderManagement
                         lblAssociatetext.Visible = true;
                         lblAssociateReport.Visible = true;
                         btnImgAddCustomer.Visible = false;
+                        txtBLPSearch.Text = Request.QueryString["EmpName"];
+                        lblBLPText.Text = Request.QueryString["EmpName"];
+                        lblBLPCodeText.Text = Request.QueryString["EmpId"];
+                          txtBLPSearch.Enabled=false;
+                               lblBLPText.Enabled=false;
+                               lblBLPCodeText.Enabled = false;
+
                         if ("REJECTED" == Request.QueryString["OrderStepCode"].ToString())
                         {
                             lnkBtnFIEdit.Visible = false;
@@ -339,7 +352,17 @@ namespace WealthERP.OffLineOrderManagement
             txtAssociateSearch.Focus();
         }
 
+        protected void OnBLPTextchanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtBLPSearch.Text))
+            {
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+                if (BLPName != null)
+                    lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
+                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+            }
 
+        }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
@@ -810,6 +833,9 @@ namespace WealthERP.OffLineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
                 return;
             }
+            txtBLPSearch.Enabled = false;
+            lblBLPText.Enabled = false;
+            lblBLPCodeText.Enabled = false;
 
         }
 
@@ -906,7 +932,9 @@ namespace WealthERP.OffLineOrderManagement
                 btnSubmit.Enabled = true;
                 return;
             }
-
+            txtBLPSearch.Enabled = false;
+            lblBLPText.Enabled = false;
+            lblBLPCodeText.Enabled = false;
 
         }
 
@@ -975,7 +1003,9 @@ namespace WealthERP.OffLineOrderManagement
             GetAuthentication();
             lnkBtnEdit();
             btnAddMore.Visible = false;
-            msgRecordStatus.Visible = false;
+            txtBLPSearch.Enabled = true;
+            lblBLPText.Enabled = true;
+            lblBLPCodeText.Enabled = true;
 
         }
         protected void lnkBtnBack_Click(object sender, EventArgs e)
@@ -1144,7 +1174,16 @@ namespace WealthERP.OffLineOrderManagement
                 orderVo.Remarks = txtRemarks.Text;
             else
                 orderVo.Remarks = "";
-            
+            if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
+            if (BLPName.Rows.Count > 0)
+            {
+                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+            }
+            else
+            {
+                mforderVo.EmpId = 0;
+            }
           
 
             int dematAccountId = 0;
@@ -1164,7 +1203,7 @@ namespace WealthERP.OffLineOrderManagement
             if (hdnButtonAction.Value == "Submit")
             {
 
-                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Submit");
+                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Submit", mforderVo.EmpId);
                 orderId = int.Parse(OrderIds[0].ToString());
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
@@ -1182,7 +1221,7 @@ namespace WealthERP.OffLineOrderManagement
                 //    fiorderVo.authenticId = 1;
 
 
-                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update");
+                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, "Update", mforderVo.EmpId);
                 orderId = fiorderVo.OrderNumber;
                 BindDocument(orderId);
                 tbUploadDocument.Visible = true;
@@ -1258,12 +1297,15 @@ namespace WealthERP.OffLineOrderManagement
             {
                 if (ddlCategory.SelectedValue != "FICDCD")
                 {
-                    if (Convert.ToInt32(TxtPurAmt.Text) <= (Convert.ToInt32(lblMaxQuentity.Text) * GetFaceValue()))
+                    if (lblMaxQuentity.Text != "")
                     {
-                        txtQty.Text = string.Empty;
-                        txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
+                        if (Convert.ToInt32(TxtPurAmt.Text) <= Convert.ToInt32(lblMaxQuentity.Text )* GetFaceValue())
+                        {
+                            txtQty.Text = string.Empty;
+                            txtQty.Text = (Convert.ToInt32(TxtPurAmt.Text) / GetFaceValue()).ToString();
 
 
+                        }
                     }
                     else
                     {
