@@ -2,9 +2,7 @@
     Inherits="WealthERP.Advisor.AdvisorMISCommission" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<telerik:RadStyleSheetManager runat="server">
-</telerik:RadStyleSheetManager>
-<telerik:RadScriptManager runat="server">
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
 <script type="text/javascript" language="javascript">
@@ -16,7 +14,6 @@
     }
 </script>
 
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -29,7 +26,7 @@
                         <td align="right">
                             <asp:ImageButton Visible="false" ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                                Height="20px" Width="25px"></asp:ImageButton>
                             <asp:ImageButton Visible="false" ID="imgZoneClusterCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnZoneCLusterMISCommission_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -98,6 +95,7 @@
                         <telerik:RadComboBox ID="rcbOnlineMode" AutoPostBack="true" runat="server" CssClass="cmbFielde"
                             EnableEmbeddedSkins="false" Skin="Telerik" AllowCustomText="true">
                             <Items>
+                            <telerik:RadComboBoxItem Text="ALL" Value="2" Selected="true" />
                                 <telerik:RadComboBoxItem Text="Demat" Value="1" />
                                 <telerik:RadComboBoxItem Text="online" Value="0" />
                             </Items>
@@ -253,53 +251,47 @@
         <td>
             <telerik:RadGrid ID="gvCommissionMIS" Visible="false" runat="server" GridLines="None"
                 AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
-                ShowStatusBar="True" ShowFooter="true" EnableViewState="false" Skin="Telerik"
+                ShowStatusBar="True" ShowFooter="true" EnableViewState="true" Skin="Telerik"
                 OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
                 Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                    FileName="MF Mobilization" Excel-Format="ExcelML">
-                </ExportSettings>
                 <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
-                    <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                        ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />--%>
-                        <PagerStyle Mode="NextPrevAndNumeric"   />
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="MT_Type" DataField="MT_Type" AllowFiltering="false"
-                            HeaderText="Report Type" SortExpression="MT_Type" AutoPostBackOnFilter="true"
-                            ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                             SortExpression="MT_Type" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" >
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"  />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Debt" DataField="Debt" AllowFiltering="false"
                             HeaderText="Debt" SortExpression="Debt" AutoPostBackOnFilter="true" ShowFilterIcon="false"
-                            FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Equity" AllowFiltering="false" AutoPostBackOnFilter="true"
                             ShowFilterIcon="false" HeaderText="Equity" FooterStyle-HorizontalAlign="Right"
-                            AllowSorting="true" DataField="Equity">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            AllowSorting="true" DataField="Equity" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"  />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="[Gold_ETF]" AllowFiltering="false" AutoPostBackOnFilter="true"
-                            DataField="[Gold ETF]" ShowFilterIcon="false" HeaderText="Gold ETF" FooterStyle-HorizontalAlign="Right"
-                            AllowSorting="true">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn UniqueName="GOLD_ETF" AllowFiltering="false" AutoPostBackOnFilter="true"
+                            DataField="GOLD_ETF" ShowFilterIcon="false" HeaderText="Gold ETF" FooterStyle-HorizontalAlign="Right"
+                            AllowSorting="true" Aggregate="Sum" DataFormatString="{0:n3}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="[GOLD FUND]" DataField="GOLD FUND" AllowFiltering="false"
-                            HeaderText="Gold Fund" SortExpression="[GOLD FUND]" AutoPostBackOnFilter="true"
-                            ShowFilterIcon="false">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn UniqueName="Gold_Fund" DataField="Gold_Fund" AllowFiltering="false"
+                            HeaderText="Gold Fund" SortExpression="Gold_Fund" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n3}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Index" DataField="Index" AllowFiltering="false"
-                            HeaderText="Index" SortExpression="Index" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            HeaderText="Index" SortExpression="Index" AutoPostBackOnFilter="true" ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="LIQUID" DataField="LIQUID" AllowFiltering="false"
-                            HeaderText="Liquid" SortExpression="LIQUID" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            HeaderText="Liquid" SortExpression="LIQUID" AutoPostBackOnFilter="true" ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Total" DataField="Total" AllowFiltering="false"
-                            HeaderText="Total" SortExpression="Total" AutoPostBackOnFilter="true" ShowFilterIcon="false">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            HeaderText="Total" SortExpression="Total" AutoPostBackOnFilter="true" ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
@@ -313,103 +305,33 @@
 <table runat="server" id="tblCommissionMIS" width="95%" style="margin-left: 8%">
     <tr>
         <td>
-            <asp:Panel Visible="false" ID="pnlCommissionMIS" ScrollBars="Horizontal" Width="80%"
-                runat="server">
-                <div runat="server" id="divCommissionMIS">
-                    <telerik:RadGrid ID="gvMISCommission" runat="server" GridLines="None" AutoGenerateColumns="False"
-                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                        OnNeedDataSource="gvMISCommission_OnNeedDataSource" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
-                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                            FileName="Mobilization Details" Excel-Format="ExcelML">
-                        </ExportSettings>
-                        <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-                            GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true" Width="100%"
-                            AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                            <Columns>
-                                <telerik:GridBoundColumn HeaderText="" HeaderTooltip="[Type]" DataField="[Type]"
-                                    UniqueName="[Type]" SortExpression="[Type]" AllowFiltering="false" AutoPostBackOnFilter="true"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderStyle-Width="350px">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Amount Raised (Ordered)" HeaderTooltip="[Ordered Amount]"
-                                    DataField="[Ordered Amount]" HeaderStyle-Width="250px" UniqueName="[Ordered Amount]"
-                                    SortExpression="[Ordered Amount]" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Amount Alloted (Accepted)" HeaderTooltip="[Accepted Amount]"
-                                    DataField="[Accepted Amount]" HeaderStyle-Width="120px" UniqueName="[Accepted Amount]"
-                                    SortExpression="[Accepted Amount]" AutoPostBackOnFilter="true" AllowFiltering="false"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                            </Columns>
-                        </MasterTableView>
-                        <HeaderStyle Width="150px" />
-                        <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                            <Resizing AllowColumnResize="true" />
-                            <Selecting AllowRowSelect="true" />
-                        </ClientSettings>
-                    </telerik:RadGrid>
-                </div>
-                <%-- <div runat="server" id="divCommissionMIS" style="margin: 2px; width: 640px;">
-                    <telerik:RadGrid Visible="false" ID="gvMISCommission" runat="server" CssClass="RadGrid" GridLines="None"
-                        Width="100%" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
-                        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                        AllowAutomaticUpdates="false" Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true" OnNeedDataSource="gvMISCommission_OnNeedDataSource">
-                        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-                        </ExportSettings>
-                        <MasterTableView CommandItemDisplay="None">
-                            <Columns>
-                              <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMC" DataField="AMCName" HeaderStyle-Width="108px"
-                            SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
+            <telerik:RadGrid ID="gvNonMFMobilization" Visible="false" runat="server" GridLines="None"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                ShowStatusBar="True" ShowFooter="true" EnableViewState="true" Skin="Telerik"
+                OnNeedDataSource="gvMISCommission_OnNeedDataSource" EnableEmbeddedSkins="false"
+                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
+                    <Columns>
+                         <telerik:GridBoundColumn UniqueName="Typep" DataField="Typep" AllowFiltering="false"
+                             SortExpression="Typep" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="SchemeName" HeaderText="Scheme" DataField="SchemeName" HeaderStyle-Width="108px"
-                            SortExpression="SchemeName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
+                        <telerik:GridBoundColumn UniqueName="Ordered_Amount" DataField="Ordered_Amount" AllowFiltering="false"
+                            HeaderText="Amount Raised (Ordered)" SortExpression="Ordered_Amount" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="TransactionType" HeaderText="Transaction Classification" DataField="TransactionType" HeaderStyle-Width="108px"
-                            SortExpression="TransactionType" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
+                        <telerik:GridBoundColumn UniqueName="Accepted_Amount" AllowFiltering="false" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false" HeaderText="Amount Alloted (Accepted)" FooterStyle-HorizontalAlign="Right"
+                            AllowSorting="true" DataField="Accepted_Amount" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="Parent" HeaderText="Group Name" DataField="Parent" HeaderStyle-Width="108px"
-                            SortExpression="Parent" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName" HeaderStyle-Width="108px"
-                            SortExpression="CustomerName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum" HeaderStyle-Width="108px"
-                            SortExpression="FolioNum" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="RM_Name" HeaderText="RM Name" DataField="RM_Name" HeaderStyle-Width="108px"
-                            SortExpression="RM_Name" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                          <telerik:GridBoundColumn UniqueName="Brokerage" HeaderText="Brokerage" DataField="Brokerage" HeaderStyle-Width="108px"
-                            SortExpression="Brokerage" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="trailFee" HeaderText="trailFee" DataField="trailFee" HeaderStyle-Width="108px"
-                            SortExpression="trailFee" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                            </Columns>
-                        </MasterTableView>
-                        <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                            <Scrolling AllowScroll="false" />
-                            <Resizing AllowColumnResize="true" />
-                            <Selecting AllowRowSelect="true" />
-                        </ClientSettings>
-                    </telerik:RadGrid>
-                </div>--%>
-            </asp:Panel>
+                       
+                    </Columns>
+                </MasterTableView>
+            </telerik:RadGrid>
+            
         </td>
     </tr>
 </table>

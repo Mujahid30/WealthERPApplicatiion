@@ -1,37 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using VoUser;
-using BoUser;
 using BoAdvisorProfiling;
-using BoCustomerProfiling;
 using System.Data;
-using WealthERP.Customer;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
-using WealthERP.Base;
-using System.IO;
-using System.Web.UI.HtmlControls;
-using iTextSharp.text;
-using iTextSharp.text.html;
-using iTextSharp.text.pdf;
-using System.Xml;
-using System.Text;
-using iTextSharp.text.html.simpleparser;
-using VoCustomerPortfolio;
-using BoCustomerPortfolio;
 using BoProductMaster;
-using VoProductMaster;
 using BoCommon;
 using System.Configuration;
 using Telerik.Web.UI;
-using VoUser;
-using System.Web.UI.WebControls;
 using BoWerpAdmin;
-using System.Drawing;
 using BoCommisionManagement;
 using BoOnlineOrderManagement;
 
@@ -53,15 +32,16 @@ namespace WealthERP.Advisor
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
-          
             if (!Page.IsPostBack)
             {
                 BindProduct();
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
+                
             }
           
         }
@@ -458,12 +438,11 @@ namespace WealthERP.Advisor
         }
         protected void btnView_Click(object sender, EventArgs e)
         {
-            gvMISCommission.Visible = false;
-            pnlCommissionMIS.Visible = false;
+            gvNonMFMobilization.Visible = false;
             gvCommissionMIS.Visible = false;
             btnCommissionMIS.Visible = true;
             DataTable dtGetProductMobilizedReport = new DataTable();
-            dtGetProductMobilizedReport = advisorMISBo.GetProductMobilizedReport(advisorVo.advisorId, int.Parse(ddlMISType.SelectedValue), int.Parse(rcbMode.SelectedValue), ((!string.IsNullOrEmpty(rcbOnlineMode.SelectedValue)) ? Convert.ToBoolean(rcbOnlineMode.SelectedValue) : false), (!string.IsNullOrEmpty(rcbIssueName.SelectedValue))?int.Parse(rcbIssueName.SelectedValue):0, rcbProductType.SelectedValue,(!string.IsNullOrEmpty(RcbProductCategory.SelectedValue))? RcbProductCategory.SelectedValue:string.Empty, DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()), DateTime.Parse((txtToDate.SelectedDate.Value).ToString()));
+            dtGetProductMobilizedReport = advisorMISBo.GetProductMobilizedReport(advisorVo.advisorId, int.Parse(ddlMISType.SelectedValue), int.Parse(rcbMode.SelectedValue), ((!string.IsNullOrEmpty(rcbOnlineMode.SelectedValue)) ? int.Parse(rcbOnlineMode.SelectedValue):2), (!string.IsNullOrEmpty(rcbIssueName.SelectedValue)) ? int.Parse(rcbIssueName.SelectedValue) : 0, rcbProductType.SelectedValue, rcbProductType.SelectedValue == "FI" ? (!string.IsNullOrEmpty(RcbProductCategory.SelectedValue)) ? RcbProductCategory.SelectedValue : string.Empty :"FIFIIP", DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()), DateTime.Parse((txtToDate.SelectedDate.Value).ToString()));
             if (rcbProductType.SelectedValue == "MF")
             {
                 gvCommissionMIS.DataSource = dtGetProductMobilizedReport;
@@ -478,10 +457,9 @@ namespace WealthERP.Advisor
             else
             {
 
-                gvMISCommission.DataSource = dtGetProductMobilizedReport;
-                gvMISCommission.DataBind();
-                gvMISCommission.Visible = true;
-                pnlCommissionMIS.Visible = true;
+                gvNonMFMobilization.DataSource = dtGetProductMobilizedReport;
+                gvNonMFMobilization.DataBind();
+                gvNonMFMobilization.Visible = true;
                 if (Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId);
@@ -512,7 +490,7 @@ namespace WealthERP.Advisor
                 toDate = DateTime.MinValue;
             }
         }
-
+        
         public void RadioButtonClick(object sender, EventArgs e)
         {
             if (rbtnPickPeriod.Checked)
@@ -553,23 +531,26 @@ namespace WealthERP.Advisor
         {
             if (rcbProductType.SelectedValue != "MF")
             {
-                gvMISCommission.ExportSettings.OpenInNewWindow = true;
-                gvMISCommission.ExportSettings.IgnorePaging = true;
-                foreach (GridFilteringItem filter in gvMISCommission.MasterTableView.GetItems(GridItemType.FilteringItem))
-                {
-                    filter.Visible = false;
-                }
-                gvMISCommission.MasterTableView.ExportToExcel();
+                gvNonMFMobilization.ExportSettings.OpenInNewWindow = true;
+                gvNonMFMobilization.ExportSettings.IgnorePaging = true;
+                gvNonMFMobilization.ExportSettings.HideStructureColumns = true;
+                gvNonMFMobilization.ExportSettings.ExportOnlyData = true;
+                gvNonMFMobilization.ExportSettings.FileName = rcbProductType.Text + " " + DateTime.Parse((txtFromDate.SelectedDate.Value).ToString())+ "  "  + DateTime.Parse((txtToDate.SelectedDate.Value).ToString());
+                gvNonMFMobilization.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvNonMFMobilization.MasterTableView.ExportToExcel();
             }
             else
             {
+                gvCommissionMIS.MasterTableView.ExportToExcel();
                 gvCommissionMIS.ExportSettings.OpenInNewWindow = true;
                 gvCommissionMIS.ExportSettings.IgnorePaging = true;
-                foreach (GridFilteringItem filter in gvCommissionMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
-                {
-                    filter.Visible = false;
-                }
+                gvCommissionMIS.ExportSettings.HideStructureColumns = true;
+                gvCommissionMIS.ExportSettings.ExportOnlyData = true;
+                gvCommissionMIS.ExportSettings.FileName = rcbProductType.Text + " " + DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()) + "  " + DateTime.Parse((txtToDate.SelectedDate.Value).ToString());
+                gvCommissionMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvCommissionMIS.MasterTableView.ExportToExcel();
+
+               
 
             }
         }
@@ -596,14 +577,13 @@ namespace WealthERP.Advisor
         }
         public void gvMISCommission_OnNeedDataSource(object sender, EventArgs e)
         {
-            gvMISCommission.Visible = true;
-            //tdCategoryWise.Visible = true;
+            gvNonMFMobilization.Visible = true;
             DataTable dtFolioDetails = new DataTable();
             dtFolioDetails = (DataTable)Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId];
-            gvMISCommission.DataSource = dtFolioDetails;
-            gvMISCommission.Visible = true;
+            gvNonMFMobilization.DataSource = dtFolioDetails;
+            
         }
-        public void gvZoneClusterWiseCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
+        public void gvZoneClusterWiseCommissionMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             //gvZoneClusterWiseCommissionMIS.Visible = true;
             pnlZoneClusterWiseMIS.Visible = true;
@@ -617,104 +597,7 @@ namespace WealthERP.Advisor
                 gvZoneClusterWiseCommissionMIS.Visible = true;
             }
         }
-        protected void gvMISCommission_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName.ToString() != "Filter")
-                {
-                    if (e.CommandName.ToString() != "Sort")
-                    {
-                        if (e.CommandName.ToString() != "Page")
-                        {
-                            if (e.CommandName.ToString() != "ChangePageSize")
-                            {
-                                GridDataItem gvr = (GridDataItem)e.Item;
-                                int selectedRow = gvr.ItemIndex + 1;
-                                int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
-                                int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("schemeCode").ToString());
-
-                                if (e.CommandName == "Select1")
-                                {
-                                    string name = "Select1";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
-                                }
-                                if (e.CommandName == "Select2")
-                                {
-                                    string name = "Select2";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioUnrealized_RowCommand()");
-                object[] objects = new object[1];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
-        protected void gvCommissionMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName.ToString() != "Filter")
-                {
-                    if (e.CommandName.ToString() != "Sort")
-                    {
-                        if (e.CommandName.ToString() != "Page")
-                        {
-                            if (e.CommandName.ToString() != "ChangePageSize")
-                            {
-                                GridDataItem gvr = (GridDataItem)e.Item;
-                                int selectedRow = gvr.ItemIndex + 1;
-                                //int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
-                                //int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("schemeCode").ToString());
-                                string CategoryCode = (gvr.GetDataKeyValue("CategoryCode").ToString());
-                                if (e.CommandName == "SelectAmt")
-                                {
-                                    string name = "SelectAmt";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode + "&name=" + name + "", false);
-                                }
-                                if (e.CommandName == "SelectTrail")
-                                {
-                                    string name = "SelectTrail";
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode + "&name=" + name + "", false);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioUnrealized_RowCommand()");
-                object[] objects = new object[1];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
+       
         private void BindProduct()
         {
             CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
@@ -730,6 +613,8 @@ namespace WealthERP.Advisor
         }
         protected void rcbProductType_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
+            tdIssueName.Visible = false;
+            tdlblIssueName.Visible = false;
             if (rcbProductType.SelectedValue == "FI")
             {
                 tdCategory.Visible = true;
@@ -741,8 +626,12 @@ namespace WealthERP.Advisor
             {
                 tdCategory.Visible = false;
                 tdDdlCategory.Visible = false;
-                tdIssueName.Visible = false;
-                tdlblIssueName.Visible = false;
+                if (rcbProductType.SelectedValue == "IP")
+                {
+                    tdIssueName.Visible = true;
+                    tdlblIssueName.Visible = true;
+                    BindIssueName();
+                }
                 ddlMISType.Items.FindItemByValue("1").Enabled = true;
             }
         }
@@ -766,7 +655,7 @@ namespace WealthERP.Advisor
         protected void BindIssueName()
         {
             DataTable dtGetIssueName = new DataTable();
-            dtGetIssueName = onlineNCDBackOfficeBo.GetNCDSGBIssueName(advisorVo.advisorId, RcbProductCategory.SelectedValue);
+            dtGetIssueName = onlineNCDBackOfficeBo.GetNCDSGBIssueName(advisorVo.advisorId, rcbProductType.SelectedValue == "FI" ? RcbProductCategory.SelectedValue : "FIFIIP");
             rcbIssueName.DataSource = dtGetIssueName;
             rcbIssueName.DataValueField = dtGetIssueName.Columns["AIM_IssueId"].ToString();
             rcbIssueName.DataTextField = dtGetIssueName.Columns["AIM_IssueName"].ToString();

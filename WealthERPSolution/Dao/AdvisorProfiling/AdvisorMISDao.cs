@@ -2823,7 +2823,7 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
-        public DataTable GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, Boolean isDemat, int IssueId,string productType,string productCategory, DateTime fromdate, DateTime todate)
+        public DataTable GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, int isDemat, int IssueId,string productType,string productCategory, DateTime fromdate, DateTime todate)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2835,7 +2835,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCommissionReconMisCmd, "@MobilizationType", DbType.String, TypeMIS);
                 db.AddInParameter(getCommissionReconMisCmd, "@mode", DbType.Int32, mode);
-                db.AddInParameter(getCommissionReconMisCmd, "@IsDemat", DbType.Boolean, isDemat);
+                db.AddInParameter(getCommissionReconMisCmd, "@IsDemat", DbType.Int16, isDemat);
                 db.AddInParameter(getCommissionReconMisCmd, "@IssueId", DbType.Int32, IssueId);
                 db.AddInParameter(getCommissionReconMisCmd, "@ProductType", DbType.String, productType);
                 db.AddInParameter(getCommissionReconMisCmd, "@ProductCategory", DbType.String, productCategory);

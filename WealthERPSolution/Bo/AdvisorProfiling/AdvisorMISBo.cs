@@ -1267,7 +1267,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetMISCommission;
         }
-        public DataTable GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, Boolean isDemat, int IssueId, string productType, string productCategory, DateTime fromdate, DateTime todate)
+        public DataTable GetProductMobilizedReport(int adviserId, int TypeMIS, int mode, int isDemat, int IssueId, string productType, string productCategory, DateTime fromdate, DateTime todate)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataTable dtProductMobilizedReport= new DataTable();
