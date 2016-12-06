@@ -3819,7 +3819,7 @@ namespace WealthERP.OPS
             {
                 BtnAction = "Submit";
                 rgvOrderSteps.Enabled = true;
-                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, BtnAction);
+                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, BtnAction,0);
                 orderId = int.Parse(OrderIds[0].ToString());
                 lblGetOrderNo.Text = orderId.ToString();
                 lblOrderNumber.Text = "Order No.";
@@ -3828,7 +3828,7 @@ namespace WealthERP.OPS
             {
                 BtnAction = "Update";
                 rgvOrderSteps.Enabled = false;
-                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, BtnAction);
+                OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, BtnAction,0);
                 orderId = fiorderVo.OrderNumber;
                 lblOrderNumber.Text = "Order No.";
 
