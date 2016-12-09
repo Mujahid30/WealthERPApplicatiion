@@ -1965,6 +1965,7 @@ namespace WealthERP.Receivable
             bool isPageValid = true;
             CheckBoxList chkListTtansactionType = (CheckBoxList)e.Item.FindControl("chkListTtansactionType");
             CustomValidator CustomValidator4 = (CustomValidator)e.Item.FindControl("CustomValidator4");
+            Button btupdate = (Button)e.Item.FindControl("btnSubmitRule");
             string chkItemType = string.Empty;
             foreach (ListItem chkItems in chkListTtansactionType.Items)
             {
@@ -1990,6 +1991,7 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
                     commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
                     commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash);
+                    btupdate.Visible = false;
                 }
                 else
                 {
@@ -2072,6 +2074,7 @@ namespace WealthERP.Receivable
                     rgCommissionTypeCaliculation.Visible = true;
                     BindRuleDetGrid(rgCommissionTypeCaliculation, ruleId);
                     Table5.Visible = true;
+                    btnSubmitRule.Visible = false;
 
                 }
                 else
