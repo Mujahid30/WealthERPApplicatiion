@@ -113,6 +113,9 @@ namespace WealthERP.OffLineOrderManagement
                 {
                     AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+                    AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
+
 
                 }
                 if (AgentCode != null)
@@ -265,9 +268,11 @@ namespace WealthERP.OffLineOrderManagement
             if (!string.IsNullOrEmpty(txtBLPSearch.Text))
             {
                 BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
-                if (BLPName != null)
+                if (BLPName.Rows.Count > 0)
+                {
                     lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
-                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+                    lblBLPText.Text = BLPName.Rows[0][1].ToString();
+                }
             }
 
         }
@@ -1265,6 +1270,7 @@ namespace WealthERP.OffLineOrderManagement
                     }
                 }
             }
+            txtBLPSearch.Enabled = false;
         }
         protected void lnkEdit_LinkButtons(object sender, EventArgs e)
         {

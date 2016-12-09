@@ -300,10 +300,17 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, mforderVo.ARNNo);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
-                if (!string.IsNullOrEmpty(mforderVo.EUIN.ToString().Trim()))
-                    db.AddInParameter(createMFOrderTrackingCmd, "@CO_EUIN", DbType.String, mforderVo.EUIN);
-                else
-                    db.AddInParameter(createMFOrderTrackingCmd, "@CO_EUIN", DbType.String, DBNull.Value);
+                if (mforderVo.EUIN != null)
+                {
+                    //if (!string.IsNullOrEmpty(mforderVo.EUIN.ToString().Trim()))
+                        db.AddInParameter(createMFOrderTrackingCmd, "@CO_EUIN", DbType.String, mforderVo.EUIN);
+                }
+                    else
+                {
+                        db.AddInParameter(createMFOrderTrackingCmd, "@CO_EUIN", DbType.String, DBNull.Value);
+                }
+              
+
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 

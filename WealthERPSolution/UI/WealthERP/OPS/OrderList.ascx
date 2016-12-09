@@ -345,6 +345,11 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="AR_FirstName" AllowFiltering="true" HeaderText="BLP Name"
+                                UniqueName="AR_FirstName" SortExpression="AR_FirstName" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="85px" FilterControlWidth="50px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_ChequeNumber" HeaderText="Cheque No.\Draft No."
                                 AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CO_ChequeNumber"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"

@@ -59,6 +59,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(cmd, "@ModificationType", DbType.String, ModificationType);
                 db.AddInParameter(cmd, "@userId", DbType.Int32, userId);
                 dsNCDOrder = db.ExecuteDataSet(cmd);
+                cmd.CommandTimeout = 60 * 60;
                 dtNCDOrder = dsNCDOrder.Tables[0];
             }
             catch (BaseApplicationException Ex)
@@ -154,7 +155,7 @@ namespace DaoOfflineOrderManagement
                 db.AddInParameter(UpdateNCDDetailscmd, "@CustomerName", DbType.String, OnlineBondOrderVo.CustomerName);
                 db.AddInParameter(UpdateNCDDetailscmd, "@CustomerPAN", DbType.String, OnlineBondOrderVo.PanNo);
                 db.AddInParameter(UpdateNCDDetailscmd, "@CustomerType", DbType.String, OnlineBondOrderVo.CustomerType);
-                db.AddInParameter(UpdateNCDDetailscmd, "@CustomerSubTypeId", DbType.Int32, OnlineBondOrderVo.CustomerSubTypeId);
+                //db.AddInParameter(UpdateNCDDetailscmd, "@CustomerSubTypeId", DbType.Int32, OnlineBondOrderVo.CustomerSubTypeId);
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematBeneficiaryAccountNum", DbType.String, OnlineBondOrderVo.DematBeneficiaryAccountNum);
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematDepositoryName", DbType.String, OnlineBondOrderVo.DematDepositoryName);
                 db.AddInParameter(UpdateNCDDetailscmd, "@DematDPId", DbType.String, OnlineBondOrderVo.DematDPId);

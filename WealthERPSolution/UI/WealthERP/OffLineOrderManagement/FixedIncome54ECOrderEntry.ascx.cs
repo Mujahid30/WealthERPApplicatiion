@@ -175,6 +175,8 @@ namespace WealthERP.OffLineOrderManagement
                     txtAgentId.Value = associateuserheirarchyVo.AdviserAgentId.ToString();
                     AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+                    AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                    AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
 
 
                 }
@@ -357,9 +359,11 @@ namespace WealthERP.OffLineOrderManagement
             if (!string.IsNullOrEmpty(txtBLPSearch.Text))
             {
                 BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
-                if (BLPName != null)
+                if (BLPName.Rows.Count > 0)
+                {
                     lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
-                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+                    lblBLPText.Text = BLPName.Rows[0][1].ToString();
+                }
             }
 
         }
@@ -432,6 +436,13 @@ namespace WealthERP.OffLineOrderManagement
                     ddlTax.DataValueField = dtDpProofTypes.Tables[0].Columns["C_WCMV_TaxStatus_Id"].ToString();
                     ddlTax.DataTextField = dtDpProofTypes.Tables[0].Columns["WCMV_Name"].ToString();
                     ddlTax.DataBind();
+                }
+                else
+                {
+                    ddlTax.Items.Clear();
+                    ddlTax.DataSource = null;
+                    ddlTax.DataBind();
+                    ddlTax.Items.Insert(0, new ListItem("Select", "0"));
                 }
                 //ddlTax.Items.Insert(0, new ListItem("Select", "Select"));
 
@@ -1730,7 +1741,7 @@ namespace WealthERP.OffLineOrderManagement
             DataSet dsScheme = new DataSet();
             ddlScheme.DataSource = dsScheme;
             Label12.Text = string.Empty;
-            dsScheme = fiorderBo.GetFIScheme(AdviserId, category, int.Parse(ddlTax.SelectedValue), type);
+            dsScheme = fiorderBo.GetFIScheme(AdviserId, category,int.Parse(ddlTax.SelectedValue), type);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;

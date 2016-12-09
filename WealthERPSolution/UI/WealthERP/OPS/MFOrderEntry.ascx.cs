@@ -102,7 +102,8 @@ namespace WealthERP.OPS
 
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             GetUserType();
-           
+
+          
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -137,6 +138,8 @@ namespace WealthERP.OPS
                 GetAgentName(associateuserheirarchyVo.AdviserAgentId);
                 AutoCompleteExtender2.ContextKey = associateuserheirarchyVo.AgentCode + "/" + advisorVo.advisorId.ToString() + "/" + associateuserheirarchyVo.IsBranchOps;
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
+                AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
+                AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
 
             }
             if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
@@ -148,9 +151,9 @@ namespace WealthERP.OPS
                 else
                     txtAssociateSearch.Enabled = false;
             }
-
-
-
+           
+             
+         
 
             if (!IsPostBack)
             {
@@ -164,7 +167,7 @@ namespace WealthERP.OPS
                 //else
                 //    txtAssociateSearch.Enabled = true;
                 DefaultBindings();
-
+              
                 if (Request.QueryString["FormAction"] != null)
                 {
                     if (Request.QueryString["FormAction"].Trim() == "MfRecon_OrderAdd")
@@ -326,7 +329,24 @@ namespace WealthERP.OPS
             //ddlTotalInstallments.Items.Insert(0, new ListItem("--SELECT--"));
             ddlTotalInstallments.SelectedIndex = 0;
         }
-
+        protected void ddlARNNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlARNNo.SelectedValue == "ARN-0011")
+                {
+                    ddlEUIN.Visible = true;
+                    Label1.Visible = true;
+                    Span37.Visible = true;
+                    cvEUIN.Visible = true;
+                }
+                else
+                {
+                    ddlEUIN.Visible = false;
+                    Label1.Visible = false;
+                    Span37.Visible = false;
+                    cvEUIN.Visible = false;
+                }
+            
+        }
         protected void ddlStartDate_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Reset dependent controls
@@ -519,6 +539,8 @@ namespace WealthERP.OPS
             //ddlAMCList.Enabled = false;
             Pan_Cust_Search("1");
             GetuserTypeTransactionSlipDownload();
+           
+
 
         }
 
@@ -554,7 +576,7 @@ namespace WealthERP.OPS
         {
             int agentId = 0;
             string agentCode = "";
-            int EmpId=0;
+           string EmpId="";
              string EmpName = "";
 
             DataSet dsGetMFOrderDetails = mfOrderBo.GetCustomerMFOrderDetails(orderId);
@@ -593,17 +615,15 @@ namespace WealthERP.OPS
                     }
                     if (!string.IsNullOrEmpty(dr["AR_RMId"].ToString()))
                     {
-                        EmpId = Convert.ToInt32(dr["AR_StaffCode"].ToString());
+                        EmpId = (dr["AR_StaffCode"].ToString());
                         EmpName = dr["AR_FirstName"].ToString();
                     }
-                    if (EmpId != 0)
-                    {
-
+                
                         txtBLPSearch.Text = EmpName;
-                        lblBLPCodeText.Text = Convert.ToInt32(EmpId).ToString();
+                        lblBLPCodeText.Text =EmpId;
                         lblBLPText.Text = EmpName;
                        
-                    }
+                    
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
                     {
@@ -3260,9 +3280,11 @@ namespace WealthERP.OPS
             if (!string.IsNullOrEmpty(txtBLPSearch.Text))
             {
                 BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
-                if(BLPName!=null)
+                if (BLPName.Rows.Count > 0)
+                {
                     lblBLPCodeText.Text = BLPName.Rows[0][0].ToString();
-                lblBLPText.Text = BLPName.Rows[0][1].ToString();
+                    lblBLPText.Text = BLPName.Rows[0][1].ToString();
+                }
             }
            
         }

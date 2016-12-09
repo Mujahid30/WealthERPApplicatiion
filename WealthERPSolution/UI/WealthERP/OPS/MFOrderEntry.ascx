@@ -669,8 +669,8 @@
                         <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"
-                            TabIndex="2">
+                        <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            TabIndex="2" OnSelectedIndexChanged="ddlARNNo_SelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span14" class="spnRequiredField">*</span>
                         <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
@@ -758,12 +758,12 @@
                         <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="right">
-                        <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName" ></asp:Label>
                         </td>
                         <td >
                         <asp:DropDownList ID="ddlEUIN" runat="server" CssClass="cmbField" >
                         </asp:DropDownList>
-                         <span id="Span37" class="spnRequiredField">*</span>
+                         <span id="Span37" runat="server" class="spnRequiredField" >*</span>
                         <asp:CompareValidator ID="cvEUIN" runat="server" ControlToValidate="ddlEUIN"
                             CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an EUIN"
                             Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>

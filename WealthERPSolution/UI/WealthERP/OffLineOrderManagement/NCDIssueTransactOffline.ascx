@@ -433,7 +433,7 @@
                             UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtBLPSearch"
                             ErrorMessage="<br />Please Enter a Business Lead Provider" Display="Dynamic" runat="server"
-                            CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RequiredFieldValidator>
                     </td>
                     <td align="right">
                         <asp:Label ID="lblBLPName" runat="server" CssClass="FieldName" Text="BLP Name:"></asp:Label>

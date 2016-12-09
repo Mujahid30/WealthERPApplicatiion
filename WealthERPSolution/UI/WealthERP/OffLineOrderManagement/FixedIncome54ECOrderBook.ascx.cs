@@ -209,13 +209,16 @@ namespace WealthERP.OffLineOrderManagement
         {
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+          
             Int32 orderId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString());
             Int32 customeId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["C_CustomerId"].ToString());
             string agentcode = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AAC_AgentCode"].ToString();
             string associatename = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociatesName"].ToString();
             string OrderStepCode = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["Orderstep"]);
             string CloseDate = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AIM_CloseDate"]);
-            int EmpId = Convert.ToInt32(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_StaffCode"].ToString());
+           
+            string EmpId = Convert.ToString(gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_StaffCode"]);
+            
             string EmpName = gv54FDOrderBook.MasterTableView.DataKeyValues[gvr.ItemIndex]["AR_FirstName"].ToString();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FixedIncome54ECOrderEntry", "loadcontrol( 'FixedIncome54ECOrderEntry','action=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customeId=" + customeId + "&agentcode=" + agentcode + "&associatename=" + associatename + "&OrderStepCode=" + OrderStepCode + "&CloseDate=" + CloseDate + "&EmpId=" + EmpId + "&EmpName=" + EmpName + " &FDOrder=" + ddlCategory.SelectedValue + "');", true);
         }
