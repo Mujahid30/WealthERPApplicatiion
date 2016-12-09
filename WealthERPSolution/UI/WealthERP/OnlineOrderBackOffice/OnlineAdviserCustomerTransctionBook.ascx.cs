@@ -159,6 +159,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdtxtCustomerName.Visible = true;
                 tdtxtClientCode.Visible = false;
                 tdtxtPansearch.Visible = false;
+                txtCustomerName.Visible = true;
+                RequiredFieldValidator3.Visible = true;
 
             }
             else if (ddlOptionSearch.SelectedValue == "Panno")
@@ -166,12 +168,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdtxtPansearch.Visible = true;
                 tdtxtCustomerName.Visible = false;
                 tdtxtClientCode.Visible = false;
+                txtPansearch.Visible = true;
+                RequiredFieldValidator2.Visible = true;
             }
             else
             {
                 tdtxtClientCode.Visible = true;
                 tdtxtPansearch.Visible = false;
                 tdtxtCustomerName.Visible = false;
+                txtClientCode.Visible = true;
+                RequiredFieldValidator13.Visible = true;
             }
         }
         private string GetSelectedFilterValue()
@@ -203,11 +209,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ddlsearchcustomertype.SelectedValue == "Individual")
             {
+                ddlOptionSearch.ClearSelection();
                 ddlOptionSearch.Visible = true;
                 lblCustomerSearch.Visible = true;
-                txtCustomerName.Text = "";
-                txtClientCode.Text = "";
-                txtPansearch.Text = "";
+               
+                //txtCustomerName.Text = "";
+                //txtClientCode.Text = "";
+                //txtPansearch.Text = "";
             }
             else
             {
@@ -217,6 +225,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtPansearch.Visible=false;
                     txtClientCode.Visible = false;
                     txtCustomerName.Visible = false;
+                    txtCustomerName.Text = "";
+                    txtClientCode.Text = "";
+                    txtPansearch.Text = "";
+                RequiredFieldValidator2.Visible=false;
+                    RequiredFieldValidator13.Visible=false;
+                    RequiredFieldValidator3.Visible = false;
             }
         }
         //private void BindAMC()
@@ -396,8 +410,10 @@ namespace WealthERP.OnlineOrderBackOffice
             dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, hdncustomername.Value, hdncustcode.Value, hdnpanno.Value, hdnfoliono.Value, hdnschemename.Value, hdntype.Value, hdndividenttype.Value, hdnamcname.Value, 0, out rowCount, Isdemat);
             gvTransationBookMIS.DataSource = dtBindTransactionGrid;
             gvTransationBookMIS.VirtualItemCount = rowCount;
+           
 
         }
+      
         protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
         {
             gvTransationBookMIS.ExportSettings.OpenInNewWindow = true;
