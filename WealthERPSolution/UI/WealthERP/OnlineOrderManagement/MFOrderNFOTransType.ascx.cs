@@ -418,6 +418,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 if (exchangeType == "Online")
                 {
+                    onlinemforderVo.OrderType = 1;
                     OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
                     OrderId = int.Parse(OrderIds[0].ToString());
 
