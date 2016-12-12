@@ -174,7 +174,7 @@
     <asp:ImageButton ID="ImageButton2" ImageUrl="../Images/CsvExport_Ico.jpg" Height="30px"
         Width="30px" OnClick="Button2_Click" runat="server" ToolTip="Export To Csv" CssClass="ImageButtons" />
     <br />
-    <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+    <telerik:RadTabStrip ID="RadTabStrip1" runat="server"  EnableTheming="True" Skin="Telerik"
         EnableEmbeddedSkins="False" Width="100%" MultiPageID="EQPortfolioTabPages" SelectedIndex="0"
         EnableViewState="true">
         <Tabs>
@@ -216,13 +216,13 @@
                                             <telerik:GridTemplateColumn HeaderStyle-Width="50px" AllowFiltering="false" UniqueName="action"
                                                 DataField="action">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="LinkButton4" runat="server" CommandName="Select" HeaderText="Select"
+                                                    <asp:LinkButton ID="LinkButton4" Visible="false" runat="server" CommandName="Select" HeaderText="Select"
                                                         ShowHeader="True" Text="Select" />
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
-                                                HeaderStyle-Width="250px" FooterText="Grand Total" HeaderText="Scrip Name" DataField="PEM_CompanyName"
-                                                UniqueName="PEM_CompanyName" SortExpression="PEM_CompanyName" AutoPostBackOnFilter="true"
+                                                HeaderStyle-Width="250px" FooterText="Grand Total" HeaderText="Scrip Name" DataField="ScripName"
+                                                UniqueName="ScripName" SortExpression="ScripName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 FooterStyle-CssClass="Newfont">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" CssClass="font" />
@@ -306,17 +306,9 @@
                                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" CssClass="font" />
                                                 <FooterStyle ForeColor="White" />
                                             </telerik:GridBoundColumn>
-                                            <%-- <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
-                                                HeaderStyle-Width="110px" FooterStyle-HorizontalAlign="Right" HeaderText="Dividend"
-                                                DataField="Dividend" UniqueName="Dividend" SortExpression="Dividend" AutoPostBackOnFilter="true"
-                                                AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                Aggregate="Sum" DataFormatString="{0:N2}" FooterStyle-CssClass="font">
-                                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" CssClass="font" />
-                                                <FooterStyle ForeColor="White" />
-                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
                                                 HeaderStyle-Width="110px" FooterStyle-HorizontalAlign="Right" HeaderText="P/L"
-                                                DataField="UnRealizedPL" UniqueName="UnRealizedPL" SortExpression="UnRealizedPL"
+                                                DataField="PL" UniqueName="PL" SortExpression="PL"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 Aggregate="Sum" DataFormatString="{0:N2}" FooterStyle-CssClass="font">
                                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" ForeColor="Green"
@@ -325,7 +317,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
                                                 HeaderStyle-Width="80px" FooterStyle-HorizontalAlign="Right" HeaderText="P/L %"
-                                                DataField="PnlPercent" UniqueName="PnlPercent" SortExpression="PnlPercent" AutoPostBackOnFilter="true"
+                                                DataField="PL" UniqueName="PL" SortExpression="PL" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:N2}">
                                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" ForeColor="Green"
@@ -335,39 +327,30 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
                                                 FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="70px" HeaderText="Holding XIRR (%)"
-                                                DataField="XIRRValue" UniqueName="XIRRValue" SortExpression="XIRRValue" AutoPostBackOnFilter="true"
+                                                DataField="XIRR" UniqueName="XIRR" SortExpression="XIRR" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:N2}" FooterStyle-CssClass="font">
                                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" ForeColor="Green"
                                                     CssClass="font" />
                                                 <FooterStyle ForeColor="White" />
                                             </telerik:GridBoundColumn>
-                                            <%--<telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
-                                                FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="70px" HeaderText="Total XIRR (%)"
-                                                DataField="TotalXIRRValue" UniqueName="TotalXIRRValue" SortExpression="TotalXIRRValue"
-                                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                DataFormatString="{0:N2}" FooterStyle-CssClass="font">
-                                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" ForeColor="Green"
-                                                    CssClass="font" />
-                                                <FooterStyle ForeColor="White" />
-                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
-                                                HeaderStyle-Width="250px" HeaderText="Sector" DataField="PGSC_SectorCategoryName"
-                                                UniqueName="PGSC_SectorCategoryName" SortExpression="PGSC_SectorCategoryName"
+                                                HeaderStyle-Width="250px" HeaderText="Sector" DataField="SectorName"
+                                                UniqueName="SectorName" SortExpression="SectorName"
                                                 AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 FooterStyle-CssClass="Newfont">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" CssClass="font" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
-                                                HeaderStyle-Width="250px" HeaderText="Sub Sector" DataField="PGSSC_SectorSubCategoryName"
-                                                UniqueName="PGSSC_SectorSubCategoryName" SortExpression="PGSSC_SectorSubCategoryName"
+                                                HeaderStyle-Width="250px" HeaderText="Sub Sector" DataField="SectorSubName"
+                                                UniqueName="SectorSubName" SortExpression="SectorSubName"
                                                 AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 FooterStyle-CssClass="Newfont">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" CssClass="font" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-HorizontalAlign="Center" HeaderStyle-VerticalAlign="Middle"
-                                                HeaderStyle-Width="250px" HeaderText="Sub Sub Sector" DataField="PGSSSC_SectorSubSubCategoryName"
-                                                UniqueName="PGSSSC_SectorSubSubCategoryName" SortExpression="PGSSSC_SectorSubSubCategoryName"
+                                                HeaderStyle-Width="250px" HeaderText="Sub Sub Sector" DataField="SectorSubSubName"
+                                                UniqueName="SectorSubSubName" SortExpression="SectorSubSubName"
                                                 AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 FooterStyle-CssClass="Newfont">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" CssClass="font" />

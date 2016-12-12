@@ -20,6 +20,7 @@ using iTextSharp.text.pdf;
 using BoCommon;
 using Telerik.Web.UI;
 using Telerik.Web.UI.Calendar.Utils;
+using BoReports;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -28,6 +29,7 @@ namespace WealthERP.CustomerPortfolio
         int index;
         EQPortfolioVo eqPortfolioVo;
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
+        EQNetPositionBo eQNetPositionBo = new EQNetPositionBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         List<EQPortfolioVo> eqPortfolioList = new List<EQPortfolioVo>();
         CustomerVo customerVo;
@@ -171,6 +173,7 @@ namespace WealthERP.CustomerPortfolio
                 dsCustomeNP = customerPortfolioBo.GetCustomerEquityNP(advisorVo.advisorId, int.Parse(ddlPortfolio.SelectedValue.ToString()), tradeDate, ddl_type.SelectedItem.Value.ToString());
 
 
+
                 dtUnRealized = dsCustomeNP.Tables[1];
                 dtRealizedDelivery = dsCustomeNP.Tables[0];
                 dtAll = dsCustomeNP.Tables[2];
@@ -279,6 +282,32 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
+
+        private void NewBindReturnsGrid()
+        {
+            DataTable dtUnRealized = new DataTable();
+            DataSet dsHoldingReturnDetails = new DataSet();
+            dsHoldingReturnDetails = eQNetPositionBo.CreateCustomerEQReturnsHolding(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
+             if (dtUnRealized.Rows.Count > 0)
+            {
+            gvEquityPortfolio.DataSource = dsHoldingReturnDetails;
+            gvEquityPortfolio.DataBind();
+            if (Cache["gvEquityPortfolio" + customerVo.CustomerId.ToString()] == null)
+            {
+                Cache.Insert("gvEquityPortfolio" + customerVo.CustomerId.ToString(), dtUnRealized);
+            }
+            else
+            {
+                Cache.Remove("gvEquityPortfolio" + customerVo.CustomerId.ToString());
+                Cache.Insert("gvEquityPortfolio" + customerVo.CustomerId.ToString(), dtUnRealized);
+            }
+            }
+             if (dtUnRealized.Rows.Count == 0)
+             {
+                 gvEquityPortfolio.DataBind();
+             }
+        }
+
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
@@ -591,16 +620,10 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            if (ddlDateRange.SelectedValue == "ASON")
-            {
 
-                LoadEquityPortfolio();
-            }
-            if (ddlDateRange.SelectedValue == "DateRange")
-            {
-
-                LoadEquityPortfolioNPInDateRange();
-            }
+            NewBindReturnsGrid();
+            //LoadEquityPortfolio();
+           
 
         }
 

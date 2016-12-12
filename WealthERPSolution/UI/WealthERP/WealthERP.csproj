@@ -4021,6 +4021,37 @@
     <Compile Include="SessionExpired.aspx.designer.cs">
       <DependentUpon>SessionExpired.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SSRS\DisplayEQReport.aspx.cs">
+      <DependentUpon>DisplayEQReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SSRS\DisplayEQReport.aspx.designer.cs">
+      <DependentUpon>DisplayEQReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SSRS\DisplayMFReport.aspx.cs">
+      <DependentUpon>DisplayMFReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SSRS\DisplayMFReport.aspx.designer.cs">
+      <DependentUpon>DisplayMFReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SSRS\EQDataSet.Designer.cs" />
+    <Compile Include="SSRS\EQReportUI.ascx.cs">
+      <DependentUpon>EQReportUI.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SSRS\EQReportUI.ascx.designer.cs">
+      <DependentUpon>EQReportUI.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SSRS\EquityAnalytic.Designer.cs" />
+    <Compile Include="SSRS\MFReportUI.ascx.cs">
+      <DependentUpon>MFReportUI.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SSRS\MFReportUI.ascx.designer.cs">
+      <DependentUpon>MFReportUI.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SSRS\MFReturns.Designer.cs" />
     <Compile Include="SubBroker\AddSubBroker.ascx.cs">
       <DependentUpon>AddSubBroker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4663,6 +4694,20 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>SchemePerformance.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\EQ_Capital_Gain_Details_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\EQ_Capital_Gain_Summary_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\EQ_Holding_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\EQ_Sectorwise_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\EQ_Transaction_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Capital_Gain_Details_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Capital_Gain_Summary_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_ClosingBalance_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Comprehensive_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Holding_Transactions_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Returns_Holding_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Returns_Holding_WithBankDetails_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\MF_Transaction_PDF.rdlc" />
+    <EmbeddedResource Include="SSRS\SsrsReportingFiles\XirrReporting.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BoCommisionManagement\BoCommisionManagement.csproj">
@@ -8525,6 +8570,10 @@
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
+    <Content Include="SSRS\DisplayEQReport.aspx" />
+    <Content Include="SSRS\DisplayMFReport.aspx" />
+    <Content Include="SSRS\EQReportUI.ascx" />
+    <Content Include="SSRS\MFReportUI.ascx" />
     <Content Include="SubBroker\AddSubBroker.ascx" />
     <Content Include="SuperAdmin\AddIssue.ascx" />
     <Content Include="SuperAdmin\AddSchemeMapping.ascx" />
@@ -9408,6 +9457,29 @@
     <None Include="Reports\TempReports\PortfolioReports_634044463554070187.pdf" />
     <None Include="Reports\TempReports\PortfolioReports_634044466546257687.pdf" />
     <None Include="Reports\TempReports\PortfolioReports_634044469450163937.pdf" />
+    <None Include="SSRS\EQDataSet.xsc">
+      <DependentUpon>EQDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SSRS\EQDataSet.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SSRS\EQDataSet.xss">
+      <DependentUpon>EQDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SSRS\EquityAnalytic.xsc">
+      <DependentUpon>EquityAnalytic.xsd</DependentUpon>
+    </None>
+    <None Include="SSRS\EquityAnalytic.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SSRS\EquityAnalytic.xss">
+      <DependentUpon>EquityAnalytic.xsd</DependentUpon>
+    </None>
+    <None Include="SSRS\MFReturns.xsc" />
+    <None Include="SSRS\MFReturns.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SSRS\MFReturns.xss" />
     <None Include="Standard Upload Files\All Standard Upload Files.zip" />
     <None Include="Standard Upload Files\BSEForOdin.xlsx" />
     <None Include="Standard Upload Files\CustomerProfile.xlsx" />
