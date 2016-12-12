@@ -18,6 +18,7 @@ using System.Collections;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 using Telerik.Web.UI.GridExcelBuilder;
+using BoReports;
 
 
 namespace WealthERP.CustomerPortfolio
@@ -27,6 +28,7 @@ namespace WealthERP.CustomerPortfolio
         UserVo userVo = new UserVo();
         CustomerVo customerVo = new CustomerVo();
         AdvisorVo advisorVo = new AdvisorVo();
+        MFNetPositionBo mFNetPositionBO = new MFNetPositionBo();
         static int portfolioId;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
@@ -38,6 +40,10 @@ namespace WealthERP.CustomerPortfolio
         DateTime tradeDate = new DateTime();
         static int intPortfolioListCount;
         string strValuationDate;
+        DateTime FromDate;
+        DateTime ToDate;
+        int C_CustomerId;
+        string PortfolioIds;
         DataSet dsSchemeHoldingSector;
 
         public enum Constants
@@ -64,19 +70,12 @@ namespace WealthERP.CustomerPortfolio
                 ErrorMessage.Visible = false;
                 if (!IsPostBack)
                 {
-                    //if (Session[SessionContents.PortfolioId] != null)
-                    //    portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
-                    //else
-                    //{
-                    //    customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
-                    //    Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
-                    //    portfolioId = customerPortfolioVo.PortfolioId;
-                    //}
+                    //NewBindReturnsGrid();
+                    //RealizedBindReturnsGrid();
+                    //AllBindReturnsGrid();
 
                     BindPortfolioDropDown();
-                    //CalculatePortfolioXIRR(portfolioId);
-                    //GetMFPortfolioList(lblPickDate.Text);
-                    SetPanelVisibility(false, false);
+                    //SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
             }
@@ -112,20 +111,18 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-               // DateTime dtValDate = DateTime.Parse(strValuationDate);
-                //if (!dtValDate.Equals(DateTime.MinValue))
-                //{
+            
                     mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId);
                     Session["mfPortfolioList"] = mfPortfolioNetPositionList;
-                //}
+              
                 if (mfPortfolioNetPositionList != null)
                 {
                     intPortfolioListCount = mfPortfolioNetPositionList.Count;
                 }
                 else
                 {
-                    // Show no records found
-                    SetPanelVisibility(false, false);
+                  
+                    //SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
             }
@@ -198,11 +195,7 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-        private void SetPanelVisibility(bool blIsReturnsVisibile, bool blIsTaxVisible)
-        {
-            pnlReturns.Visible = blIsReturnsVisibile;
-            pnlTax.Visible = blIsTaxVisible;
-        }
+      
 
         protected void CalculatePortfolioXIRR(int portfolioId)
         {
@@ -214,7 +207,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     if (int.Parse(dr["PortfolioId"].ToString()) == portfolioId)
                     {
-                        lblPortfolioXIRRValue.Text = double.Parse(dr["XIRR"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        //lblPortfolioXIRRValue.Text = double.Parse(dr["XIRR"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     }
                 }
             }
@@ -238,14 +231,38 @@ namespace WealthERP.CustomerPortfolio
 
         public void lnkBtnReturns_Click(object sender, EventArgs e)
         {
-            SetPanelVisibility(true, false);
+            //SetPanelVisibility(true, false);
             BindReturnsGrid();
             BindPerformaceChart();
         }
         public void lnkBtnTax_Click(object sender, EventArgs e)
         {
-            SetPanelVisibility(false, true);
+            //SetPanelVisibility(false, true);
             BindTaxGrid();
+        }
+        private void NewBindReturnsGrid()
+        {
+            
+          DataSet dsHoldingReturnDetails = new DataSet();
+          dsHoldingReturnDetails = mFNetPositionBO.CreateCustomerMFReturnsHolding(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
+          rgHoldings.DataSource = dsHoldingReturnDetails;
+          rgHoldings.DataBind();
+        }
+        private void AllBindReturnsGrid()
+        {
+
+            DataSet dsAllReturnDetails = new DataSet();
+            dsAllReturnDetails = mFNetPositionBO.CreateCustomerMFComprehensive(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
+            rgAll.DataSource = dsAllReturnDetails;
+            rgAll.DataBind();
+        }
+        private void RealizedBindReturnsGrid()
+        {
+
+            DataSet dsRealizedReturnDetails = new DataSet();
+            dsRealizedReturnDetails = mFNetPositionBO.CreateCustomerMFReturnsRealized(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
+            rgRealized.DataSource = dsRealizedReturnDetails;
+            rgRealized.DataBind();
         }
         private void BindReturnsGrid()
         {
@@ -354,17 +371,7 @@ namespace WealthERP.CustomerPortfolio
 
                 DataTable dtMFReturnsholding = new DataTable();
                 dtMFReturnsholding = dvReturnsHoldings.ToTable();
-                //foreach (DataRow dr in dtMFReturnsholding.Rows)
-                //{
-                //    if (dr["TotalPL"].ToString() != "N/A")
-                //    {
-                //        totalHoldingPL = totalHoldingPL + double.Parse(dr["TotalPL"].ToString());
-                //    }
-                //    if (dr["InvestedCost"].ToString() != "N/A")
-                //    {
-                //        totalHoldingInvestedCost = totalHoldingInvestedCost + double.Parse(dr["InvestedCost"].ToString());
-                //    }
-                //}
+               
 
                 sumObject = dtMFReturnsholding.Compute("Sum(TotalPL)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
@@ -375,8 +382,8 @@ namespace WealthERP.CustomerPortfolio
                 if (totalHoldingInvestedCost != 0)
                     totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost) * 100;
 
-                lblHoldingAbsoluteReturnValue.Text = Math.Round(totalHoldingAbsoluteReturn, 2).ToString();
-                lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                //lblHoldingAbsoluteReturnValue.Text = Math.Round(totalHoldingAbsoluteReturn, 2).ToString();
+                //lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
 
                 rgHoldings.DataSource = dtMFReturnsholding;
@@ -395,18 +402,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 DataTable dtMFReturnsAll = new DataTable();
                 dtMFReturnsAll = dvReturnsAll.ToTable();
-                //foreach (DataRow dr in dtMFReturnsAll.Rows)
-                //{
-                //    if (dr["TotalPL"].ToString() != "N/A")
-                //    {
-                //        totalALLPL = totalALLPL + double.Parse(dr["TotalPL"].ToString());
-                //    }
-                //    if (dr["InvestedCost"].ToString() != "N/A")
-                //    {
-                //        totalALLInvestedCost = totalALLInvestedCost + double.Parse(dr["InvestedCost"].ToString());
-                //    }
-                //}
-
+              
 
                 sumObject = dtMFReturnsAll.Compute("Sum(TotalPL)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalALLPL);
@@ -414,17 +410,12 @@ namespace WealthERP.CustomerPortfolio
                 sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
 
-                //sumObject = dtMFReturnsAll.Compute("Sum(TotalPL)", string.Empty);
-                //double.TryParse(Convert.ToString(sumObject), out totalALLPL);
-
-                //sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
-                //double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
-
+              
                 if (totalALLInvestedCost != 0)
                     totalALLAbsoluteReturn = (totalALLPL / totalALLInvestedCost) * 100;
 
-                lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn, 2).ToString();
-                lblALLTotalPLValue.Text = Math.Round(totalALLPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                //lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn, 2).ToString();
+                //lblALLTotalPLValue.Text = Math.Round(totalALLPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                 rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
@@ -465,8 +456,8 @@ namespace WealthERP.CustomerPortfolio
                 if (totalRealizedInvestedCost != 0)
                     totalRealizedAbsReturn = (totalRealizedPl / totalRealizedInvestedCost) * 100;
 
-                lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn, 2).ToString();
-                lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                //lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn, 2).ToString();
+                //lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                 rgRealized.DataSource = dtMFReturnsRealized;
                 if (dtMFReturnsRealized.Rows.Count != 0)
@@ -542,31 +533,31 @@ namespace WealthERP.CustomerPortfolio
                 DataView dvTaxHoldings = new DataView(dtTaxHoldings, expressonTaxHoldings, "", DataViewRowState.CurrentRows);
 
                 ViewState["TaxHoldings"] = dvTaxHoldings.ToTable();
-                rgTaxHoldings.DataSource = dvTaxHoldings.ToTable();
-                rgTaxHoldings.DataBind();
+                //rgTaxHoldings.DataSource = dvTaxHoldings.ToTable();
+                //rgTaxHoldings.DataBind();
 
                 if (dtTaxHoldings.Rows.Count != 0)
                 {
-                    imgBtnrgTaxHoldings.Visible = true;
+                    //imgBtnrgTaxHoldings.Visible = true;
                     trNote.Visible = true;
                 }
                 else
                 {
-                    imgBtnrgTaxHoldings.Visible = false;
+                    //imgBtnrgTaxHoldings.Visible = false;
                     trNote.Visible = false;
                 }
                 ViewState["TaxRealized"] = dvTaxRealized.ToTable();
-                rgTaxRealized.DataSource = dvTaxRealized.ToTable();
-                rgTaxRealized.DataBind();
+                //rgTaxRealized.DataSource = dvTaxRealized.ToTable();
+                //rgTaxRealized.DataBind();
 
                 if (dtTaxRealized.Rows.Count != 0)
                 {
-                    imgBtnrgTaxRealized.Visible = true;
+                    //imgBtnrgTaxRealized.Visible = true;
                     trNote.Visible = false;
                 }
                 else
                 {
-                    imgBtnrgTaxRealized.Visible = false;
+                    //imgBtnrgTaxRealized.Visible = false;
                     trNote.Visible = false;
                 }
             }
@@ -1130,8 +1121,8 @@ namespace WealthERP.CustomerPortfolio
 
         private void TaxLabelVisibility(bool blVisibility)
         {
-            lblMessageTaxHoldings.Visible = blVisibility;
-            lblTaxRealized.Visible = blVisibility;
+            //lblMessageTaxHoldings.Visible = blVisibility;
+            //lblTaxRealized.Visible = blVisibility;
         }
 
         private void SetReturnsGridsNull()
@@ -1146,10 +1137,10 @@ namespace WealthERP.CustomerPortfolio
 
         private void SetTaxGridsNull()
         {
-            rgTaxHoldings.DataSource = null;
-            rgTaxHoldings.DataBind();
-            rgTaxRealized.DataSource = null;
-            rgTaxRealized.DataBind();
+            //rgTaxHoldings.DataSource = null;
+            //rgTaxHoldings.DataBind();
+            //rgTaxRealized.DataSource = null;
+            //rgTaxRealized.DataBind();
         }
 
         private void ReturnsHoldingsDataTableCreation(DataTable dtReturnsHoldings)
@@ -1283,7 +1274,7 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindPerformaceChart()
         {
-            BindSubCategoryPieChart();
+            //BindSubCategoryPieChart();
             AssetBo assetBo = new AssetBo();
             try
             {
@@ -1313,59 +1304,59 @@ namespace WealthERP.CustomerPortfolio
                         seriesAssets.Points.DataBindXY(XValues, YValues);
                         //chrtTotalAssets.DataSource = dsAssetChart.Tables[0].DefaultView;
 
-                        chrtMFClassification.Series.Clear();
-                        chrtMFClassification.Series.Add(seriesAssets);
+                        //chrtMFClassification.Series.Clear();
+                        //chrtMFClassification.Series.Add(seriesAssets);
 
                         //chrtTotalAssets.Series["Assets"].XValueMember = "AssetType";
                         //chrtTotalAssets.Series["Assets"].YValueMembers = "AggrCurrentValue";
-                        chrtMFClassification.Legends.Clear();
-                        chrtMFClassification.Legends.Add(legend);
-                        chrtMFClassification.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                        chrtMFClassification.Legends["AssetsLegend"].Title = "Assets";
-                        chrtMFClassification.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
-                        chrtMFClassification.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                        chrtMFClassification.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
-                        chrtMFClassification.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
+                        //chrtMFClassification.Legends.Clear();
+                        //chrtMFClassification.Legends.Add(legend);
+                        //chrtMFClassification.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
+                        //chrtMFClassification.Legends["AssetsLegend"].Title = "Assets";
+                        //chrtMFClassification.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
+                        //chrtMFClassification.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                        //chrtMFClassification.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
+                        //chrtMFClassification.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
 
-                        chrtMFClassification.ChartAreas[0].Area3DStyle.Enable3D = true;
-                        chrtMFClassification.ChartAreas[0].Area3DStyle.Perspective = 50;
+                        //chrtMFClassification.ChartAreas[0].Area3DStyle.Enable3D = true;
+                        //chrtMFClassification.ChartAreas[0].Area3DStyle.Perspective = 50;
                         //chrtTotalAssets.ChartAreas[0].InnerPlotPosition.Width = 100;
-                        chrtMFClassification.Width = 500;
-                        chrtMFClassification.BackColor = System.Drawing.Color.Transparent;
-                        chrtMFClassification.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
-                        chrtMFClassification.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
+                        //chrtMFClassification.Width = 500;
+                        //chrtMFClassification.BackColor = System.Drawing.Color.Transparent;
+                        //chrtMFClassification.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
+                        //chrtMFClassification.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
 
-                        LegendCellColumn colors = new LegendCellColumn();
-                        colors.HeaderText = "Color";
-                        colors.ColumnType = LegendCellColumnType.SeriesSymbol;
-                        colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
-                        chrtMFClassification.Legends["AssetsLegend"].CellColumns.Add(colors);
+                        //LegendCellColumn colors = new LegendCellColumn();
+                        //colors.HeaderText = "Color";
+                        //colors.ColumnType = LegendCellColumnType.SeriesSymbol;
+                        //colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
+                        //chrtMFClassification.Legends["AssetsLegend"].CellColumns.Add(colors);
 
-                        LegendCellColumn asset = new LegendCellColumn();
-                        asset.Alignment = ContentAlignment.MiddleLeft;
-                        asset.HeaderText = "Asset";
-                        asset.Text = "#VALX";
-                        chrtMFClassification.Legends["AssetsLegend"].CellColumns.Add(asset);
+                        //LegendCellColumn asset = new LegendCellColumn();
+                        //asset.Alignment = ContentAlignment.MiddleLeft;
+                        //asset.HeaderText = "Asset";
+                        //asset.Text = "#VALX";
+                        //chrtMFClassification.Legends["AssetsLegend"].CellColumns.Add(asset);
 
                         LegendCellColumn assetPercent = new LegendCellColumn();
                         assetPercent.Alignment = ContentAlignment.MiddleLeft;
                         assetPercent.HeaderText = "Asset Percentage";
                         assetPercent.Text = "#PERCENT";
-                        chrtMFClassification.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
+                        //chrtMFClassification.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
 
-                        foreach (DataPoint point in chrtMFClassification.Series["seriesMFC"].Points)
-                        {
-                            point["Exploded"] = "true";
-                        }
+                        //foreach (DataPoint point in chrtMFClassification.Series["seriesMFC"].Points)
+                        //{
+                        //    point["Exploded"] = "true";
+                        //}
 
-                        chrtMFClassification.DataBind();
+                        //chrtMFClassification.DataBind();
                         //chrtTotalAssets.Series["Assets"]. 
                     }
 
                 }
                 else
                 {
-                    trChart.Visible = false;
+                    //trChart.Visible = false;
                 }
 
             }
@@ -1390,97 +1381,97 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-        private void BindSubCategoryPieChart()
-        {
-            AssetBo assetBo = new AssetBo();
-            AdvisorVo adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            DataSet dsSubcategoryValue = assetBo.GetSubCategoryPieChartValue(portfolioId, adviserVo.advisorId);
-            DataTable dtSubCategoryPie;
-            try
-            {
-                dtSubCategoryPie = dsSubcategoryValue.Tables[0];
-                if (dtSubCategoryPie.Rows.Count > 0)
-                {
-                    // Total Assets Chart
-                    Series seriesAssets = new Series("seriesMFC");
-                    Legend legend = new Legend("AssetsLegend");
-                    legend.Enabled = true;
-                    string[] XValues = new string[dtSubCategoryPie.Rows.Count];
-                    double[] YValues = new double[dtSubCategoryPie.Rows.Count];
-                    int i = 0;
-                    seriesAssets.ChartType = SeriesChartType.Pie;
+        //private void BindSubCategoryPieChart()
+        //{
+        //    AssetBo assetBo = new AssetBo();
+        //    AdvisorVo adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+        //    DataSet dsSubcategoryValue = assetBo.GetSubCategoryPieChartValue(portfolioId, adviserVo.advisorId);
+        //    DataTable dtSubCategoryPie;
+        //    try
+        //    {
+        //        dtSubCategoryPie = dsSubcategoryValue.Tables[0];
+        //        if (dtSubCategoryPie.Rows.Count > 0)
+        //        {
+        //            // Total Assets Chart
+        //            Series seriesAssets = new Series("seriesMFC");
+        //            Legend legend = new Legend("AssetsLegend");
+        //            legend.Enabled = true;
+        //            string[] XValues = new string[dtSubCategoryPie.Rows.Count];
+        //            double[] YValues = new double[dtSubCategoryPie.Rows.Count];
+        //            int i = 0;
+        //            seriesAssets.ChartType = SeriesChartType.Pie;
 
-                    foreach (DataRow dr in dtSubCategoryPie.Rows)
-                    {
-                        XValues[i] = dr["SubCategory"].ToString();
-                        YValues[i] = double.Parse(dr["AggrCurrentValue"].ToString());
-                        i++;
-                    }
-                    seriesAssets.Points.DataBindXY(XValues, YValues);
+        //            foreach (DataRow dr in dtSubCategoryPie.Rows)
+        //            {
+        //                XValues[i] = dr["SubCategory"].ToString();
+        //                YValues[i] = double.Parse(dr["AggrCurrentValue"].ToString());
+        //                i++;
+        //            }
+        //            seriesAssets.Points.DataBindXY(XValues, YValues);
 
 
-                    chrtSubCategory.Series.Clear();
-                    chrtSubCategory.Series.Add(seriesAssets);
+        //            chrtSubCategory.Series.Clear();
+        //            chrtSubCategory.Series.Add(seriesAssets);
 
-                    chrtSubCategory.Legends.Clear();
-                    chrtSubCategory.Legends.Add(legend);
-                    chrtSubCategory.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                    chrtSubCategory.Legends["AssetsLegend"].Title = "Assets";
-                    chrtSubCategory.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
-                    chrtSubCategory.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                    chrtSubCategory.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
-                    chrtSubCategory.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
+        //            chrtSubCategory.Legends.Clear();
+        //            chrtSubCategory.Legends.Add(legend);
+        //            chrtSubCategory.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
+        //            chrtSubCategory.Legends["AssetsLegend"].Title = "Assets";
+        //            chrtSubCategory.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
+        //            chrtSubCategory.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+        //            chrtSubCategory.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
+        //            chrtSubCategory.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
 
-                    chrtSubCategory.ChartAreas[0].Area3DStyle.Enable3D = true;
-                    chrtSubCategory.ChartAreas[0].Area3DStyle.Perspective = 50;
-                    chrtSubCategory.Width = 500;
-                    chrtSubCategory.BackColor = System.Drawing.Color.Transparent;
-                    chrtSubCategory.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
-                    chrtSubCategory.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
+        //            chrtSubCategory.ChartAreas[0].Area3DStyle.Enable3D = true;
+        //            chrtSubCategory.ChartAreas[0].Area3DStyle.Perspective = 50;
+        //            chrtSubCategory.Width = 500;
+        //            chrtSubCategory.BackColor = System.Drawing.Color.Transparent;
+        //            chrtSubCategory.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
+        //            chrtSubCategory.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
 
-                    LegendCellColumn colors = new LegendCellColumn();
-                    colors.HeaderText = "Color";
-                    colors.ColumnType = LegendCellColumnType.SeriesSymbol;
-                    colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
-                    chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(colors);
+        //            LegendCellColumn colors = new LegendCellColumn();
+        //            colors.HeaderText = "Color";
+        //            colors.ColumnType = LegendCellColumnType.SeriesSymbol;
+        //            colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
+        //            chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(colors);
 
-                    LegendCellColumn asset = new LegendCellColumn();
-                    asset.Alignment = ContentAlignment.MiddleLeft;
-                    asset.HeaderText = "SubCategory";
-                    asset.Text = "#VALX";
-                    chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(asset);
+        //            LegendCellColumn asset = new LegendCellColumn();
+        //            asset.Alignment = ContentAlignment.MiddleLeft;
+        //            asset.HeaderText = "SubCategory";
+        //            asset.Text = "#VALX";
+        //            chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(asset);
 
-                    LegendCellColumn assetPercent = new LegendCellColumn();
-                    assetPercent.Alignment = ContentAlignment.MiddleLeft;
-                    assetPercent.HeaderText = "AssetPercentage";
-                    assetPercent.Text = "#PERCENT";
-                    chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
+        //            LegendCellColumn assetPercent = new LegendCellColumn();
+        //            assetPercent.Alignment = ContentAlignment.MiddleLeft;
+        //            assetPercent.HeaderText = "AssetPercentage";
+        //            assetPercent.Text = "#PERCENT";
+        //            chrtSubCategory.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
 
-                    foreach (DataPoint point in chrtSubCategory.Series["seriesMFC"].Points)
-                    {
-                        point["Exploded"] = "true";
-                    }
+        //            foreach (DataPoint point in chrtSubCategory.Series["seriesMFC"].Points)
+        //            {
+        //                point["Exploded"] = "true";
+        //            }
 
-                    chrtSubCategory.DataBind();
-                    //chrtTotalAssets.Series["Assets"]. 
-                    chrtSubCategory.Visible = true;
-                    trSubCategoryWise.Visible = true;
-                }
+        //            chrtSubCategory.DataBind();
+        //            //chrtTotalAssets.Series["Assets"]. 
+        //            chrtSubCategory.Visible = true;
+        //            trSubCategoryWise.Visible = true;
+        //        }
 
-                else
-                {
-                    trChart.Visible = false;
-                    trSubCategoryWise.Visible = false;
-                    chrtSubCategory.Visible = false;
-                }
+        //        else
+        //        {
+        //            trChart.Visible = false;
+        //            trSubCategoryWise.Visible = false;
+        //            chrtSubCategory.Visible = false;
+        //        }
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
 
-        }
+        //}
 
         #region Returns Tab Events
 
@@ -1822,23 +1813,13 @@ namespace WealthERP.CustomerPortfolio
         {
             if (ddlDisplayType.SelectedIndex == 0)
             {
-                SetPanelVisibility(false, false);
             }
             else if (ddlDisplayType.SelectedIndex == 1)
             {
-                SetPanelVisibility(true, false);
-                BindReturnsGrid();
-                trChart.Visible = true;
-                //trSchemePerformance.Visible = false;
-                trHoldingGrid.Visible = false;
-                trTop10HoldingsPie.Visible = false;
-                trTopTenSectors.Visible = false;
-                trSectorGrid.Visible = false;
-                BindPerformaceChart();
+               
             }
             else if (ddlDisplayType.SelectedIndex == 2)
             {
-                SetPanelVisibility(false, true);
                 BindTaxGrid();
             }
         }
@@ -1879,23 +1860,12 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rgTaxHoldings_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dt = new DataTable();
-            if (ViewState["TaxHoldings"] != null)
-            {
-                dt = (DataTable)ViewState["TaxHoldings"];
-                rgTaxHoldings.DataSource = dt;
-
-            }
+           
         }
 
         protected void rgTaxRealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataTable dt = new DataTable();
-            if (ViewState["TaxRealized"] != null)
-            {
-                dt = (DataTable)ViewState["TaxRealized"];
-                rgTaxRealized.DataSource = dt;
-            }
+           
         }
 
 
@@ -1952,61 +1922,14 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rgTaxHoldings_Init(object sender, System.EventArgs e)
         {
-            GridFilterMenu menu = rgTaxHoldings.FilterMenu;
-            int i = 0;
-            while (i < menu.Items.Count)
-            {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
-                {
-                    i++;
-                }
-                else
-                {
-                    menu.Items.RemoveAt(i);
-                }
-            }
+           
         }
 
         protected void rgTaxRealized_Init(object sender, System.EventArgs e)
         {
-            GridFilterMenu menu = rgTaxRealized.FilterMenu;
-            int i = 0;
-            while (i < menu.Items.Count)
-            {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
-                {
-                    i++;
-                }
-                else
-                {
-                    menu.Items.RemoveAt(i);
-                }
-            }
         }
 
-        //protected void rgHoldings_ItemDataBound(object sender, GridItemEventArgs e)
-        //{
-        //    if (e.Item is GridHeaderItem)
-        //    {
-        //        GridHeaderItem item = e.Item as GridHeaderItem;
-        //        DropDownList DropdownCategory = (DropDownList)item.FindControl("ddlCategory");                
-        //    }
-        //}
-
-        //private void BindCategoryDDL(DropDownList ddl)
-        //{
-        //    List<string> transTypeList = (List<string>)ViewState["trntypelist"];
-
-        //    //ddl.Items.Add(new ListItem("Select", "Select"));
-        //    if (ddl.SelectedValue == "MFEQ")
-        //    {
-        //        hdnDdlCategorySelectedValue.Value = ddl.SelectedValue;
-        //    }
-        //    if (hdnDdlCategorySelectedValue.Value != "")
-        //        ddl.SelectedValue = hdnDdlCategorySelectedValue.Value;
-        //    else
-        //        ddl.SelectedValue = "Select";
-        //}
+     
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2043,35 +1966,17 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlTaxHoldingsCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridHeaderItem headerItem = rgTaxHoldings.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
-            DropDownList ddl = headerItem.FindControl("ddlTaxHoldingsCategory") as DropDownList;
-            if (ddl != null)
-            {
-                hdnTaxHoldingsCategory.Value = ddl.SelectedItem.ToString();
-            }
-            BindTaxGrid();
+          
         }
 
         protected void ddlTaxRealizedCategory_SelectedIndexChanged(object sender, ImageClickEventArgs e)
         {
-            GridHeaderItem headerItem = rgTaxRealized.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
-            DropDownList ddl = headerItem.FindControl("ddlTaxRealizedCategory") as DropDownList;
-            if (ddl != null)
-            {
-                hdnTaxRealizedCategory.Value = ddl.SelectedItem.ToString();
-            }
-            BindTaxGrid();
+           
         }
 
         public void btnExportrgTaxHoldingsFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            rgTaxHoldings.ExportSettings.OpenInNewWindow = true;
-            rgTaxHoldings.ExportSettings.IgnorePaging = true;
-            rgTaxHoldings.ExportSettings.HideStructureColumns = true;
-            rgTaxHoldings.ExportSettings.ExportOnlyData = true;
-            rgTaxHoldings.ExportSettings.FileName = "Tax Holdings Detail";
-            rgTaxHoldings.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            rgTaxHoldings.MasterTableView.ExportToExcel();
+           
         }
 
         public void btnExportrgAllFilteredData_OnClick(object sender, ImageClickEventArgs e)
@@ -2111,13 +2016,7 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnExportrgTaxRealizedFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            rgTaxRealized.ExportSettings.OpenInNewWindow = true;
-            rgTaxRealized.ExportSettings.IgnorePaging = true;
-            rgTaxRealized.ExportSettings.HideStructureColumns = true;
-            rgTaxRealized.ExportSettings.ExportOnlyData = true;
-            rgTaxRealized.ExportSettings.FileName = "Tax Realized Details";
-            rgTaxRealized.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            rgTaxRealized.MasterTableView.ExportToExcel();
+           
         }
 
         protected void ddlMFClassificationCode_SelectedIndexChanged(object sender, EventArgs e)
@@ -2125,175 +2024,15 @@ namespace WealthERP.CustomerPortfolio
             DateTime valDate = DateTime.Parse(lblPickDate.Text);
             dsSchemeHoldingSector = customerPortfolioBo.GetCustomerSchemeHoldingSectors(portfolioId, valDate);
             Session["DsSchemeHoldingSector"] = dsSchemeHoldingSector;
-            if (ddlMFClassificationCode.SelectedValue == "0")
-            {
-                trChart.Visible = true;
-                trSubCategoryWise.Visible = true;
-                trSchemePerformance.Visible = false;
-                trHoldingGrid.Visible = false;
-                trTop10HoldingsPie.Visible = false;
-                trTopTenSectors.Visible = false;
-                trSectorGrid.Visible = false;
-                BindPerformaceChart();
-            }
-            else if (ddlMFClassificationCode.SelectedValue == "1")
-            {
-                trChart.Visible = false;
-                trSubCategoryWise.Visible = false;
-                trSchemePerformance.Visible = true;
-                trHoldingGrid.Visible = false;
-                trTop10HoldingsPie.Visible = false;
-                trTopTenSectors.Visible = false;
-                trSectorGrid.Visible = false;
-                BindSchemePerformanceGrid();
-            }
-            else if (ddlMFClassificationCode.SelectedValue == "2")
-            {
-                trChart.Visible = false;
-                trSubCategoryWise.Visible = false;
-                trSchemePerformance.Visible = false;
-                trHoldingGrid.Visible = true;
-                trTop10HoldingsPie.Visible = true;
-                trTopTenSectors.Visible = false;
-                trSectorGrid.Visible = false;
-                BindHoldingChart();
-                BindHoldingGrid();
-            }
-            else if (ddlMFClassificationCode.SelectedValue == "3")
-            {
-                trChart.Visible = false;
-                trSubCategoryWise.Visible = false;
-                trSchemePerformance.Visible = false;
-                trHoldingGrid.Visible = false;
-                trTop10HoldingsPie.Visible = false;
-                trTopTenSectors.Visible = true;
-                trSectorGrid.Visible = true;
-                BindTopSectorsPie();
-                BindTopSectorsGrid();
-            }
+           
+           
+          
+          
         }
 
-        private void BindTopSectorsGrid()
-        {
-            DataTable dtSectors;
-            if (Session["DsSchemeHoldingSector"] != "")
-            {
-                dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
-                dtSectors = dsSchemeHoldingSector.Tables[4];
-                if (dsSchemeHoldingSector.Tables[4].Rows.Count > 0)
-                {
-                    gvSectors.DataSource = dtSectors;
-                    gvSectors.DataBind();
-                    ErrorMessage.Visible = false;
-                }
-                else
-                {
-                    gvSectors.Visible = false;
-                    ErrorMessage.Visible = true;
-                    trNote.Visible = false;
+     
 
-                }
-            }
-            else
-            {
-                ErrorMessage.Visible = true;
-                trNote.Visible = false;
-            }
-        }
-
-        private void BindTopSectorsPie()
-        {
-            DataTable dtSectorsPie;
-            try
-            {
-                if (Session["DsSchemeHoldingSector"] != "")
-                {
-                    dsSchemeHoldingSector = (DataSet)Session["DsSchemeHoldingSector"];
-                    dtSectorsPie = dsSchemeHoldingSector.Tables[4];
-                    if (dsSchemeHoldingSector.Tables[4].Rows.Count > 0)
-                    {
-                        // Total Assets Chart
-                        Series seriesAssets = new Series("seriesMFC");
-                        Legend legend = new Legend("AssetsLegend");
-                        legend.Enabled = true;
-                        string[] XValues = new string[dtSectorsPie.Rows.Count];
-                        double[] YValues = new double[dtSectorsPie.Rows.Count];
-                        int i = 0;
-                        seriesAssets.ChartType = SeriesChartType.Pie;
-
-                        foreach (DataRow dr in dtSectorsPie.Rows)
-                        {
-                            XValues[i] = dr["Sector"].ToString();
-                            YValues[i] = double.Parse(dr["Amount"].ToString());
-                            i++;
-                        }
-                        seriesAssets.Points.DataBindXY(XValues, YValues);
-
-
-                        chrtTopTenSectors.Series.Clear();
-                        chrtTopTenSectors.Series.Add(seriesAssets);
-
-                        chrtTopTenSectors.Legends.Clear();
-                        chrtTopTenSectors.Legends.Add(legend);
-                        chrtTopTenSectors.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                        chrtTopTenSectors.Legends["AssetsLegend"].Title = "Assets";
-                        chrtTopTenSectors.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
-                        chrtTopTenSectors.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                        chrtTopTenSectors.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
-                        chrtTopTenSectors.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
-
-                        chrtTopTenSectors.ChartAreas[0].Area3DStyle.Enable3D = true;
-                        chrtTopTenSectors.ChartAreas[0].Area3DStyle.Perspective = 50;
-                        chrtTopTenSectors.Width = 500;
-                        chrtTopTenSectors.BackColor = System.Drawing.Color.Transparent;
-                        chrtTopTenSectors.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
-                        chrtTopTenSectors.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
-
-                        LegendCellColumn colors = new LegendCellColumn();
-                        colors.HeaderText = "Color";
-                        colors.ColumnType = LegendCellColumnType.SeriesSymbol;
-                        colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
-                        chrtTopTenSectors.Legends["AssetsLegend"].CellColumns.Add(colors);
-
-                        LegendCellColumn asset = new LegendCellColumn();
-                        asset.Alignment = ContentAlignment.MiddleLeft;
-                        asset.HeaderText = "Sector";
-                        asset.Text = "#VALX";
-                        chrtTopTenSectors.Legends["AssetsLegend"].CellColumns.Add(asset);
-
-                        LegendCellColumn assetPercent = new LegendCellColumn();
-                        assetPercent.Alignment = ContentAlignment.MiddleLeft;
-                        assetPercent.HeaderText = "Amount";
-                        assetPercent.Text = "#PERCENT";
-                        chrtTopTenSectors.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
-
-                        foreach (DataPoint point in chrtTopTenSectors.Series["seriesMFC"].Points)
-                        {
-                            point["Exploded"] = "true";
-                        }
-
-                        chrtTopTenSectors.DataBind();
-                        //chrtTotalAssets.Series["Assets"]. 
-                        chrtTopTenSectors.Visible = true;
-                        trNote.Visible = false;
-                    }
-
-                }
-                else
-                {
-                    trHoldingGrid.Visible = true;
-                    trNote.Visible = false;
-                    trTop10HoldingsPie.Visible = true;
-                }
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-        }
-
+      
 
 
         private void BindHoldingChart()
@@ -2325,60 +2064,30 @@ namespace WealthERP.CustomerPortfolio
                         seriesAssets.Points.DataBindXY(XValues, YValues);
 
 
-                        chrtTopHoldings.Series.Clear();
-                        chrtTopHoldings.Series.Add(seriesAssets);
+                    
 
-                        chrtTopHoldings.Legends.Clear();
-                        chrtTopHoldings.Legends.Add(legend);
-                        chrtTopHoldings.Series["seriesMFC"]["CollectedSliceExploded"] = "true";
-                        chrtTopHoldings.Legends["AssetsLegend"].Title = "Assets";
-                        chrtTopHoldings.Legends["AssetsLegend"].TitleAlignment = StringAlignment.Center;
-                        chrtTopHoldings.Legends["AssetsLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                        chrtTopHoldings.Legends["AssetsLegend"].TitleSeparatorColor = System.Drawing.Color.Black;
-                        chrtTopHoldings.Series["seriesMFC"]["PieLabelStyle"] = "Disabled";
-
-                        chrtTopHoldings.ChartAreas[0].Area3DStyle.Enable3D = true;
-                        chrtTopHoldings.ChartAreas[0].Area3DStyle.Perspective = 50;
-                        chrtTopHoldings.Width = 500;
-                        chrtTopHoldings.BackColor = System.Drawing.Color.Transparent;
-                        chrtTopHoldings.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
-                        chrtTopHoldings.Series["seriesMFC"].ToolTip = "#VALX: #PERCENT";
 
                         LegendCellColumn colors = new LegendCellColumn();
                         colors.HeaderText = "Color";
                         colors.ColumnType = LegendCellColumnType.SeriesSymbol;
                         colors.HeaderBackColor = System.Drawing.Color.WhiteSmoke;
-                        chrtTopHoldings.Legends["AssetsLegend"].CellColumns.Add(colors);
 
                         LegendCellColumn asset = new LegendCellColumn();
                         asset.Alignment = ContentAlignment.MiddleLeft;
                         asset.HeaderText = "Instrument";
                         asset.Text = "#VALX";
-                        chrtTopHoldings.Legends["AssetsLegend"].CellColumns.Add(asset);
 
                         LegendCellColumn assetPercent = new LegendCellColumn();
                         assetPercent.Alignment = ContentAlignment.MiddleLeft;
                         assetPercent.HeaderText = "Amount";
                         assetPercent.Text = "#PERCENT";
-                        chrtTopHoldings.Legends["AssetsLegend"].CellColumns.Add(assetPercent);
 
-                        foreach (DataPoint point in chrtTopHoldings.Series["seriesMFC"].Points)
-                        {
-                            point["Exploded"] = "true";
-                        }
-
-                        chrtTopHoldings.DataBind();
-                        //chrtTotalAssets.Series["Assets"]. 
-                        chrtTopHoldings.Visible = true;
-                        trNote.Visible = false;
                     }
 
                 }
                 else
                 {
-                    trHoldingGrid.Visible = true;
-                    trNote.Visible = false;
-                    trTop10HoldingsPie.Visible = true;
+                   
                 }
 
             }
@@ -2398,14 +2107,14 @@ namespace WealthERP.CustomerPortfolio
                 dtHoldings = dsSchemeHoldingSector.Tables[1];
                 if (dsSchemeHoldingSector.Tables[2].Rows.Count > 0)
                 {
-                    gvTopTenHoldings.DataSource = dtHoldings;
-                    gvTopTenHoldings.DataBind();
+                    //gvTopTenHoldings.DataSource = dtHoldings;
+                    //gvTopTenHoldings.DataBind();
                     ErrorMessage.Visible = false;
                     trNote.Visible = false;
                 }
                 else
                 {
-                    gvTopTenHoldings.Visible = false;
+                    //gvTopTenHoldings.Visible = false;
                     ErrorMessage.Visible = true;
                     trNote.Visible = false;
 
@@ -2427,11 +2136,11 @@ namespace WealthERP.CustomerPortfolio
                 dtSchemePerformance = dsSchemeHoldingSector.Tables[0];
                 if (dsSchemeHoldingSector.Tables[0].Rows.Count > 0)
                 {
-                    gvSchemePerformance.DataSource = dtSchemePerformance;
-                    gvSchemePerformance.DataBind();
+                    //gvSchemePerformance.DataSource = dtSchemePerformance;
+                    //gvSchemePerformance.DataBind();
                     ErrorMessage.Visible = false;
-                    trSchemePerformance.Visible = true;
-                    gvSchemePerformance.Visible = true;
+                    //trSchemePerformance.Visible = true;
+                    //gvSchemePerformance.Visible = true;
                     if (Cache["SchemePerformance" + userVo.UserId] == null)
                     {
                         Cache.Insert("SchemePerformance" + userVo.UserId, dtSchemePerformance);
@@ -2444,7 +2153,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    gvSchemePerformance.Visible = false;
+                    //gvSchemePerformance.Visible = false;
                     trNote.Visible = false;
                     ErrorMessage.Visible = true;
 
@@ -2460,38 +2169,33 @@ namespace WealthERP.CustomerPortfolio
         protected void btnGo_Click(object sender, EventArgs e)
         {
             portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
+           
+           
             CalculatePortfolioXIRR(portfolioId);
             GetMFPortfolioList();
             SetTaxGridsNull();
             SetReturnsGridsNull();
+
             if (ddlDisplayType.SelectedIndex == 0)
             {
 
-                BindReturnsGrid();
-                SetPanelVisibility(true, false);
-                trChart.Visible = true;
-                //trSchemePerformance.Visible = false;
-                trHoldingGrid.Visible = false;
-                trTop10HoldingsPie.Visible = false;
-                trTopTenSectors.Visible = false;
-                trSectorGrid.Visible = false;
-                ddlMFClassificationCode.SelectedValue = "0";
-                if (ddlMFClassificationCode.SelectedValue == "0")
+                if (ddlType.SelectedValue == "0")
                 {
-                    trChart.Visible = true;
-                    trSubCategoryWise.Visible = true;
-                    trSchemePerformance.Visible = false;
-                    trHoldingGrid.Visible = false;
-                    trTop10HoldingsPie.Visible = false;
-                    trTopTenSectors.Visible = false;
-                    trSectorGrid.Visible = false;
-                    BindPerformaceChart();
+                    NewBindReturnsGrid();
+                }
+                else if (ddlType.SelectedValue == "1")
+                {
+                    AllBindReturnsGrid();
+
+                }
+                else if (ddlType.SelectedValue == "2")
+                {
+                    RealizedBindReturnsGrid();
                 }
 
             }
             else if (ddlDisplayType.SelectedIndex == 1)
             {
-                SetPanelVisibility(false, true);
                 BindTaxGrid();
             }
         }
@@ -2499,422 +2203,18 @@ namespace WealthERP.CustomerPortfolio
         {
             DataTable dtSchemePerformance = new DataTable();
             dtSchemePerformance = (DataTable)Cache["SchemePerformance" + userVo.UserId];
-            gvSchemePerformance.DataSource = dtSchemePerformance;
-            gvSchemePerformance.Visible = true;
+          
         }
         protected void rgHoldings_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = (GridDataItem)e.Item;
-                // DataRow dr = ()e.Item;
-                if (double.Parse(item["OpenUnits"].Text) < 0)
-                {
-                    item["PurchasedUnits"].BackColor = Color.Red;
-                    item["PurchasedUnits"].Font.Bold = true;
-                    double dbl = Double.Parse(item["PurchasedUnits"].Text.ToString());
-                    string str = String.Format("{0:N0}", dbl);
-                    item["PurchasedUnits"].Text = str;
-                    item["DVRUnits"].BackColor = Color.Red;
-                    item["DVRUnits"].Font.Bold = true;
-                    double dvr = Double.Parse(item["DVRUnits"].Text.ToString());
-                    string stdvr = String.Format("{0:N0}", dvr);
-                    item["DVRUnits"].Text = stdvr;
-                    item["InvestedCost"].BackColor = Color.Red;
-                    item["InvestedCost"].Font.Bold = true;
-                    item["TotalPL"].BackColor = Color.Red;
-                    item["TotalPL"].Font.Bold = true;
-                    item["MarketValue"].BackColor = Color.Red;
-                    item["MarketValue"].Font.Bold = true;
-                    item["DVP"].BackColor = Color.Red;
-                    item["DVP"].Font.Bold = true;
-                    item["AbsoluteReturn"].BackColor = Color.Red;
-                    item["AbsoluteReturn"].Font.Bold = true;
-                    double absr = Double.Parse(item["AbsoluteReturn"].Text.ToString());
-                    string strabs = String.Format("{0:N0}", absr);
-                    item["AbsoluteReturn"].Text = strabs;
-                    item["XIRR"].BackColor = Color.Red;
-                    item["XIRR"].Font.Bold = true;
-                    double xir = Double.Parse(item["XIRR"].Text.ToString());
-                    string strxir = String.Format("{0:N0}", xir);
-                    item["XIRR"].Text = strxir;
-                    item["Weighted_NAV"].BackColor = Color.Red;
-                    item["Weighted_NAV"].Font.Bold = true;
-                    double wnav = Double.Parse(item["Weighted_NAV"].Text.ToString());
-                    string strwnav = String.Format("{0:N0}", wnav);
-                    item["Weighted_NAV"].Text = strwnav;
-                    item["CMFNP_RET_Hold_DVRAmounts"].BackColor = Color.Red;
-                    item["CMFNP_RET_Hold_DVRAmounts"].Font.Bold = true;
-                    item["Category"].BackColor = Color.Red;
-                    item["Category"].Font.Bold = true;
-                    item["Scheme"].BackColor = Color.Red;
-                    item["Scheme"].Font.Bold = true;
-                    item["FolioNum"].BackColor = Color.Red;
-                    item["FolioNum"].Font.Bold = true;
-                    item["OpenUnits"].BackColor = Color.Red;
-                    item["OpenUnits"].Font.Bold = true;
-                    item["NAV"].BackColor = Color.Red;
-                    item["NAV"].Font.Bold = true;
-                    //item["AMCCode"].BackColor = Color.Red;
-                    //item["AMCCode"].Font.Bold = true;
-                    item["SubCategoryName"].BackColor = Color.Red;
-                    item["SubCategoryName"].Font.Bold = true;
-                    item["CMFNP_NAVDate"].BackColor = Color.Red;
-                    item["CMFNP_NAVDate"].Font.Bold = true;
-                    item["FolioStartDate"].BackColor = Color.Red;
-                    item["FolioStartDate"].Font.Bold = true;
-                    item["InvestmentStartDate"].BackColor = Color.Red;
-                    item["InvestmentStartDate"].Font.Bold = true;
-                }
-            }
-            //if (e.Item is GridFooterItem)
-            //{
-            //    GridFooterItem footer = (GridFooterItem)e.Item;
-            //    if (rgHoldings.Items.Count > 0)
-            //    {
-            //        Dictionary<string, double> dic = CalculateHoldingFooterTotal();
-            //        if (dic.Count > 0)
-            //        {
-            //            var keyValuePair = dic.FirstOrDefault(x => x.Key == "MarketValue");
-            //            var keyValuePairPurchase = dic.FirstOrDefault(x => x.Key == "PurchasedUnits");
-            //            var keyValuePairDVR = dic.FirstOrDefault(x => x.Key == "DVRUnits");
-            //            var keyValuePairDVP = dic.FirstOrDefault(x => x.Key == "DVP");
-            //            var keyValuePairDVRAmt = dic.FirstOrDefault(x => x.Key == "CMFNP_RET_Hold_DVRAmounts");
-            //            var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
-            //            var keyValuePairInvestCost = dic.FirstOrDefault(x => x.Key == "InvestedCost");
-            //            var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "OpenUnits");
-            //            footer["MarketValue"].Text = string.Format("{0:N2}", (keyValuePair.Value).ToString());
-            //            footer["PurchasedUnits"].Text = string.Format("{0:N3}", keyValuePairPurchase.Value.ToString());
-            //            footer["DVRUnits"].Text = keyValuePairDVR.Value.ToString();
-            //            footer["DVP"].Text = keyValuePairDVP.Value.ToString();
-            //            footer["CMFNP_RET_Hold_DVRAmounts"].Text = keyValuePairDVRAmt.Value.ToString();
-            //            footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
-            //            footer["InvestedCost"].Text = keyValuePairInvestCost.Value.ToString();
-            //            footer["OpenUnits"].Text = string.Format("{0:N3}", keyValuePairUnit.Value.ToString());
-
-            //        }
-            //    }
-            //}
         }
-        //protected Dictionary<string, double> CalculateHoldingFooterTotal()
-        //{
-        //Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
-        //double MarketValueTotal = 0;
-        //double PurchasedUnitsTotal = 0;
-        //double DVRUnitsTotal = 0;
-        //double DVPTotal = 0;
-        //double DVRAmountTotal = 0;
-        //double TotalPL = 0;
-        //double TotalInvestCost = 0;
-        //double TotalUnit = 0;
-        //if (ViewState["HoldingReturns"] != null)
-        //{
-        //    DataTable dtHoldingReturns = (DataTable)ViewState["HoldingReturns"];
 
-        //        foreach (DataRow dr in dtHoldingReturns.Rows)
-        //        {
-        //            if (dr["MarketValue"].ToString() != "N/A")
-        //            {
-        //                MarketValueTotal = MarketValueTotal + double.Parse(dr["MarketValue"].ToString());
-        //            }
-        //            if (dr["PurchasedUnits"].ToString() != "N/A")
-        //            {
-        //                PurchasedUnitsTotal = PurchasedUnitsTotal + double.Parse(dr["PurchasedUnits"].ToString());
-        //            }
-        //            if (dr["DVRUnits"].ToString() != "N/A")
-        //            {
-        //                DVRUnitsTotal = DVRUnitsTotal + double.Parse(dr["DVRUnits"].ToString());
-        //            }
-        //            if (dr["DVP"].ToString() != "N/A")
-        //            {
-        //                DVPTotal = DVPTotal + double.Parse(dr["DVP"].ToString());
-        //            }
-        //            if (dr["CMFNP_RET_Hold_DVRAmounts"].ToString() != "N/A")
-        //            {
-        //                DVRAmountTotal = DVRAmountTotal + double.Parse(dr["CMFNP_RET_Hold_DVRAmounts"].ToString());
-        //            }
-        //            if (dr["TotalPL"].ToString() != "N/A")
-        //            {
-        //                TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
-        //            }
-        //            if (dr["InvestedCost"].ToString() != "N/A")
-        //            {
-        //                TotalInvestCost = TotalInvestCost + double.Parse(dr["InvestedCost"].ToString());
-        //            }
-        //            if (dr["OpenUnits"].ToString() != "N/A")
-        //            {
-        //                TotalUnit = TotalUnit + double.Parse(dr["OpenUnits"].ToString());
-        //            }
-        //        }                          
-        //        dicTotalSum.Add("MarketValue", MarketValueTotal);
-        //        dicTotalSum.Add("PurchasedUnits", PurchasedUnitsTotal);
-        //        dicTotalSum.Add("DVRUnits", DVRUnitsTotal);
-        //        dicTotalSum.Add("DVP", DVPTotal);
-        //        dicTotalSum.Add("CMFNP_RET_Hold_DVRAmounts", DVRAmountTotal);
-        //        dicTotalSum.Add("TotalPL", TotalPL);
-        //        dicTotalSum.Add("InvestedCost", TotalInvestCost);
-        //        dicTotalSum.Add("OpenUnits", TotalUnit);
-        //    }
-        //return dicTotalSum;
-        //}
         protected void rgAll_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
-        {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = (GridDataItem)e.Item;
-                if (double.Parse(item["OpenUnits"].Text) < 0)
-                {
-                    item["PurchasedUnits"].BackColor = Color.Red;
-                    item["PurchasedUnits"].Font.Bold = true;
-                    double dbl = Double.Parse(item["PurchasedUnits"].Text.ToString());
-                    string str = String.Format("{0:N0}", dbl);
-                    item["PurchasedUnits"].Text = str;
-                    item["DVRUnits"].BackColor = Color.Red;
-                    item["DVRUnits"].Font.Bold = true;
-                    double dvr = Double.Parse(item["DVRUnits"].Text.ToString());
-                    string stdvr = String.Format("{0:N0}", dvr);
-                    item["DVRUnits"].Text = stdvr;
-                    item["InvestedCost"].BackColor = Color.Red;
-                    item["InvestedCost"].Font.Bold = true;
-                    item["CurrentValue"].BackColor = Color.Red;
-                    item["CurrentValue"].Font.Bold = true;
-                    item["TotalPL"].BackColor = Color.Red;
-                    item["TotalPL"].Font.Bold = true;
-                    item["RedeemedAmount"].BackColor = Color.Red;
-                    item["RedeemedAmount"].Font.Bold = true;
-                    item["DVP"].BackColor = Color.Red;
-                    item["DVP"].Font.Bold = true;
-                    item["DVR"].BackColor = Color.Red;
-                    item["DVR"].Font.Bold = true;
-                    item["UnitsSold"].BackColor = Color.Red;
-                    item["UnitsSold"].Font.Bold = true;
-                    double unitsold = Double.Parse(item["UnitsSold"].Text.ToString());
-                    string strus = String.Format("{0:N0}", unitsold);
-                    item["UnitsSold"].Text = strus;
-                    item["AbsoluteReturn"].BackColor = Color.Red;
-                    item["AbsoluteReturn"].Font.Bold = true;
-                    double absr = Double.Parse(item["AbsoluteReturn"].Text.ToString());
-                    string strabs = String.Format("{0:N0}", absr);
-                    item["AbsoluteReturn"].Text = strabs;
-                    item["XIRR"].BackColor = Color.Red;
-                    item["XIRR"].Font.Bold = true;
-                    item["TotalDividends"].BackColor = Color.Red;
-                    item["TotalDividends"].Font.Bold = true;
-                    item["Category"].BackColor = Color.Red;
-                    item["Category"].Font.Bold = true;
-                    item["Schemes"].BackColor = Color.Red;
-                    item["Schemes"].Font.Bold = true;
-                    item["FolioNum"].BackColor = Color.Red;
-                    item["FolioNum"].Font.Bold = true;
-                    item["OpenUnits"].BackColor = Color.Red;
-                    item["OpenUnits"].Font.Bold = true;
-                    item["NAV"].BackColor = Color.Red;
-                    item["NAV"].Font.Bold = true;
-                    item["SubCategoryName"].BackColor = Color.Red;
-                    item["SubCategoryName"].Font.Bold = true;
-                    item["FolioStartDate"].BackColor = Color.Red;
-                    item["FolioStartDate"].Font.Bold = true;
-                    item["InvestmentStartDate"].BackColor = Color.Red;
-                    item["InvestmentStartDate"].Font.Bold = true;
-                    item["CMFNP_NAVDate"].BackColor = Color.Red;
-                    item["CMFNP_NAVDate"].Font.Bold = true;
-                }
-
-
-                //if (e.Item is GridFooterItem)
-                //{
-                //    GridFooterItem footer = (GridFooterItem)e.Item;
-                //    if (rgAll.Items.Count > 0)
-                //    {
-                //        Dictionary<string, double> dic = CalculateAllFooterTotal();
-                //        if (dic.Count > 0)
-                //        {
-                //            var keyValuePair = dic.FirstOrDefault(x => x.Key == "CurrentValue");
-                //            var keyValuePairPurchase = dic.FirstOrDefault(x => x.Key == "PurchasedUnits");
-                //            var keyValuePairDVRUnit = dic.FirstOrDefault(x => x.Key == "DVRUnits");
-                //            var keyValuePairDVP = dic.FirstOrDefault(x => x.Key == "DVP");
-                //            var keyValuePairDVR = dic.FirstOrDefault(x => x.Key == "DVR");
-                //            var keyValuePairReedemAmt = dic.FirstOrDefault(x => x.Key == "RedeemedAmount");
-                //            var keyValuePairTotalDIV = dic.FirstOrDefault(x => x.Key == "TotalDividends");
-                //            var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
-                //            var keyValuePairInvestCost = dic.FirstOrDefault(x => x.Key == "InvestedCost");
-                //            var keyValuePairSoldUnit = dic.FirstOrDefault(x => x.Key == "UnitsSold");
-                //            var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "OpenUnits");
-                //            footer["CurrentValue"].Text = Convert.ToDouble(keyValuePair.Value).ToString();
-                //            footer["PurchasedUnits"].Text = keyValuePairPurchase.Value.ToString();
-                //            footer["DVRUnits"].Text = keyValuePairDVRUnit.Value.ToString();
-                //            footer["DVP"].Text = keyValuePairDVP.Value.ToString();
-                //            footer["DVR"].Text = keyValuePairDVR.Value.ToString();
-                //            footer["RedeemedAmount"].Text = keyValuePairReedemAmt.Value.ToString();
-                //            footer["TotalDividends"].Text = keyValuePairTotalDIV.Value.ToString();
-                //            footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
-                //            footer["InvestedCost"].Text = keyValuePairInvestCost.Value.ToString();
-                //            footer["UnitsSold"].Text = keyValuePairSoldUnit.Value.ToString();
-                //            footer["OpenUnits"].Text = keyValuePairUnit.Value.ToString();
-                //        }
-                //    }
-                //}
-            }
-        }
-        //protected Dictionary<string, double> CalculateAllFooterTotal()
-        //{
-        //    Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
-        //    double CurrentValueTotal = 0;
-        //    double PurchasedUnitsTotal = 0;
-        //    double DVRUnitsTotal = 0;
-        //    double DVRTotal = 0;
-        //    double DVPTotal = 0;
-        //    double TotalDividend = 0;
-        //    double RedeemedAmountTotal = 0;
-        //    double TotalPL = 0;
-        //    double TotalInvestCost = 0;
-        //    double TotalUnit = 0;
-        //    // double Price = 0;
-        //    double TotalSoldUnit = 0;
-        //    if (ViewState["AllReturns"] != null)
-        //    {
-        //        DataTable dtAllReturns = (DataTable)ViewState["AllReturns"];
-        //        foreach (DataRow dr in dtAllReturns.Rows)
-        //        {
-        //            if (dr["CurrentValue"].ToString() != "N/A")
-        //            {
-        //                CurrentValueTotal = CurrentValueTotal + double.Parse(dr["CurrentValue"].ToString());
-        //            }
-        //            if (dr["PurchasedUnits"].ToString() != "N/A")
-        //            {
-        //                PurchasedUnitsTotal = PurchasedUnitsTotal + double.Parse(dr["PurchasedUnits"].ToString());
-        //            }
-        //            if (dr["DVRUnits"].ToString() != "N/A")
-        //            {
-        //                DVRUnitsTotal = DVRUnitsTotal + double.Parse(dr["DVRUnits"].ToString());
-        //            }
-        //            if (dr["DVP"].ToString() != "N/A")
-        //            {
-        //                DVPTotal = DVPTotal + double.Parse(dr["DVP"].ToString());
-        //            }
-        //            if (dr["DVR"].ToString() != "N/A")
-        //            {
-        //                DVRTotal = DVRTotal + double.Parse(dr["DVR"].ToString());
-        //            }
-        //            //if (dr["Price"].ToString() != "N/A")
-        //            //{
-        //            //    Price = Price + double.Parse(dr["Price"].ToString());
-        //            //}
-        //            if (dr["RedeemedAmount"].ToString() != "N/A")
-        //            {
-        //                RedeemedAmountTotal = RedeemedAmountTotal + double.Parse(dr["RedeemedAmount"].ToString());
-        //            }
-        //            if (dr["TotalDividends"].ToString() != "N/A")
-        //            {
-        //                TotalDividend = TotalDividend + double.Parse(dr["TotalDividends"].ToString());
-        //            }
-        //            if (dr["TotalPL"].ToString() != "N/A")
-        //            {
-        //                TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
-        //            }
-        //            if (dr["InvestedCost"].ToString() != "N/A")
-        //            {
-        //                TotalInvestCost = TotalInvestCost + double.Parse(dr["InvestedCost"].ToString());
-        //            }
-        //            if (dr["UnitsSold"].ToString() != "N/A")
-        //            {
-        //                TotalSoldUnit = TotalSoldUnit + double.Parse(dr["UnitsSold"].ToString());
-        //            }
-        //            if (dr["OpenUnits"].ToString() != "N/A")
-        //            {
-        //                TotalUnit = TotalUnit + double.Parse(dr["OpenUnits"].ToString());
-        //            }
-        //        }
-        //        dicTotalSum.Add("CurrentValue", CurrentValueTotal);
-        //        dicTotalSum.Add("PurchasedUnits", PurchasedUnitsTotal);
-        //        dicTotalSum.Add("DVRUnits", DVRUnitsTotal);
-        //        dicTotalSum.Add("DVP", DVPTotal);
-        //        dicTotalSum.Add("DVR", DVRTotal);
-        //        // dicTotalSum.Add("Price", Price);
-        //        dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
-        //        dicTotalSum.Add("TotalDividends", TotalDividend);
-        //        dicTotalSum.Add("TotalPL", TotalPL);
-        //        dicTotalSum.Add("InvestedCost", TotalInvestCost);
-        //        dicTotalSum.Add("OpenUnits", TotalUnit);
-        //        dicTotalSum.Add("UnitsSold", TotalSoldUnit);
-
-        //    }
-        //    return dicTotalSum;
-        //}
+        { }
         protected void rgRealized_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            //if (e.Item is GridFooterItem)
-            //{
-            //    GridFooterItem footer = (GridFooterItem)e.Item;
-            //    if (rgRealized.Items.Count > 0)
-            //    {
-            //        Dictionary<string, double> dic = CalculateRealizedFooterTotal();
-            //        if (dic.Count > 0)
-            //        {
-            //            var keyValuePairTotalDIV = dic.FirstOrDefault(x => x.Key == "TotalDividends");
-            //            var keyValuePairDVP = dic.FirstOrDefault(x => x.Key == "DVP");
-            //            var keyValuePairReedemAmt = dic.FirstOrDefault(x => x.Key == "RedeemedAmount");
-            //            var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
-            //            var keyValuePairInvestCost = dic.FirstOrDefault(x => x.Key == "InvestedCost");
-            //            var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "UnitsSold");
-            //            footer["TotalDividends"].Text = keyValuePairTotalDIV.Value.ToString();
-            //            footer["DVP"].Text = keyValuePairDVP.Value.ToString();
-            //            footer["RedeemedAmount"].Text = keyValuePairReedemAmt.Value.ToString();
-            //            footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
-            //            footer["InvestedCost"].Text = keyValuePairInvestCost.Value.ToString();
-            //            footer["UnitsSold"].Text = keyValuePairUnit.Value.ToString();
-            //        }
-            //    }
-            //}
+           
         }
-        //protected Dictionary<string, double> CalculateRealizedFooterTotal()
-        //{
-        //    Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
-        //    double TotalDividend = 0;
-        //    double DVPTotal = 0;
-        //    double RedeemedAmountTotal = 0;
-        //    double TotalPL = 0;
-        //    double TotalInvestCost = 0;
-        //    double TotalSoldUnit = 0;
-        //    if (ViewState["RealizedReturns"] != null)
-        //    {
-        //        DataTable dtRealizedReturns = (DataTable)ViewState["RealizedReturns"];
-        //        foreach (DataRow dr in dtRealizedReturns.Rows)
-        //        {
-        //            if (dr["TotalDividends"].ToString() != "N/A")
-        //            {
-        //                TotalDividend = TotalDividend + double.Parse(dr["TotalDividends"].ToString());
-        //            }
-        //            if (dr["DVP"].ToString() != "N/A")
-        //            {
-        //                DVPTotal = DVPTotal + double.Parse(dr["DVP"].ToString());
-        //            }
-        //            if (dr["RedeemedAmount"].ToString() != "N/A")
-        //            {
-        //                RedeemedAmountTotal = RedeemedAmountTotal + double.Parse(dr["RedeemedAmount"].ToString());
-        //            }
-        //            if (dr["TotalPL"].ToString() != "N/A")
-        //            {
-        //                TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
-        //            }
-        //            if (dr["InvestedCost"].ToString() != "N/A")
-        //            {
-        //                TotalInvestCost = TotalInvestCost + double.Parse(dr["InvestedCost"].ToString());
-        //            }
-        //            if (dr["UnitsSold"].ToString() != "N/A")
-        //            {
-        //                TotalSoldUnit = TotalSoldUnit + double.Parse(dr["UnitsSold"].ToString());
-        //            }
-        //        }
-        //        dicTotalSum.Add("TotalDividends", TotalDividend);
-        //        dicTotalSum.Add("DVP", DVPTotal);
-        //        dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
-        //        dicTotalSum.Add("TotalPL", TotalPL);
-        //        dicTotalSum.Add("InvestedCost", TotalInvestCost);
-        //        dicTotalSum.Add("UnitsSold", TotalSoldUnit);
-        //    }
-        //    return dicTotalSum;
-        //}
 
         protected void rgTaxHoldings_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
@@ -2954,158 +2254,13 @@ namespace WealthERP.CustomerPortfolio
                     item["CMFNP_NAVDate"].Font.Bold = true;
 
                 }
-
-
-
-                //if (e.Item is GridFooterItem)
-                //{
-                //    GridFooterItem footer = (GridFooterItem)e.Item;
-                //    if (rgTaxHoldings.Items.Count > 0)
-                //    {
-                //        Dictionary<string, double> dic = CalculateTaxHoldingFooterTotal();
-                //        if (dic.Count > 0)
-                //        {
-                //            var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "OpenUnits");
-                //            var keyValuePairBalanceAmt = dic.FirstOrDefault(x => x.Key == "BalanceAmount");
-                //            var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "UnrealizedPL");
-                //            var keyValuePairSTCG = dic.FirstOrDefault(x => x.Key == "EligibleSTCG");
-                //            var keyValuePairLTCG = dic.FirstOrDefault(x => x.Key == "EligibleLTCG");
-                //            var keyValueMarketValue = dic.FirstOrDefault(x => x.Key == "MarketValue");
-                //            footer["OpenUnits"].Text = string.Format("{0:N2}", keyValuePairUnit.Value.ToString());
-                //            footer["BalanceAmount"].Text = keyValuePairBalanceAmt.Value.ToString();
-                //            footer["UnrealizedPL"].Text = keyValuePairTotalPL.Value.ToString();
-                //            footer["EligibleSTCG"].Text = keyValuePairSTCG.Value.ToString();
-                //            footer["EligibleLTCG"].Text = keyValuePairLTCG.Value.ToString();
-                //            footer["MarketValue"].Text = keyValueMarketValue.Value.ToString();
-                //        }
-                //    }
-                //}
             }
         }
-        //protected Dictionary<string, double> CalculateTaxHoldingFooterTotal()
-        //{
-        //    Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
-        //    double TotalMarketVlaue = 0;
-        //    double BalanceAmountTotal = 0;
-        //    double TotalPL = 0;
-        //    double TotalSTCG = 0;
-        //    double TotalLTCG = 0;
-        //    double TotalUnit = 0;
-
-        //    if (ViewState["TaxHoldings"] != null)
-        //    { //
-        //        DataTable dtTaxRealizedReturns = (DataTable)ViewState["TaxHoldings"];
-        //        foreach (DataRow dr in dtTaxRealizedReturns.Rows)
-        //        {
-        //            if (dr["OpenUnits"].ToString() != "N/A")
-        //            {
-        //                TotalUnit = TotalUnit + double.Parse(dr["OpenUnits"].ToString());
-        //            }
-        //            if (dr["BalanceAmount"].ToString() != "N/A")
-        //            {
-        //                BalanceAmountTotal = BalanceAmountTotal + double.Parse(dr["BalanceAmount"].ToString());
-        //            }
-        //            if (dr["UnrealizedPL"].ToString() != "N/A")
-        //            {
-        //                TotalPL = TotalPL + double.Parse(dr["UnrealizedPL"].ToString());
-        //            }
-        //            if (dr["EligibleSTCG"].ToString() != "N/A")
-        //            {
-        //                TotalSTCG = TotalSTCG + double.Parse(dr["EligibleSTCG"].ToString());
-        //            }
-        //            if (dr["EligibleLTCG"].ToString() != "N/A")
-        //            {
-        //                TotalLTCG = TotalLTCG + double.Parse(dr["EligibleLTCG"].ToString());
-        //            }
-        //            if (dr["MarketValue"].ToString() != "N/A")
-        //            {
-        //                TotalMarketVlaue = TotalMarketVlaue + double.Parse(dr["MarketValue"].ToString());
-        //            }
-        //        }
-        //        dicTotalSum.Add("OpenUnits", TotalUnit);
-        //        dicTotalSum.Add("BalanceAmount", BalanceAmountTotal);
-        //        dicTotalSum.Add("UnrealizedPL", TotalPL);
-        //        dicTotalSum.Add("EligibleSTCG", TotalSTCG);
-        //        dicTotalSum.Add("EligibleLTCG", TotalLTCG);
-        //        dicTotalSum.Add("MarketValue", TotalMarketVlaue);
-        //    }
-        //    return dicTotalSum;
-        //}
 
         protected void rgTaxRealized_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            //if (e.Item is GridFooterItem)
-            //{
-            //    GridFooterItem footer = (GridFooterItem)e.Item;
-            //    if (rgRealized.Items.Count > 0)
-            //    {
-            //        Dictionary<string, double> dic = CalculateTaxRealizedFooterTotal();
-            //        if (dic.Count > 0)
-            //        {
-            //            var keyValuePairAcquisitionCost = dic.FirstOrDefault(x => x.Key == "AcquisitionCost");
-            //            var keyValuePairReedemAmt = dic.FirstOrDefault(x => x.Key == "RedeemedAmount");
-            //            var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
-            //            var keyValuePairSCTG = dic.FirstOrDefault(x => x.Key == "STCG");
-            //            var keyValuePairLCTG = dic.FirstOrDefault(x => x.Key == "LTCG");
-            //            var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "UnitsSold");
-            //            footer["AcquisitionCost"].Text = keyValuePairAcquisitionCost.Value.ToString();
-            //            footer["RedeemedAmount"].Text = keyValuePairReedemAmt.Value.ToString();
-            //            footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
-            //            footer["STCG"].Text = keyValuePairSCTG.Value.ToString();
-            //            footer["LTCG"].Text = keyValuePairLCTG.Value.ToString();
-            //            footer["UnitsSold"].Text = keyValuePairUnit.Value.ToString();
-            //        }
-            //    }
-            //}
+          
         }
-        //protected Dictionary<string, double> CalculateTaxRealizedFooterTotal()
-        //{
-        //    Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
-        //    double TotalAcquisitionCost = 0;
-        //    double RedeemedAmountTotal = 0;
-        //    double TotalPL = 0;
-        //    double TotalSTCG = 0;
-        //    double TotalLTCG = 0;
-        //    double TotalSoldUnit = 0;
-        //    if (ViewState["TaxRealized"] != null)
-        //    {
-        //        DataTable dtTaxRealizedReturns = (DataTable)ViewState["TaxRealized"];
-        //        foreach (DataRow dr in dtTaxRealizedReturns.Rows)
-        //        {
-        //            if (dr["AcquisitionCost"].ToString() != "N/A")
-        //            {
-        //                TotalAcquisitionCost = TotalAcquisitionCost + double.Parse(dr["AcquisitionCost"].ToString());
-        //            }
-        //            if (dr["RedeemedAmount"].ToString() != "N/A")
-        //            {
-        //                RedeemedAmountTotal = RedeemedAmountTotal + double.Parse(dr["RedeemedAmount"].ToString());
-        //            }
-        //            if (dr["TotalPL"].ToString() != "N/A")
-        //            {
-        //                TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
-        //            }
-        //            if (dr["STCG"].ToString() != "N/A")
-        //            {
-        //                TotalSTCG = TotalSTCG + double.Parse(dr["STCG"].ToString());
-        //            }
-        //            if (dr["LTCG"].ToString() != "N/A")
-        //            {
-        //                TotalLTCG = TotalLTCG + double.Parse(dr["LTCG"].ToString());
-        //            }
-        //            if (dr["UnitsSold"].ToString() != "N/A")
-        //            {
-        //                TotalSoldUnit = TotalSoldUnit + double.Parse(dr["UnitsSold"].ToString());
-        //            }
-        //        }
-        //        dicTotalSum.Add("AcquisitionCost", TotalAcquisitionCost);
-        //        dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
-        //        dicTotalSum.Add("TotalPL", TotalPL);
-        //        dicTotalSum.Add("STCG", TotalSTCG);
-        //        dicTotalSum.Add("LTCG", TotalLTCG);
-        //        dicTotalSum.Add("UnitsSold", TotalSoldUnit);
-        //    }
-        //    return dicTotalSum;
-        //}
         protected void rgHoldings_OnExcelMLExportStylesCreated(object source, Telerik.Web.UI.GridExcelBuilder.GridExportExcelMLStyleCreatedArgs e)
         {
             BorderStylesCollection borders = new BorderStylesCollection();

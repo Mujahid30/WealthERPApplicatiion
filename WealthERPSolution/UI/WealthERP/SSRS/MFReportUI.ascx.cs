@@ -162,7 +162,7 @@ namespace WealthERP.SSRS
             }
             else
             {
-                ShowFolios();
+                ShowFolios(); 
             }
 
         }

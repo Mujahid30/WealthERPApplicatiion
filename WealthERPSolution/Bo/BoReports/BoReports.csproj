@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <SccProjectName>%24/WealthERPApplication/WealthERPSolution/Bo/BoReports</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
-    <SccAuxPath>http://192.168.0.2:8080/tfs/Ampsys%2520wealthERP</SccAuxPath>
+    <SccAuxPath>http://moon:8080/tfs/Ampsys%2520WealthERP</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -52,8 +52,12 @@
     <Reference Include="VoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EQNetPositionBo.cs" />
+    <Compile Include="EQReportEngineBo.cs" />
     <Compile Include="EquityReports.cs" />
     <Compile Include="FinancialPlanningReportBo.cs" />
+    <Compile Include="MFNetPositionBo.cs" />
+    <Compile Include="MFReportEngineBo.cs" />
     <Compile Include="MFReports.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PortfolioReports.cs" />
