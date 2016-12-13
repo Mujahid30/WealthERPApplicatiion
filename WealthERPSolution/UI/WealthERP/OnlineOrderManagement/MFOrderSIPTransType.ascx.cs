@@ -140,7 +140,14 @@ namespace WealthERP.OnlineOrderManagement
                             }
                            
                             OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
-                            ddlFolio.SelectedValue = accountId.ToString();
+                            if (amcCode != 1)
+                            {
+                                ddlFolio.SelectedValue = accountId.ToString();
+                            }
+                            else
+                            {
+                                ddlFolio.SelectedValue = "1";
+                            }
                             DataViewOnEdit();
                         }
                         else
@@ -191,7 +198,7 @@ namespace WealthERP.OnlineOrderManagement
             BindAMCSchemes(amcCode, category);
             ddlScheme.SelectedValue = schemeCode.ToString();
             lblScheme.Text = ddlScheme.SelectedItem.Text;
-            BindSipUiOnSchemeSelection(schemeCode);
+            BindSipUiOnSchemeSelection(schemeCode, amcCode);
             //ddlFolio.SelectedValue = accountId.ToString();
 
         }
@@ -596,7 +603,7 @@ namespace WealthERP.OnlineOrderManagement
             //Reset dependent controls
             ddlFrequency.SelectedIndex = 0;
             if (ddlScheme.SelectedIndex == 0) return;
-            BindSipUiOnSchemeSelection(Convert.ToInt32(ddlScheme.SelectedValue));
+            //BindSipUiOnSchemeSelection(Convert.ToInt32(ddlScheme.SelectedValue));
 
         }
 
@@ -767,14 +774,14 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void BindSipUiOnSchemeSelection(int schemeCode)
+        protected void BindSipUiOnSchemeSelection(int schemeCode,int amcCode)
         {
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP", GetExchangeType(exchangeType));
 
             SetLatestNav();
             BindFrequency();
             BindAllControlsWithSIPData();
-            BindFolioNumber(schemeCode);
+            BindFolioNumber(schemeCode, amcCode);
         }
 
         protected void BindFrequency()
@@ -859,7 +866,7 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        private void BindFolioNumber(int amcCode)
+        private void BindFolioNumber(int schemeCode, int amcCode)
         {
             ddlFolio.Items.Clear();
             if (ddlAmc.SelectedIndex == 0) return;
@@ -868,18 +875,21 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtgetfolioNo;
             try
             {
-                if (strAction != "Edit")
-                    dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode, exchangeType == "Online" ? 1 : 0);
-                //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
-                else
-                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId, 0);
-
-                if (dtgetfolioNo.Rows.Count > 0)
+                if (amcCode != 1)
                 {
-                    ddlFolio.DataSource = dtgetfolioNo;
-                    ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
-                    ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
-                    ddlFolio.DataBind();
+                    if (strAction != "Edit")
+                        dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, schemeCode, exchangeType == "Online" ? 1 : 0);
+                    //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                    else
+                        dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId, 0);
+
+                    if (dtgetfolioNo.Rows.Count > 0)
+                    {
+                        ddlFolio.DataSource = dtgetfolioNo;
+                        ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
+                        ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                        ddlFolio.DataBind();
+                    }
                 }
                 ddlFolio.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
                 //ddlFolio.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
