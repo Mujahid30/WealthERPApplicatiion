@@ -106,6 +106,7 @@ namespace VoCommisionManagement
         public bool IsKKCApplicable { get; set; }
         public decimal SBCValue { get; set; }
         public decimal KKCValue { get; set; }
+        public string eFormSeries { get; set; }
 
 
     }

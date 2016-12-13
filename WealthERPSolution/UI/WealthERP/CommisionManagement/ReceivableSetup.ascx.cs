@@ -242,7 +242,7 @@ namespace WealthERP.Receivable
                 message = "Please select atleast one item";
                 Response.Write("<script>alert('" + message + "')</script>");
             }
-         
+
         }
 
         protected void LeftArrow1_Click(Object sender, EventArgs e)
@@ -274,7 +274,7 @@ namespace WealthERP.Receivable
                 message = "Please select atleast one item";
                 Response.Write("<script>alert('" + message + "')</script>");
             }
-            
+
         }
         protected void RightShift1_Click(Object sender, EventArgs e)
         {
@@ -286,7 +286,7 @@ namespace WealthERP.Receivable
                     rlbAvailSchemes.Items.Remove(rlbAvailSchemes.Items[i]);
                 }
             }
-            
+
         }
         protected void LeftShift1_Click(Object sender, EventArgs e)
         {
@@ -298,7 +298,7 @@ namespace WealthERP.Receivable
                     rlbMappedSchemes.Items.Remove(rlbMappedSchemes.Items[i]);
                 }
             }
-            
+
         }
         protected void imgBuyMapping_Click(object sender, ImageClickEventArgs e)
         {
@@ -1410,14 +1410,19 @@ namespace WealthERP.Receivable
                 CheckBox chkCategory = (CheckBox)e.Item.FindControl("chkCategory");
                 CheckBox chkSeries = (CheckBox)e.Item.FindControl("chkSeries");
                 CheckBox chkMode = (CheckBox)e.Item.FindControl("chkMode");
+                CheckBox chkEForm = (CheckBox)e.Item.FindControl("chkEForm");
                 CheckBox check = (CheckBox)e.Item.FindControl("ChkIsclowBack");
                 TextBox txtbox = (TextBox)e.Item.FindControl("txtClawBackAge");
+                RequiredFieldValidator RFVEForm = (RequiredFieldValidator)e.Item.FindControl("RFVEForm");
+                RegularExpressionValidator REVEForm = (RegularExpressionValidator)e.Item.FindControl("REVEForm");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlSeries = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlSeries");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblSerise = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblSerise");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblMode");
                 System.Web.UI.HtmlControls.HtmlTableCell tdddlMode = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdddlMode");
                 System.Web.UI.HtmlControls.HtmlTableRow trCity = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trCity");
                 System.Web.UI.HtmlControls.HtmlTableRow trDateValidation = (System.Web.UI.HtmlControls.HtmlTableRow)gefi.FindControl("trDateValidation");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblEform = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblEform");
+                System.Web.UI.HtmlControls.HtmlTableCell tdtxtEform = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdtxtEform");
                 txtRuleValidityTo.Text = hdnRuleEnd.Value;
                 txtRuleValidityFrom.Text = hdnRulestart.Value;
                 ddlCommisionCalOn.SelectedValue = "INAM";
@@ -1426,7 +1431,9 @@ namespace WealthERP.Receivable
                 {
                     chkCategory.Visible = false;
                     trDateValidation.Visible = false;
-
+                    chkEForm.Visible = false;
+                    tdlblEform.Visible = false;
+                    tdtxtEform.Visible = false;
                 }
                 if (ddlSubInstrCategory.SelectedValue == "FISDSD")
                 {
@@ -1434,6 +1441,10 @@ namespace WealthERP.Receivable
                     tdddlMode.Visible = false;
                     tdlblMode.Visible = false;
                     trDateValidation.Visible = false;
+                    chkEForm.Visible = true;
+                    tdlblEform.Visible = false;
+                    tdtxtEform.Visible = false;
+
 
                 }
                 if (ddlProductType.SelectedValue == "IP")
@@ -1443,6 +1454,7 @@ namespace WealthERP.Receivable
                     tdlblSerise.Visible = false;
                     chkCategory.Visible = true;
                     trDateValidation.Visible = false;
+                    chkEForm.Visible = true;
                 }
                 if (ddlProductType.SelectedValue == "MF")
                 {
@@ -1450,6 +1462,9 @@ namespace WealthERP.Receivable
                     RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
                     RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = false;
+                    chkEForm.Visible = false;
+                    tdlblEform.Visible = false;
+                    tdtxtEform.Visible = false;
 
                 }
             }
@@ -1567,9 +1582,14 @@ namespace WealthERP.Receivable
                 TextBox txtClawBackAge = (TextBox)e.Item.FindControl("txtAge");
                 TextBox txtSBCValue = (TextBox)e.Item.FindControl("txtSBCValue");
                 TextBox txtKKCValue = (TextBox)e.Item.FindControl("txtKKCValue");
+                TextBox txtEForm = (TextBox)e.Item.FindControl("txtEForm");
+
                 System.Web.UI.HtmlControls.HtmlTableRow trDateValidation = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trDateValidation");
                 System.Web.UI.HtmlControls.HtmlTableRow trCity = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trCity");
                 System.Web.UI.HtmlControls.HtmlTableCell tdlblClock = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblClock");
+                System.Web.UI.HtmlControls.HtmlTableCell tdlblEform = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdlblEform");
+                System.Web.UI.HtmlControls.HtmlTableCell tdtxtEform = (System.Web.UI.HtmlControls.HtmlTableCell)e.Item.FindControl("tdtxtEform");
+
 
                 if (ddlProductType.SelectedValue == "MF")
                 {
@@ -1578,6 +1598,8 @@ namespace WealthERP.Receivable
                     RadGridStructureRule.MasterTableView.GetColumn("Edit").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Delete").Visible = true;
                     RadGridStructureRule.MasterTableView.GetColumn("Edit1").Visible = false;
+                    tdlblEform.Visible = false;
+                    tdtxtEform.Visible = false;
 
                 }
                 if (ddlProductType.SelectedValue != "MF")
@@ -1672,7 +1694,7 @@ namespace WealthERP.Receivable
                     string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
                     string IncentiveType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ASCR_WCMV_IncentiveType"].ToString();
                     string incentiveAge = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_InvestmentAgeUnit"].ToString();
-                    bool IsClaWback = false, IsServiceTaxInclusive = false, IsSBCApplicable = false, IsKKCApplicable = false;
+                    bool IsClaWback = false, IsServiceTaxInclusive = false, IsSBCApplicable = false, IsKKCApplicable = false,Eform =false;
 
                     if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString()))
                         IsClaWback = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsClaWback"].ToString() == "1" ? true : false;
@@ -1690,14 +1712,17 @@ namespace WealthERP.Receivable
                         categoryss = int.Parse(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
                     }
                     if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxInclusive"].ToString()))
-                        IsServiceTaxInclusive =Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxInclusive"].ToString());
+                        IsServiceTaxInclusive = Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxInclusive"].ToString());
                     if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsSBCApplicable"].ToString()))
                         IsSBCApplicable = Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsSBCApplicable"].ToString());
                     if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsKKCApplicable"].ToString()))
                         IsKKCApplicable = Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsKKCApplicable"].ToString());
+                    if (!string.IsNullOrEmpty(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_EForm"].ToString()))
+                        Eform = Convert.ToBoolean(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_EForm"].ToString());
                     string SBCValue = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_SBCValue"].ToString();
                     string KKCValue = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_KKCValue"].ToString();
                     string mode = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_Mode"].ToString();
+                    string EFormSeries = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_EFormSeries"].ToString();
                     ddlIncentiveType.SelectedValue = IncentiveType;
                     if (mode != "")
                     {
@@ -1719,6 +1744,17 @@ namespace WealthERP.Receivable
                         tdddlCategorys.Visible = true;
                         chkCategory.Checked = true;
                         ddlCategorys.SelectedValue = categoryss.ToString();
+                    }
+                    if (Eform)
+                    {
+                        txtEForm.Visible = true;
+                        chkEForm.Visible = true;
+                        txtEForm.Text = EFormSeries;
+                        chkEForm.Checked = true;
+                    }
+                    else
+                    {
+                        chkEForm.Checked = false;
                     }
                     ddlAppCityGroup.SelectedValue = strCityGroupID;
                     ddlReceivableFrequency.SelectedValue = strReceivableRuleFrequency;
@@ -1747,14 +1783,14 @@ namespace WealthERP.Receivable
                             txtSBCValue.Visible = true;
                             lblApplyTaxes.Visible = true;
                         }
-                        else if (chkItems.Value == "KKC" & IsKKCApplicable==true)
+                        else if (chkItems.Value == "KKC" & IsKKCApplicable == true)
                         {
                             chkItems.Selected = true;
                             txtKKCValue.Visible = true;
                             lblApplyTaxes.Visible = true;
 
                         }
-                        else if (chkItems.Value == "TI" & IsServiceTaxInclusive==true)
+                        else if (chkItems.Value == "TI" & IsServiceTaxInclusive == true)
                         {
                             chkItems.Selected = true;
                         }
@@ -1992,13 +2028,12 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
                     commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash);
                     btupdate.Visible = false;
+                    e.Canceled = true;
                 }
                 else
                 {
                     RadGridStructureRule_InsertCommand(source, e);
                 }
-                BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
-
             }
             else
             {
@@ -2158,6 +2193,7 @@ namespace WealthERP.Receivable
                 TextBox txtbox = (TextBox)e.Item.FindControl("txtAge");
                 TextBox txtSBCValue = (TextBox)e.Item.FindControl("txtSBCValue");
                 TextBox txtKKCValue = (TextBox)e.Item.FindControl("txtKKCValue");
+                TextBox txtEForm = (TextBox)e.Item.FindControl("txtEForm");
                 commissionStructureRuleVo.eForm = Convert.ToBoolean((chkEForm.Checked) ? true : false);
                 if (ddlMode.SelectedValue != "Select")
                     commissionStructureRuleVo.mode = ddlMode.SelectedValue;
@@ -2268,6 +2304,17 @@ namespace WealthERP.Receivable
                 }
                 else
                     commissionStructureRuleVo.IsClawBack = 0;
+                if (chkEForm.Checked)
+                {
+                    commissionStructureRuleVo.eFormSeries = txtEForm.Text.Trim();
+                    commissionStructureRuleVo.eForm = true;
+                }
+                else
+                {
+                    commissionStructureRuleVo.eFormSeries = string.Empty;
+                    commissionStructureRuleVo.eForm = false;
+                }
+
 
                 commissionStructureRuleVo.ClawBackAge = (!string.IsNullOrEmpty(txtbox.Text)) ? int.Parse(txtbox.Text) : 0;
             }
@@ -3144,6 +3191,7 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("ACSR_IsKKCApplicable");
             dtCommissionStructureRule.Columns.Add("ACSR_SBCValue");
             dtCommissionStructureRule.Columns.Add("ACSR_KKCValue");
+            dtCommissionStructureRule.Columns.Add("ACSR_EFormSeries");
             return dtCommissionStructureRule;
         }
 
@@ -3876,15 +3924,15 @@ namespace WealthERP.Receivable
                 btnCancelSelectedRule.Visible = true;
 
             }
-          
-                gvPayaMapping.DataSource = dsPayable;
-                gvPayaMapping.DataBind();
-                gvPayaMapping.Visible = true;
-                ImageButton6.Visible = true;
-                if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
-                    Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
-                Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
-            
+
+            gvPayaMapping.DataSource = dsPayable;
+            gvPayaMapping.DataBind();
+            gvPayaMapping.Visible = true;
+            ImageButton6.Visible = true;
+            if (Cache[userVo.UserId.ToString() + "CommissionPayable"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "CommissionPayable");
+            Cache.Insert(userVo.UserId.ToString() + "CommissionPayable", dsPayable);
+
         }
         protected void OnClick_imgMapping(object sender, ImageClickEventArgs e)
         {
@@ -4075,8 +4123,8 @@ namespace WealthERP.Receivable
                     ruleId = ruleId.TrimEnd(',');
                     //if (RadListBoxSelectedAgentCodes.Items.Count > 0)
                     //{
-                        dtRuleMapping.Columns.Add("agentId", typeof(string));
-                        dtRuleMapping.Columns.Add("ruleids");
+                    dtRuleMapping.Columns.Add("agentId", typeof(string));
+                    dtRuleMapping.Columns.Add("ruleids");
                     //}
                     DataRow drRuleMapping;
                     int mappingId = 0;
@@ -4106,10 +4154,10 @@ namespace WealthERP.Receivable
                         categoryId = ddlAdviserCategory.SelectedValue;
                     }
 
-                        commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), int.Parse(ddlAMFIAvaliable.SelectedValue), out mappingId);
-                        radAplicationPopUp.VisibleOnPageLoad = true;
-                        return mappingId;
-                    
+                    commisionReceivableBo.CreateAdviserPayableRuleToAgentCategoryMapping(Convert.ToInt32(hidCommissionStructureName.Value), ddlMapping.SelectedValue, categoryId, dtRuleMapping, ruleId.TrimEnd(','), int.Parse(ddlAMFIAvaliable.SelectedValue), out mappingId);
+                    radAplicationPopUp.VisibleOnPageLoad = true;
+                    return mappingId;
+
                 }
                 else
                 {
@@ -4570,15 +4618,58 @@ namespace WealthERP.Receivable
                 txtbox.Text = "0";
             }
         }
-        protected void ChkIsclowBack_OnCheckedChanged(object sender, EventArgs e)
+
+        protected void chkEForm_OnCheckedChanged(object sender, EventArgs e)
         {
             CheckBox chk = (CheckBox)sender;
-            GridDataItem gvr = (GridDataItem)chk.NamingContainer;
-            CheckBox check = (CheckBox)gvr.FindControl("ChkIsclowBack");
-            TextBox txtbox = (TextBox)gvr.FindControl("txtClawBackAge");
-            if (check.Checked)
+            CheckBox check = new CheckBox();
+            Label lnkEdit = new Label();
+            TextBox txtbox = new TextBox();
+            RequiredFieldValidator RequiredFieldValidator15 = new RequiredFieldValidator();
+            RegularExpressionValidator REVEForm = new RegularExpressionValidator();
+            System.Web.UI.HtmlControls.HtmlTableCell tdlblEform = new System.Web.UI.HtmlControls.HtmlTableCell();
+            System.Web.UI.HtmlControls.HtmlTableCell tdtxtEform = new System.Web.UI.HtmlControls.HtmlTableCell();
+            if (chk.NamingContainer is Telerik.Web.UI.GridEditFormItem)
             {
-                txtbox.Enabled = true;
+                GridEditFormItem gvr = (GridEditFormItem)chk.NamingContainer;
+                check = (CheckBox)gvr.FindControl("chkEForm");
+                lnkEdit = (Label)gvr.FindControl("lblEform");
+                txtbox = (TextBox)gvr.FindControl("txtEForm");
+                tdlblEform = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblEform");
+                tdtxtEform = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdtxtEform");
+                RequiredFieldValidator15 = (RequiredFieldValidator)gvr.FindControl("RFVEForm");
+                 REVEForm = (RegularExpressionValidator)gvr.FindControl("REVEForm");
+            }
+            else if (chk.NamingContainer is Telerik.Web.UI.GridEditFormInsertItem)
+            {
+                GridEditFormInsertItem gvr = (GridEditFormInsertItem)chk.NamingContainer;
+                check = (CheckBox)gvr.FindControl("chkEForm");
+                lnkEdit = (Label)gvr.FindControl("lblEform");
+                txtbox = (TextBox)gvr.FindControl("txtEForm");
+                tdlblEform = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdlblEform");
+                tdtxtEform = (System.Web.UI.HtmlControls.HtmlTableCell)gvr.FindControl("tdtxtEform");
+                RequiredFieldValidator15 = (RequiredFieldValidator)gvr.FindControl("RFVEForm");
+                REVEForm = (RegularExpressionValidator)gvr.FindControl("REVEForm");
+            }
+
+            if (chk.Checked == true)
+            {
+                tdlblEform.Visible = true;
+                tdtxtEform.Visible = true;
+                RequiredFieldValidator15.Visible = true;
+                txtbox.Visible = true;
+                tdlblEform.Visible = true;
+                REVEForm.Visible = true;
+            }
+            else
+            {
+                tdlblEform.Visible = false;
+                tdtxtEform.Visible = false;
+                RequiredFieldValidator15.Visible = false;
+                txtbox.Text = string.Empty;
+                txtbox.Visible = false;
+                tdlblEform.Visible = false;
+                REVEForm.Visible = true;
             }
         }
     }

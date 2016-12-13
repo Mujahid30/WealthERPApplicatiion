@@ -649,6 +649,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@AID_IssueDetailId", DbType.Int32, commissionStructureRuleVo.series);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@AIIC_InvestorCatgeoryId", DbType.Int32, commissionStructureRuleVo.Category);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_EFormSeries", DbType.String, commissionStructureRuleVo.eFormSeries);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@IsClawBack", DbType.Int32, commissionStructureRuleVo.IsClawBack);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ClawBack", DbType.Int32, commissionStructureRuleVo.ClawBackAge);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ServiceTaxInclusive", DbType.Boolean, commissionStructureRuleVo.ServiceTaxInclusive);
@@ -1253,6 +1254,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@AID_IssueDetailId", DbType.Int32, commissionStructureRuleVo.series);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@AIIC_InvestorCatgeoryId", DbType.Int32, commissionStructureRuleVo.Category);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_EForm", DbType.Int32, commissionStructureRuleVo.eForm);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_EFormSeries", DbType.String, commissionStructureRuleVo.eFormSeries);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsClaWback", DbType.Boolean, commissionStructureRuleVo.IsClawBack);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ClawBackAge", DbType.Int32, commissionStructureRuleVo.ClawBackAge);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ServiceTaxInclusive", DbType.Boolean, commissionStructureRuleVo.ServiceTaxInclusive);

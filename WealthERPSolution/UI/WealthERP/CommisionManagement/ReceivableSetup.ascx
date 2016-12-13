@@ -29,8 +29,8 @@
         var l = document.getElementById("<%= rlbAvailSchemes.ClientID %>");
 
         var items = l.options.length;
-        
-        if(tb == ""){
+
+        if (tb == "") {
             l.selectedIndex = -1;
         }
         else {
@@ -43,17 +43,17 @@
                 else {
                     l.selectedIndex = -1;
                 }
-              
+
             }
         }
     }
    
 
 
- </script>
+</script>
 
 <script language="JavaScript" type="text/jscript">
-   
+
     function Associate() {
 
 
@@ -82,7 +82,7 @@
     }
    
     
-     </script>
+</script>
 
 <script language="JavaScript" type="text/jscript">
     function DeleteAllStructureRule() {
@@ -830,7 +830,7 @@
                         <td>
                             <asp:DropDownList ID="ddlMFCategory" runat="server" CssClass="cmbField">
                             </asp:DropDownList>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ErrorMessage="Please Select category"
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ErrorMessage="Please Select category"
                                 CssClass="rfvPCG" ControlToValidate="ddlMFCategory" ValidationGroup="btnScheme_Go"
                                 Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                         </td>
@@ -857,39 +857,35 @@
                             &nbsp;
                         </td>
                         <td align="center">
-                                    
-                                         <asp:ListBox ID="rlbAvailSchemes" runat="server" Height="200px" Width="65%" SelectionMode="Multiple" />
-                                         </td>
-                                     
-                                          <td align="left">
-                 <table align="left">
-                   <tr >
-                     <td align="left" >
-                  <asp:Button ID="RightArrow1" runat="server" Text=">" Width="45px" onclick="RightArrow1_Click"  />
-                      </td>
-                      </tr>
-                      <tr>
-                <td>
-                <asp:Button ID="LeftArrow1" runat="server" Text="<" Width="45px" onclick="LeftArrow1_Click" />
-                   </td>
-                   </tr>
-                  <tr>
-                   <td>
-             <asp:Button ID="RightShift1" runat="server" Text=">>" Width="45px" onclick="RightShift1_Click" />
-                   </td>
-                  </tr>
-              <tr>
-                   <td>
-               <asp:Button ID="LeftShift1" runat="server" Text="<<" Width="45px" onclick="LeftShift1_Click" />
-           </td>
-                  </tr> 
-                  </table>
-                  </td>
-                  <td>
-                  
-                   <asp:ListBox ID="rlbMappedSchemes" runat="server" Height="200px" Width="350px" SelectionMode="Multiple" /></td>
-                                     
-                    
+                            <asp:ListBox ID="rlbAvailSchemes" runat="server" Height="200px" Width="65%" SelectionMode="Multiple" />
+                        </td>
+                        <td align="left">
+                            <table align="left">
+                                <tr>
+                                    <td align="left">
+                                        <asp:Button ID="RightArrow1" runat="server" Text=">" Width="45px" OnClick="RightArrow1_Click" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="LeftArrow1" runat="server" Text="<" Width="45px" OnClick="LeftArrow1_Click" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="RightShift1" runat="server" Text=">>" Width="45px" OnClick="RightShift1_Click" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="LeftShift1" runat="server" Text="<<" Width="45px" OnClick="LeftShift1_Click" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <asp:ListBox ID="rlbMappedSchemes" runat="server" Height="200px" Width="350px" SelectionMode="Multiple" />
+                        </td>
                     </tr>
                 </table>
                 <table width="100%" runat="server" visible="false" id="tbSchemeMapped">
@@ -1113,7 +1109,7 @@
                                     EditMode="EditForms" CommandItemSettings-AddNewRecordText="Add Rule" DataKeyNames="ACSR_CommissionStructureRuleName,ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
                                 ACSR_TransactionType,WCT_CommissionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
                                 ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced,PaybleValue,RecievableValue,ACSR_ServiceTaxValue,ASCR_WCMV_IncentiveType,CO_ApplicationNo,ACSR_ValidilityStart,ACSR_ValidilityEnd,ACSR_MinInvestmentAmount,ACSR_MaxInvestmentAmount
-                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm,ACSR_InvestmentAgeUnit,ACSR_TenureUnit,ACSR_MinInvestmentAge,ACSR_MaxInvestmentAge,WCU_UnitCode1,RecievableValue,PaybleValue,ACSR_IsClaWback,ACSR_ClawBackAge,ACSR_IsServiceTaxInclusive,ACSR_IsSBCApplicable,ACSR_IsKKCApplicable,ACSR_SBCValue,ACSR_KKCValue">
+                                ,AID_IssueDetailId,ACSR_Mode,AIIC_InvestorCatgeoryId,ACSR_EForm,ACSR_InvestmentAgeUnit,ACSR_TenureUnit,ACSR_MinInvestmentAge,ACSR_MaxInvestmentAge,WCU_UnitCode1,RecievableValue,PaybleValue,ACSR_IsClaWback,ACSR_ClawBackAge,ACSR_IsServiceTaxInclusive,ACSR_IsSBCApplicable,ACSR_IsKKCApplicable,ACSR_SBCValue,ACSR_KKCValue,ACSR_EFormSeries">
                                     <Columns>
                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="Edit">
                                         </telerik:GridEditCommandColumn>
@@ -1130,13 +1126,15 @@
                                         <telerik:GridTemplateColumn UniqueName="ACSR_MinInvestmentAmount" HeaderText="Min. Invest Amount"
                                             DataField="ACSR_MinInvestmentAmount">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtMinInvestmentAmount" Width="80px" runat="server" Text='<%#Eval("ACSR_MinInvestmentAmount")%>' Enabled="false"></asp:TextBox>
+                                                <asp:TextBox ID="txtMinInvestmentAmount" Width="80px" runat="server" Text='<%#Eval("ACSR_MinInvestmentAmount")%>'
+                                                    Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_MaxInvestmentAmount" HeaderText="Max. Invest Amount"
                                             DataField="ACSR_MaxInvestmentAmount">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtMaxInvestmentAmount" Width="80px" runat="server" Text='<%#Eval("ACSR_MaxInvestmentAmount")%>' Enabled="false"></asp:TextBox>
+                                                <asp:TextBox ID="txtMaxInvestmentAmount" Width="80px" runat="server" Text='<%#Eval("ACSR_MaxInvestmentAmount")%>'
+                                                    Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit"
@@ -1150,7 +1148,8 @@
                                         <telerik:GridTemplateColumn UniqueName="ACSR_TransactionType" HeaderText="Transaction Types"
                                             DataField="ACSR_TransactionType" Visible="false">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblTransactionType" runat="server" Width="50px" Text='<%#Eval("ACSR_TransactionType")%>' Enabled="false"></asp:Label>
+                                                <asp:Label ID="lblTransactionType" runat="server" Width="50px" Text='<%#Eval("ACSR_TransactionType")%>'
+                                                    Enabled="false"></asp:Label>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinNumberOfApplications" HeaderText="Min. No. of App."
@@ -1179,7 +1178,8 @@
                                         <telerik:GridTemplateColumn UniqueName="ReceivableValue" HeaderStyle-Width="50px"
                                             HeaderText="Receivable Rate" DataField="RecievableValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtReceivableValue" runat="server" Width="50px" Text='<%#  Eval("RecievableValue")%>' Enabled="false"></asp:TextBox>
+                                                <asp:TextBox ID="txtReceivableValue" runat="server" Width="50px" Text='<%#  Eval("RecievableValue")%>'
+                                                    Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <%--<telerik:GridBoundColumn UniqueName="ReceivableUnit" HeaderText="Receivable  Unit"
@@ -1188,7 +1188,8 @@
                                         <telerik:GridTemplateColumn UniqueName="PaybleValue" HeaderStyle-Width="50px" HeaderText="Payable Rate"
                                             DataField="PaybleValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtPaybleValue" runat="server" Width="50px" Text='<%#Eval("PaybleValue")%>' Enabled="false"></asp:TextBox>
+                                                <asp:TextBox ID="txtPaybleValue" runat="server" Width="50px" Text='<%#Eval("PaybleValue")%>'
+                                                    Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn HeaderStyle-Width="50px" UniqueName="Brokrage_unit" HeaderText="Brokerage Unit">
@@ -1204,25 +1205,28 @@
                                             DataField="ACSR_IsClaWback" HeaderStyle-Width="50px">
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="ChkIsclowBack" runat="server" AutoPostBack="true" CssClass="cmbFielde"
-                                                    OnCheckedChanged="ChkIsclowBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>' Enabled="false"/>
+                                                    OnCheckedChanged="chkCloBack_OnCheckedChanged" Checked='<%# (Eval("ACSR_IsClaWback").ToString() == "1" ? true : false) %>'
+                                                    Enabled="false" />
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ClawBackAge" HeaderText="ClawBack Age(Days)"
                                             DataField="ACSR_ClawBackAge" HeaderStyle-Width="50px">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtClawBackAge" runat="server" Enabled="false" Width="50px" Text='<%#Eval("ACSR_ClawBackAge")%>' ></asp:TextBox>
+                                                <asp:TextBox ID="txtClawBackAge" runat="server" Enabled="false" Width="50px" Text='<%#Eval("ACSR_ClawBackAge")%>'></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ServiceTaxValue" HeaderText="Service Tax Value(%)"
                                             DataField="ACSR_ServiceTaxValue" HeaderStyle-Width="50px">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>' Enabled="false"></asp:TextBox>
+                                                <asp:TextBox ID="txtServiceTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ServiceTaxValue")%>'
+                                                    Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn UniqueName="ACSR_ReducedValue" HeaderStyle-Width="50px"
                                             HeaderText="TDS Value(%)" DataField="ACSR_ReducedValue">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>' Enabled="false"></asp:TextBox>
+                                                <asp:TextBox ID="txtTDSTex" runat="server" Width="50px" Text='<%#Eval("ACSR_ReducedValue")%>'
+                                                    Enabled="false"></asp:TextBox>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min. Invest Age"
@@ -1410,7 +1414,7 @@
                                                                     <asp:CheckBox ID="chkMode" runat="server" Text="Mode" AutoPostBack="true" CssClass="cmbFielde"
                                                                         OnCheckedChanged="chkMode_OnCheckedChanged" Visible="false" />
                                                                     <asp:CheckBox ID="chkEForm" runat="server" Text="e-Form" CssClass="cmbFielde" Checked='<%# Eval("ACSR_EForm") == DBNull.Value ? false : Convert.ToBoolean(Eval("ACSR_EForm")) %>'
-                                                                        Visible="false" />
+                                                                        Visible="false" OnCheckedChanged="chkEForm_OnCheckedChanged" AutoPostBack="true"/>
                                                                 </td>
                                                                 <td>
                                                                     <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatDirection="Horizontal"
@@ -1475,6 +1479,23 @@
                                                             Display="Dynamic" ControlToValidate="ddlMode" Visible="true" ErrorMessage="Please Select Category"
                                                             InitialValue="Select" />
                                                     </td>
+                                                    <td class="leftLabel" id="tdlblEform" runat="server" >
+                                                        <asp:Label ID="lblEform" runat="server" CssClass="FieldName" Text="E-Form Series:"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData" id="tdtxtEform" runat="server" >
+                                                        <asp:TextBox ID="txtEForm"  runat="server"
+                                                            CssClass="txtField" Visible="false"></asp:TextBox>
+                                                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" TargetControlID="txtEForm"
+                                                            WatermarkText="Enter Application Series" runat="server" EnableViewState="false">
+                                                        </cc1:TextBoxWatermarkExtender>
+                                                         <asp:RequiredFieldValidator ID="RFVEForm" ControlToValidate="txtEForm"
+                                                            ErrorMessage="<br />Enter Application No." Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                            ValidationGroup="btnSubmitRule" InitialValue=""></asp:RequiredFieldValidator>
+                                                             <asp:RegularExpressionValidator ID="REVEForm" ControlToValidate="txtEForm"
+                                                            ErrorMessage=" </br> Enter in range Format with Semi colon" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^((([0-9]*)([-])([0-9])*(;))*)([;]$)*" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
@@ -1521,8 +1542,8 @@
                                                                 <td>
                                                                     <asp:TextBox ID="txtSBCValue" Text='<%# Bind( "ACSR_SBCValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false"></asp:TextBox>
-                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" TargetControlID="txtSBCValue" WatermarkText="Enter SBC Tax"
-                                                                        runat="server" EnableViewState="false">
+                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" TargetControlID="txtSBCValue"
+                                                                        WatermarkText="Enter SBC Tax" runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>
                                                             </tr>
@@ -1534,11 +1555,11 @@
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>
-                                                                 <td>
+                                                                <td>
                                                                     <asp:TextBox ID="txtKKCValue" Text='<%# Bind( "ACSR_KKCValue") %>' runat="server"
                                                                         CssClass="txtField" Visible="false"></asp:TextBox>
-                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtKKCValue" WatermarkText="Enter KKC Tax"
-                                                                        runat="server" EnableViewState="false">
+                                                                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtKKCValue"
+                                                                        WatermarkText="Enter KKC Tax" runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                 </td>
                                                             </tr>
@@ -1867,13 +1888,13 @@
                                                                                         InitialValue="Select" ValidationGroup="rgApllOk">
                                                                                     </asp:RequiredFieldValidator>
                                                                                 </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                 <td class="leftLabel">
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="leftLabel">
                                                                                     <asp:Label ID="Label17" runat="server" Text="Mode Type:" CssClass="FieldName"></asp:Label>
                                                                                 </td>
                                                                                 <td class="rightData">
-                                                                                    <asp:DropDownList ID="ddlmode" runat="server" CssClass="cmbField" AutoPostBack="false" >
+                                                                                    <asp:DropDownList ID="ddlmode" runat="server" CssClass="cmbField" AutoPostBack="false">
                                                                                     </asp:DropDownList>
                                                                                     <br />
                                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
@@ -1974,7 +1995,7 @@
                     <tr>
                         <td>
                             <asp:Button ID="btnCreateRule" runat="server" CssClass="PCGButton" Text="Create Rule"
-                                OnClick="btnCreateRule_OnClick"  Visible="false"/>
+                                OnClick="btnCreateRule_OnClick" Visible="false" />
                         </td>
                     </tr>
                 </table>
@@ -2019,8 +2040,8 @@
                                 IgnorePaging="true">
                             </ExportSettings>
                             <PagerStyle AlwaysVisible="True" />
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"  CommandItemSettings-ShowRefreshButton="true"
-                                Width="100%" DataKeyNames="CSRD_StructureRuleDetailsId,AAC_AdviserAgentId,AC_Category">
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
+                                CommandItemSettings-ShowRefreshButton="true" Width="100%" DataKeyNames="CSRD_StructureRuleDetailsId,AAC_AdviserAgentId,AC_Category">
                                 <CommandItemSettings ExportToExcelText="Export to excel" />
                                 <Columns>
                                     <telerik:GridBoundColumn DataField="CSRD_StructureRuleDetailsId" HeaderStyle-Width="70px"
@@ -2235,40 +2256,40 @@
                                         <asp:Label ID="lblSelectBranch" runat="server" CssClass="FieldName" Text="Existing AgentCodes">
                                         </asp:Label>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                     <br />
-                                         <asp:ListBox ID="LBAgentCodes" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
-                                     
-                                          <td>
-                 <table align="right">
-                   <tr align="left">
-                     <td>
-                  <asp:Button ID="RightArrow" runat="server" Text=">" Width="45px" onclick="RightArrow_Click"  />
-                      </td>
-                      </tr>
-                      <tr>
-                <td>
-                <asp:Button ID="LeftArrow" runat="server" Text="<" Width="45px" onclick="LeftArrow_Click" />
-                   </td>
-                   </tr>
-                  <tr>
-                   <td>
-             <asp:Button ID="RightShift" runat="server" Text=">>" Width="45px" onclick="RightShift_Click" />
-                   </td>
-                  </tr>
-              <tr>
-                   <td>
-               <asp:Button ID="LeftShift" runat="server" Text="<<" Width="45px" onclick="LeftShift_Click" />
-           </td>
-                  </tr> 
-                  </table>
-                  </td>
-                  <td>
-                 <br />
-                   <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
-                                        </asp:Label>
-                                         <br />
-                   <asp:ListBox ID="RadListBoxSelectedAgentCodes" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" /></td>
-                                     
+                                        <br />
+                                        <asp:ListBox ID="LBAgentCodes" runat="server" Height="200px" Width="250px" SelectionMode="Multiple" />
+                                        <td>
+                                            <table align="right">
+                                                <tr align="left">
+                                                    <td>
+                                                        <asp:Button ID="RightArrow" runat="server" Text=">" Width="45px" OnClick="RightArrow_Click" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Button ID="LeftArrow" runat="server" Text="<" Width="45px" OnClick="LeftArrow_Click" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Button ID="RightShift" runat="server" Text=">>" Width="45px" OnClick="RightShift_Click" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Button ID="LeftShift" runat="server" Text="<<" Width="45px" OnClick="LeftShift_Click" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <br />
+                                            <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Mapped AgentCodes">
+                                            </asp:Label>
+                                            <br />
+                                            <asp:ListBox ID="RadListBoxSelectedAgentCodes" runat="server" Height="200px" Width="250px"
+                                                SelectionMode="Multiple" />
+                                        </td>
                                     </asp:Panel>
                                 </div>
                             </td>
