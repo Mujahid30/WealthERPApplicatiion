@@ -16,7 +16,7 @@ namespace DaoReports
             DataSet ds = new DataSet();
             Database db = DatabaseFactory.CreateDatabase("wealtherp");
             DbCommand cmd = db.GetStoredProcCommand("SPROC_CustomerEQNetTransactionToProcess");
-            db.AddInParameter(cmd, "@C_CustomerId", DbType.Int32, C_CustomerId);
+            db.AddInParameter(cmd, "@C_CustomerId", DbType.Int32, C_CustomerId); 
             db.AddInParameter(cmd, "@CP_PortfolioIds", DbType.String, PortfolioIds);
             if (FromDate != DateTime.MinValue)
                 db.AddInParameter(cmd, "@FromDate", DbType.Date, FromDate);

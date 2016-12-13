@@ -439,6 +439,7 @@ namespace BoReports
             dtEQReturnsHolding.Columns.Add("CustomerId");
             dtEQReturnsHolding.Columns.Add("PortfolioName");
             dtEQReturnsHolding.Columns.Add("PortfolioId");
+            dtEQReturnsHolding.Columns.Add("ScripCode");
             dtEQReturnsHolding.Columns.Add("ScripName");
             dtEQReturnsHolding.Columns.Add("FolioNum");
             dtEQReturnsHolding.Columns.Add("InvStartDate");
@@ -455,9 +456,9 @@ namespace BoReports
             dtEQReturnsHolding.Columns.Add("SectorName");
             dtEQReturnsHolding.Columns.Add("SectorSubName");
             dtEQReturnsHolding.Columns.Add("SectorSubSubName");
-           
+
             DataSet dsEQHoldingReturns = new DataSet();
-           
+
             if (dtTranxn.Rows.Count > 0)
             {
                 DataSet ds = CreateInvetmentsPairingAccountStockWise(dtTranxn.Select("TranxnTypeCode <>'6'", "CustomerName ASC,ScripName ASC,TransactionDate ASC").CopyToDataTable());
@@ -480,6 +481,7 @@ namespace BoReports
                         drNew["PortfolioName"] = dr["PortfolioName"].ToString();
                         drNew["PortfolioId"] = dr["PortfolioId"].ToString();
                         drNew["ScripName"] = dr["ScripName"].ToString();
+                        drNew["ScripCode"] = dr["ScripCode"].ToString();
                         drNew["FolioNum"] = dr["FolioNum"].ToString();
                         drNew["SectorName"] = dr["SectorName"].ToString();
                         drNew["SectorSubName"] = dr["SectorSubName"].ToString();
@@ -512,7 +514,7 @@ namespace BoReports
                         if (dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0 AND AmountNew<>0 ").Count() > 0)
                         {
                             DataTable dtXirr = new DataView(dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0 AND AmountNew<>0 ", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "TranxnTypeCode", "AmountNew", "BuySell", "PortfolioId" });
-                           
+
                             if (dtTranxn.Select("TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").Count() > 0)
                             {
                                 dtXirr.Merge(new DataView(dtTranxn.Select("TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvStartDate"].ToString()).ToString("MM/dd/yyyy") + "'", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "TranxnTypeCode", "AmountNew", "BuySell", "PortfolioId" }));
@@ -548,7 +550,7 @@ namespace BoReports
                     }
                 }
                 dsEQHoldingReturns.Tables.Add(dtEQReturnsHolding);
-                
+
             }
             else
             {
@@ -567,6 +569,7 @@ namespace BoReports
             dtEQReturnsHolding.Columns.Add("CustomerId");
             dtEQReturnsHolding.Columns.Add("PortfolioName");
             dtEQReturnsHolding.Columns.Add("PortfolioId");
+            dtEQReturnsHolding.Columns.Add("ScripCode");
             dtEQReturnsHolding.Columns.Add("ScripName");
             dtEQReturnsHolding.Columns.Add("FolioNum");
             dtEQReturnsHolding.Columns.Add("SharesSold", typeof(decimal));
@@ -594,7 +597,7 @@ namespace BoReports
                 foreach (DataRow dr in dtSchemeList.Rows)
                 {
                     decimal SellUnits = 0;
-                    if(dtSell.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count()>0)
+                    if (dtSell.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count() > 0)
                         SellUnits = decimal.Parse(dtSell.Compute("Sum(UnitsBefore)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
                     if (SellUnits >= 1)
                     {
@@ -604,6 +607,7 @@ namespace BoReports
                         drNew["PortfolioName"] = dr["PortfolioName"].ToString();
                         drNew["PortfolioId"] = dr["PortfolioId"].ToString();
                         drNew["ScripName"] = dr["ScripName"].ToString();
+                        drNew["ScripCode"] = dr["ScripCode"].ToString();
                         drNew["FolioNum"] = dr["FolioNum"].ToString();
                         drNew["SectorName"] = dr["SectorName"].ToString();
                         drNew["SectorSubName"] = dr["SectorSubName"].ToString();
@@ -612,20 +616,20 @@ namespace BoReports
                         drNew["CostOfSales"] = decimal.Parse(dtBuy.Compute("Sum(CostOfSales)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
                         drNew["SalesProceed"] = decimal.Parse(dtSell.Compute("Sum(Amount)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
                         drNew["PL"] = decimal.Parse(drNew["SalesProceed"].ToString()) - decimal.Parse(drNew["CostOfSales"].ToString());
-                         if (decimal.Parse(drNew["CostOfSales"].ToString()) != 0)
-                        drNew["ABS"] = Math.Round((decimal.Parse(drNew["PL"].ToString()) / (decimal.Parse(drNew["CostOfSales"].ToString()))) * 100, 2);    
-                        
+                        if (decimal.Parse(drNew["CostOfSales"].ToString()) != 0)
+                            drNew["ABS"] = Math.Round((decimal.Parse(drNew["PL"].ToString()) / (decimal.Parse(drNew["CostOfSales"].ToString()))) * 100, 2);
+
 
                         dtEQReturnsHolding.Rows.Add(drNew);
                     }
                 }
                 dsEQHoldingReturns.Tables.Add(dtEQReturnsHolding);
-               
+
             }
             else
             {
                 dsEQHoldingReturns.Tables.Add(dtEQReturnsHolding);
-                
+
             }
             return dsEQHoldingReturns;
 
@@ -639,6 +643,7 @@ namespace BoReports
             dtEQReturnsHolding.Columns.Add("CustomerId");
             dtEQReturnsHolding.Columns.Add("PortfolioName");
             dtEQReturnsHolding.Columns.Add("PortfolioId");
+            dtEQReturnsHolding.Columns.Add("ScripCode");
             dtEQReturnsHolding.Columns.Add("ScripName");
             dtEQReturnsHolding.Columns.Add("FolioNum");
             dtEQReturnsHolding.Columns.Add("SharesBought", typeof(decimal));
@@ -656,9 +661,6 @@ namespace BoReports
             dtEQReturnsHolding.Columns.Add("DVP", typeof(decimal));
             dtEQReturnsHolding.Columns.Add("PL", typeof(decimal));
             dtEQReturnsHolding.Columns.Add("ABS");
-            dtEQReturnsHolding.Columns.Add("TotalPLDiv");
-            dtEQReturnsHolding.Columns.Add("DIV", typeof(decimal));
-            dtEQReturnsHolding.Columns.Add("TotalPLPercent");
             dtEQReturnsHolding.Columns.Add("MOI", typeof(decimal));
             dtEQReturnsHolding.Columns.Add("XIRR");
             dtEQReturnsHolding.Columns.Add("SectorName");
@@ -671,93 +673,119 @@ namespace BoReports
             {
                 DataSet ds = CreateInvetmentsPairingAccountStockWise(dtTranxn.Select("TranxnTypeCode <>'6'", "CustomerName ASC,ScripName ASC,TransactionDate ASC").CopyToDataTable());
                 DataTable dtBuy = ds.Tables[0];
+                DataTable dtSell = ds.Tables[1];
                 dtBuy.Columns.Add("AmountNew", typeof(decimal), "Units*Price");
                 dtBuy.Columns.Add("CurrentAmount", typeof(decimal), "Units*MktPrice");
                 dtBuy.Columns.Add("CostOfSales", typeof(decimal), "(UnitsBefore-Units)*Price");
+                dtTranxn.Columns.Add("AmountNew", typeof(decimal), "Amount");
                 DataTable dtSchemeList = new DataView(dtBuy).ToTable(true, new[] { "CustomerName", "CustomerId", "PortfolioName", "PortfolioId", "FolioNum", "ScripCode", "ScripName", "MktPrice", "MktPriceDate", "SectorName", "SectorSubName", "SectorSubSubName" });
                 DataTable dtCustomerList = new DataView(dtBuy).ToTable(true, new[] { "CustomerName", "CustomerId", "PortfolioName", "PortfolioId" });
 
                 foreach (DataRow dr in dtSchemeList.Rows)
                 {
                     decimal BalanceUnits = 0;
+                    decimal SellUnits = 0;
                     BalanceUnits = decimal.Parse(dtBuy.Compute("Sum(Units)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
-                    if (BalanceUnits >= 1)
+                    if (dtSell.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count() > 0)
+                        SellUnits = decimal.Parse(dtSell.Compute("Sum(UnitsBefore)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                    DataRow drNew = dtEQReturnsHolding.NewRow();
+                    drNew["CustomerName"] = dr["CustomerName"].ToString();
+                    drNew["CustomerId"] = dr["CustomerId"].ToString();
+                    drNew["PortfolioName"] = dr["PortfolioName"].ToString();
+                    drNew["PortfolioId"] = dr["PortfolioId"].ToString();
+                    drNew["ScripName"] = dr["ScripName"].ToString();
+                    drNew["ScripCode"] = dr["ScripCode"].ToString();
+                    drNew["FolioNum"] = dr["FolioNum"].ToString();
+                    drNew["SectorName"] = dr["SectorName"].ToString();
+                    drNew["SectorSubName"] = dr["SectorSubName"].ToString();
+                    drNew["SectorSubSubName"] = dr["SectorSubSubName"].ToString();
+                    drNew["CurrentNAV"] = decimal.Parse(dr["MktPrice"].ToString());
+                    if (dr["MktPriceDate"].ToString() != "")
+                        drNew["CurrentNAVDate"] = DateTime.Parse(dr["MktPriceDate"].ToString()).ToString("dd-MMM-yy");
+                    drNew["SharesBought"] = decimal.Parse(dtBuy.Compute("Sum(UnitsBefore)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+
+                    if (SellUnits > 0)
                     {
-                        DataRow drNew = dtEQReturnsHolding.NewRow();
-                        drNew["CustomerName"] = dr["CustomerName"].ToString();
-                        drNew["CustomerId"] = dr["CustomerId"].ToString();
-                        drNew["PortfolioName"] = dr["PortfolioName"].ToString();
-                        drNew["PortfolioId"] = dr["PortfolioId"].ToString();
-                        drNew["ScripName"] = dr["ScripName"].ToString();
-                        drNew["FolioNum"] = dr["FolioNum"].ToString();
-                        drNew["SectorName"] = dr["SectorName"].ToString();
-                        drNew["SectorSubName"] = dr["SectorSubName"].ToString();
-                        drNew["SectorSubSubName"] = dr["SectorSubSubName"].ToString();
-                        drNew["InvStartDate"] = DateTime.Parse(dtBuy.Compute("MIN(TransactionDate)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0").ToString()).ToString("dd-MMM-yy");
-                        drNew["CurrentNAV"] = decimal.Parse(dr["MktPrice"].ToString());
-                        if (dr["MktPriceDate"].ToString() != "")
-                            drNew["CurrentNAVDate"] = DateTime.Parse(dr["MktPriceDate"].ToString()).ToString("dd-MMM-yy");
+                        drNew["SharesSold"] = decimal.Parse(dtSell.Compute("Sum(UnitsBefore)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                        drNew["SalesProceed"] = decimal.Parse(dtSell.Compute("Sum(Amount)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                        drNew["CostOfSales"] = decimal.Parse(dtBuy.Compute("Sum(CostOfSales)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                    }
+                    else
+                    {
+                        drNew["SharesSold"] = 0;
+                        drNew["SalesProceed"] = 0;
+                        drNew["CostOfSales"] = 0;
+                    }
 
-                        if (BalanceUnits > 0)
+
+                    if (BalanceUnits > 0)
+                    {
+                        drNew["BalanceUnits"] = BalanceUnits.ToString();
+                        drNew["InvestedCost"] = decimal.Parse(dtBuy.Compute("Sum(AmountNew)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                        if (decimal.Parse(drNew["InvestedCost"].ToString()) == 0)
+                            drNew["InvestedCost"] = (BalanceUnits * decimal.Parse(dtBuy.Compute("Sum(Amount)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString())) / decimal.Parse(dtBuy.Compute("Sum(UnitsBefore)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
+                        drNew["AvgPrice"] = decimal.Parse(drNew["InvestedCost"].ToString()) / BalanceUnits;
+                        drNew["CurrentValue"] = decimal.Parse(dr["MktPrice"].ToString()) * BalanceUnits;
+                    }
+                    else
+                    {
+                        drNew["InvestedCost"] = 0;
+                        drNew["CurrentValue"] = 0;
+                        drNew["AvgPrice"] = 0;
+                    }
+
+                    drNew["RealizedPL"] = decimal.Parse(drNew["SalesProceed"].ToString()) - decimal.Parse(drNew["CostOfSales"].ToString());
+                    drNew["UnRealizedPL"] = decimal.Parse(drNew["CurrentValue"].ToString()) - decimal.Parse(drNew["InvestedCost"].ToString());
+
+
+                    if (dtTranxn.Select("TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' ").Count() > 0)
+                        drNew["DVP"] = decimal.Parse(dtTranxn.Compute("Sum(Amount)", "TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' ").ToString());
+                    else
+                        drNew["DVP"] = 0;
+
+
+                    drNew["PL"] = decimal.Parse(drNew["RealizedPL"].ToString()) + decimal.Parse(drNew["UnRealizedPL"].ToString()) + decimal.Parse(drNew["DVP"].ToString());
+
+                    if ((decimal.Parse(drNew["InvestedCost"].ToString()) + decimal.Parse(drNew["CostOfSales"].ToString())) != 0)
+                    {
+                        drNew["ABS"] = Math.Round((decimal.Parse(drNew["PL"].ToString()) / ((decimal.Parse(drNew["InvestedCost"].ToString()) + decimal.Parse(drNew["CostOfSales"].ToString())))) * 100, 2);
+                        drNew["MOI"] = Math.Round((decimal.Parse(drNew["CurrentValue"].ToString())+decimal.Parse(drNew["SalesProceed"].ToString())+decimal.Parse(drNew["DVP"].ToString())) / ((decimal.Parse(drNew["InvestedCost"].ToString()) + decimal.Parse(drNew["CostOfSales"].ToString()))) , 2);
+                    }
+
+                    if (dtTranxn.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").Count() > 0)
+                    {
+                        DataTable dtXirr = new DataView(dtTranxn.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' ", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "TranxnTypeCode", "AmountNew", "BuySell", "PortfolioId" });
+                        dtXirr.Columns["TransactionDate"].DataType = Type.GetType("System.DateTime");
+                        dtXirr.DefaultView.Sort = "TransactionDate ASC";
+                        DataTable dt = dtXirr.DefaultView.ToTable();
+                        double[] transactionAmount = new double[dtXirr.Rows.Count + 1];
+                        DateTime[] transactionDate = new DateTime[dtXirr.Rows.Count + 1];
+                        int tempCount = 0;
+                        foreach (DataRow drRow in dt.Rows)
                         {
-                            drNew["BalanceUnits"] = BalanceUnits.ToString();
-                            drNew["InvestedCost"] = decimal.Parse(dtBuy.Compute("Sum(AmountNew)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
-                            if (decimal.Parse(drNew["InvestedCost"].ToString()) == 0)
-                                drNew["InvestedCost"] = (BalanceUnits * decimal.Parse(dtBuy.Compute("Sum(Amount)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString())) / decimal.Parse(dtBuy.Compute("Sum(UnitsBefore)", "FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "'").ToString());
-                            drNew["AvgPrice"] = decimal.Parse(drNew["InvestedCost"].ToString()) / BalanceUnits;
-                            drNew["CurrentValue"] = decimal.Parse(dr["MktPrice"].ToString()) * BalanceUnits;
-                        }
-                        else
-                        {
-                            drNew["InvestedCost"] = 0;
-                            drNew["CurrentValue"] = 0;
-                        }
-                        drNew["PL"] = decimal.Parse(drNew["CurrentValue"].ToString()) - decimal.Parse(drNew["InvestedCost"].ToString());
-                        drNew["RealizedPL"] = decimal.Parse(drNew["SalesProceed"].ToString()) - decimal.Parse(drNew["CostOfSales"].ToString());
-                        drNew["UnRealizedPL"] = decimal.Parse(drNew["CurrentValue"].ToString()) - decimal.Parse(drNew["InvestedCost"].ToString());
-                        if (dtTranxn.Select("TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").Count() > 0)
-                            drNew["DVP"] = decimal.Parse(dtTranxn.Compute("Sum(Amount)", "TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").ToString());
-
-                        if (decimal.Parse(drNew["InvestedCost"].ToString()) != 0)
-                            drNew["ABS"] = Math.Round((decimal.Parse(drNew["PL"].ToString()) / (decimal.Parse(drNew["InvestedCost"].ToString()))) * 100, 2);
-                        if (dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0 AND AmountNew<>0 ").Count() > 0)
-                        {
-                            DataTable dtXirr = new DataView(dtBuy.Select("FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND Units<>0 AND AmountNew<>0 ", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "TranxnTypeCode", "AmountNew", "BuySell", "PortfolioId" });
-
-                            if (dtTranxn.Select("TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvStartDate"].ToString()).ToString("MM/dd/yyyy") + "'").Count() > 0)
-                            {
-                                dtXirr.Merge(new DataView(dtTranxn.Select("TranxnTypeCode ='6' AND FolioNum='" + dr["FolioNum"].ToString() + "' AND ScripCode='" + dr["ScripCode"].ToString() + "' AND TransactionDate >='" + DateTime.Parse(drNew["InvStartDate"].ToString()).ToString("MM/dd/yyyy") + "'", string.Empty).CopyToDataTable()).ToTable(false, new string[] { "TransactionDate", "TranxnTypeCode", "AmountNew", "BuySell", "PortfolioId" }));
-                            }
-                            dtXirr.Columns["TransactionDate"].DataType = Type.GetType("System.DateTime");
-                            dtXirr.DefaultView.Sort = "TransactionDate ASC";
-                            DataTable dt = dtXirr.DefaultView.ToTable();
-                            double[] transactionAmount = new double[dtXirr.Rows.Count + 1];
-                            DateTime[] transactionDate = new DateTime[dtXirr.Rows.Count + 1];
-                            int tempCount = 0;
-                            foreach (DataRow drRow in dt.Rows)
-                            {
-                                if (drRow["BuySell"].ToString() == "B" && drRow["TranxnTypeCode"].ToString() != "6")
-                                    transactionAmount[tempCount] = -(double.Parse(drRow["AmountNew"].ToString()));
-                                else
-                                    transactionAmount[tempCount] = (double.Parse(drRow["AmountNew"].ToString()));
-                                transactionDate[tempCount] = DateTime.Parse(drRow["TransactionDate"].ToString());
-                                tempCount++;
-                            }
-
-                            transactionAmount[tempCount] = double.Parse(drNew["CurrentValue"].ToString());
-                            transactionDate[tempCount] = DateTime.Now;
-                            double xirr = CalculateXIRR(transactionAmount, transactionDate);
-                            if (xirr < 10000)
-                                drNew["XIRR"] = decimal.Parse(xirr.ToString());
+                            if (drRow["BuySell"].ToString() == "B" && drRow["TranxnTypeCode"].ToString() != "6")
+                                transactionAmount[tempCount] = -(double.Parse(drRow["AmountNew"].ToString()));
                             else
-                                drNew["XIRR"] = 0;
+                                transactionAmount[tempCount] = (double.Parse(drRow["AmountNew"].ToString()));
+                            transactionDate[tempCount] = DateTime.Parse(drRow["TransactionDate"].ToString());
+                            tempCount++;
                         }
+
+                        transactionAmount[tempCount] = double.Parse(drNew["CurrentValue"].ToString());
+                        transactionDate[tempCount] = ToDate;
+
+                        double xirr = CalculateXIRR(transactionAmount, transactionDate);
+                        if (xirr < 10000)
+                            drNew["XIRR"] = decimal.Parse(xirr.ToString());
                         else
                             drNew["XIRR"] = 0;
-
-                        dtEQReturnsHolding.Rows.Add(drNew);
                     }
+                    else
+                        drNew["XIRR"] = 0;
+
+                    dtEQReturnsHolding.Rows.Add(drNew);
                 }
+
                 dsEQHoldingReturns.Tables.Add(dtEQReturnsHolding);
 
             }
@@ -771,7 +799,7 @@ namespace BoReports
 
 
 
-       
+
 
 
 
@@ -814,7 +842,7 @@ namespace BoReports
             }
 
         }
-        
+
     }
 }
 

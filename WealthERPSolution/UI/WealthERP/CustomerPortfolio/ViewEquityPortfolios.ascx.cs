@@ -68,17 +68,13 @@ namespace WealthERP.CustomerPortfolio
                 radEqSellPair.VisibleOnPageLoad = false;
                 radEqAvgPriceDetails.VisibleOnPageLoad = false;
 
+
                 if (!IsPostBack)
                 {
-                    if (ddlDateRange.SelectedValue == "ASON")
-                    {
 
-                    }
-                    if (ddlDateRange.SelectedValue == "DateRange")
-                    {
-
-                    }
-
+                    //NewBindReturnsGrid();
+                    //BindReturnsRealizedGrid();
+                    //BindReturnsAllGrid();
 
                     BindPortfolioDropDown();
 
@@ -118,9 +114,9 @@ namespace WealthERP.CustomerPortfolio
             PortfolioBo portfolioBo = null;
             genDict = new Dictionary<string, DateTime>();
             try
-            { 
+            {
                 portfolioBo = new PortfolioBo();
-               EQLatestDate = DateTime.Parse(portfolioBo.GetLatestDate().ToString());
+                EQLatestDate = DateTime.Parse(portfolioBo.GetLatestDate().ToString());
                 genDict.Add("EQDate", EQLatestDate);
                 Session["MaxPriceDate"] = genDict;
             }
@@ -287,25 +283,65 @@ namespace WealthERP.CustomerPortfolio
         {
             DataTable dtUnRealized = new DataTable();
             DataSet dsHoldingReturnDetails = new DataSet();
-            dsHoldingReturnDetails = eQNetPositionBo.CreateCustomerEQReturnsHolding(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
-             if (dtUnRealized.Rows.Count > 0)
+            tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+            dtUnRealized = eQNetPositionBo.CreateCustomerEQReturnsHolding(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, tradeDate).Tables[0];
+            if (dtUnRealized.Rows.Count > 0)
             {
-            gvEquityPortfolio.DataSource = dsHoldingReturnDetails;
-            gvEquityPortfolio.DataBind();
-            if (Cache["gvEquityPortfolio" + customerVo.CustomerId.ToString()] == null)
+                RadTabStrip1.Visible = true;
+                RadAjaxPanel1.Visible = true;
+                gvEquityPortfolio.DataSource = dtUnRealized;
+                gvEquityPortfolio.DataBind();
+             
+            }
+            if (dtUnRealized.Rows.Count == 0)
             {
-                Cache.Insert("gvEquityPortfolio" + customerVo.CustomerId.ToString(), dtUnRealized);
+                RadTabStrip1.Visible = false;
+                RadAjaxPanel1.Visible = false;
+                gvEquityPortfolio.DataBind();
             }
-            else
+        }
+        private void BindReturnsRealizedGrid()
+        {
+            DataTable dtRealized = new DataTable();
+            DataSet dsHoldingReturnDetails = new DataSet();
+            tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+            dtRealized = eQNetPositionBo.CreateCustomerEQReturnsRealized(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, tradeDate).Tables[0];
+            if (dtRealized.Rows.Count > 0)
             {
-                Cache.Remove("gvEquityPortfolio" + customerVo.CustomerId.ToString());
-                Cache.Insert("gvEquityPortfolio" + customerVo.CustomerId.ToString(), dtUnRealized);
+                RadTabStrip1.Visible = true;
+                RadAjaxPanel1.Visible = true;
+                gvEquityPortfolioRealizedDelivery.DataSource = dtRealized;
+                gvEquityPortfolioRealizedDelivery.DataBind();
+              
             }
+            if (dtRealized.Rows.Count == 0)
+            {
+                RadTabStrip1.Visible = false;
+                RadAjaxPanel1.Visible = false;
+                gvEquityPortfolioRealizedDelivery.DataBind();
             }
-             if (dtUnRealized.Rows.Count == 0)
-             {
-                 gvEquityPortfolio.DataBind();
-             }
+        }
+        private void BindReturnsAllGrid()
+        {
+
+            DataTable dtAll = new DataTable();
+            DataSet dsHoldingReturnDetails = new DataSet();
+            tradeDate = DateTime.Parse(txtPickDate.SelectedDate.ToString());
+            dtAll = eQNetPositionBo.CreateCustomerEQReturnsAll(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, tradeDate).Tables[0];
+            if (dtAll.Rows.Count > 0)
+            {
+                RadTabStrip1.Visible = true;
+                RadAjaxPanel1.Visible = true;
+                gvrEQAll.DataSource = dtAll;
+                gvrEQAll.DataBind();
+               
+            }
+            if (dtAll.Rows.Count == 0)
+            {
+                RadTabStrip1.Visible = false;
+                RadAjaxPanel1.Visible = false;
+                gvrEQAll.DataBind();
+            }
         }
 
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -313,8 +349,7 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadEquityPortfolio();
-            //lblCurrentValue.Text = decimal.Parse(currentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-            //lblCurrentValue.Text = strLblCurrentValue;
+            
         }
 
 
@@ -490,79 +525,79 @@ namespace WealthERP.CustomerPortfolio
         {
 
 
-            DataTable dt = new DataTable();
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = e.Item as GridDataItem;
-                if ((Convert.ToDouble(dataItem["UnRealizedPL"].Text) < 0))
-                    dataItem["UnRealizedPL"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
-                    dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["XIRRValue"].Text) < 0)
-                    dataItem["XIRRValue"].ForeColor = System.Drawing.Color.Red;
-            }
+            //DataTable dt = new DataTable();
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem dataItem = e.Item as GridDataItem;
+            //    if ((Convert.ToDouble(dataItem["UnRealizedPL"].Text) < 0))
+            //        dataItem["UnRealizedPL"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
+            //        dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["XIRRValue"].Text) < 0)
+            //        dataItem["XIRRValue"].ForeColor = System.Drawing.Color.Red;
+            //}
 
-            if (ddl_type.SelectedValue.ToString() == "INR")
-            {
-                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentpPrice").Display = false;
-                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = false;
+            //if (ddl_type.SelectedValue.ToString() == "INR")
+            //{
+            //    gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentpPrice").Display = false;
+            //    gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = false;
 
 
-            }
-            else
-            {
-                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentpPrice").Display = true;
-                gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = true;
-            }
+            //}
+            //else
+            //{
+            //    gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentpPrice").Display = true;
+            //    gvEquityPortfolio.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = true;
+            //}
 
         }
         protected void gvEquityPortfolioRealizedDelivery_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = e.Item as GridDataItem;
-                if (Convert.ToDouble(dataItem["RealizedPL"].Text) < 0)
-                    dataItem["RealizedPL"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
-                    dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem dataItem = e.Item as GridDataItem;
+            //    if (Convert.ToDouble(dataItem["RealizedPL"].Text) < 0)
+            //        dataItem["RealizedPL"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
+            //        dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
 
 
-            }
+            //}
 
         }
         protected void gvrEQAll_DataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = e.Item as GridDataItem;
-                if (Convert.ToDouble(dataItem["RealizedPL"].Text) < 0)
-                    dataItem["RealizedPL"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["UnRealizedPL"].Text) < 0)
-                    dataItem["UnRealizedPL"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["TotalXIRRValue"].Text) < 0)
-                    dataItem["TotalXIRRValue"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["TotalPL"].Text) < 0)
-                    dataItem["TotalPL"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["Multiple"].Text) < 1)
-                    dataItem["Multiple"].ForeColor = System.Drawing.Color.Red;
-                if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
-                    dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
-                if (ddl_type.SelectedValue.ToString() == "INR")
-                {
-                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentpPrice").Display = false;
-                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = false;
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem dataItem = e.Item as GridDataItem;
+            //    if (Convert.ToDouble(dataItem["RealizedPL"].Text) < 0)
+            //        dataItem["RealizedPL"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["UnRealizedPL"].Text) < 0)
+            //        dataItem["UnRealizedPL"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["TotalXIRRValue"].Text) < 0)
+            //        dataItem["TotalXIRRValue"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["TotalPL"].Text) < 0)
+            //        dataItem["TotalPL"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["Multiple"].Text) < 1)
+            //        dataItem["Multiple"].ForeColor = System.Drawing.Color.Red;
+            //    if (Convert.ToDouble(dataItem["PnlPercent"].Text) < 0)
+            //        dataItem["PnlPercent"].ForeColor = System.Drawing.Color.Red;
+            //    if (ddl_type.SelectedValue.ToString() == "INR")
+            //    {
+            //        gvrEQAll.MasterTableView.GetColumn("ForExCurrentpPrice").Display = false;
+            //        gvrEQAll.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = false;
 
 
-                }
-                else
-                {
-                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentpPrice").Display = true;
-                    gvrEQAll.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = true;
-                }
+            //    }
+            //    else
+            //    {
+            //        gvrEQAll.MasterTableView.GetColumn("ForExCurrentpPrice").Display = true;
+            //        gvrEQAll.MasterTableView.GetColumn("ForExCurrentPriceDate").Display = true;
+            //    }
 
 
 
-            }
+            //}
 
 
         }
@@ -622,8 +657,8 @@ namespace WealthERP.CustomerPortfolio
         {
 
             NewBindReturnsGrid();
-            //LoadEquityPortfolio();
-           
+            BindReturnsRealizedGrid();
+            BindReturnsAllGrid();
 
         }
 
@@ -1023,7 +1058,7 @@ namespace WealthERP.CustomerPortfolio
                     gvEquityPortfolio.ExportSettings.IgnorePaging = true;
                     gvEquityPortfolio.ExportSettings.OpenInNewWindow = true;
                     gvEquityPortfolio.MasterTableView.GetColumn("action").Display = false;
-                   
+
                     gvEquityPortfolio.MasterTableView.GetColumn("AvgPriceDup").Visible = true;
                     gvEquityPortfolio.MasterTableView.GetColumn("AvgPrice").Visible = false;
                     if (y == 0)
@@ -1186,7 +1221,7 @@ namespace WealthERP.CustomerPortfolio
                     dataItem["XIRRValue"].ForeColor = System.Drawing.Color.Red;
 
             }
-           
+
         }
         protected void Button3_Click(object sender, System.EventArgs e)
         {
@@ -1212,6 +1247,6 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-  
-    }  
+
     }
+}
