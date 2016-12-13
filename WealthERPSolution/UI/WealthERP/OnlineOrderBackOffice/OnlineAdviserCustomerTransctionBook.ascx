@@ -51,6 +51,7 @@
 
         return false;
     }
+  
 
     function ShowIsa() {
 
@@ -230,8 +231,12 @@
                 UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPansearch"
-                ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
+                ErrorMessage="<br />Please Enter PAN" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="btnGo"></asp:RequiredFieldValidator>
+                  <asp:RegularExpressionValidator ID="revtxtPansearch" runat="server" Display="Dynamic" ValidationGroup="btnGo"
+                CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPansearch"
+                ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+            </asp:RegularExpressionValidator>
         </td>
         <td align="left" id="tdtxtClientCode" runat="server" visible="false">
             <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -252,12 +257,12 @@
         </td>
         <td align="left" id="tdtxtCustomerName" runat="server" visible="false">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
+                AutoPostBack="false" onclientClick="ShowIsa()" Width="250px">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter Three Characters of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
-                TargetControlID="txtCustomerName" ServiceMethod="GetAdviserAllCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtCustomerName" ServiceMethod="GetAdviserCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="3" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
@@ -284,11 +289,11 @@
         <tr>
             <td>
                 <div id="dvTransactionsView" runat="server" style="margin: 2px; width: 640px;">
-                    <telerik:RadGrid ID="gvTransationBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                        allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
+                    <telerik:RadGrid ID="gvTransationBookMIS" runat="server" PageSize="10"  GridLines="None" AutoGenerateColumns="False"
+                        allowfiltering="true" AllowFilteringByColumn="true" AllowSorting="true"
                         AllowPaging="True" ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
                         Width="120%" AllowAutomaticInserts="false" AllowCustomPaging="true" OnNeedDataSource="gvTransationBookMIS_OnNeedDataSource"
-                        OnItemCommand="gvTransationBookMIS_ItemCommand">
+                        OnItemCommand="gvTransationBookMIS_ItemCommand" >
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="CMFT_MFTransId,C_CustomerId" Width="100%" AllowMultiColumnSorting="True"
