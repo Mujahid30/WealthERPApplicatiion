@@ -903,14 +903,16 @@ namespace WealthERP.OffLineOrderManagement
                         agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
                     }
                     if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+                    {
                         BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
-                    if (BLPName.Rows.Count > 0)
-                    {
-                        mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
-                    }
-                    else
-                    {
-                        mforderVo.EmpId = 0;
+                        if (BLPName.Rows.Count > 0)
+                        {
+                            mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+                        }
+                        else
+                        {
+                            mforderVo.EmpId = 0;
+                        }
                     }
 
                     orderIds = offlineBondBo.OfflineBOndtransact(dtOrderDetails, advisorVo.advisorId, OnlineBondVo, agentId, txtAssociateSearch.Text, userVo.UserId, mforderVo.EmpId);

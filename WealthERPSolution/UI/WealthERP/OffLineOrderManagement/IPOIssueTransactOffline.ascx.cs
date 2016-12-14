@@ -402,14 +402,16 @@ namespace WealthERP.OffLineOrderManagement
                 agentId = int.Parse(dtAgentId.Rows[0][1].ToString());
             }
             if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+            {
                 BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
-            if (BLPName.Rows.Count > 0)
-            {
-                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
-            }
-            else
-            {
-                mforderVo.EmpId = 0;
+                if (BLPName.Rows.Count > 0)
+                {
+                    mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+                }
+                else
+                {
+                    mforderVo.EmpId = 0;
+                }
             }
             int issueId = Convert.ToInt32(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IssueId"].ToString());
             if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_CutOffTime"].ToString()))

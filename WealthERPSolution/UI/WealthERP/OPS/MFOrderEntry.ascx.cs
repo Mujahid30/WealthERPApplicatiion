@@ -5074,14 +5074,16 @@ namespace WealthERP.OPS
                 mforderVo.AgentId = 0;
             }
             if (!String.IsNullOrEmpty(txtBLPSearch.Text))
+            {
                 BLPName = customerBo.GetBLPName(advisorVo.advisorId, txtBLPSearch.Text);
-            if (BLPName.Rows.Count > 0)
-            {
-                mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
-            }
-            else
-            {
-                mforderVo.EmpId = 0;
+                if (BLPName.Rows.Count > 0)
+                {
+                    mforderVo.EmpId = int.Parse(BLPName.Rows[0][2].ToString());
+                }
+                else
+                {
+                    mforderVo.EmpId = 0;
+                }
             }
                 
             if (!String.IsNullOrEmpty(txtSystematicdates.Text))

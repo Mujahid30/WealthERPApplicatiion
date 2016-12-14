@@ -899,8 +899,9 @@
                     <td >
                         <asp:TextBox ID="txtBLPSearch" runat="server" CssClass="txtField" AutoComplete="Off"
                             OnTextChanged="OnBLPTextchanged" AutoPostBack="True" TabIndex="5">
-                        </asp:TextBox><span id="Span38" class="spnRequiredField">*</span>
-                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtBLPSearch"
+                        </asp:TextBox>
+<%--                        <span id="Span38" class="spnRequiredField">*</span>
+--%>                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtBLPSearch"
                             WatermarkText="Enter few chars of Employee Code" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
                         <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender4" runat="server" TargetControlID="txtBLPSearch"
@@ -909,9 +910,9 @@
                             CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
                             CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                             UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtBLPSearch"
+                      <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtBLPSearch"
                             ErrorMessage="<br />Please Enter a Business Lead Provider" Display="Dynamic" runat="server"
-                            CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
                     </td>
                     <td align="right" >
                         <asp:Label ID="lblBLPName" runat="server" CssClass="FieldName" Text="BLP Name:"></asp:Label>
