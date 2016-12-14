@@ -155,6 +155,12 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlOptionSearch_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlOptionSearch.SelectedValue == "Select")
+            {
+                tdtxtCustomerName.Visible = false;
+                tdtxtClientCode.Visible = false;
+                tdtxtPansearch.Visible = false;
+            }
             if (ddlOptionSearch.SelectedValue == "Name")
             {
                 tdtxtCustomerName.Visible = true;
@@ -164,6 +170,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator3.Visible = true;
                 txtClientCode.Text = "";
                 txtPansearch.Text = "";
+                txtCustomerId.Value = "";
 
             }
             else if (ddlOptionSearch.SelectedValue == "Panno")
@@ -175,8 +182,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator2.Visible = true;
                 txtClientCode.Text = "";
                 txtCustomerName.Text = "";
+                txtCustomerId.Value = "";
             }
-            else
+            else if (ddlOptionSearch.SelectedValue == "Clientcode")
             {
                 tdtxtClientCode.Visible = true;
                 tdtxtPansearch.Visible = false;
@@ -185,6 +193,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 RequiredFieldValidator13.Visible = true;
                 txtCustomerName.Text = "";
                 txtPansearch.Text = "";
+                txtCustomerId.Value = "";
             }
         }
         private string GetSelectedFilterValue()
@@ -304,14 +313,13 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (ddlOptionSearch.SelectedValue == "Select")
                 {
-
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Customer');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select A Customer');", true);
                     return;
                 }
             }
             gvTransationBookMIS.CurrentPageIndex = 0;         
             BindTransactionGrid();
-            txtCustomerId.Value = "";
+            
             btnExport.Visible = true;
            
         }
@@ -321,11 +329,12 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtBindTransactionGrid;
             if (ddlsearchcustomertype.SelectedValue != "All")
             {
+               
                 if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                     customerid = int.Parse(txtCustomerId.Value);
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select from Dropdown');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select From Dropdown');", true);
                     return;
                 }
             }
@@ -360,6 +369,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvTransationBookMIS.DataBind();
               
                 pnlTransactionBook.Visible = true;
+                
             }
             
         }
@@ -426,7 +436,10 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvTransationBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtBindTransactionGrid = new DataTable();
+            if (txtFrom.SelectedDate != null)
+                fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+            if (txtTo.SelectedDate != null)
+                toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             if (ddlsearchcustomertype.SelectedValue == "Individual")
             {
                 if (ddlOptionSearch.SelectedValue == "Name")
@@ -448,12 +461,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     hdnpanno.Value = "";
                 }
             }
-            else
-            {
-                hdncustomername.Value = "";
-                hdnpanno.Value = "";
-                hdncustcode.Value = "";
-            }
+            DataTable dtBindTransactionGrid = new DataTable();
+
 
             dtBindTransactionGrid = BindTransaction(adviserVo.advisorId, int.Parse(ddlAmc.SelectedValue), fromDate, toDate, gvTransationBookMIS.PageSize, gvTransationBookMIS.CurrentPageIndex + 1, hdncustomername.Value, hdncustcode.Value, hdnpanno.Value, hdnfoliono.Value, hdnschemename.Value, hdntype.Value, hdndividenttype.Value, hdnamcname.Value, 0, out rowCount, Isdemat);
             gvTransationBookMIS.DataSource = dtBindTransactionGrid;
