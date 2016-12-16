@@ -100,12 +100,15 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-               
+                if (txtFromDate.SelectedDate != null)
+                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+                if (txtToDate.SelectedDate != null)
+                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
                 string dateFormat = "dd-mm-yyyy";
               
                 dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId, fromdate, todate);
+                dsExtractData.Tables[0].Columns.Remove("C_DematAcceptedOn");
                 
-
                 StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
                 string Columns = string.Empty;
