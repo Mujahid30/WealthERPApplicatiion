@@ -100,19 +100,22 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-
-                string dateFormat = "dd-mm-yyyy";
-
-                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId);
                
+                string dateFormat = "dd-mm-yyyy";
+              
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId, fromdate, todate);
+                
 
                 StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
                 string Columns = string.Empty;
 
                 foreach (DataColumn column in dsExtractData.Tables[0].Columns)
+                
                     Columns += column.ColumnName + delimit;
-
+                  
+                
+                
                 // Headers  For different types
 
 
@@ -174,7 +177,11 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataTable dsExtractData = new DataTable();
-                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId).Tables[0];
+                if (txtFromDate.SelectedDate != null)
+                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+                if (txtToDate.SelectedDate != null)
+                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId,fromdate,todate).Tables[0];
                
                 if (dsExtractData.Rows.Count > 0)
                 {

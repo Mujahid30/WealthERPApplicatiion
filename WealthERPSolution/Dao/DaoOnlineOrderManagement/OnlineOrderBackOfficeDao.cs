@@ -1375,7 +1375,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@DivReinvest", DbType.String, mfProductAMCSchemePlanDetailsVo.DVRISIN);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalCodeDivRe", DbType.String, mfProductAMCSchemePlanDetailsVo.DVRExternalCode);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalCodeDivPay", DbType.String, mfProductAMCSchemePlanDetailsVo.DVPExternalCode);
-
+                updateSchemeSetUpDetailsCmd.CommandTimeout = 60 * 60;
                 // db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
@@ -3632,7 +3632,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetBSECustomer(int A_AdviserId)
+        public DataSet GetBSECustomer(int A_AdviserId, DateTime fromDate, DateTime todate)
         {
             DataSet dsBSECustomer;
             Database db;
@@ -3642,6 +3642,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdBSECustomer = db.GetStoredProcCommand("SPROC_ONL_BSECustomerDematAcceptance ");
                 db.AddInParameter(cmdBSECustomer, "@A_AdviserId", DbType.Int32, A_AdviserId);
+                db.AddInParameter(cmdBSECustomer, "@FromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmdBSECustomer, "@ToDate", DbType.DateTime, todate);
                 dsBSECustomer = db.ExecuteDataSet(cmdBSECustomer);
             }
             catch (BaseApplicationException Ex)

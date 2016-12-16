@@ -2780,15 +2780,15 @@ namespace BoOnlineOrderManagement
             return dsNotificationTypes;
 
         }
-       
 
-        public DataSet GetBSECustomer(int A_AdviserId)
+
+        public DataSet GetBSECustomer(int A_AdviserId, DateTime fromDate, DateTime todate)
         {
             DataSet dsBSECustomer = new DataSet();
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             try
             {
-                dsBSECustomer = daoOnlineOrderBackOffice.GetBSECustomer(A_AdviserId);
+                dsBSECustomer = daoOnlineOrderBackOffice.GetBSECustomer(A_AdviserId,fromDate,todate);
             }
             catch (BaseApplicationException Ex)
             {
