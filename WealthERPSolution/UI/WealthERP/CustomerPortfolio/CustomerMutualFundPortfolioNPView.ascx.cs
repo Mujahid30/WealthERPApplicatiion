@@ -70,12 +70,11 @@ namespace WealthERP.CustomerPortfolio
                 ErrorMessage.Visible = false;
                 if (!IsPostBack)
                 {
-                    //NewBindReturnsGrid();
-                    //RealizedBindReturnsGrid();
-                    //AllBindReturnsGrid();
 
+                    div1.Visible = false;
+                    div2.Visible = false;
+                    div4.Visible = false;
                     BindPortfolioDropDown();
-                    //SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
             }
@@ -111,17 +110,17 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-            
-                    mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId);
-                    Session["mfPortfolioList"] = mfPortfolioNetPositionList;
-              
+
+                mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId);
+                Session["mfPortfolioList"] = mfPortfolioNetPositionList;
+
                 if (mfPortfolioNetPositionList != null)
                 {
                     intPortfolioListCount = mfPortfolioNetPositionList.Count;
                 }
                 else
                 {
-                  
+
                     //SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
@@ -195,7 +194,7 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
-      
+
 
         protected void CalculatePortfolioXIRR(int portfolioId)
         {
@@ -242,11 +241,11 @@ namespace WealthERP.CustomerPortfolio
         }
         private void NewBindReturnsGrid()
         {
-            
-          DataSet dsHoldingReturnDetails = new DataSet();
-          dsHoldingReturnDetails = mFNetPositionBO.CreateCustomerMFReturnsHolding(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
-          rgHoldings.DataSource = dsHoldingReturnDetails;
-          rgHoldings.DataBind();
+
+            DataSet dsHoldingReturnDetails = new DataSet();
+            dsHoldingReturnDetails = mFNetPositionBO.CreateCustomerMFReturnsHolding(customerVo.CustomerId, ddlPortfolio.SelectedValue.ToString(), null, DateTime.Now);
+            rgHoldings.DataSource = dsHoldingReturnDetails;
+            rgHoldings.DataBind();
         }
         private void AllBindReturnsGrid()
         {
@@ -371,7 +370,7 @@ namespace WealthERP.CustomerPortfolio
 
                 DataTable dtMFReturnsholding = new DataTable();
                 dtMFReturnsholding = dvReturnsHoldings.ToTable();
-               
+
 
                 sumObject = dtMFReturnsholding.Compute("Sum(TotalPL)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
@@ -402,7 +401,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 DataTable dtMFReturnsAll = new DataTable();
                 dtMFReturnsAll = dvReturnsAll.ToTable();
-              
+
 
                 sumObject = dtMFReturnsAll.Compute("Sum(TotalPL)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalALLPL);
@@ -410,7 +409,7 @@ namespace WealthERP.CustomerPortfolio
                 sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
 
-              
+
                 if (totalALLInvestedCost != 0)
                     totalALLAbsoluteReturn = (totalALLPL / totalALLInvestedCost) * 100;
 
@@ -431,7 +430,7 @@ namespace WealthERP.CustomerPortfolio
                     imgBtnrgAll.Visible = false;
                     trNote.Visible = true;
                 }
-               
+
                 DataTable dtMFReturnsRealized = new DataTable();
                 dtMFReturnsRealized = dvReturnsRealized.ToTable();
 
@@ -463,7 +462,7 @@ namespace WealthERP.CustomerPortfolio
                 if (dtMFReturnsRealized.Rows.Count != 0)
                 {
                     imgBtnrgRealized.Visible = true;
-                   // trNote.Visible = false;
+                    // trNote.Visible = false;
                 }
                 else
                 {
@@ -877,7 +876,7 @@ namespace WealthERP.CustomerPortfolio
                 else
                     drMFPortfolioHoldings[24] = "0";
                 drMFPortfolioHoldings["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
-                
+
             }
             else
             {
@@ -1171,7 +1170,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("Weighted NAV", typeof(double));
             dtReturnsHoldings.Columns.Add("Weighted Days");
             dtReturnsHoldings.Columns.Add("CMFNP_ValuationDate");
-         
+
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -1816,7 +1815,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (ddlDisplayType.SelectedIndex == 1)
             {
-               
+
             }
             else if (ddlDisplayType.SelectedIndex == 2)
             {
@@ -1860,12 +1859,12 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rgTaxHoldings_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-           
+
         }
 
         protected void rgTaxRealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-           
+
         }
 
 
@@ -1922,14 +1921,14 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rgTaxHoldings_Init(object sender, System.EventArgs e)
         {
-           
+
         }
 
         protected void rgTaxRealized_Init(object sender, System.EventArgs e)
         {
         }
 
-     
+
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1966,17 +1965,17 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlTaxHoldingsCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
+
         }
 
         protected void ddlTaxRealizedCategory_SelectedIndexChanged(object sender, ImageClickEventArgs e)
         {
-           
+
         }
 
         public void btnExportrgTaxHoldingsFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-           
+
         }
 
         public void btnExportrgAllFilteredData_OnClick(object sender, ImageClickEventArgs e)
@@ -2016,7 +2015,7 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnExportrgTaxRealizedFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-           
+
         }
 
         protected void ddlMFClassificationCode_SelectedIndexChanged(object sender, EventArgs e)
@@ -2024,15 +2023,15 @@ namespace WealthERP.CustomerPortfolio
             DateTime valDate = DateTime.Parse(lblPickDate.Text);
             dsSchemeHoldingSector = customerPortfolioBo.GetCustomerSchemeHoldingSectors(portfolioId, valDate);
             Session["DsSchemeHoldingSector"] = dsSchemeHoldingSector;
-           
-           
-          
-          
+
+
+
+
         }
 
-     
 
-      
+
+
 
 
         private void BindHoldingChart()
@@ -2064,7 +2063,7 @@ namespace WealthERP.CustomerPortfolio
                         seriesAssets.Points.DataBindXY(XValues, YValues);
 
 
-                    
+
 
 
                         LegendCellColumn colors = new LegendCellColumn();
@@ -2087,7 +2086,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                   
+
                 }
 
             }
@@ -2169,8 +2168,8 @@ namespace WealthERP.CustomerPortfolio
         protected void btnGo_Click(object sender, EventArgs e)
         {
             portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
-           
-           
+
+
             CalculatePortfolioXIRR(portfolioId);
             GetMFPortfolioList();
             SetTaxGridsNull();
@@ -2203,7 +2202,7 @@ namespace WealthERP.CustomerPortfolio
         {
             DataTable dtSchemePerformance = new DataTable();
             dtSchemePerformance = (DataTable)Cache["SchemePerformance" + userVo.UserId];
-          
+
         }
         protected void rgHoldings_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
@@ -2213,7 +2212,7 @@ namespace WealthERP.CustomerPortfolio
         { }
         protected void rgRealized_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-           
+
         }
 
         protected void rgTaxHoldings_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
@@ -2259,7 +2258,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void rgTaxRealized_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-          
+
         }
         protected void rgHoldings_OnExcelMLExportStylesCreated(object source, Telerik.Web.UI.GridExcelBuilder.GridExportExcelMLStyleCreatedArgs e)
         {
@@ -2289,7 +2288,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (style.Id == "itemStyle")
                 {
-                    style.InteriorStyle.Color = System.Drawing.Color.WhiteSmoke;                    
+                    style.InteriorStyle.Color = System.Drawing.Color.WhiteSmoke;
                     style.InteriorStyle.Pattern = Telerik.Web.UI.GridExcelBuilder.InteriorPatternType.Solid;
                 }
                 else if (style.Id == "alternatingItemStyle")
