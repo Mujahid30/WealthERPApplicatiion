@@ -125,7 +125,7 @@ namespace WealthERP.SSRS
             rptViewer.ProcessingMode = ProcessingMode.Local;
             rptViewer.Reset();
             LocalReport LocalReport = rptViewer.LocalReport;
-            String reportLogoPath = ConfigurationManager.AppSettings["Website_Logo"].ToString();
+            String reportLogoPath = ConfigurationManager.AppSettings["adviserLogoPath"].ToString();
             reportLogoPath = System.Web.HttpContext.Current.Request.MapPath(reportLogoPath + advisorVo.LogoPath);
             if (!File.Exists(reportLogoPath))
             {
