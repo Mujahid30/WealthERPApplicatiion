@@ -448,6 +448,7 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.DataSource = dtGetProductMobilizedReport;
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
+                gvCommissionMIS.MasterTableView.GetColumn("MT_Type").HeaderText = ddlMISType.SelectedItem.Text;
                 if (Cache["ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId);
@@ -460,6 +461,7 @@ namespace WealthERP.Advisor
                 gvNonMFMobilization.DataSource = dtGetProductMobilizedReport;
                 gvNonMFMobilization.DataBind();
                 gvNonMFMobilization.Visible = true;
+                gvNonMFMobilization.MasterTableView.GetColumn("Typep").HeaderText = ddlMISType.SelectedItem.Text;
                 if (Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId);
@@ -626,13 +628,15 @@ namespace WealthERP.Advisor
             {
                 tdCategory.Visible = false;
                 tdDdlCategory.Visible = false;
+                ddlMISType.Items.FindItemByValue("1").Enabled = true;
                 if (rcbProductType.SelectedValue == "IP")
                 {
                     tdIssueName.Visible = true;
                     tdlblIssueName.Visible = true;
                     BindIssueName();
+                    ddlMISType.Items.FindItemByValue("1").Enabled = false;
                 }
-                ddlMISType.Items.FindItemByValue("1").Enabled = true;
+                
             }
         }
         protected void RcbProductCategory_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)

@@ -95,14 +95,14 @@
                         <telerik:RadComboBox ID="rcbOnlineMode" AutoPostBack="true" runat="server" CssClass="cmbFielde"
                             EnableEmbeddedSkins="false" Skin="Telerik" AllowCustomText="true">
                             <Items>
-                            <telerik:RadComboBoxItem Text="ALL" Value="2" Selected="true" />
+                                <telerik:RadComboBoxItem Text="ALL" Value="2" Selected="true" />
                                 <telerik:RadComboBoxItem Text="Demat" Value="1" />
                                 <telerik:RadComboBoxItem Text="online" Value="0" />
                             </Items>
                         </telerik:RadComboBox>
                     </td>
                     <td align="left" id="tdlblIssueName" runat="server" visible="false">
-                        <asp:Label ID="lblIssueName" runat="server" CssClass="FieldName" Text="Issue Name"></asp:Label>
+                        <asp:Label ID="lblIssueName" runat="server" CssClass="FieldName" Text="Issue Name :"></asp:Label>
                     </td>
                     <td runat="server" id="tdIssueName" runat="server" visible="false">
                         <telerik:RadComboBox ID="rcbIssueName" AutoPostBack="true" runat="server" CssClass="cmbFielde"
@@ -257,19 +257,20 @@
                 <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="MT_Type" DataField="MT_Type" AllowFiltering="false"
-                             SortExpression="MT_Type" AutoPostBackOnFilter="true"
-                            ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" >
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"  />
+                            SortExpression="MT_Type" AutoPostBackOnFilter="true" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Debt" DataField="Debt" AllowFiltering="false"
                             HeaderText="Debt" SortExpression="Debt" AutoPostBackOnFilter="true" ShowFilterIcon="false"
-                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}"
+                            FooterText="Total:">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Equity" AllowFiltering="false" AutoPostBackOnFilter="true"
                             ShowFilterIcon="false" HeaderText="Equity" FooterStyle-HorizontalAlign="Right"
-                            AllowSorting="true" DataField="Equity" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top"  />
+                            AllowSorting="true" DataField="Equity" Aggregate="Sum" DataFormatString="{0:n0}"
+                            FooterText="Total:">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="GOLD_ETF" AllowFiltering="false" AutoPostBackOnFilter="true"
                             DataField="GOLD_ETF" ShowFilterIcon="false" HeaderText="Gold ETF" FooterStyle-HorizontalAlign="Right"
@@ -282,15 +283,18 @@
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Index" DataField="Index" AllowFiltering="false"
-                            HeaderText="Index" SortExpression="Index" AutoPostBackOnFilter="true" ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            HeaderText="Index" SortExpression="Index" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="LIQUID" DataField="LIQUID" AllowFiltering="false"
-                            HeaderText="Liquid" SortExpression="LIQUID" AutoPostBackOnFilter="true" ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            HeaderText="Liquid" SortExpression="LIQUID" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Total" DataField="Total" AllowFiltering="false"
-                            HeaderText="Total" SortExpression="Total" AutoPostBackOnFilter="true" ShowFilterIcon="false" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            HeaderText="Total" SortExpression="Total" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
@@ -312,26 +316,30 @@
                 Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                 <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
                     <Columns>
-                         <telerik:GridBoundColumn UniqueName="Typep" DataField="Typep" AllowFiltering="false"
-                             SortExpression="Typep" AutoPostBackOnFilter="true"
-                            ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
+                        <telerik:GridBoundColumn UniqueName="Typep" DataField="Typep" AllowFiltering="false"
+                            SortExpression="Typep" AutoPostBackOnFilter="true" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="AIM_IssueName" DataField="AIM_IssueName" AllowFiltering="false"
+                            SortExpression="AIM_IssueName" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            FooterStyle-HorizontalAlign="Right" HeaderText="Issue Name">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Ordered_Amount" DataField="Ordered_Amount" AllowFiltering="false"
-                            HeaderText="Amount Raised (Ordered)" SortExpression="Ordered_Amount" AutoPostBackOnFilter="true" ShowFilterIcon="false"
-                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            HeaderText="Amount Raised (Ordered)" SortExpression="Ordered_Amount" AutoPostBackOnFilter="true"
+                            ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}"
+                            FooterText="Total:">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Accepted_Amount" AllowFiltering="false" AutoPostBackOnFilter="true"
                             ShowFilterIcon="false" HeaderText="Amount Alloted (Accepted)" FooterStyle-HorizontalAlign="Right"
-                            AllowSorting="true" DataField="Accepted_Amount" Aggregate="Sum" DataFormatString="{0:n0}" FooterText="Total:">
+                            AllowSorting="true" DataField="Accepted_Amount" Aggregate="Sum" DataFormatString="{0:n0}"
+                            FooterText="Total:">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       
                     </Columns>
                 </MasterTableView>
             </telerik:RadGrid>
-            
         </td>
     </tr>
 </table>
