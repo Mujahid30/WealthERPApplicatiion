@@ -155,7 +155,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
                 }
                 else
-                    if (ddlType.SelectedValue == "9")
+                    if (ddlType.SelectedValue == "9"||ddlType.SelectedValue=="13")
                     {
                         rgRequests.MasterTableView.GetColumn("Cutomercreated").Visible = true;
                         rgRequests.MasterTableView.GetColumn("FolioCreated").Visible = true;
