@@ -4765,7 +4765,7 @@ namespace DaoUploads
                 throw exBase;
             }
         }
-        public int SetRequestParentreqId(int reqId, int userId)
+        public int SetRequestParentreqId(int reqId, int userId, int transactionId)
         {
             Database db;
             DbCommand reprocess;
@@ -4777,6 +4777,7 @@ namespace DaoUploads
                 reprocess = db.GetStoredProcCommand("SP_ManageprofileReprocess");
                 db.AddInParameter(reprocess, "@reqId", DbType.Int32, reqId);
                 db.AddInParameter(reprocess, "@userId", DbType.Int32, userId);
+                db.AddInParameter(reprocess, "@transactonId", DbType.Int32, transactionId);
                 db.AddOutParameter(reprocess, "@existsCount", DbType.Int32, 10);
                 if (db.ExecuteNonQuery(reprocess) != 0)
                 {

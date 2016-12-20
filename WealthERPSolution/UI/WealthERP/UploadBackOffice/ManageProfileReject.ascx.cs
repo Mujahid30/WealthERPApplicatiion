@@ -614,7 +614,8 @@ namespace WealthERP.UploadBackOffice
             if (Request.QueryString["ReqId"] != null)
             {
                 reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
-                reprocess = uploadCommonBo.SetRequestParentreqId(reqId, userVo.UserId);
+                transactionId = Convert.ToInt32(Request.QueryString["transactionId"]);
+                reprocess = uploadCommonBo.SetRequestParentreqId(reqId, userVo.UserId, transactionId);
                 if (reprocess > 0)
                 {
                     msgReprocessincomplete.Visible = true;
@@ -754,6 +755,17 @@ namespace WealthERP.UploadBackOffice
                 rgKycRejectlist.ExportSettings.FileName = reqId.ToString()+"_Kyc Upload Rejection List";
                 rgKycRejectlist.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 rgKycRejectlist.MasterTableView.ExportToExcel();
+            }
+            if (transactionId == 13)
+            {
+                gvSIPReject.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
+                gvSIPReject.ExportSettings.OpenInNewWindow = true;
+                gvSIPReject.ExportSettings.IgnorePaging = true;
+                gvSIPReject.ExportSettings.HideStructureColumns = true;
+                gvSIPReject.ExportSettings.ExportOnlyData = true;
+                gvSIPReject.ExportSettings.FileName = reqId.ToString() + "_SIP Upload Rejection List";
+                gvSIPReject.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvSIPReject.MasterTableView.ExportToExcel();
             }
             else
             {

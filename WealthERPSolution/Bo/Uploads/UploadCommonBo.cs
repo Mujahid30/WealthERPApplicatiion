@@ -5068,13 +5068,13 @@ namespace BoUploads
                 throw exBase;
             }
         }
-        public int SetRequestParentreqId(int reqId, int userId)
+        public int SetRequestParentreqId(int reqId, int userId,int transactionId)
         {
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             int existsCount;
             try
             {
-               existsCount=uploadDAO.SetRequestParentreqId(reqId, userId);
+                existsCount = uploadDAO.SetRequestParentreqId(reqId, userId, transactionId);
             }
             catch (BaseApplicationException Ex)
             {
