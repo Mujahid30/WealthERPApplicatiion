@@ -23,6 +23,8 @@ namespace WealthERP.Base
         public const string ExtractTypeProfileFolio = "PMFF";
         public const string ExtractTypeFolio = "MFF";
         public const string ExtractTypeMFTransaction = "MFT";
+        public const string ExtractTypeSIPUpload = "SIPU";
+
         public const string ExtractTypeEQTradeAccount = "EQTA";
         public const string ExtractTypeEQDematAccount = "EQDA";
         public const string ExtractTypeEQTransaction = "EQT";

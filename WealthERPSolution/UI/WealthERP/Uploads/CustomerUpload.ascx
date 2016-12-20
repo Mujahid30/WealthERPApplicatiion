@@ -273,6 +273,7 @@
                 <asp:ListItem Value="PF">Profile And Folio(NEW)</asp:ListItem>
                 <asp:ListItem Value="MFTN">MF Transaction(NEW)</asp:ListItem>
                 <asp:ListItem Value="KYC">Kyc Verification Upload </asp:ListItem>
+                <asp:ListItem Value="SIPU">SIP Upload</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">

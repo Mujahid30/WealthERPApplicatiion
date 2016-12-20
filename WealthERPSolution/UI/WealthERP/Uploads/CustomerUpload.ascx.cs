@@ -305,6 +305,18 @@ namespace WealthERP.Uploads
             genDictMF.Add("Standard", "WPT");
             return genDictMF;
         }
+        private static Dictionary<string, string> GetSIPGenericDictionary()
+        {
+            Dictionary<string, string> genDictMF = new Dictionary<string, string>();
+            genDictMF.Add("CAMS", "CA");
+            genDictMF.Add("Karvy", "KA");
+            genDictMF.Add("Templeton", "TN");
+           
+            genDictMF.Add("Sundaram", "SU");
+            genDictMF.Add("Standard", "WPT");
+            return genDictMF;
+        }
+
 
         private static Dictionary<string, string> GetEquityGenericDictionary()
         {
@@ -478,6 +490,27 @@ namespace WealthERP.Uploads
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
                 werpTaskRequestManagementBo.CreateTaskRequestForRecon(5, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, ddlListCompany.SelectedValue, txtMfRecon.Text);
+
+                if (ReqId > 0)
+                {
+                    msgUploadComplete.InnerText = "Request Id-" + ReqId.ToString() + "-Generated SuccessFully";
+                }
+                else
+                {
+                    msgUploadComplete.InnerText = "Not able to create Request,Try again";
+                }
+            }
+            else if (Page.IsValid & ddlUploadType.SelectedValue == "SIPU")
+            {
+                int ReqId = 0;
+                msgUploadComplete.Visible = true;
+
+                string uploadFilePath = ConfigurationManager.AppSettings["ADVISOR_UPLOAD_PATH"].ToString() + "\\" + adviserVo.advisorId.ToString() + "\\";
+                string newFileName = SaveFileIntoServer(FileUpload, uploadFilePath);
+
+                newFileName = uploadFilePath + newFileName;
+                //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
+                werpTaskRequestManagementBo.CreateTaskRequest(13, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 52, Convert.ToInt32(ddlType.SelectedValue));
 
                 if (ReqId > 0)
                 {
@@ -723,7 +756,7 @@ namespace WealthERP.Uploads
                     msgUploadComplete.InnerText = "Not able to create Request,Try again";
                 }
             }
-            if (Page.IsValid & ddlUploadType.SelectedValue != "KYC" & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM" & ddlUploadType.SelectedValue != "MFR" & ddlUploadType.SelectedValue != "PF" & ddlUploadType.SelectedValue != "MFTN")
+            if (Page.IsValid & ddlUploadType.SelectedValue != "KYC" & ddlUploadType.SelectedValue != "P" & ddlUploadType.SelectedValue != "CM" & ddlUploadType.SelectedValue != "MFR" & ddlUploadType.SelectedValue != "PF" & ddlUploadType.SelectedValue != "MFTN" & ddlUploadType.SelectedValue != "SIPU")
             {
                 #region Uploading Content
                 string pathxml = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -4870,8 +4903,8 @@ namespace WealthERP.Uploads
                 trRM.Visible = true;
                 trMfRecon.Visible = false;
             }
-            
-            if (ddlUploadType.SelectedValue == "KYC" || ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "PF" || ddlUploadType.SelectedValue == "MFTN")
+
+            if (ddlUploadType.SelectedValue == "KYC" || ddlUploadType.SelectedValue == "CM" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "PF" || ddlUploadType.SelectedValue == "MFTN" || ddlUploadType.SelectedValue == "SIPU")
             {
                 trRM.Visible = true;
                 if (adviserId == 1021)
@@ -4886,6 +4919,12 @@ namespace WealthERP.Uploads
                 if (ddlUploadType.SelectedValue == "MFTN")
                 {
                     trType.Visible = true;
+                }
+                if (ddlUploadType.SelectedValue == "SIPU")
+                {
+                    trType.Visible = true;
+                    trRM.Visible = false;
+                    trListBranch.Visible = false;
                 }
                 else if (ddlUploadType.SelectedValue == "KYC")
                 {
@@ -5144,6 +5183,22 @@ namespace WealthERP.Uploads
                 ddlRM.DataBind();
                 ddlRM.Items.Insert(0, new ListItem("Select", "Select Rm"));
             }
+            else if ( ddlUploadType.SelectedValue == Contants.ExtractTypeSIPUpload)
+            {   // Profile Only
+
+                //fill External Type dropdownbox
+                ddlListCompany.DataSource = GetSIPGenericDictionary();
+                ddlListCompany.DataTextField = "Key";
+                ddlListCompany.DataValueField = "Value";
+                ddlListCompany.DataBind();
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+                //ddlListCompany.Enabled = false;
+                ddlRM.DataSource = werpTaskRequestManagementBo.GetAdviserWiseRM(adviserVo.advisorId);
+                ddlRM.DataValueField = "AR_RMId";
+                ddlRM.DataTextField = "AR_RMName";
+                ddlRM.DataBind();
+                ddlRM.Items.Insert(0, new ListItem("Select", "Select Rm"));
+            }
 
             else
             {
@@ -5325,7 +5380,7 @@ namespace WealthERP.Uploads
             }
             //***Dropdown screen info coding***
 
-            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFSS")
+            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFSS" || ddlUploadType.SelectedValue == "SIPU")
             {
                 lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
@@ -5383,6 +5438,10 @@ namespace WealthERP.Uploads
             {
                 lnkbtnpup.Visible = true;
             }
+            else if (ddlUploadType.SelectedValue == "SIPU" && ddlListCompany.SelectedValue == "WPT")
+            {
+                lnkbtnpup.Visible = true;
+            }
             else if (ddlUploadType.SelectedValue == "EQTA" && ddlListCompany.SelectedValue == "WP")
             {
                 lnkbtnpup.Visible = true;
@@ -5437,6 +5496,11 @@ namespace WealthERP.Uploads
             if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "WPT")
             {
                 hdnUploadType.Value = "MFT";
+                hdnListCompany.Value = "WPT";
+            }
+            if (ddlUploadType.SelectedValue == "SIPU" && ddlListCompany.SelectedValue == "WPT")
+            {
+                hdnUploadType.Value = "SIPU";
                 hdnListCompany.Value = "WPT";
             }
             if (ddlUploadType.SelectedValue == "EQTA" && ddlListCompany.SelectedValue == "WP")
@@ -8652,18 +8716,22 @@ namespace WealthERP.Uploads
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
                             }
+                           
                             else if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "TN")
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
                             }
+                           
                             else if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "CA")
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
                             }
+                          
                             else if (ddlUploadType.SelectedValue == "MFT" && ddlListCompany.SelectedValue == "WPT")
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
                             }
+                           
                             else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "CAMS")
                             {
                                 dc.ColumnName = dtFInalTable.Rows[0][colId].ToString();
