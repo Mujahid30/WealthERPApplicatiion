@@ -4734,6 +4734,37 @@ namespace DaoUploads
                 throw exBase;
             }
         }
+        public void DeleteSIPRequestRejected(int Id, int tableNo)
+        {
+            Database db;
+            DbCommand deleterejectedrequest;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleterejectedrequest = db.GetStoredProcCommand("SP_DeleteSIPRequestRejected");
+                db.AddInParameter(deleterejectedrequest, "@Id", DbType.Int32, Id);
+                db.AddInParameter(deleterejectedrequest, "@TableNo", DbType.Int32, tableNo);
+                db.ExecuteDataSet(deleterejectedrequest);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:DeleteRequestRejected()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public int SetRequestParentreqId(int reqId, int userId)
         {
             Database db;

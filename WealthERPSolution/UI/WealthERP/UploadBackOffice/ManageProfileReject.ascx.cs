@@ -36,6 +36,7 @@ namespace WealthERP.UploadBackOffice
             userVo = (UserVo)Session[SessionContents.UserVo];
             if (!IsPostBack)
             {
+                
                 msgReprocessComplete.Visible = false;
                 reqId = Convert.ToInt32(Request.QueryString["ReqId"]);
                 transactionId = Convert.ToInt32(Request.QueryString["transactionId"]);
@@ -74,12 +75,34 @@ namespace WealthERP.UploadBackOffice
                     btnReProcess.Visible = false;
                     LinkButton2.Visible = false;
                 }
-               else {
-                    gvProfileIncreamenetReject.DataSource = dtReqReje;
-                    gvProfileIncreamenetReject.DataBind();
-
-                    gvProfileIncreamenetReject.Visible = true;
+                if (transactionId == 13)
+                {
+                    gvProfileIncreamenetReject.Visible = false;
+                    rgKycRejectlist.Visible = false;
+                    gvSIPReject.Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("ReqId").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("ProductCode").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("TargetProductCode").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("PanNo").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("FolioNo").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("Amount").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("FromDate").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("ToDate").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("Frequency").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("PaymentMode").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("RegistrationDate").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("TotalNoInstalment").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("CreatedOn").Visible = true;
+                    btnDelete.Visible = false;
+                    Button1.Visible = true;
                 }
+                //else
+                //{
+                //    gvProfileIncreamenetReject.DataSource = dtReqReje;
+                //    gvProfileIncreamenetReject.DataBind();
+
+                //    gvProfileIncreamenetReject.Visible = true;
+                //}
                 if (transactionId == 3 || transactionId == 4)
                 {
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = false;
@@ -134,7 +157,7 @@ namespace WealthERP.UploadBackOffice
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ClientCode").Visible = false;
                 }
-                else if (transactionId == 9)
+                else if (transactionId == 9 )
                 {
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = true;
@@ -161,6 +184,7 @@ namespace WealthERP.UploadBackOffice
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("TransactionDescription").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ClientCode").Visible = false;
                 }
+                
 
             }
             catch (BaseApplicationException Ex)
@@ -522,6 +546,32 @@ namespace WealthERP.UploadBackOffice
 
             }
         }
+        protected void gvSIPReject_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtRequests = new DataTable();
+            DataSet dtProcessLogDetails = new DataSet();
+            //dtRequests = (DataTable)Cache[userVo.UserId.ToString() + "RequestReject"];
+            dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
+            if (dtRequests != null)
+            {
+
+                if (ViewState["RejectReason"] != null)
+                    rcbType = ViewState["RejectReason"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtRequests, "RejectedReasonDescription = '" + rcbType + "'", "", DataViewRowState.CurrentRows);
+                    gvSIPReject.DataSource = dvStaffList.ToTable();
+
+                }
+                else
+                {
+                    gvSIPReject.DataSource = dtRequests;
+                }
+
+            }
+        }
+       
         protected void gvProfileIncreamenetReject_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
@@ -611,6 +661,34 @@ namespace WealthERP.UploadBackOffice
                 //    BindEquityTransactionGrid(ProcessId);
             }
         }
+        protected void btnDeleteSIPStatus_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+
+            foreach (GridDataItem gvr in this.gvSIPReject.Items)
+            {
+                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                {
+                    i = i + 1;
+                }
+            }
+
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            }
+            else
+            {
+
+                RejectedSIPRequestDelete();
+                //NeedSource();
+                gvProfileIncreamenetReject.Visible = false;
+                gvSIPReject.MasterTableView.Rebind();
+                msgReprocessComplete.Visible = false;
+                msgReprocessincomplete.Visible = false;
+                 
+            }
+        }
         private void RejectedRequestDelete()
         {
             int Id = 0;
@@ -627,6 +705,29 @@ namespace WealthERP.UploadBackOffice
                     Id = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["ID"].ToString()));
                     tableNo = int.Parse((gvProfileIncreamenetReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
                     uploadCommonBo.DeleteRequestRejected(Id, tableNo);
+                }
+
+            }
+            if (Request.QueryString["ReqId"] != null)
+                reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
+            GetProfileIncreamentRejection(reqId);
+        }
+        private void RejectedSIPRequestDelete()
+        {
+            int Id = 0;
+            int tableNo = 0;
+            foreach (GridDataItem gvr in this.gvSIPReject.Items)
+            {
+                CheckBox checkBox = (CheckBox)gvr.FindControl("chkId");
+                if (checkBox.Checked)
+                {
+                    int selectedRow = 0;
+                    GridDataItem gdi;
+                    gdi = (GridDataItem)checkBox.NamingContainer;
+                    selectedRow = gdi.ItemIndex + 1;
+                    Id = int.Parse((gvSIPReject.MasterTableView.DataKeyValues[selectedRow - 1]["InputId"].ToString()));
+                    tableNo = int.Parse((gvSIPReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
+                    uploadCommonBo.DeleteSIPRequestRejected(Id, tableNo);
                 }
 
             }

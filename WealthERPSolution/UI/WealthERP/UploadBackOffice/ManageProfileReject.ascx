@@ -48,7 +48,65 @@
 
     }
 </script>
+<script type="text/javascript">
+    function confirmation1() {
+     
+        var masterTable = $find("<%= gvSIPReject.ClientID %>").get_masterTableView();
+        var row = masterTable.get_dataItems();
+       
+        var i = 0;
+        if (i < row.length) {
 
+            var chk = masterTable.get_dataItems()[i].findElement("chkId");
+           
+            var chk1 = masterTable.get_dataItems()[i].findElement("chkIdAll");
+        }
+        if (!chk.checked) {
+            alert('Please select record to delete!');
+        }
+       else if (chk.checked) {
+            var bool = window.confirm('Are You Sure To Delete?');
+
+            if (bool) {
+                document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 1;
+                document.getElementById("ctrl_ManageProfileReject_btnDeleteSIPStatus").click();
+
+                return false;
+            }
+            else {
+                document.getElementById("ctrl_ManageProfileReject_hdnStatusValue").value = 0;
+                document.getElementById("ctrl_ManageProfileReject_btnDeleteSIPStatus").click();
+                return true;
+            }
+        }
+       
+    }
+</script>
+
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes1() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var gvControl = document.getElementById('<%= gvSIPReject.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkId";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkIdAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+</script>
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
 
@@ -73,7 +131,6 @@
         }
     }
 </script>
-
 <table width="100%">
     <tr id="tr1" runat="server">
         <td class="Cell" align="right">
@@ -221,6 +278,117 @@
                             </telerik:GridBoundColumn>
                         </Columns>
                          </MasterTableView>
+                    <ClientSettings>
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvSIPReject" Visible="true" runat="server" GridLines="None" 
+                    AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                    ShowStatusBar="True" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
+                    AllowFilteringByColumn="true" Width="100%" AllowAutomaticInserts="false" OnNeedDataSource="gvSIPReject_OnNeedDataSource" >
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
+                    </ExportSettings>
+                    <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                        CommandItemDisplay="None" EditMode="PopUp" DataKeyNames="InputId,TableNo">
+                        <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                            ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                        <Columns>
+                          <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                                HeaderStyle-Width="70px">
+                                <HeaderTemplate>
+                                    <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes1()" />
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkId" runat="server" />
+                                </ItemTemplate>
+                               
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="ReqId" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Req. Id" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="ReqId" SortExpression="ReqId" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ProductCode" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Product Code" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="ProductCode" SortExpression="ProductCode" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="TargetProductCode" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Target ProductCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="TargetProductCode" SortExpression="TargetProductCode" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="PanNo" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="PanNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="PanNo" SortExpression="PanNo" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="FolioNo" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="FolioNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="FolioNo" SortExpression="FolioNo" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="Amount" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="Amount" SortExpression="Amount" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="FromDate" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="From Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="FromDate" SortExpression="FromDate" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ToDate" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="To Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="ToDate" SortExpression="ToDate" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="Frequency" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Frequency" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="Frequency" SortExpression="Frequency" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="true" DataField="PaymentMode" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Payment Mode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="PaymentMode" SortExpression="PaymentMode" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn AllowFiltering="true" DataField="RegistrationDate" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Registration Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="RegistrationDate" SortExpression="RegistrationDate" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="TotalNoInstalment" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="Total No. of Installment" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="TotalNoInstalment" SortExpression="TotalNoInstalment" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                               <telerik:GridBoundColumn AllowFiltering="true" DataField="CreatedOn" AutoPostBackOnFilter="true"
+                                Visible="true" HeaderText="CreatedOn" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="CreatedOn" SortExpression="CreatedOn" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
+                             </Columns>
+                    </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
@@ -1077,6 +1245,7 @@
                 </telerik:RadGrid>
             </td>
         </tr>
+        
     </table>
 </asp:Panel>
 <table width="100%">
@@ -1084,6 +1253,10 @@
         <td class="SubmitCell">
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClientClick="return confirmation();" />
+        </td>
+        <td class="SubmitCell">
+            <asp:Button ID="Button1" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+                OnClientClick="return confirmation1();" Visible="false" />
         </td>
         <td class="ReProcessCell">
             <asp:Button ID="btnReProcess" runat="server" CssClass="PCGLongButton" Text="ReProcess"
@@ -1094,3 +1267,5 @@
 <asp:HiddenField ID="hdnStatusValue" runat="server" />
 <asp:Button ID="btnDeleteStatus" runat="server" BorderStyle="None" BackColor="Transparent"
     OnClick="btnDeleteStatus_Click" />
+    <asp:Button ID="btnDeleteSIPStatus" runat="server" BorderStyle="None" BackColor="Transparent"
+    OnClick="btnDeleteSIPStatus_Click" />
