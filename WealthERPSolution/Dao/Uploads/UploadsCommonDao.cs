@@ -4549,6 +4549,64 @@ namespace DaoUploads
 
             return dsReqRej;
         }
+        public bool UpdateSIPRequestRejects(string pan, int Id, int tableNo, string transactionType, string productCode, string accounttype, string bankname)
+        {
+            bool result = false;
+            Database db;
+            DbCommand UpdateRequestRejectCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateRequestRejectCmd = db.GetStoredProcCommand("SPROC_UpdateSIPRequestRejected");
+                db.AddInParameter(UpdateRequestRejectCmd, "@Id", DbType.Int32, Id);
+                db.AddInParameter(UpdateRequestRejectCmd, "@TableNo", DbType.Int32, tableNo);
+                if (!string.IsNullOrEmpty(pan))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO1", DbType.String, pan);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@PANNO1", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(transactionType))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionType", DbType.String, transactionType);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@TransactionType", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(productCode))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, productCode);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(accounttype))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, accounttype);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(bankname))
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, bankname);
+                else
+                    db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, DBNull.Value);
+                 db.ExecuteNonQuery(UpdateRequestRejectCmd);
+                result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:UpdateRequestRejects()");
+
+                object[] objects = new object[2];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
+            
+        
         public bool UpdateRequestRejects(string clientCode, int Id, int tableNo, string city, string state, string pincode, string mobileno, string occupation, string accounttype, string bankname, string personalstatus, string address1, string address2, string address3, string country, string officePhoneNo, string officeExtensionNo, string officeFaxNo, string homePhoneNo, string homeFaxNo, string annualIncome, string pan1, string pan2, string pan3, string emailId, string transactionType, string transactionNature, string transactionHead, string transactionDescription, string productCode, string accountNo)
         {
             bool result = false;

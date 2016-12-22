@@ -226,6 +226,7 @@ namespace WealthERP.Uploads
             ddlUploadType.Items[10].Enabled = false;
             ddlUploadType.Items[11].Enabled = false;
             ddlUploadType.Items[12].Enabled = false;
+            ddlUploadType.Items[15].Enabled = false;
             //ddlUploadType.Items[13].Enabled = false;
             if (UploadType == "1")
             {
@@ -234,6 +235,7 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[8].Enabled = true;
                 ddlUploadType.Items[9].Enabled = true;
                 ddlUploadType.Items[12].Enabled = true;
+                ddlUploadType.Items[15].Enabled = false;
                 //ddlUploadType.Items[13].Enabled = true;
             }
             else
@@ -246,6 +248,7 @@ namespace WealthERP.Uploads
                 ddlUploadType.Items[10].Enabled = true;
                 ddlUploadType.Items[11].Enabled = true;
                 ddlUploadType.Items[12].Enabled = true;
+                ddlUploadType.Items[15].Enabled = true;
 
             }
 
@@ -5380,7 +5383,7 @@ namespace WealthERP.Uploads
             }
             //***Dropdown screen info coding***
 
-            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFSS" || ddlUploadType.SelectedValue == "SIPU")
+            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT" || ddlUploadType.SelectedValue == "P" || ddlUploadType.SelectedValue == "MFSS" )
             {
                 lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);

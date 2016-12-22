@@ -81,18 +81,19 @@ namespace WealthERP.UploadBackOffice
                     rgKycRejectlist.Visible = false;
                     gvSIPReject.Visible = true;
                     gvSIPReject.MasterTableView.GetColumn("ReqId").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("ProductCode").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("TargetProductCode").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("PanNo").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("InvName").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("Pan").Visible = true;
                     gvSIPReject.MasterTableView.GetColumn("FolioNo").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("Amount").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("FromDate").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("ToDate").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("Frequency").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("PaymentMode").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("RegistrationDate").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("TotalNoInstalment").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("CreatedOn").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("Scheme").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("AUTOTRNO").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("AUTTRNTYP").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("REGDATE").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("AUTOAMOUN").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("Product").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("ACTYPE").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("BANK").Visible = true;
+                    gvSIPReject.MasterTableView.GetColumn("BRANCH").Visible = true;
+                    
                     btnDelete.Visible = false;
                     Button1.Visible = true;
                 }
@@ -507,7 +508,88 @@ namespace WealthERP.UploadBackOffice
                 }
             }
         }
+        protected void btnSave1_Click(object sender, EventArgs e)
+        {
+            string pan = string.Empty;
+            string transactionType = string.Empty;
+            string productCode = string.Empty;
+            string accounttype = string.Empty;
+            string bankname = string.Empty;
+            bool blResult1 = false;
+            int Id = 0;
+            int tableNo = 0;
+            uploadCommonBo = new UploadCommonBo();
+            GridFooterItem footerRow = (GridFooterItem)gvSIPReject.MasterTableView.GetItems(GridItemType.Footer)[0];
+            foreach (GridDataItem dr in gvSIPReject.Items)
+            {
+                if (((TextBox)footerRow.FindControl("txtPANNOFooter")).Text.Trim() == "")
+                {
+                    pan = ((TextBox)dr.FindControl("txtPANNO")).Text;
+                }
+                else
+                {
+                    pan = ((TextBox)footerRow.FindControl("txtPANNOFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtAUTTRNTYPFooter")).Text.Trim() == "")
+                {
+                    transactionType = ((TextBox)dr.FindControl("txtAUTTRNTYP")).Text;
+                }
+                else
+                {
+                    transactionType = ((TextBox)footerRow.FindControl("txtAUTTRNTYPFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtProductFooter")).Text.Trim() == "")
+                {
+                    productCode = ((TextBox)dr.FindControl("txtProduct")).Text;
+                }
+                else
+                {
+                    productCode = ((TextBox)footerRow.FindControl("txtProductFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtSIPAccountTypeFooter")).Text.Trim() == "")
+                {
+                    accounttype = ((TextBox)dr.FindControl("txtSIPAccountType")).Text;
+                }
+                else
+                {
+                    accounttype = ((TextBox)footerRow.FindControl("txtSIPAccountTypeFooter")).Text;
+                }
+                if (((TextBox)footerRow.FindControl("txtBankName1Footer")).Text.Trim() == "")
+                {
+                    bankname = ((TextBox)dr.FindControl("txtBankName1")).Text;
+                }
+                else
+                {
+                    bankname = ((TextBox)footerRow.FindControl("txtBankName1Footer")).Text;
+                }
+                 CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                if (checkBox.Checked == true)
+                {
+                    int selectedRow = 0;
+                    GridDataItem gdi;
+                    gdi = (GridDataItem)checkBox.NamingContainer;
+                    selectedRow = gdi.ItemIndex + 1;
+                    Id = int.Parse((gvSIPReject.MasterTableView.DataKeyValues[selectedRow - 1]["InputId"].ToString()));
+                    tableNo = int.Parse((gvSIPReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
+                    blResult1 = uploadCommonBo.UpdateSIPRequestRejects(pan,  Id,  tableNo, transactionType, productCode, accounttype, bankname);
 
+                }
+
+            }
+
+            if (Request.QueryString["ReqId"] != null)
+            {
+                DataTable dtRequests = new DataTable();
+                DataSet dtProcessLogDetails = new DataSet();
+
+                reqId = Int32.Parse(Request.QueryString["ReqId"].ToString());
+                GetProfileIncreamentRejection(reqId);
+                dtRequests = (DataTable)Cache["RequestReject" + userVo.UserId.ToString()];
+                gvSIPReject.Rebind();
+              
+            }
+            }
+        
         protected void rgKycRejectlist_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 

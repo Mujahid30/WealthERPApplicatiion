@@ -1370,14 +1370,18 @@
                                                         <asp:CheckBox ID="chkCloBack" runat="server" CssClass="cmbFielde" Visible="false"
                                                             Text="IsClawback" AutoPostBack="true" OnCheckedChanged="chkCloBack_OnCheckedChanged" />
                                                     </td>
-                                                    <td id="tdlblClock" runat="server" visible="false">
-                                                        <asp:Label ID="lblClock" runat="server" CssClass="FieldName" Text="Age(Days):" Visible="false"></asp:Label>
-                                                        <asp:TextBox ID="txtAge" runat="server" Visible="false"></asp:TextBox>
+                                                    <td id="tdlblClock" runat="server" visible="false" >
+                                                        <asp:Label ID="lblClock" runat="server" CssClass="FieldName" Text="Age(Days):" Visible="false"  ></asp:Label>
+                                                        <asp:TextBox ID="txtAge" runat="server" Visible="false" ></asp:TextBox>
                                                         <span id="Span9" class="spnRequiredField">*</span>
                                                         <br />
                                                         <asp:RequiredFieldValidator Visible="false" runat="server" ID="RequiredFieldValidator15"
                                                             ValidationGroup="btnSubmitRule" Display="Dynamic" ControlToValidate="txtAge"
                                                             ErrorMessage="<br />Enter Age" Text="" />
+                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtAge"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1538,6 +1542,10 @@
                                                                     <cc1:TextBoxWatermarkExtender ID="twtxtTaxValue" TargetControlID="txtTaxValue" WatermarkText="Enter Service Tax"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
+                                                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtTaxValue"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                                 </td>
                                                                 <td>
                                                                     <asp:TextBox ID="txtSBCValue" Text='<%# Bind( "ACSR_SBCValue") %>' runat="server"
@@ -1545,6 +1553,10 @@
                                                                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" TargetControlID="txtSBCValue"
                                                                         WatermarkText="Enter SBC Tax" runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
+                                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtSBCValue"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator> 
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -1561,6 +1573,10 @@
                                                                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtKKCValue"
                                                                         WatermarkText="Enter KKC Tax" runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
+                                                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtKKCValue"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator> 
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -1623,8 +1639,41 @@
                                                             ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
                                                             ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
+                                                         <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Max Investment must be Greater than Min Investment"
+                                                            ControlToValidate="txtMaxInvestmentAmount"  ControlToCompare="txtMinInvestmentAmount" CssClass="cvPCG" Operator="GreaterThan" 
+                                                            ValidationGroup="btnSubmitRule" Display="Dynamic" Type="Double"></asp:CompareValidator>
+                                                           
                                                     </td>
                                                     <td class="leftLabel">
+                                                    </td>
+                                                </tr>
+                                                  <tr runat="server" id="trMinAndMaxNumberOfApplication" visible="false">
+                                                    <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
+                                                        <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min. no. of applications:"
+                                                            CssClass="FieldName"></asp:Label>
+                                                        <br />
+                                                        <span id="Span4" class="spnRequiredField">&nbsp;</span>
+                                                    </td>
+                                                    <td class="rightData" runat="server" id="tdtxtMinNumberOfApplication">
+                                                        <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
+                                                            runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinNumberOfApplication"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
+                                                    </td>
+                                                    <td class="leftLabel" runat="server" id="tdlb1MaxNumberOfApplication">
+                                                        <asp:Label ID="lblMaxNumberOfApplication" runat="server" Text="Max. no. of applications:"
+                                                            CssClass="FieldName"></asp:Label>
+                                                        <span id="Span13" class="spnRequiredField">&nbsp;</span>
+                                                    </td>
+                                                    <td class="rightData" runat="server" id="tdtxtMaxNumberOfApplication">
+                                                        <asp:TextBox ID="txtMaxNumberOfApplication" Text='<%# Bind( "ACSR_MaxNumberOfApplications") %>'
+                                                            runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtMaxNumberOfApplication"
+                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr id="trMinMaxAge" runat="server">
@@ -1651,8 +1700,8 @@
                                                         </asp:RegularExpressionValidator>
                                                         <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
                                                             <asp:ListItem Text="Days" Value="Days"></asp:ListItem>
-                                                            <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
-                                                            <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
+                                                           <%-- <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
+                                                            <asp:ListItem Text="Months" Value="Months"></asp:ListItem>--%>
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
@@ -1723,35 +1772,7 @@
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
-                                                <tr runat="server" id="trMinAndMaxNumberOfApplication" visible="false">
-                                                    <td class="leftLabel" runat="server" id="tdlb1MinNumberOfApplication">
-                                                        <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min. no. of applications:"
-                                                            CssClass="FieldName"></asp:Label>
-                                                        <br />
-                                                        <span id="Span4" class="spnRequiredField">&nbsp;</span>
-                                                    </td>
-                                                    <td class="rightData" runat="server" id="tdtxtMinNumberOfApplication">
-                                                        <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
-                                                            runat="server" CssClass="txtField"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinNumberOfApplication"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
-                                                        </asp:RegularExpressionValidator>
-                                                    </td>
-                                                    <td class="leftLabel" runat="server" id="tdlb1MaxNumberOfApplication">
-                                                        <asp:Label ID="lblMaxNumberOfApplication" runat="server" Text="Max. no. of applications:"
-                                                            CssClass="FieldName"></asp:Label>
-                                                        <span id="Span13" class="spnRequiredField">&nbsp;</span>
-                                                    </td>
-                                                    <td class="rightData" runat="server" id="tdtxtMaxNumberOfApplication">
-                                                        <asp:TextBox ID="txtMaxNumberOfApplication" Text='<%# Bind( "ACSR_MaxNumberOfApplications") %>'
-                                                            runat="server" CssClass="txtField"></asp:TextBox>
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtMaxNumberOfApplication"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
-                                                        </asp:RegularExpressionValidator>
-                                                    </td>
-                                                </tr>
+                                              
                                                 <tr>
                                                     <td class="leftLabel">
                                                         <asp:Label ID="lblRuleNote" runat="server" Text="Comment:" CssClass="FieldName"></asp:Label>

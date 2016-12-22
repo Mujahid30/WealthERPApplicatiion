@@ -2480,7 +2480,7 @@ namespace WealthERP.Receivable
                     check.Checked = false;
                     tdlblClock.Visible = true;
                     check.Visible = true;
-                    check.Checked = true;
+                    check.Checked = false;
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
 
@@ -2919,11 +2919,12 @@ namespace WealthERP.Receivable
             dr["CSRD_IsUpdate"] = 0;
             dr["ACSR_ClawBackAge"] = "0";
             dr["ACSR_IsClaWback"] = 0;
+            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "T15" + " " + "UF" + " " + "Normal";
             dr["ACSR_IsServiceTaxInclusive"] = "false";
             dr["ACSR_IsSBCApplicable"] = "false";
             dr["ACSR_IsKKCApplicable"] = "false";
 
-            dr["ACSR_CommissionStructureRuleName"] = txtStructureName.Text.Substring(0, 2) + " " + "T15" + " " + "UF" + " " + "Normal";
+           
             dttable.Rows.Add(dr);
             dr = null;
             dr = dttable.NewRow();

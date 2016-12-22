@@ -306,7 +306,10 @@
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkId" runat="server" />
                                 </ItemTemplate>
-                               
+                              <FooterTemplate>
+                                    <asp:Button ID="btnSave1" CssClass="FieldName" OnClick="btnSave1_Click" runat="server"
+                                        Text="Save" />
+                                </FooterTemplate>  
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ReqId" AutoPostBackOnFilter="true"
                                 Visible="true" HeaderText="Req. Id" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -314,76 +317,116 @@
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ProductCode" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Product Code" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="ProductCode" SortExpression="ProductCode" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
+                            <telerik:GridBoundColumn DataField="RejectedReasonDescription" AllowFiltering="true"
+                                HeaderText="RejectedReasonDescription" HeaderStyle-Width="270px" UniqueName="RejectedReasonDescription"
+                                SortExpression="RejectedReasonDescription" AutoPostBackOnFilter="false" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                               
+                            </telerik:GridBoundColumn>
+
+                               <telerik:GridBoundColumn AllowFiltering="true" DataField="InvName" AutoPostBackOnFilter="true"
+                                UniqueName="InvName" HeaderText="ClientName" ShowFilterIcon="false" DataType="System.String"
+                                CurrentFilterFunction="Contains" SortExpression="InvName" FooterStyle-HorizontalAlign="Left"
+                                HeaderStyle-Width="180px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="TargetProductCode" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Target ProductCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="TargetProductCode" SortExpression="TargetProductCode" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="PanNo" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="PanNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="PanNo" SortExpression="PanNo" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="FolioNo" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="FolioNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                              <telerik:GridTemplateColumn AllowFiltering="true" DataField="Pan" AutoPostBackOnFilter="true"
+                                HeaderText="PANNO" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="Pan"
+                                UniqueName="Pan" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPANNO" CssClass="txtField" runat="server" Text='<%# Bind("Pan") %>'></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="revPANNO1" runat="server" Display="Dynamic" ValidationGroup="btnSave1"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNO"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPANNOFooter" CssClass="txtField" runat="server" />
+                                    <asp:RegularExpressionValidator ID="revPANNO2" runat="server" Display="Dynamic" ValidationGroup="btnSave1"
+                                        CssClass="rfvPCG" ErrorMessage="Please check PAN Format" ControlToValidate="txtPANNOFooter"
+                                        ValidationExpression="[A-Za-z]{5}\d{4}[A-Za-z]{1}">
+                                    </asp:RegularExpressionValidator>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                              <telerik:GridBoundColumn AllowFiltering="true" DataField="FolioNo" AutoPostBackOnFilter="true"
+                                HeaderText="FolioNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="FolioNo" SortExpression="FolioNo" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="Amount" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="Amount" SortExpression="Amount" FooterStyle-HorizontalAlign="Right"
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="Scheme" AutoPostBackOnFilter="true"
+                                HeaderText="SchemeName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="Scheme" SortExpression="Scheme" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="FromDate" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="From Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="FromDate" SortExpression="FromDate" FooterStyle-HorizontalAlign="Right"
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="AUTOTRNO" AutoPostBackOnFilter="true"
+                                HeaderText="UserTransactionNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="AUTOTRNO" SortExpression="AUTOTRNO" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="ToDate" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="To Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="ToDate" SortExpression="ToDate" FooterStyle-HorizontalAlign="Right"
+                           <telerik:GridTemplateColumn AllowFiltering="true" DataField="AUTTRNTYP" AutoPostBackOnFilter="true"
+                                HeaderText="TransactionType" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="AUTTRNTYP" SortExpression="AUTTRNTYP" FooterStyle-HorizontalAlign="Right"
+                                HeaderStyle-Width="90px">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtAUTTRNTYP" CssClass="txtField" runat="server" Text='<%# Bind("AUTTRNTYP") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtAUTTRNTYPFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="REGDATE" AutoPostBackOnFilter="true"
+                                HeaderText="TransactionDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="REGDATE" SortExpression="REGDATE" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="Frequency" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Frequency" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="Frequency" SortExpression="Frequency" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="AUTOAMOUN" AutoPostBackOnFilter="true"
+                                HeaderText="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="AUTOAMOUN"
+                                UniqueName="AUTOAMOUN" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn AllowFiltering="true" DataField="PaymentMode" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Payment Mode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="PaymentMode" SortExpression="PaymentMode" FooterStyle-HorizontalAlign="Right"
+                            <telerik:GridTemplateColumn AllowFiltering="true" DataField="Product" AutoPostBackOnFilter="true"
+                                HeaderText="ProductCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="Product" SortExpression="Product" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                              <telerik:GridBoundColumn AllowFiltering="true" DataField="RegistrationDate" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Registration Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="RegistrationDate" SortExpression="RegistrationDate" FooterStyle-HorizontalAlign="Right"
+                                <itemtemplate>
+                                    <asp:TextBox ID="txtProduct" CssClass="txtField" runat="server" Text='<%# Bind("Product") %>'></asp:TextBox>
+                                   
+                                </itemtemplate>
+                                <footertemplate>
+                                    <asp:TextBox ID="txtProductFooter" CssClass="txtField" runat="server" />
+                                   
+                                </footertemplate>
+                            </telerik:GridTemplateColumn>
+                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="ACTYPE" AutoPostBackOnFilter="true"
+                                HeaderText="AccountType" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="ACTYPE" SortExpression="ACTYPE" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                            
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="TotalNoInstalment" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="Total No. of Installment" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="TotalNoInstalment" SortExpression="TotalNoInstalment" FooterStyle-HorizontalAlign="Right"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtSIPAccountType" CssClass="txtField" runat="server" Text='<%# Bind("ACTYPE") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtSIPAccountTypeFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="BANK" AutoPostBackOnFilter="true"
+                                HeaderText="BankName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="BANK" SortExpression="BANK" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
-                               <telerik:GridBoundColumn AllowFiltering="true" DataField="CreatedOn" AutoPostBackOnFilter="true"
-                                Visible="true" HeaderText="CreatedOn" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="CreatedOn" SortExpression="CreatedOn" FooterStyle-HorizontalAlign="Right"
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtBankName1" CssClass="txtField" runat="server" Text='<%# Bind("BANK") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtBankName1Footer" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                             <telerik:GridBoundColumn AllowFiltering="true" DataField="BRANCH" AutoPostBackOnFilter="true"
+                                HeaderText="BankBranch" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                UniqueName="BRANCH" SortExpression="BRANCH" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>

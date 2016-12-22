@@ -5016,6 +5016,33 @@ namespace BoUploads
 
             return result;
         }
+        public bool UpdateSIPRequestRejects(string pan, int Id, int tableNo,string transactionType,string productCode,string accounttype,string bankname)
+        {
+            bool result = false;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                result = uploadDAO.UpdateSIPRequestRejects(pan,Id,tableNo, transactionType, productCode, accounttype, bankname);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:UpdateRequestRejects()");
+                object[] objects = new object[2];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
         public void DeleteRequestRejected(int Id, int tableNo)
         {
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
