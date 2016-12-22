@@ -1372,15 +1372,15 @@
                                                     </td>
                                                     <td id="tdlblClock" runat="server" visible="false" >
                                                         <asp:Label ID="lblClock" runat="server" CssClass="FieldName" Text="Age(Days):" Visible="false"  ></asp:Label>
-                                                        <asp:TextBox ID="txtAge" runat="server" Visible="false" ></asp:TextBox>
+                                                        <asp:TextBox ID="txtAge" runat="server" Visible="false" Maxlength="4"></asp:TextBox>
                                                         <span id="Span9" class="spnRequiredField">*</span>
                                                         <br />
                                                         <asp:RequiredFieldValidator Visible="false" runat="server" ID="RequiredFieldValidator15"
                                                             ValidationGroup="btnSubmitRule" Display="Dynamic" ControlToValidate="txtAge"
                                                             ErrorMessage="<br />Enter Age" Text="" />
                                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtAge"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage=" </br>Enter Only three digits" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]{1,4}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
@@ -1543,8 +1543,8 @@
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtTaxValue"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage=" </br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                                 </td>
                                                                 <td>
@@ -1554,8 +1554,8 @@
                                                                         WatermarkText="Enter SBC Tax" runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtSBCValue"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage=" </br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator> 
                                                                 </td>
                                                             </tr>
@@ -1566,6 +1566,10 @@
                                                                     <cc1:TextBoxWatermarkExtender ID="twttxtTDS" TargetControlID="txtTDS" WatermarkText="Enter  TDS Tax"
                                                                         runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
+                                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ControlToValidate="txtTDS"
+                                                            ErrorMessage="</br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
+                                                        </asp:RegularExpressionValidator>
                                                                 </td>
                                                                 <td>
                                                                     <asp:TextBox ID="txtKKCValue" Text='<%# Bind( "ACSR_KKCValue") %>' runat="server"
@@ -1574,8 +1578,8 @@
                                                                         WatermarkText="Enter KKC Tax" runat="server" EnableViewState="false">
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtKKCValue"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage="</br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator> 
                                                                 </td>
                                                             </tr>
@@ -1695,8 +1699,8 @@
                                                         <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAge") %>' runat="server"
                                                             CssClass="txtField"></asp:TextBox>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtMaxInvestAge"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage=" </br>Enter Only Five Digits" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]{1,5}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                         <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
                                                             <asp:ListItem Text="Days" Value="Days"></asp:ListItem>
