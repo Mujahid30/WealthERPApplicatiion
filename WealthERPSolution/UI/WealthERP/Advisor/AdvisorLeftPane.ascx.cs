@@ -967,7 +967,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
                 }
-                else if (e.Item.Value == "MF Commission MIS")
+                else if (e.Item.Value == "Product_Mobilization")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
                 }
@@ -2328,7 +2328,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MultiProductMIS','login');", true);
                 }
-                else if (e.Item.Value == "MF Commission MIS")
+                else if (e.Item.Value == "Product_Mobilization")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
                 }
@@ -4034,7 +4034,7 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
                 }
 
-                else if (e.Item.Value == "MF Commission MIS")
+                else if (e.Item.Value == "Product_Mobilization")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
                 }

@@ -258,7 +258,7 @@
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="MT_Type" DataField="MT_Type" AllowFiltering="false"
                             SortExpression="MT_Type" AutoPostBackOnFilter="true" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Debt" DataField="Debt" AllowFiltering="false"
                             HeaderText="Debt" SortExpression="Debt" AutoPostBackOnFilter="true" ShowFilterIcon="false"
