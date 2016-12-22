@@ -121,7 +121,7 @@
                             <Items>
                                 <telerik:RadComboBoxItem Text="Summary" Value="0" />
                                 <telerik:RadComboBoxItem Text="AMC Wise" Value="1" />
-                                <telerik:RadComboBoxItem Text="Broke code Wise" Value="2" />
+                                <telerik:RadComboBoxItem Text="Broker code Wise" Value="2" />
                                 <telerik:RadComboBoxItem Text="Branch Wise" Value="3" />
                             </Items>
                         </telerik:RadComboBox>

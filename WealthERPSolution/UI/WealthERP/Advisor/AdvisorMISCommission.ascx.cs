@@ -448,7 +448,7 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.DataSource = dtGetProductMobilizedReport;
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
-                gvCommissionMIS.MasterTableView.GetColumn("MT_Type").HeaderText = ddlMISType.SelectedItem.Text;
+              
                 if (Cache["ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId);
@@ -461,7 +461,7 @@ namespace WealthERP.Advisor
                 gvNonMFMobilization.DataSource = dtGetProductMobilizedReport;
                 gvNonMFMobilization.DataBind();
                 gvNonMFMobilization.Visible = true;
-                gvNonMFMobilization.MasterTableView.GetColumn("Typep").HeaderText = ddlMISType.SelectedItem.Text;
+               
                 if (Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId);
