@@ -1544,7 +1544,7 @@
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtTaxValue"
                                                             ErrorMessage=" </br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^[0-9]{1,3}\.[0-9]{1,3}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                                 </td>
                                                                 <td>
@@ -1555,7 +1555,7 @@
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtSBCValue"
                                                             ErrorMessage=" </br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^[0-9]{1,3}\.[0-9]{1,3}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator> 
                                                                 </td>
                                                             </tr>
@@ -1568,7 +1568,7 @@
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                       <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ControlToValidate="txtTDS"
                                                             ErrorMessage="</br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^[0-9]{1,3}\.[0-9]{1,3}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                                 </td>
                                                                 <td>
@@ -1579,7 +1579,7 @@
                                                                     </cc1:TextBoxWatermarkExtender>
                                                                      <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtKKCValue"
                                                             ErrorMessage="</br>Enter Only Three Digit Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="((^[0-9]{1,3})+(\.\d{1,2})?$)" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^[0-9]{1,3}\.[0-9]{1,3}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator> 
                                                                 </td>
                                                             </tr>
@@ -1624,8 +1624,8 @@
                                                             Display="Dynamic" ControlToValidate="txtMinInvestmentAmount" ErrorMessage="<br />Min. Investment Amount is mandatory"
                                                             Text="" />
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtMinInvestmentAmount"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage=" </br>Enter Only Ten Digits" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]{1,10}\.[0-9]{1,3}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
@@ -1640,8 +1640,8 @@
                                                             Display="Dynamic" ControlToValidate="txtMaxInvestmentAmount" ErrorMessage="<br />Max. Investment Amount is mandatory"
                                                             Text="" />
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtMaxInvestmentAmount"
-                                                            ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="\d+(\.\d{1,3})?" ValidationGroup="btnSubmitRule">     
+                                                            ErrorMessage=" </br>Enter Only Ten Digits" runat="server" Display="Dynamic" CssClass="cvPCG"
+                                                            ValidationExpression="^[0-9]{1,10}\.[0-9]{1,3}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                          <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Max Investment must be Greater than Min Investment"
                                                             ControlToValidate="txtMaxInvestmentAmount"  ControlToCompare="txtMinInvestmentAmount" CssClass="cvPCG" Operator="GreaterThan" 
@@ -1689,7 +1689,7 @@
                                                             CssClass="txtField"></asp:TextBox>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtMinInvestAge"
                                                             ErrorMessage=" </br>Enter Only Number" runat="server" Display="Dynamic" CssClass="cvPCG"
-                                                            ValidationExpression="^[0-9]*$" ValidationGroup="btnSubmitRule">     
+                                                            ValidationExpression="^[0-9]{1,5}$" ValidationGroup="btnSubmitRule">     
                                                         </asp:RegularExpressionValidator>
                                                     </td>
                                                     <td class="leftLabel">
