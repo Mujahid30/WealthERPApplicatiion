@@ -219,9 +219,9 @@ namespace WealthERP.OnlineOrderManagement
             StringBuilder strXML = new StringBuilder();
             strXML.Append(@"<chart caption='Scheme Return' >
               <categories>
-              <category label='Return yr1'/>
-              <category label='Return yr2' />
-              <category label='Return yr3' />
+              <category label='Return 1st yr'/>
+              <category label='Return 3rd yr' />
+              <category label='Return 5th yr' />
               </categories>"
                 );
             strXML.Append(@"<dataset seriesname='BenchMark-" + onlineMFSchemeDetailsVo.schemeBanchMark.Replace("&","and") + "'>");
