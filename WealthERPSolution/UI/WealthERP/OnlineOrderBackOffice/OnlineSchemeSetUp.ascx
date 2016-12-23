@@ -513,14 +513,7 @@
                     Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
             </td>
         </tr>
-        <%-- <tr id="tr1" runat="server" visible="false">
-            <td id="td1" runat="server" visible="false" align="right">
-                <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="ISINNO"></asp:Label>
-            </td>
-            <td id="td2" runat="server" visible="false">
-                <asp:TextBox ID="txtisinno" runat="server"></asp:TextBox>
-                </td>
-                </tr>--%>
+      
         <tr id="trISISN" runat="server" visible="false">
             <td id="tdlblpay" runat="server" visible="false" align="right">
                 <asp:Label ID="LbldivPay" runat="server" CssClass="FieldName" Text="ISIN PayOut"></asp:Label>
@@ -1306,7 +1299,6 @@
         <td align="left">
             <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
                 Style="height: 26px" ValidationGroup="btnsubmit" Visible="false" />
-            <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
         </td>
     </tr>
 </table>

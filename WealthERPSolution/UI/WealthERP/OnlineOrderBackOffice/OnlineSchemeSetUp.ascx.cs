@@ -103,10 +103,15 @@ namespace WealthERP.OnlineOrderBackOffice
                             rbtnBSE.Enabled = false;
                             rbtnRTA.Enabled = true;
                         }
-                        else
+                        else if (Request.QueryString["Mode"] == "2")
                         {
                             rbtnBSE.Enabled = true;
                             rbtnRTA.Enabled = false;
+                        }
+                        else
+                        {
+                            rbtnBSE.Enabled = true;
+                            rbtnRTA.Enabled = true;
                         }
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
@@ -1737,10 +1742,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 rbtnBSE.Enabled = false;
                 rbtnRTA.Enabled = true;
             }
+           
             else
             {
                 rbtnBSE.Enabled = true;
-                rbtnRTA.Enabled = false;
+                rbtnRTA.Enabled = true;
             }
             btnsubmit.Visible = false;
             btnupdate.Visible = true;
@@ -3033,7 +3039,7 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlSIPDetails.Visible = false;
             ChkISSwitch.Visible = false;
             LalChkISSwitch.Visible = false;
-            btnsubmit.Visible = true;
+            btnsubmit.Visible = false;
             lblESSchemecode.Visible = true;
             txtESSchemecode.Visible = true;
             ddlDFrequency.SelectedValue = "0";
@@ -3051,7 +3057,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtESSchemecode.Visible = true;
             trISISN.Visible = false;
             trDivReInv.Visible = false;
-            btnsubmit.Visible = true;
+            btnsubmit.Visible = false;
             ddlOption.SelectedValue = "0";
             ControlEditSubmit();
         }
@@ -3144,7 +3150,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void chkBSE_OnCheckedChanged(object sender, EventArgs e)
         {
-            if (chkBSE.Checked == true && rbtnBSE.Checked == true)
+            if (chkBSE.Checked == true )
             {
                 rbtnBSE.Checked = true;
                 lblESSchemecode.Visible = false;
