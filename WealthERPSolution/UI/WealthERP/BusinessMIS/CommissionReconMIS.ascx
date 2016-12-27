@@ -714,6 +714,13 @@
                                             OnClick="btnSave_Click" />
                                     </FooterTemplate>
                                 </telerik:GridTemplateColumn>
+                                 <telerik:GridBoundColumn HeaderStyle-Width="4%" HeaderText="Commission StructureName" DataField="ACSM_CommissionStructureName"
+                                    HeaderStyle-HorizontalAlign="Center" UniqueName="ACSM_CommissionStructureName"
+                                    SortExpression="ACSM_CommissionStructureName" AutoPostBackOnFilter="true"
+                                    AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Width="100px" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderStyle-Width="4%" HeaderText="RuleName" DataField="ACSR_CommissionStructureRuleName"
                                     HeaderStyle-HorizontalAlign="Center" UniqueName="ACSR_CommissionStructureRuleName"
                                     SortExpression="ACSR_CommissionStructureRuleName" AutoPostBackOnFilter="true"
