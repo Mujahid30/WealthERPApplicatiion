@@ -165,6 +165,10 @@ namespace WealthERP.OnlineOrderBackOffice
                         rgRequests.MasterTableView.GetColumn("RTA").Visible = true;
                         rgRequests.MasterTableView.GetColumn("StagingRejects").Visible = true;
                         rgRequests.MasterTableView.GetColumn("Staging").Visible = true;
+                        if (ddlType.SelectedValue == "13")
+                        {
+                            rgRequests.MasterTableView.GetColumn("TransactionCreated").Visible = false;
+                        }
                     }
                     else
                         if (ddlType.SelectedValue == "10")
