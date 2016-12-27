@@ -378,7 +378,7 @@
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                              <telerik:GridBoundColumn AllowFiltering="true" DataField="REGDATE" AutoPostBackOnFilter="true"
-                                HeaderText="TransactionDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                HeaderText="Registration Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 UniqueName="REGDATE" SortExpression="REGDATE" FooterStyle-HorizontalAlign="Right"
                                 HeaderStyle-Width="90px">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
