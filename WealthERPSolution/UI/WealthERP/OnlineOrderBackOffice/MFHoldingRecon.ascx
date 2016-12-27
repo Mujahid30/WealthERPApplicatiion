@@ -78,6 +78,24 @@
                 <asp:ListItem Text="Only Exist In RTA File" Value="3"> </asp:ListItem>
             </asp:DropDownList>
         </td>
+         <td align="right">
+            <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" Width="340px" >
+            </asp:DropDownList>
+        </td>
+        <td align="right">
+        <asp:Label ID="lblMode" runat="server" CssClass="FieldName" Text="Mode:"></asp:Label>
+        </td>
+       <td>
+       <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" AutoPostBack="true" >
+        <asp:ListItem Text="Select" Value="0"> </asp:ListItem>
+                <asp:ListItem Text="Online" Value="1"> </asp:ListItem>
+                <asp:ListItem Text="Offline" Value="2"> </asp:ListItem>
+       </asp:DropDownList> 
+        </td>
         <td align="right">
             <asp:Label ID="lbldifference" runat="server" CssClass="FieldName" Text="Difference:"></asp:Label>
         </td>

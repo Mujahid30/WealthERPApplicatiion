@@ -47,6 +47,25 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlIssue.DataBind();
             ddlIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
+        protected void BindAMC()
+        {
+            ddlAMC.Items.Clear();
+            if (ddlAMC.SelectedIndex == 0) return;
+
+            DataTable dtAmc = OnlineOrderMISBo.GetAMCList();
+            if (dtAmc == null) return;
+
+            if (dtAmc.Rows.Count > 0)
+            {
+                ddlAMC.DataSource = dtAmc;
+                ddlAMC.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                ddlAMC.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+                ddlAMC.DataBind();
+            }
+
+            ddlAMC.Items.Insert(0, new ListItem("Select", "0"));
+            //ddlAMC.Items.FindByValue("0").Selected = true;
+        }
         protected void btnGo_OnClick(object sender, EventArgs e)
         {
             try
@@ -55,9 +74,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (dtMFHoldingRecon.Rows.Count > 0)
                 {
                     BindMFHoldingRecon();
+               
                     Label1.Visible = true;
                     txtTo.Visible = true;
                     btnSynch.Visible = true;
+                   
                     trNoRecords.Visible = false;
                     divNoRecords.Visible = false;
                 }
@@ -67,6 +88,7 @@ namespace WealthERP.OnlineOrderBackOffice
                      Label1.Visible = false;
                      txtTo.Visible = false;
                      btnSynch.Visible = false;
+                    
                      trNoRecords.Visible = true;
                      divNoRecords.Visible = true;
                     
@@ -99,8 +121,11 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnSync_OnClick(object sender, EventArgs e)
         {
+            BindAMC();
             BindMFHoldingReconAfterSync();
             trFliters.Visible = true;
+            
+            
         }
         protected void BindMFHoldingRecon()
         {
@@ -167,7 +192,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
 
                 DataTable dtMFHoldingReconSync = new DataTable();
-                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate),int.Parse(ddlType.SelectedValue),int.Parse(ddlDifference.SelectedValue));
+                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate),int.Parse(ddlType.SelectedValue),int.Parse(ddlDifference.SelectedValue),int.Parse(ddlAMC.SelectedValue),int.Parse(ddlMode.SelectedValue));
                 if (dtMFHoldingReconSync.Rows.Count > 0)
                 {
                     if (Cache["MFHoldingMIS" + userVo.UserId] == null)

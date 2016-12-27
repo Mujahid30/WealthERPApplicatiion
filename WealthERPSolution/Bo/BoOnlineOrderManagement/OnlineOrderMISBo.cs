@@ -155,12 +155,26 @@ namespace BoOnlineOrderManagement
             dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingRecon(requestNo);
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter)
+        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter,int AMC,int Mode)
         {
             DataTable dtGetMFHoldingRecon;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
-            dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingReconAfterSync(requestNo, toDate, typeFliter, differentFliter);
+            dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingReconAfterSync(requestNo, toDate, typeFliter, differentFliter,AMC,Mode);
             return dtGetMFHoldingRecon;
+        }
+        public DataTable GetAMCList()
+        {
+            DataTable dtGetAMCList;
+            OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+            try
+            {
+                dtGetAMCList = OnlineOrderMISDao.GetAMCList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAMCList;
         }
         public bool UpdateOrderReverse(int orderid, int userID)
         {

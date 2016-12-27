@@ -77,7 +77,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@AMC", DbType.Int32, 0);
-                if (OrderStatus != "0")
+                if (OrderStatus != "0" && OrderStatus!="" )
                     db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, OrderStatus);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, DBNull.Value);
@@ -142,8 +142,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Type", DbType.Int32, searchType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@StatusType", DbType.Int32, statusType);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@systematicType", DbType.String, systematicType);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@SIPMode", DbType.String, SIPMode);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@Mode", DbType.String, Mode);
+                db.AddInParameter(GetSIPSummaryBookMISCmd, "@SIPMode", DbType.String, SIPMode);     
+                db.AddInParameter(GetSIPSummaryBookMISCmd, "@Mode", DbType.Int32, Mode);
+                
                 GetSIPSummaryBookMISCmd.CommandTimeout = 60 * 60;
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 
@@ -213,7 +214,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSchemeMIS;
         }
-        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount,bool Isdemat,int schemePlanCode,int customerid)
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount, bool Isdemat, int schemePlanCode, int customerid)
         {
             DataTable dtGetAdviserCustomerTransaction;
             Database db;
@@ -402,6 +403,7 @@ namespace DaoOnlineOrderManagement
                 cmdGetMFHoldingRecon = db.GetStoredProcCommand("SPROC_GetAdviserMFRecon");
                 db.AddInParameter(cmdGetMFHoldingRecon, "@ReqId", DbType.Int32, requestNo);
                 dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
+                cmdGetMFHoldingRecon.CommandTimeout = 60 * 60;
                 dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
 
             }
@@ -411,7 +413,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate,int typeFliter, int differentFliter)
+        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter, int AMC, int Mode)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdGetMFHoldingRecon;
@@ -426,6 +428,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetMFHoldingRecon, "@ToDate", DbType.Date, toDate);
                 db.AddInParameter(cmdGetMFHoldingRecon, "@TypeFliter", DbType.Int32, typeFliter);
                 db.AddInParameter(cmdGetMFHoldingRecon, "@DifferentFliter", DbType.Int32, differentFliter);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@AMC", DbType.Int32, AMC);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@Mode", DbType.Int32, Mode);
                 dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
                 dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
 
@@ -435,6 +439,26 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return dtGetMFHoldingRecon;
+        }
+        public DataTable GetAMCList()
+        {
+            DataSet dsGetAMCList;
+            DataTable dtGetAMCList;
+            Database db;
+            DbCommand cmdGetAMCList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAMCList = db.GetStoredProcCommand("SPROC_GetAMCList");
+               
+                dsGetAMCList = db.ExecuteDataSet(cmdGetAMCList);
+                dtGetAMCList = dsGetAMCList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetAMCList;
         }
         public bool UpdateOrderReverse(int orderid, int userID)
         {

@@ -30,6 +30,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSelect;
+        protected global::System.Web.UI.WebControls.Label lblAMC;
+        protected global::System.Web.UI.WebControls.Label lblMode;
         protected global::System.Web.UI.WebControls.Label Label1;
         protected global::System.Web.UI.WebControls.DropDownList ddlIssue;
         protected global::Telerik.Web.UI.RadGrid gvMFHoldinfRecon;
@@ -42,6 +44,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoRecords;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMode;
         protected global::System.Web.UI.WebControls.DropDownList ddlDifference;
 
     }
