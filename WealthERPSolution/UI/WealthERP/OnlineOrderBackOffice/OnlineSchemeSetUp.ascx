@@ -74,10 +74,11 @@
 
     function EnableValidator() {
 
+      
 
-       
 
         if (document.getElementById('<%=rbtnRTA.ClientID%>').checked) {
+            
             var validatorObj = document.getElementById('<%=rfvddlBname.ClientID%>');
             ValidatorEnable(validatorObj, true);
             var validatorObj = document.getElementById('<%=rfvtxtBranch.ClientID%>');
@@ -92,9 +93,12 @@
             ValidatorEnable(validatorObj, true);
             var validatorObj = document.getElementById('<%=rfvtxtExitLoad.ClientID%>')
             ValidatorEnable(validatorObj, true);
+           
+            
 
         }
         else {
+          
             validatorObj = document.getElementById('<%=rfvddlBname.ClientID%>');
             ValidatorEnable(validatorObj, false);
             var validatorObj = document.getElementById('<%=rfvtxtBranch.ClientID%>')
@@ -109,6 +113,7 @@
             ValidatorEnable(validatorObj, false);
             var validatorObj = document.getElementById('<%=rfvtxtExitLoad.ClientID%>')
             ValidatorEnable(validatorObj, false);
+           
         }
 
     }

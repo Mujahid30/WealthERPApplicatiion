@@ -55,6 +55,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindBankName();
                 BindFrequency();
                 Bindscheme(schemeplancode);
+                
                 BindSchemeLoockUpType();
                 if (Request.QueryString["SchemePlanCode"] != null)
                 {
@@ -227,6 +228,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //td1.Visible=false;
                 //td2.Visible = false;
                 BindSchemeLoockUpType();
+                RequiredFieldValidator7.Visible = true;
             }
             else
             {
@@ -243,6 +245,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     trDivReInv.Visible = false;
                     tdPayOurExternalCode.Visible = false;
                     tdtxtPayExternalCode.Visible = false;
+                    RequiredFieldValidator7.Visible = false;
                     //tr1.Visible = false;
                     //td1.Visible = false;
                     //td2.Visible = false;
@@ -258,6 +261,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     trISISN.Visible = false;
                     tdlblpay.Visible = false;
                     tdtxtpay.Visible = false;
+                    RequiredFieldValidator7.Visible = false;
                     //tr1.Visible = false;
                     //td1.Visible = false;
                     //td2.Visible = false;
@@ -2358,8 +2362,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 userMessage = "Scheme Updated successfully";
             }
-
             return userMessage;
+            
 
         }
         private void ShowMessage(string msg)
