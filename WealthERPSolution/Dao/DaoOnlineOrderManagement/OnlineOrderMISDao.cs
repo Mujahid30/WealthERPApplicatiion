@@ -449,7 +449,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetAMCList = db.GetStoredProcCommand("SPROC_GetAMCList");
+                cmdGetAMCList = db.GetStoredProcCommand("SPROC_GetAmcWithRta");
                
                 dsGetAMCList = db.ExecuteDataSet(cmdGetAMCList);
                 dtGetAMCList = dsGetAMCList.Tables[0];
