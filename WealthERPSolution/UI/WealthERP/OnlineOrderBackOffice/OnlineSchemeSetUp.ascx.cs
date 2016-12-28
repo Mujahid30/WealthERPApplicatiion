@@ -42,11 +42,14 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void Page_Load(object sender, EventArgs e)
         {
+           
+
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             if (!IsPostBack)
             {
+                
                 BindAMC();
                 BindCategory();
                 BindBankName();
@@ -103,11 +106,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             rbtnBSE.Enabled = false;
                             rbtnRTA.Enabled = true;
                         }
-                        else if (Request.QueryString["Mode"] == "2")
-                        {
-                            rbtnBSE.Enabled = true;
-                            rbtnRTA.Enabled = false;
-                        }
+
                         else
                         {
                             rbtnBSE.Enabled = true;
@@ -221,8 +220,8 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlDFrequency.Visible = true;
                 lblddlDFrequency.Visible = true;
-                trISISN.Visible=false;
-                tdlblpay.Visible=true;
+                trISISN.Visible = false;
+                tdlblpay.Visible = true;
                 tdtxtpay.Visible = true;
                 //tr1.Visible=false;
                 //td1.Visible=false;
@@ -560,9 +559,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedValue);
             }
-           
-            
-           
+
+
+
             mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
             mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
             if (!string.IsNullOrEmpty(ddlDFrequency.SelectedValue))
@@ -854,7 +853,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlcategory.SelectedValue = "0";
             }
 
-         
+
             if (mfProductAMCSchemePlanDetailsVo.SchemePlanCode != 0)
             {
                 ddlSchemeList.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
@@ -1264,7 +1263,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlcategory.SelectedValue = "0";
             }
 
-        
+
             if (mfProductAMCSchemePlanDetailsVo.SchemePlanCode != 0)
             {
                 ddlSchemeList.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
@@ -1331,7 +1330,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     if (ddlDFrequency.SelectedValue == "BT" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
                     {
-                        
+
 
                         trISISN.Visible = true;
                         tdlblINV.Visible = true;
@@ -1742,7 +1741,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 rbtnBSE.Enabled = false;
                 rbtnRTA.Enabled = true;
             }
-           
+
             else
             {
                 rbtnBSE.Enabled = true;
@@ -1891,8 +1890,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 Clearallcontrols(true);
             }
         }
+
+
+
+
         protected void btnsubmit_click(object sender, EventArgs e)
         {
+            
+            
+
             if (!string.IsNullOrEmpty(txtESSchemecode.Text) && !string.IsNullOrEmpty(ddlAmc.SelectedValue) && chkBSE.Checked == false)
             {
 
@@ -1932,8 +1938,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblddlDFrequency.Visible = false;
             }
         }
+
+
         protected void oncheckedOnlin_OnCheckedChanged(object sender, EventArgs e)
         {
+
         }
         protected void btnBasicDupdate_click(object sender, EventArgs e)
         {
@@ -3039,7 +3048,7 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlSIPDetails.Visible = false;
             ChkISSwitch.Visible = false;
             LalChkISSwitch.Visible = false;
-            btnsubmit.Visible = false;
+            btnsubmit.Visible = true;
             lblESSchemecode.Visible = true;
             txtESSchemecode.Visible = true;
             ddlDFrequency.SelectedValue = "0";
@@ -3048,6 +3057,19 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void rbtnRTA_OnCheckedChanged(object sender, EventArgs e)
         {
+            if (rbtnRTA.Checked)
+            {
+                rfvtxtACno.Enabled = true;
+                rfvtxtACno.ValidationGroup = "btnSubmit";
+                btnsubmit.ValidationGroup = "btnSubmit";// your save button
+
+            }
+            else
+            {
+                rfvtxtACno.Enabled = false;
+                rfvtxtACno.ValidationGroup = string.Empty;
+                btnsubmit.ValidationGroup = string.Empty; // save button
+            }
             ChkISSIP.Visible = true;
             ChkISSTP.Visible = true;
             ChkISSWP.Visible = true;
@@ -3057,7 +3079,7 @@ namespace WealthERP.OnlineOrderBackOffice
             txtESSchemecode.Visible = true;
             trISISN.Visible = false;
             trDivReInv.Visible = false;
-            btnsubmit.Visible = false;
+            btnsubmit.Visible = true;
             ddlOption.SelectedValue = "0";
             ControlEditSubmit();
         }
@@ -3120,13 +3142,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 rbtnBSE.Enabled = false;
                 lblESSchemecode.Visible = true;
                 txtESSchemecode.Visible = true;
+
             }
             else
             {
                 rbtnRTA.Checked = false;
-                lblESSchemecode.Visible = false;
-                txtESSchemecode.Visible = false;
+                lblESSchemecode.Visible = true;
+                txtESSchemecode.Visible = true;
                 rbtnBSE.Enabled = true;
+
             }
             if (chkRTA.Checked == true && chkBSE.Checked == true)
             {
@@ -3150,11 +3174,11 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void chkBSE_OnCheckedChanged(object sender, EventArgs e)
         {
-            if (chkBSE.Checked == true )
+            if (chkBSE.Checked == true)
             {
                 rbtnBSE.Checked = true;
-                lblESSchemecode.Visible = false;
-                txtESSchemecode.Visible = false;
+                lblESSchemecode.Visible = true;
+                txtESSchemecode.Visible = true;
                 rbtnRTA.Enabled = false;
             }
             else
