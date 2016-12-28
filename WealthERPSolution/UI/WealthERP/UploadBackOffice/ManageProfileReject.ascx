@@ -402,34 +402,7 @@
                                    
                                 </footertemplate>
                             </telerik:GridTemplateColumn>
-                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="ACTYPE" AutoPostBackOnFilter="true"
-                                HeaderText="AccountType" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="ACTYPE" SortExpression="ACTYPE" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemTemplate>
-                                    <asp:TextBox ID="txtSIPAccountType" CssClass="txtField" runat="server" Text='<%# Bind("ACTYPE") %>'></asp:TextBox>
-                                </ItemTemplate>
-                                <FooterTemplate>
-                                    <asp:TextBox ID="txtSIPAccountTypeFooter" CssClass="txtField" runat="server" />
-                                </FooterTemplate>
-                            </telerik:GridTemplateColumn>
-                             <telerik:GridTemplateColumn AllowFiltering="true" DataField="BANK" AutoPostBackOnFilter="true"
-                                HeaderText="BankName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="BANK" SortExpression="BANK" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemTemplate>
-                                    <asp:TextBox ID="txtBankName1" CssClass="txtField" runat="server" Text='<%# Bind("BANK") %>'></asp:TextBox>
-                                </ItemTemplate>
-                                <FooterTemplate>
-                                    <asp:TextBox ID="txtBankName1Footer" CssClass="txtField" runat="server" />
-                                </FooterTemplate>
-                            </telerik:GridTemplateColumn>
-                             <telerik:GridBoundColumn AllowFiltering="true" DataField="BRANCH" AutoPostBackOnFilter="true"
-                                HeaderText="BankBranch" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                UniqueName="BRANCH" SortExpression="BRANCH" FooterStyle-HorizontalAlign="Right"
-                                HeaderStyle-Width="90px">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                            </telerik:GridBoundColumn>
+                            
                              </Columns>
                     </MasterTableView>
                     <ClientSettings>

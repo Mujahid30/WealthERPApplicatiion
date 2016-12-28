@@ -90,9 +90,7 @@ namespace WealthERP.UploadBackOffice
                     gvSIPReject.MasterTableView.GetColumn("REGDATE").Visible = true;
                     gvSIPReject.MasterTableView.GetColumn("AUTOAMOUN").Visible = true;
                     gvSIPReject.MasterTableView.GetColumn("Product").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("ACTYPE").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("BANK").Visible = true;
-                    gvSIPReject.MasterTableView.GetColumn("BRANCH").Visible = true;
+                  
                     
                     btnDelete.Visible = false;
                     Button1.Visible = true;
@@ -513,8 +511,7 @@ namespace WealthERP.UploadBackOffice
             string pan = string.Empty;
             string transactionType = string.Empty;
             string productCode = string.Empty;
-            string accounttype = string.Empty;
-            string bankname = string.Empty;
+          
             bool blResult1 = false;
             int Id = 0;
             int tableNo = 0;
@@ -546,22 +543,7 @@ namespace WealthERP.UploadBackOffice
                 {
                     productCode = ((TextBox)footerRow.FindControl("txtProductFooter")).Text;
                 }
-                if (((TextBox)footerRow.FindControl("txtSIPAccountTypeFooter")).Text.Trim() == "")
-                {
-                    accounttype = ((TextBox)dr.FindControl("txtSIPAccountType")).Text;
-                }
-                else
-                {
-                    accounttype = ((TextBox)footerRow.FindControl("txtSIPAccountTypeFooter")).Text;
-                }
-                if (((TextBox)footerRow.FindControl("txtBankName1Footer")).Text.Trim() == "")
-                {
-                    bankname = ((TextBox)dr.FindControl("txtBankName1")).Text;
-                }
-                else
-                {
-                    bankname = ((TextBox)footerRow.FindControl("txtBankName1Footer")).Text;
-                }
+               
                  CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
                 if (checkBox.Checked == true)
                 {
@@ -571,7 +553,7 @@ namespace WealthERP.UploadBackOffice
                     selectedRow = gdi.ItemIndex + 1;
                     Id = int.Parse((gvSIPReject.MasterTableView.DataKeyValues[selectedRow - 1]["InputId"].ToString()));
                     tableNo = int.Parse((gvSIPReject.MasterTableView.DataKeyValues[selectedRow - 1]["TableNo"].ToString()));
-                    blResult1 = uploadCommonBo.UpdateSIPRequestRejects(pan,  Id,  tableNo, transactionType, productCode, accounttype, bankname);
+                    blResult1 = uploadCommonBo.UpdateSIPRequestRejects(pan,  Id,  tableNo, transactionType, productCode);
 
                 }
 

@@ -4549,7 +4549,7 @@ namespace DaoUploads
 
             return dsReqRej;
         }
-        public bool UpdateSIPRequestRejects(string pan, int Id, int tableNo, string transactionType, string productCode, string accounttype, string bankname)
+        public bool UpdateSIPRequestRejects(string pan, int Id, int tableNo, string transactionType, string productCode)
         {
             bool result = false;
             Database db;
@@ -4572,14 +4572,7 @@ namespace DaoUploads
                     db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, productCode);
                 else
                     db.AddInParameter(UpdateRequestRejectCmd, "@ProductCode", DbType.String, DBNull.Value);
-                if (!string.IsNullOrEmpty(accounttype))
-                    db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, accounttype);
-                else
-                    db.AddInParameter(UpdateRequestRejectCmd, "@Accounttype", DbType.String, DBNull.Value);
-                if (!string.IsNullOrEmpty(bankname))
-                    db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, bankname);
-                else
-                    db.AddInParameter(UpdateRequestRejectCmd, "@Bankname", DbType.String, DBNull.Value);
+              
                  db.ExecuteNonQuery(UpdateRequestRejectCmd);
                 result = true;
             }

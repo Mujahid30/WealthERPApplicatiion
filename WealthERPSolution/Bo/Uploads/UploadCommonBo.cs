@@ -5016,13 +5016,13 @@ namespace BoUploads
 
             return result;
         }
-        public bool UpdateSIPRequestRejects(string pan, int Id, int tableNo,string transactionType,string productCode,string accounttype,string bankname)
+        public bool UpdateSIPRequestRejects(string pan, int Id, int tableNo,string transactionType,string productCode)
         {
             bool result = false;
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             try
             {
-                result = uploadDAO.UpdateSIPRequestRejects(pan,Id,tableNo, transactionType, productCode, accounttype, bankname);
+                result = uploadDAO.UpdateSIPRequestRejects(pan,Id,tableNo, transactionType, productCode);
             }
             catch (BaseApplicationException Ex)
             {
