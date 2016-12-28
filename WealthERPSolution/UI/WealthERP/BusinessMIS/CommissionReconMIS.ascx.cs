@@ -165,6 +165,10 @@ namespace WealthERP.BusinessMIS
                     LoadAllSchemeList(amcCode);
                     //GdBind_Click(sender,e);
                 }
+                else
+                {
+                    LoadAllSchemeList(amcCode);
+                }
 
             }
 
