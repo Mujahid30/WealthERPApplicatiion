@@ -17,7 +17,7 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineOrderMISBo
     {
-        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo, int orderNo, string folioNo,int Isdemat)
+        public DataSet GetOrderBookMIS(int adviserId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo, int orderNo, string folioNo, int Isdemat)
         {
             DataSet dsOrderBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
@@ -46,13 +46,13 @@ namespace BoOnlineOrderManagement
             return dsOrderBookMIS;
         }
 
-        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo, int orderId, string folioNo,string Mode)
+        public DataSet GetSIPBookMIS(int adviserId, int AmcCode, string OrderStatus, int systematicId, DateTime dtFrom, DateTime dtTo, int orderId, string folioNo, string Mode)
         {
             DataSet dsSIPBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dsSIPBookMIS = OnlineOrderMISDao.GetSIPBookMIS(adviserId, AmcCode, OrderStatus, systematicId, dtFrom, dtTo, orderId, folioNo,Mode);
+                dsSIPBookMIS = OnlineOrderMISDao.GetSIPBookMIS(adviserId, AmcCode, OrderStatus, systematicId, dtFrom, dtTo, orderId, folioNo, Mode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -74,13 +74,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode,string Mode)
+        public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode, string Mode)
         {
             DataSet dsSIPSummaryBookMIS = null;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineOrderMISDao.GetSIPSummaryBookMIS(adviserId, AmcCode, dtFrom, dtTo, searchType, statusType, systematicType,SIPMode,Mode);
+                dsSIPSummaryBookMIS = OnlineOrderMISDao.GetSIPSummaryBookMIS(adviserId, AmcCode, dtFrom, dtTo, searchType, statusType, systematicType, SIPMode, Mode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -100,7 +100,7 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
-        public DataSet GetSchemeMIS(string Assettype, int Onlinetype, string Status,int IsDemat)
+        public DataSet GetSchemeMIS(string Assettype, int Onlinetype, string Status, int IsDemat)
         {
             DataSet dsSchemeMIS;
             OnlineOrderMISDao onlineOrderMISDao = new OnlineOrderMISDao();
@@ -127,7 +127,7 @@ namespace BoOnlineOrderManagement
             }
             return dsSchemeMIS;
         }
-        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount, bool Isdemat,int schemePlanCode,int customerid)
+        public DataTable GetAdviserCustomerTransaction(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int PageSize, int CurrentPage, string CustomerNamefilter, string custCode, string panNo, string folioNo, string schemeName, string type, string dividentType, string fundName, int orderNo, out int RowCount, bool Isdemat, int schemePlanCode, int customerid)
         {
             DataTable dtGetAdviserCustomerTransaction;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
@@ -155,11 +155,11 @@ namespace BoOnlineOrderManagement
             dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingRecon(requestNo);
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter,int AMC,int Mode)
+        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter, int AMC, bool isSync)
         {
             DataTable dtGetMFHoldingRecon;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
-            dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingReconAfterSync(requestNo, toDate, typeFliter, differentFliter,AMC,Mode);
+            dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingReconAfterSync(requestNo, toDate, typeFliter, differentFliter, AMC, isSync);
             return dtGetMFHoldingRecon;
         }
         public DataTable GetAMCList()
@@ -182,6 +182,20 @@ namespace BoOnlineOrderManagement
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             bResult = OnlineOrderMISDao.UpdateOrderReverse(orderid, userID);
             return bResult;
+        }
+        public bool updateSystemMFHoldingRecon(int requestNo, DateTime toDate)
+        {
+            bool result = false;
+            try
+            {
+                OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+                result = OnlineOrderMISDao.updateSystemMFHoldingRecon(requestNo, toDate);
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+
         }
     }
 }

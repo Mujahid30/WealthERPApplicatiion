@@ -413,7 +413,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter, int AMC, int Mode)
+        public DataTable GetMFHoldingReconAfterSync(int requestNo, DateTime toDate, int typeFliter, int differentFliter, int AMC,bool isSync)
         {
             Microsoft.Practices.EnterpriseLibrary.Data.Database db;
             DbCommand cmdGetMFHoldingRecon;
@@ -429,7 +429,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetMFHoldingRecon, "@TypeFliter", DbType.Int32, typeFliter);
                 db.AddInParameter(cmdGetMFHoldingRecon, "@DifferentFliter", DbType.Int32, differentFliter);
                 db.AddInParameter(cmdGetMFHoldingRecon, "@AMC", DbType.Int32, AMC);
-                db.AddInParameter(cmdGetMFHoldingRecon, "@Mode", DbType.Int32, Mode);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@IsSync", DbType.Boolean, isSync);
+                cmdGetMFHoldingRecon.CommandTimeout = 60 * 60;
                 dsGetMFHoldingRecon = db.ExecuteDataSet(cmdGetMFHoldingRecon);
                 dtGetMFHoldingRecon = dsGetMFHoldingRecon.Tables[0];
 
@@ -479,6 +480,26 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return bResult;
+        }
+        public bool updateSystemMFHoldingRecon(int requestNo, DateTime toDate)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdGetMFHoldingRecon;
+            bool result;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetMFHoldingRecon = db.GetStoredProcCommand("SPROC_SyncSystemDataForMFHoldingRecon");
+                db.AddInParameter(cmdGetMFHoldingRecon, "@ReqId", DbType.Int32, requestNo);
+                db.AddInParameter(cmdGetMFHoldingRecon, "@ToDate", DbType.Date, toDate);
+                result = int.Parse(db.ExecuteNonQuery(cmdGetMFHoldingRecon).ToString()) > 1 ? true :  false;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
         }
     }
 }

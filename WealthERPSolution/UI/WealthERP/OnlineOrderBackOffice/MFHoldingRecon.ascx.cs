@@ -25,14 +25,14 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SessionBo.CheckSession();
             AdvisorVo adviserVo = new AdvisorVo();
-           
+
             BindRequestId();
             if (!Page.IsPostBack)
             {
                 Label1.Visible = false;
                 txtTo.Visible = false;
                 btnSynch.Visible = false;
-                 
+
             }
 
         }
@@ -69,29 +69,29 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnGo_OnClick(object sender, EventArgs e)
         {
             try
-            {  DataTable dtMFHoldingRecon = new DataTable();
+            {
+                trFliters.Visible = false;
+                DataTable dtMFHoldingRecon = new DataTable();
                 dtMFHoldingRecon = OnlineOrderMISBo.GetMFHoldingRecon(int.Parse(ddlIssue.SelectedValue));
                 if (dtMFHoldingRecon.Rows.Count > 0)
                 {
                     BindMFHoldingRecon();
-               
+
                     Label1.Visible = true;
                     txtTo.Visible = true;
                     btnSynch.Visible = true;
-                   
                     trNoRecords.Visible = false;
                     divNoRecords.Visible = false;
                 }
                 else
                 {
                     BindMFHoldingRecon();
-                     Label1.Visible = false;
-                     txtTo.Visible = false;
-                     btnSynch.Visible = false;
-                    
-                     trNoRecords.Visible = true;
-                     divNoRecords.Visible = true;
-                    
+                    Label1.Visible = false;
+                    txtTo.Visible = false;
+                    btnSynch.Visible = false;
+                    trNoRecords.Visible = true;
+                    divNoRecords.Visible = true;
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -111,21 +111,32 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-        protected void ddlType_OnSelectedIndexChanged(object sender,EventArgs e)
+        protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindMFHoldingReconAfterSync();
+            BindMFHoldingReconAfterSync(false);
         }
         protected void ddlDifference_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindMFHoldingReconAfterSync();
+            BindMFHoldingReconAfterSync(false);
         }
         protected void btnSync_OnClick(object sender, EventArgs e)
         {
-            BindAMC();
-            BindMFHoldingReconAfterSync();
-            trFliters.Visible = true;
-            
-            
+            MFHoldingRecons.Visible = false;
+            pnlMFHoldingRecons.Visible = false;
+            if (OnlineOrderMISBo.updateSystemMFHoldingRecon(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate)))
+            {
+                BindAMC();
+                trFliters.Visible = true;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Synchronization done Successfully.');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Synchronization Unsuccsessfully');", true);
+            }
+
+
+
+
         }
         protected void BindMFHoldingRecon()
         {
@@ -186,13 +197,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
-        protected void BindMFHoldingReconAfterSync()
+        protected void BindMFHoldingReconAfterSync(bool isSync)
         {
             try
             {
-
+                MFHoldingRecons.Visible = false;
+                pnlMFHoldingRecons.Visible = false;
                 DataTable dtMFHoldingReconSync = new DataTable();
-                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate),int.Parse(ddlType.SelectedValue),int.Parse(ddlDifference.SelectedValue),int.Parse(ddlAMC.SelectedValue),int.Parse(ddlMode.SelectedValue));
+                dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate), int.Parse(ddlType.SelectedValue), int.Parse(ddlDifference.SelectedValue), int.Parse(ddlAMC.SelectedValue), isSync);
                 if (dtMFHoldingReconSync.Rows.Count > 0)
                 {
                     if (Cache["MFHoldingMIS" + userVo.UserId] == null)
@@ -208,33 +220,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.DataBind();
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
-
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanName").Display = true;
-
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAV").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAVDate").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemAUM").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = true;
-              
-                        //foreach (GridDataItem item in gvMFHoldinfRecon.Items)
-                        //{
-                        //    item["SchemePlanName"]. = System.Drawing.Color.Yellow;
-                        //    item["SystemUnits"].BackColor = System.Drawing.Color.Yellow;
-                        //    item["SystemNAV"].BackColor = System.Drawing.Color.Yellow;
-                        //    item["SystemNAVDate"].BackColor = System.Drawing.Color.Yellow;
-                        //    item["SystemAUM"].BackColor = System.Drawing.Color.Yellow;
-                        //    item["Diff"].BackColor = System.Drawing.Color.Yellow;
-                        //}
                 }
-                else
-                {
-                    gvMFHoldinfRecon.DataSource = dtMFHoldingReconSync;
-                    gvMFHoldinfRecon.DataBind();
-                    MFHoldingRecons.Visible = true;
-                    pnlMFHoldingRecons.Visible = true;
 
-                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -264,13 +257,36 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnExportData_OnClick(object sender, EventArgs e)
         {
-            gvMFHoldinfRecon.ExportSettings.OpenInNewWindow = true;
-            gvMFHoldinfRecon.ExportSettings.IgnorePaging = true;
-            gvMFHoldinfRecon.ExportSettings.HideStructureColumns = true;
-            gvMFHoldinfRecon.ExportSettings.ExportOnlyData = true;
-            gvMFHoldinfRecon.ExportSettings.FileName = "MF Holding Recon";
-            gvMFHoldinfRecon.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvMFHoldinfRecon.MasterTableView.ExportToExcel();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "MFHoldingMIS.xls"));
+            Response.ContentType = "application/ms-excel";
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["MFHoldingMIS" + userVo.UserId];
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
+        protected void ddlAMC_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindMFHoldingReconAfterSync(false);
+        }
+
+
     }
 }

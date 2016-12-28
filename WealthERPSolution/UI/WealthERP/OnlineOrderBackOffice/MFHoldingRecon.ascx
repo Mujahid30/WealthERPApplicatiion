@@ -4,6 +4,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
 <table width="100%">
     <tr>
         <td>
@@ -71,36 +73,28 @@
             <asp:Label ID="lblType" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlType_OnSelectedIndexChanged">
                 <asp:ListItem Text="All" Value="0"> </asp:ListItem>
                 <asp:ListItem Text="Exist In Both" Value="1"> </asp:ListItem>
-                <asp:ListItem Text="Only Exist In System" Value="2" Enabled="false"> </asp:ListItem>
+                <asp:ListItem Text="Only Exist In System" Value="2"> </asp:ListItem>
                 <asp:ListItem Text="Only Exist In RTA File" Value="3"> </asp:ListItem>
             </asp:DropDownList>
         </td>
-         <td align="right">
+        <td align="right">
             <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" 
-                AutoPostBack="true" Width="340px" >
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="340px" OnSelectedIndexChanged="ddlAMC_OnSelectedIndexChanged">
             </asp:DropDownList>
-        </td>
-        <td align="right">
-        <asp:Label ID="lblMode" runat="server" CssClass="FieldName" Text="Mode:"></asp:Label>
-        </td>
-       <td>
-       <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" AutoPostBack="true" >
-        <asp:ListItem Text="Select" Value="0"> </asp:ListItem>
-                <asp:ListItem Text="Online" Value="1"> </asp:ListItem>
-                <asp:ListItem Text="Offline" Value="2"> </asp:ListItem>
-       </asp:DropDownList> 
         </td>
         <td align="right">
             <asp:Label ID="lbldifference" runat="server" CssClass="FieldName" Text="Difference:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlDifference" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlDifference_OnSelectedIndexChanged">
+            <asp:DropDownList ID="ddlDifference" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlDifference_OnSelectedIndexChanged">
                 <asp:ListItem Text="All" Value="0"> </asp:ListItem>
                 <asp:ListItem Text="Equal To Zero" Value="1"> </asp:ListItem>
                 <asp:ListItem Text="Not Equal To Zero" Value="2"> </asp:ListItem>
@@ -116,6 +110,23 @@
             </div>
         </td>
     </tr>
+    <tr>
+            <td>
+                <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
+                    <ProgressTemplate>
+                        <table width="100%">
+                            <tr>
+                                <td align="center">
+                                    <asp:Image ID="imgProgress" ImageUrl="~/Images/ajax-loader.gif" AlternateText="Processing"
+                                        runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+                        <%--<img alt="Processing" src="~/Images/ajax_loader.gif" style="width: 200px; height: 100px" />--%>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+            </td>
+        </tr>
 </table>
 <asp:Panel ID="pnlMFHoldingRecons" runat="server" ScrollBars="Horizontal" Height="100%"
     Width="100%" Visible="false">
@@ -375,3 +386,10 @@
         </tr>
     </table>
 </asp:Panel>
+</ContentTemplate>
+<Triggers>
+        
+         <asp:PostBackTrigger ControlID="imgexportButton" />
+        
+    </Triggers>
+</asp:UpdatePanel>
