@@ -3623,6 +3623,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
                 db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, todate);
+               
                 ds = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -3631,6 +3632,30 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
+        public DataSet GetWLNotificationMessageDetails( string ChannelType, DateTime fromDate, DateTime todate,int adviserId)
+        {
+            DataSet ds;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetWLNotificationMessageDetails");
+                
+                db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
+                db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
+                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, todate);
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
 
         public DataSet GetBSECustomer(int A_AdviserId, DateTime fromDate, DateTime todate)
         {

@@ -62,10 +62,10 @@
                 ErrorMessage="Please,Select an Notification Type." InitialValue="0" ValidationGroup='Submit'
                 SetFocusOnError="true" Enabled="true"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftField">
+        <td class="leftField" >
             <asp:Label ID="Label1" runat="server" Text="Notification Header:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" >
             <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NotificationHeader_OnSelectedIndexChanged"
                 CssClass="cmbLongField">
             </asp:DropDownList>
@@ -165,7 +165,58 @@
                     AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+               
             </Columns>
+        </MasterTableView>
+        <ClientSettings>
+            <ClientEvents />
+        </ClientSettings>
+    </telerik:RadGrid>
+</asp:Panel>
+<asp:Panel ID="pnlWelcomeLetter" runat="server" ScrollBars="Vertical">
+    <telerik:RadGrid ID="rgWelcomeLetter" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
+        AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" AllowAutomaticDeletes="false" AllowFilteringByColumn="true"
+        AllowAutomaticInserts="false" PageSize="10" OnNeedDataSource="rgWelcomeLetter_NeedDataSource"
+        AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CTNEE_Id">
+        <MasterTableView>
+            <Columns>
+              <telerik:GridBoundColumn DataField="IFACode" AllowFiltering="true" HeaderText="IFA Code" 
+                    UniqueName="IFACode" SortExpression="IFACode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                      <telerik:GridBoundColumn DataField="IFAName" AllowFiltering="true" HeaderText="IFA Name" 
+                    UniqueName="IFAName" SortExpression="IFAName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn DataField="EmailId" AllowFiltering="true" HeaderText="Email ID" 
+                    UniqueName="EmailId" SortExpression="EmailId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn DataField="EmailSentStatus" AllowFiltering="true" HeaderText="Email Sent status" 
+                    UniqueName="EmailSentStatus" SortExpression="EmailSentStatus" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn DataField="NoOfRetries" AllowFiltering="true" HeaderText="No.of Retries" 
+                    UniqueName="NoOfRetries" SortExpression="NoOfRetries" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn DataField="HasAttachment" AllowFiltering="true" HeaderText="Has Attachement " 
+                    UniqueName="HasAttachment" SortExpression="HasAttachment" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn DataField="CreatedOn" AllowFiltering="true" HeaderText="Created on " 
+                    UniqueName="CreatedOn" SortExpression="CreatedOn" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+
+ </Columns>
         </MasterTableView>
         <ClientSettings>
             <ClientEvents />

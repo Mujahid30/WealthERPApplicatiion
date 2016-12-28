@@ -2842,6 +2842,20 @@ namespace BoOnlineOrderManagement
             }
             return ds;
         }
+        public DataSet GetWLNotificationMessageDetails( string ChannelType, DateTime fromDate, DateTime todate,int adviserId)
+        {
+            DataSet ds = new DataSet();
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                ds = daoOnlineOrderBackOffice.GetWLNotificationMessageDetails(ChannelType, fromDate, todate, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
 
 
       

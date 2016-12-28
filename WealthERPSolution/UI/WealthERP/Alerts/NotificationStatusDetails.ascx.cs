@@ -33,25 +33,43 @@ namespace WealthERP.Alerts
                 ddlAssetGroupName1.DataTextField = "Name";
                 ddlAssetGroupName1.DataBind();
                 ddlAssetGroupName1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                ddlAssetGroupName1.Items.Insert(4, new System.Web.UI.WebControls.ListItem("Welcome Letter", "WL"));
                 Panel1.Visible = false;
             }
         }
         protected void ddlAssetGroupName_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            DataSet ds = onlineOrderBackOfficeBo.GetNotificationTypes(ddlAssetGroupName1.SelectedValue);
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ddlAssetGroupName1.SelectedValue == "WL")
             {
-                DropDownList1.DataSource = ds;
-                DropDownList1.DataTextField = ds.Tables[0].Columns["CNT_NotificationType"].ToString();
-                DropDownList1.DataValueField = ds.Tables[0].Columns["CNT_ID"].ToString();
-                DropDownList1.DataBind();
-                DropDownList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                DropDownList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Welcome Letter Email Status", "WLES"));
+               
+                DropDownList2.Visible = false;
+                Label1.Visible = false;
+                
+                DropDownList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Email", "Email"));
             }
             else
-                DropDownList1.Items.Clear();
+            {
+                DataSet ds = onlineOrderBackOfficeBo.GetNotificationTypes(ddlAssetGroupName1.SelectedValue);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DropDownList1.DataSource = ds;
+                    DropDownList1.DataTextField = ds.Tables[0].Columns["CNT_NotificationType"].ToString();
+                    DropDownList1.DataValueField = ds.Tables[0].Columns["CNT_ID"].ToString();
+                    DropDownList1.DataBind();
+                    DropDownList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                }
+                else
+                {
+                    DropDownList1.Items.Clear();
+                }
+            }
+            
+
         }
         protected void NotificationType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+           
             DataSet ds = onlineOrderBackOfficeBo.GetNotificationHeader(Convert.ToInt32(DropDownList1.SelectedValue), adviserVo.advisorId);
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -82,28 +100,60 @@ namespace WealthERP.Alerts
         {
             //fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
 
-            DataSet ds = onlineOrderBackOfficeBo.GetNotificationMessageDetails(Convert.ToInt32(DropDownList2.SelectedValue), DropDownList3.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate),Convert.ToDateTime(txtToDate.SelectedDate));
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ddlAssetGroupName1.SelectedValue == "WL")
             {
-                if (Cache["MessageDetails" + userVo.UserId.ToString()] == null)
+                DataSet ds = onlineOrderBackOfficeBo.GetWLNotificationMessageDetails( DropDownList3.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate), adviserVo.advisorId);
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                    if (Cache["MessageDetails" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                    }
+                    else
+                    {
+                        Cache.Remove("MessageDetails" + userVo.UserId.ToString());
+                        Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                    }
+                    pnlWelcomeLetter.Visible = true;
+                    rgWelcomeLetter.DataSource = ds;
+                    rgWelcomeLetter.DataBind();
                 }
                 else
                 {
-                    Cache.Remove("MessageDetails" + userVo.UserId.ToString());
-                    Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                    pnlWelcomeLetter.Visible = false;
                 }
-                Panel1.Visible = true;
-                RadGrid3.DataSource = ds;
-                RadGrid3.DataBind();
+
+
             }
+
+            //fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
             else
             {
-                Panel1.Visible = false;
+                DataSet ds = onlineOrderBackOfficeBo.GetNotificationMessageDetails(Convert.ToInt32(DropDownList2.SelectedValue), DropDownList3.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    if (Cache["MessageDetails" + userVo.UserId.ToString()] == null)
+                    {
+                        Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                    }
+                    else
+                    {
+                        Cache.Remove("MessageDetails" + userVo.UserId.ToString());
+                        Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                    }
+                    Panel1.Visible = true;
+                    RadGrid3.DataSource = ds;
+                    RadGrid3.DataBind();
+                }
+                else
+                {
+                    Panel1.Visible = false;
+                }
             }
             
         }
+            
+        
         protected void RadGrid3_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dt;
@@ -112,6 +162,10 @@ namespace WealthERP.Alerts
             {
                 RadGrid3.DataSource = dt;
             }
+        }
+        protected void rgWelcomeLetter_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            
         }
         protected void btnExportData_OnClick(object sender, EventArgs e)
         {

@@ -39,7 +39,7 @@ namespace WealthERP.Alerts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssetGroup1;
-        
+
         /// <summary>
         /// ddlAssetGroupName1 control.
         /// </summary>
@@ -192,6 +192,24 @@ namespace WealthERP.Alerts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel1;
+
+        /// <summary>
+        /// pnlWelcomeLetter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlWelcomeLetter;
+
+        /// <summary>
+        /// tdNotificationHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdNotificationHeader;
         
         /// <summary>
         /// RadGrid3 control.
@@ -201,5 +219,14 @@ namespace WealthERP.Alerts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid3;
+
+        /// <summary>
+        /// rgWelcomeLetter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgWelcomeLetter;
     }
 }
