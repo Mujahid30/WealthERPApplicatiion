@@ -162,13 +162,13 @@ namespace BoOnlineOrderManagement
             dtGetMFHoldingRecon = OnlineOrderMISDao.GetMFHoldingReconAfterSync(requestNo, toDate, typeFliter, differentFliter, AMC, isSync);
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetAMCList()
+        public DataTable GetAMCList(int requestId)
         {
             DataTable dtGetAMCList;
             OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
             try
             {
-                dtGetAMCList = OnlineOrderMISDao.GetAMCList();
+                dtGetAMCList = OnlineOrderMISDao.GetAMCList(requestId);
             }
             catch (BaseApplicationException Ex)
             {

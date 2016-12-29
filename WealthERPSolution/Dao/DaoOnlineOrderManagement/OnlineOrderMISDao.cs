@@ -441,7 +441,7 @@ namespace DaoOnlineOrderManagement
             }
             return dtGetMFHoldingRecon;
         }
-        public DataTable GetAMCList()
+        public DataTable GetAMCList(int requestId)
         {
             DataSet dsGetAMCList;
             DataTable dtGetAMCList;
@@ -450,8 +450,8 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetAMCList = db.GetStoredProcCommand("SPROC_GetAmcWithRta");
-               
+                cmdGetAMCList = db.GetStoredProcCommand("SPROC_GetAMCRequestWise");
+                db.AddInParameter(cmdGetAMCList, "@requestId", DbType.Int32, requestId);
                 dsGetAMCList = db.ExecuteDataSet(cmdGetAMCList);
                 dtGetAMCList = dsGetAMCList.Tables[0];
             }

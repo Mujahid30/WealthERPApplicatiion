@@ -47,12 +47,12 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlIssue.DataBind();
             ddlIssue.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
-        protected void BindAMC()
+        protected void BindAMC(int requestId)
         {
             ddlAMC.Items.Clear();
             if (ddlAMC.SelectedIndex == 0) return;
 
-            DataTable dtAmc = OnlineOrderMISBo.GetAMCList();
+            DataTable dtAmc = OnlineOrderMISBo.GetAMCList(requestId);
             if (dtAmc == null) return;
 
             if (dtAmc.Rows.Count > 0)
@@ -62,9 +62,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlAMC.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAMC.DataBind();
             }
-
             ddlAMC.Items.Insert(0, new ListItem("Select", "0"));
-            //ddlAMC.Items.FindByValue("0").Selected = true;
+            
         }
         protected void btnGo_OnClick(object sender, EventArgs e)
         {
@@ -125,7 +124,7 @@ namespace WealthERP.OnlineOrderBackOffice
             pnlMFHoldingRecons.Visible = false;
             if (OnlineOrderMISBo.updateSystemMFHoldingRecon(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate)))
             {
-                BindAMC();
+                BindAMC(int.Parse(ddlIssue.SelectedValue));
                 trFliters.Visible = true;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Synchronization done Successfully.');", true);
             }
@@ -283,6 +282,10 @@ namespace WealthERP.OnlineOrderBackOffice
             Response.End();
         }
         protected void ddlAMC_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindMFHoldingReconAfterSync(false);
+        }
+        protected void btnFilter_OnClick(object sender, EventArgs e)
         {
             BindMFHoldingReconAfterSync(false);
         }
