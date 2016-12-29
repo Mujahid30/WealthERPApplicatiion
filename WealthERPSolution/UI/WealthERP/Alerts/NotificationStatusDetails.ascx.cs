@@ -35,17 +35,18 @@ namespace WealthERP.Alerts
                 ddlAssetGroupName1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 ddlAssetGroupName1.Items.Insert(4, new System.Web.UI.WebControls.ListItem("Welcome Letter", "WL"));
                 Panel1.Visible = false;
+                pnlWelcomeLetter.Visible = false;
             }
         }
         protected void ddlAssetGroupName_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAssetGroupName1.SelectedValue == "WL")
             {
+                DropDownList1.Items.Clear();
                 DropDownList1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Welcome Letter Email Status", "WLES"));
-               
                 DropDownList2.Visible = false;
                 Label1.Visible = false;
-                
+                DropDownList3.Items.Clear();
                 DropDownList3.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Email", "Email"));
             }
             else
@@ -69,18 +70,22 @@ namespace WealthERP.Alerts
         }
         protected void NotificationType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-           
-            DataSet ds = onlineOrderBackOfficeBo.GetNotificationHeader(Convert.ToInt32(DropDownList1.SelectedValue), adviserVo.advisorId);
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ddlAssetGroupName1.SelectedValue != "WL")
             {
-                DropDownList2.DataSource = ds;
-                DropDownList2.DataTextField = ds.Tables[0].Columns["CTNS_NotificationHeader"].ToString();
-                DropDownList2.DataValueField = ds.Tables[0].Columns["CTNS_Id"].ToString();
-                DropDownList2.DataBind();
-                DropDownList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                DataSet ds = onlineOrderBackOfficeBo.GetNotificationHeader(Convert.ToInt32(DropDownList1.SelectedValue), adviserVo.advisorId);
+                DropDownList2.Visible = true;
+                Label1.Visible = true;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DropDownList2.DataSource = ds;
+                    DropDownList2.DataTextField = ds.Tables[0].Columns["CTNS_NotificationHeader"].ToString();
+                    DropDownList2.DataValueField = ds.Tables[0].Columns["CTNS_Id"].ToString();
+                    DropDownList2.DataBind();
+                    DropDownList2.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+                }
+                else
+                    DropDownList2.Items.Clear();
             }
-            else
-                DropDownList2.Items.Clear();
         }
         protected void NotificationHeader_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -105,22 +110,24 @@ namespace WealthERP.Alerts
                 DataSet ds = onlineOrderBackOfficeBo.GetWLNotificationMessageDetails( DropDownList3.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate), adviserVo.advisorId);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    if (Cache["MessageDetails" + userVo.UserId.ToString()] == null)
+                    if (Cache["WLMessageDetails" + userVo.UserId.ToString()] == null)
                     {
-                        Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                        Cache.Insert("WLMessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
                     }
                     else
                     {
-                        Cache.Remove("MessageDetails" + userVo.UserId.ToString());
-                        Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
+                        Cache.Remove("WLMessageDetails" + userVo.UserId.ToString());
+                        Cache.Insert("WLMessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
                     }
                     pnlWelcomeLetter.Visible = true;
+                    Panel1.Visible = false;
                     rgWelcomeLetter.DataSource = ds;
                     rgWelcomeLetter.DataBind();
                 }
                 else
                 {
                     pnlWelcomeLetter.Visible = false;
+                    Panel1.Visible = false;
                 }
 
 
@@ -142,12 +149,14 @@ namespace WealthERP.Alerts
                         Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
                     }
                     Panel1.Visible = true;
+                    pnlWelcomeLetter.Visible = false;
                     RadGrid3.DataSource = ds;
                     RadGrid3.DataBind();
                 }
                 else
                 {
                     Panel1.Visible = false;
+                    pnlWelcomeLetter.Visible = false;
                 }
             }
             
@@ -165,17 +174,35 @@ namespace WealthERP.Alerts
         }
         protected void rgWelcomeLetter_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            
+            DataTable dt;
+            dt = (DataTable)Cache["WLMessageDetails" + userVo.UserId.ToString()];
+            if (dt != null)
+            {
+                rgWelcomeLetter.DataSource = dt;
+            }  
         }
         protected void btnExportData_OnClick(object sender, EventArgs e)
         {
-            RadGrid3.ExportSettings.OpenInNewWindow = true;
-            RadGrid3.ExportSettings.IgnorePaging = true;
-            RadGrid3.ExportSettings.HideStructureColumns = true;
-            RadGrid3.ExportSettings.ExportOnlyData = true;
-            RadGrid3.ExportSettings.FileName = "NotificationStatus";
-            RadGrid3.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            RadGrid3.MasterTableView.ExportToExcel();
+            if (ddlAssetGroupName1.SelectedValue == "WL")
+            {
+                rgWelcomeLetter.ExportSettings.OpenInNewWindow = true;
+                rgWelcomeLetter.ExportSettings.IgnorePaging = true;
+                rgWelcomeLetter.ExportSettings.HideStructureColumns = true;
+                rgWelcomeLetter.ExportSettings.ExportOnlyData = true;
+                rgWelcomeLetter.ExportSettings.FileName = "WLNotificationStatus";
+                rgWelcomeLetter.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                rgWelcomeLetter.MasterTableView.ExportToExcel();
+            }
+            else
+            {
+                RadGrid3.ExportSettings.OpenInNewWindow = true;
+                RadGrid3.ExportSettings.IgnorePaging = true;
+                RadGrid3.ExportSettings.HideStructureColumns = true;
+                RadGrid3.ExportSettings.ExportOnlyData = true;
+                RadGrid3.ExportSettings.FileName = "NotificationStatus";
+                RadGrid3.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                RadGrid3.MasterTableView.ExportToExcel();
+            }
         }
     }
 }
