@@ -348,14 +348,10 @@
                                             </td>
                                             <td align="right">
                                                 <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"></asp:LinkButton>
-                                                <%--<asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"
-                                                    Height="23px" Width="25px" CssClass="LinkButtons"></asp:LinkButton>--%>
                                             </td>
                                             <td align="right">
                                                 <asp:LinkButton runat="server" ID="lnkBackHolding" CssClass="LinkButtons" Text="Back"
                                                     OnClientClick="goBack()" Visible="false"></asp:LinkButton>
-                                                <%--<asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"
-                                                    Height="23px" Width="25px" CssClass="LinkButtons"></asp:LinkButton>--%>
                                             </td>
                                             <td align="right" style="width: 10px">
                                                 <asp:ImageButton ID="btnTrnxExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
@@ -368,12 +364,6 @@
                                                     OnClientClick="setFormat('excel')" Height="23px" Width="25px" OnClick="btnTrnxExportMFOffLineWithoutSubbroker_Click">
                                                 </asp:ImageButton>
                                             </td>
-                                            <%-- <asp:ImageButton ID="imgBtnTrail" ImageUrl="~/Images/Export_Excel.png" Visible="false"
-                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="23px"
-                                                    Width="25px" OnClick="btnTrailExport_Click"></asp:ImageButton>--%>
-                                            <%-- <asp:ImageButton ID="btnbalncExport" ImageUrl="~/Images/Export_Excel.png" Visible="false"
-                                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                                    Height="23px" Width="25px" OnClick="btnbalncExport_Click"></asp:ImageButton>--%>
                             </td>
                         </tr>
                     </table>
@@ -441,19 +431,6 @@
                             </td>
                         </tr>
                         <tr id="trCustomer" runat="server">
-                            <%--  <td align="right">
-                                <asp:Label ID="lblType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
-                                    <asp:ListItem Text="Online " Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="Offline" Value="0"></asp:ListItem>
-                                </asp:DropDownList>
-                            </td>--%>
-                            <%--</td>
-                            <td align="right">
-                            
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;--%>
                             <td align="right">
                                 <asp:Label ID="lblAgentCode" runat="server" Text="SubBroker Code:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -466,8 +443,6 @@
                             </td>
                             <td id="tdCustomerGroup" runat="server" colspan="2">
                                 <asp:Label ID="lblCustomerGroup" runat="server" CssClass="FieldName" Text="Search Customer:"></asp:Label>
-                                <%-- </td>
-                            <td align="left" colspan="3">--%>
                                 <asp:DropDownList ID="ddlsearchcustomertype" runat="server" AutoPostBack="true" CssClass="cmbField"
                                     OnSelectedIndexChanged="ddlsearchcustomertype_OnSelectedIndexChanged">
                                     <asp:ListItem Text="All" Value="All"></asp:ListItem>
@@ -486,10 +461,9 @@
                                                 OnSelectedIndexChanged="ddlOptionSearch_OnSelectedIndexChanged" Visible="false">
                                                 <asp:ListItem Selected="true" Text="Select" Value="Select" />
                                                 <asp:ListItem Text="Name" Value="Name" />
-                                               <asp:ListItem Text="PAN" Value="Panno" />
+                                                <asp:ListItem Text="PAN" Value="Panno" />
                                                 <asp:ListItem Text="Client Code" Value="Clientcode" />
                                             </asp:DropDownList>
-                                            <%-- </td> <td align="left">--%>
                                             <asp:TextBox ID="txtcustomerName" runat="server" AutoPostBack="true" CssClass="txtField"
                                                 Visible="false"></asp:TextBox>
                                             <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" runat="server" EnableViewState="false"
@@ -517,20 +491,18 @@
                                                 DelimiterCharacters="" EnableCaching="False" Enabled="True" MinimumPrefixLength="1"
                                                 OnClientItemSelected="GetCustomerId" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                                                 TargetControlID="txtCustCode" UseContextKey="True" />
-                                                
-            <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField"
-                AutoPostBack="true"></asp:TextBox>
-           
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
-                WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
-            </cc1:TextBoxWatermarkExtender>
-            <cc1:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server"
-                TargetControlID="txtPansearch" ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
-                Enabled="True"></cc1:AutoCompleteExtender>
+                                            <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
+                                            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" TargetControlID="txtPansearch"
+                                                WatermarkText="Enter few characters of Pan" runat="server" EnableViewState="false">
+                                            </cc1:TextBoxWatermarkExtender>
+                                            <cc1:AutoCompleteExtender ID="txtPansearch_autoCompleteExtender" runat="server" TargetControlID="txtPansearch"
+                                                ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                                                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                                                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                                                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                                                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                                                Enabled="True">
+                                            </cc1:AutoCompleteExtender>
                                         </td>
                                         <td>
                                             <asp:RadioButton ID="rbtnAll" runat="server" AutoPostBack="true" Checked="true" CssClass="cmbFielde"
@@ -734,7 +706,6 @@
                                                     FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                
                                                 <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
                                                     SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     AutoPostBackOnFilter="true" UniqueName="Folio Number" FooterStyle-HorizontalAlign="Left">
@@ -835,7 +806,7 @@
                                                     AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN" FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                 <telerik:GridBoundColumn DataField="CityGroup" HeaderText="City Group" AllowFiltering="true"
+                                                <telerik:GridBoundColumn DataField="CityGroup" HeaderText="City Group" AllowFiltering="true"
                                                     HeaderStyle-Wrap="false" SortExpression="CityGroup" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     AutoPostBackOnFilter="true" UniqueName="CityGroup" FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -988,7 +959,6 @@
                                                     HeaderText="Customer" ShowFilterIcon="false" SortExpression="Customer Name" UniqueName="Customer Name">
                                                     <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
-                                                
                                                 <telerik:GridBoundColumn AllowFiltering="true" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
                                                     DataField="Folio Number" FooterStyle-HorizontalAlign="Left" HeaderText="Folio No."
                                                     ShowFilterIcon="false" SortExpression="Folio Number" UniqueName="Folio Number">
@@ -1086,7 +1056,7 @@
                                                     HeaderText="EUIN" ShowFilterIcon="false" SortExpression="CMFT_EUIN" UniqueName="CMFT_EUIN">
                                                     <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                                 </telerik:GridBoundColumn>
-                                                  <telerik:GridBoundColumn DataField="CityGroup" HeaderText="City Group" AllowFiltering="true"
+                                                <telerik:GridBoundColumn DataField="CityGroup" HeaderText="City Group" AllowFiltering="true"
                                                     HeaderStyle-Wrap="false" SortExpression="CityGroup" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     AutoPostBackOnFilter="true" UniqueName="CityGroup" FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -1635,7 +1605,7 @@
                             </td>
                         </tr>
                     </table>
-                    <div id="divNote" runat="server" class="Note" style="margin: 6px">
+                    <div id="divNote" visible="false" runat="server" class="Note" style="margin: 6px">
                         <label id="lbl">
                             Note:<br />
                             1:To export excel the count should not exceed 4000 records.
