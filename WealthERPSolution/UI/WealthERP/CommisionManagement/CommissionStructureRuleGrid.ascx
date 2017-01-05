@@ -202,9 +202,7 @@
                 </td>
             </tr>
         </table>
-        <%-- <table id="tblCommissionStructureRule" runat="server" width="0%">
-            <tr>
-                <td>--%>
+        
         <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Both">
             <table width="100%" runat="server">
                 <tr>
@@ -212,7 +210,7 @@
                         <telerik:RadGrid ID="gvCommMgmt" runat="server" AllowSorting="True" enableloadondemand="True"
                             PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                            Skin="Telerik" AllowFilteringByColumn="false" OnPageIndexChanged="gvCommMgmt_PageIndexChanged"
+                            Skin="Telerik" AllowFilteringByColumn="true" OnPageIndexChanged="gvCommMgmt_PageIndexChanged"
                             OnNeedDataSource="gvCommMgmt_OnNeedDataSource" OnItemDataBound="gvCommMgmt_ItemDataBound">
                             <HeaderContextMenu EnableEmbeddedSkins="False">
                             </HeaderContextMenu>
@@ -314,9 +312,7 @@
                 </tr>
             </table>
         </asp:Panel>
-        <%--       </td>
-            </tr>
-        </table>--%>
+       
         <telerik:RadWindow ID="radCopyStructurePopUp" runat="server" VisibleOnPageLoad="false"
                 Height="150px" Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
                 Behaviors="Resize, Close, Move" Title="Copy & Create Structure" Left="10" Top="20" OnClientShow="setCustomPosition">
