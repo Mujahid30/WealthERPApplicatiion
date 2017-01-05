@@ -26,7 +26,7 @@
                         <td align="right">
                             <asp:ImageButton Visible="false" ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
-                                Height="20px" Width="25px"></asp:ImageButton>
+                                Height="20px" Width="25px" OnClientClick="setFormat('excel')"></asp:ImageButton>
                             <asp:ImageButton Visible="false" ID="imgZoneClusterCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnZoneCLusterMISCommission_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -262,8 +262,7 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Debt" DataField="Debt" AllowFiltering="false"
                             HeaderText="Debt" SortExpression="Debt" AutoPostBackOnFilter="true" ShowFilterIcon="false"
-                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}"
-                            FooterText="Total:">
+                            FooterStyle-HorizontalAlign="Right" Aggregate="Sum" DataFormatString="{0:n0}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Equity" AllowFiltering="false" AutoPostBackOnFilter="true"
@@ -300,7 +299,7 @@
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
-                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" UseClientSelectColumnOnly="true" />
                 </ClientSettings>
             </telerik:RadGrid>
         </td>

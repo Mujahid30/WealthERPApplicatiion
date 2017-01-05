@@ -41,9 +41,9 @@ namespace WealthERP.Advisor
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
-                
+
             }
-          
+
         }
 
 
@@ -442,13 +442,13 @@ namespace WealthERP.Advisor
             gvCommissionMIS.Visible = false;
             btnCommissionMIS.Visible = true;
             DataTable dtGetProductMobilizedReport = new DataTable();
-            dtGetProductMobilizedReport = advisorMISBo.GetProductMobilizedReport(advisorVo.advisorId, int.Parse(ddlMISType.SelectedValue), int.Parse(rcbMode.SelectedValue), ((!string.IsNullOrEmpty(rcbOnlineMode.SelectedValue)) ? int.Parse(rcbOnlineMode.SelectedValue):2), (!string.IsNullOrEmpty(rcbIssueName.SelectedValue)) ? int.Parse(rcbIssueName.SelectedValue) : 0, rcbProductType.SelectedValue, rcbProductType.SelectedValue == "FI" ? (!string.IsNullOrEmpty(RcbProductCategory.SelectedValue)) ? RcbProductCategory.SelectedValue : string.Empty :"FIFIIP", DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()), DateTime.Parse((txtToDate.SelectedDate.Value).ToString()));
+            dtGetProductMobilizedReport = advisorMISBo.GetProductMobilizedReport(advisorVo.advisorId, int.Parse(ddlMISType.SelectedValue), int.Parse(rcbMode.SelectedValue), ((!string.IsNullOrEmpty(rcbOnlineMode.SelectedValue)) ? int.Parse(rcbOnlineMode.SelectedValue) : 2), (!string.IsNullOrEmpty(rcbIssueName.SelectedValue)) ? int.Parse(rcbIssueName.SelectedValue) : 0, rcbProductType.SelectedValue, rcbProductType.SelectedValue == "FI" ? (!string.IsNullOrEmpty(RcbProductCategory.SelectedValue)) ? RcbProductCategory.SelectedValue : string.Empty : "FIFIIP", DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()), DateTime.Parse((txtToDate.SelectedDate.Value).ToString()));
             if (rcbProductType.SelectedValue == "MF")
             {
                 gvCommissionMIS.DataSource = dtGetProductMobilizedReport;
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
-              
+
                 if (Cache["ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportMF" + advisorVo.advisorId + userVo.UserId);
@@ -461,13 +461,13 @@ namespace WealthERP.Advisor
                 gvNonMFMobilization.DataSource = dtGetProductMobilizedReport;
                 gvNonMFMobilization.DataBind();
                 gvNonMFMobilization.Visible = true;
-               
+
                 if (Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId] != null)
                 {
                     Cache.Remove("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId);
                 }
                 Cache.Insert("ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId, dtGetProductMobilizedReport);
-            
+
             }
         }
         /// <summary>
@@ -492,7 +492,7 @@ namespace WealthERP.Advisor
                 toDate = DateTime.MinValue;
             }
         }
-        
+
         public void RadioButtonClick(object sender, EventArgs e)
         {
             if (rbtnPickPeriod.Checked)
@@ -537,7 +537,7 @@ namespace WealthERP.Advisor
                 gvNonMFMobilization.ExportSettings.IgnorePaging = true;
                 gvNonMFMobilization.ExportSettings.HideStructureColumns = true;
                 gvNonMFMobilization.ExportSettings.ExportOnlyData = true;
-                gvNonMFMobilization.ExportSettings.FileName = rcbProductType.Text + " " + DateTime.Parse((txtFromDate.SelectedDate.Value).ToString())+ "  "  + DateTime.Parse((txtToDate.SelectedDate.Value).ToString());
+                gvNonMFMobilization.ExportSettings.FileName = rcbProductType.Text + " " + txtFromDate.SelectedDate.Value.ToString("dd MMM yyyy") + "  " + txtToDate.SelectedDate.Value.ToString("dd MMM yyyy");
                 gvNonMFMobilization.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvNonMFMobilization.MasterTableView.ExportToExcel();
             }
@@ -548,11 +548,12 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.ExportSettings.IgnorePaging = true;
                 gvCommissionMIS.ExportSettings.HideStructureColumns = true;
                 gvCommissionMIS.ExportSettings.ExportOnlyData = true;
-                gvCommissionMIS.ExportSettings.FileName = rcbProductType.Text + " " + DateTime.Parse((txtFromDate.SelectedDate.Value).ToString()) + "  " + DateTime.Parse((txtToDate.SelectedDate.Value).ToString());
+                gvCommissionMIS.ShowFooter = true;
+                gvCommissionMIS.ExportSettings.FileName = rcbProductType.Text + " " + txtFromDate.SelectedDate.Value.ToString("dd MMM yyyy") + "  " + txtToDate.SelectedDate.Value.ToString("dd MMM yyyy");
                 gvCommissionMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvCommissionMIS.MasterTableView.ExportToExcel();
 
-               
+
 
             }
         }
@@ -583,7 +584,7 @@ namespace WealthERP.Advisor
             DataTable dtFolioDetails = new DataTable();
             dtFolioDetails = (DataTable)Cache["ProductMobilizedReportNONMF" + advisorVo.advisorId + userVo.UserId];
             gvNonMFMobilization.DataSource = dtFolioDetails;
-            
+
         }
         public void gvZoneClusterWiseCommissionMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -599,7 +600,7 @@ namespace WealthERP.Advisor
                 gvZoneClusterWiseCommissionMIS.Visible = true;
             }
         }
-       
+
         private void BindProduct()
         {
             CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
@@ -636,14 +637,34 @@ namespace WealthERP.Advisor
                     BindIssueName();
                     ddlMISType.Items.FindItemByValue("1").Enabled = false;
                 }
-                
+
             }
         }
         protected void RcbProductCategory_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            tdIssueName.Visible = true;
-            tdlblIssueName.Visible = true;
-            BindIssueName();
+            if (RcbProductCategory.SelectedItem.Text == "Company Fixed Deposits")
+            {
+                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
+                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
+            }
+            else if (RcbProductCategory.SelectedItem.Text == "54 EC bonds")
+            {
+                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
+                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
+            }
+            else if (RcbProductCategory.SelectedItem.Text == "Sovereign Gold Bond")
+            {
+                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Offline"));
+                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
+            }
+            else
+            {
+                tdIssueName.Visible = true;
+                tdlblIssueName.Visible = true;
+                BindIssueName();
+
+            }
+           
         }
         protected void rcbMode_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
