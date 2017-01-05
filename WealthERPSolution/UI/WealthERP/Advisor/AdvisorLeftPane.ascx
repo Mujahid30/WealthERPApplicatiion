@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
-    Inherits="WealthERP.Advisor.AdvisorLeftPane"  %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1"  %>
+    Inherits="WealthERP.Advisor.AdvisorLeftPane" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
@@ -264,7 +264,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="MF_Offline_SIP_Ord_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="MF_Offline_SIP_Ord_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
@@ -441,6 +441,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Product Mobilization" Value="Product_Mobilization">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MIS_MF">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF DashBoard" Value="MFDashBoard" Vissble="true">
@@ -461,7 +463,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                           <telerik:RadPanelItem runat="server" Text="Product Mobilization" Value="Product_Mobilization">
+                                            <telerik:RadPanelItem runat="server" Text="Product Mobilization" Value="Product_Mobilization">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -546,7 +548,7 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%------------------New Tree View--------------%>
-                                    <telerik:RadPanelItem runat="server"  Text="Message" Value="Message" PostBack="false"  >
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                             </telerik:RadPanelItem>
@@ -640,7 +642,6 @@
                                                 Vissble="true">
                                             </telerik:RadPanelItem>
                                             <%------------------New Tree View--------------%>
-                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%------------------New Tree View--------------%>
@@ -1042,7 +1043,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF Order Book" Value="Order_List">
                                                     </telerik:RadPanelItem>
-                                                      <telerik:RadPanelItem runat="server" Text="SIP Offline Order Book" Value="MF_Offline_SIP_Ord_Book">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Offline Order Book" Value="MF_Offline_SIP_Ord_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Offline Book" Value="SIP_Offline_Book">
                                                     </telerik:RadPanelItem>
@@ -1150,7 +1151,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                         <Items>
-                                         <telerik:RadPanelItem runat="server" Text="RTA Unit Recon" Value="RTA_Unit_Recon">
+                                            <telerik:RadPanelItem runat="server" Text="RTA Unit Recon" Value="RTA_Unit_Recon">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
                                             </telerik:RadPanelItem>
@@ -1166,7 +1167,6 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Valuation" Value="Valuation">
                                             </telerik:RadPanelItem>
-                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Brokerage" Value="Brokerage">
@@ -1249,6 +1249,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Branch AUM" Value="Business_MIS_Dashboard">
                                                     </telerik:RadPanelItem>
                                                 </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Product Mobilization" Value="Product_Mobilization">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -1729,27 +1731,22 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    
-                                    
-                                 <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
-                                <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
+                                    <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Add Life Insurance" Value="Add Life Insurance">
+                                            <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Life Insurance" Value="Add Life Insurance">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
-                                        </Items>
-                                    </telerik:RadPanelItem>
-                                   <%-- <telerik:RadPanelItem runat="server" Text="General Insurance" Value="General Insurance">
+                                            <%-- <telerik:RadPanelItem runat="server" Text="General Insurance" Value="General Insurance">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add General Insurance" Value="Add General Insurance">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>--%>
-                                </Items>
-                            </telerik:RadPanelItem>
-                                    
-                                    
-                                    
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <%-- <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF Dashboard MIS" Value="MFDashboard"

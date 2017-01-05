@@ -987,6 +987,9 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
+
+
+
                 else if (e.Item.Value == "CustomerSignUp")
                 {
                     Session["UserType"] = "adviser";
