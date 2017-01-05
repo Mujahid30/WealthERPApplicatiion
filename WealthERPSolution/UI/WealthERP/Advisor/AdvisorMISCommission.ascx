@@ -25,8 +25,8 @@
                         </td>
                         <td align="right">
                             <asp:ImageButton Visible="false" ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
-                                Height="20px" Width="25px" OnClientClick="setFormat('excel')"></asp:ImageButton>
+                                runat="server" AlternateText="Excel"  ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
+                                Height="20px" Width="25px" ></asp:ImageButton>
                             <asp:ImageButton Visible="false" ID="imgZoneClusterCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnZoneCLusterMISCommission_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -257,8 +257,8 @@
                 <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="MT_Type" DataField="MT_Type" AllowFiltering="false"
-                            SortExpression="MT_Type" AutoPostBackOnFilter="true" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            SortExpression="MT_Type"  AutoPostBackOnFilter="true" ShowFilterIcon="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="Left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="Debt" DataField="Debt" AllowFiltering="false"
                             HeaderText="Debt" SortExpression="Debt" AutoPostBackOnFilter="true" ShowFilterIcon="false"

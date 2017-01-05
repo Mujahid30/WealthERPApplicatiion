@@ -37,6 +37,7 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             if (!Page.IsPostBack)
             {
+
                 BindProduct();
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
@@ -438,6 +439,16 @@ namespace WealthERP.Advisor
         }
         protected void btnView_Click(object sender, EventArgs e)
         {
+            if (ddlMISType.SelectedItem.Text == "AMC Wise")
+            {
+                gvCommissionMIS.Columns[0].HeaderText = "AMC";
+            }
+            else if (ddlMISType.SelectedItem.Text == "Broker code Wise")
+            {
+                gvCommissionMIS.Columns[0].HeaderText = "Broker code ";
+            }
+
+
             gvNonMFMobilization.Visible = false;
             gvCommissionMIS.Visible = false;
             btnCommissionMIS.Visible = true;
@@ -554,7 +565,6 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.MasterTableView.ExportToExcel();
 
 
-
             }
         }
 
@@ -664,7 +674,7 @@ namespace WealthERP.Advisor
                 BindIssueName();
 
             }
-           
+
         }
         protected void rcbMode_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
