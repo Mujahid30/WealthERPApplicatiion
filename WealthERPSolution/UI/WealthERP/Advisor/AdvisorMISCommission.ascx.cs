@@ -37,11 +37,27 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             if (!Page.IsPostBack)
             {
-
+                BindBondCategories();
                 BindProduct();
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
+                if (RcbProductCategory.SelectedItem.Text == "Company Fixed Deposits" && rcbProductType.SelectedItem.Text == "Bond")
+                {
+                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
+                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
+                }
+                else if (RcbProductCategory.SelectedItem.Text == "54 EC bonds" && rcbProductType.SelectedItem.Text == "Bond")
+                {
+                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
+                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
+                }
+                else if (RcbProductCategory.SelectedItem.Text == "Sovereign Gold Bond" && rcbProductType.SelectedItem.Text == "Bond")
+                {
+                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
+                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Offline"));
+
+                }
 
             }
 
@@ -446,7 +462,19 @@ namespace WealthERP.Advisor
             else if (ddlMISType.SelectedItem.Text == "Broker code Wise")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "Broker code ";
+                gvNonMFMobilization.Columns[0].HeaderText = "Broker code";
             }
+            else if (ddlMISType.SelectedItem.Text == "Branch Wise")
+            {
+                gvCommissionMIS.Columns[0].HeaderText = "Branch Wise";
+                gvNonMFMobilization.Columns[0].HeaderText = "Branch Wise";
+            }
+            else if (ddlMISType.SelectedItem.Text == "Summary")
+            {
+                gvCommissionMIS.Columns[0].HeaderText = "Summary";
+                gvNonMFMobilization.Columns[0].HeaderText = "Summary";
+            }
+            
 
 
             gvNonMFMobilization.Visible = false;
@@ -563,6 +591,8 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.ExportSettings.FileName = rcbProductType.Text + " " + txtFromDate.SelectedDate.Value.ToString("dd MMM yyyy") + "  " + txtToDate.SelectedDate.Value.ToString("dd MMM yyyy");
                 gvCommissionMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvCommissionMIS.MasterTableView.ExportToExcel();
+               
+ 
 
 
             }
@@ -634,6 +664,7 @@ namespace WealthERP.Advisor
                 tdDdlCategory.Visible = true;
                 BindBondCategories();
                 ddlMISType.Items.FindItemByValue("1").Enabled = false;
+
             }
             else
             {
@@ -652,28 +683,47 @@ namespace WealthERP.Advisor
         }
         protected void RcbProductCategory_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-            if (RcbProductCategory.SelectedItem.Text == "Company Fixed Deposits")
+           
+
+            if (RcbProductCategory.SelectedItem.Text == "Company Fixed Deposits" && rcbProductType.SelectedItem.Text == "Bond")
             {
-                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
-                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
-            }
-            else if (RcbProductCategory.SelectedItem.Text == "54 EC bonds")
-            {
-                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
-                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
-            }
-            else if (RcbProductCategory.SelectedItem.Text == "Sovereign Gold Bond")
-            {
-                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Offline"));
-                rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
-            }
-            else
-            {
-                tdIssueName.Visible = true;
-                tdlblIssueName.Visible = true;
-                BindIssueName();
+                
+                rcbMode.Items.FindItemByValue("1").Enabled = false;
+                rcbMode.Items.FindItemByValue("2").Enabled = false;
+                rcbMode.Items.FindItemByValue("0").Enabled = true;
 
             }
+            else if (RcbProductCategory.SelectedItem.Text == "54 EC bonds" && rcbProductType.SelectedItem.Text == "Bond")
+            {
+                rcbMode.Items.FindItemByValue("1").Enabled = false;
+                rcbMode.Items.FindItemByValue("2").Enabled = false;
+                rcbMode.Items.FindItemByValue("0").Enabled = true;
+            }
+            else if (RcbProductCategory.SelectedItem.Text == "Sovereign Gold Bond" && rcbProductType.SelectedItem.Text == "Bond")
+            {
+                rcbMode.Items.FindItemByValue("1").Enabled = true;
+                rcbMode.Items.FindItemByValue("2").Enabled = false;
+                rcbMode.Items.FindItemByValue("0").Enabled = false;
+
+            }
+            else if (RcbProductCategory.SelectedItem.Text == "Tax Free Bond" && rcbProductType.SelectedItem.Text == "Bond")
+            {
+                rcbMode.Items.FindItemByValue("1").Enabled = true;
+                rcbMode.Items.FindItemByValue("2").Enabled = true;
+                rcbMode.Items.FindItemByValue("0").Enabled = true;
+
+            }
+            else if (RcbProductCategory.SelectedItem.Text == "NCD" && rcbProductType.SelectedItem.Text == "Bond")
+            {
+                rcbMode.Items.FindItemByValue("1").Enabled = true;
+                rcbMode.Items.FindItemByValue("2").Enabled = true;
+                rcbMode.Items.FindItemByValue("0").Enabled = true;
+
+            }
+            tdIssueName.Visible = true;
+            tdlblIssueName.Visible = true;
+            BindIssueName();
+            
 
         }
         protected void rcbMode_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
