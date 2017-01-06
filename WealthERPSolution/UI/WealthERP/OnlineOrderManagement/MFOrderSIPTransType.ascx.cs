@@ -515,6 +515,7 @@ namespace WealthERP.OnlineOrderManagement
                             ShowAvailableLimits();
                         }
                     }
+                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
                     
                 }
                 else if (exchangeType == "Demat")
@@ -535,7 +536,7 @@ namespace WealthERP.OnlineOrderManagement
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
                     }
                 }
-                //message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
+                
                 ShowMessage(message, msgType);
 
             }
@@ -671,7 +672,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
 
-            ds = boOnlineOrder.GetControlDetails(scheme, folio, 1);
+            ds = boOnlineOrder.GetControlDetails(scheme, folio, GetExchangeType(exchangeType));
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -694,8 +695,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlStartDate.Items.Clear();
             DateTime[] dtStartdates;
-            if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
-            else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
+            if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue, GetExchangeType(exchangeType) == 1 ? false : true);
+            else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode, GetExchangeType(exchangeType) == 1 ? false : true);
             DateTime currentDate = DateTime.Now;
             foreach (DateTime d in dtStartdates)
                 if (d.Date != currentDate.Date)
@@ -716,11 +717,11 @@ namespace WealthERP.OnlineOrderManagement
             BindStartDates();
             BindTotalInstallments();
             ShowHideControlsForDivAndGrowth();
-            BindSipDetOnFreqSel(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
+            BindSipDetOnFreqSel(ddlScheme.SelectedValue, ddlFrequency.SelectedValue,GetExchangeType(exchangeType)==1?false:true);
         }
-        protected void BindSipDetOnFreqSel(string schemeId, string freq)
+        protected void BindSipDetOnFreqSel(string schemeId, string freq,bool IsDemat)
         {
-            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
+            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq, IsDemat);
 
             if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count == 0) return;
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
