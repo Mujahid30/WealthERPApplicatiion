@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
-            if ((Session["BackOfficeUserId"].ToString() != null) && (Session["BackOfficeUserId"].ToString() != ""))
+            if (System.Web.HttpContext.Current.Session["BackOfficeUserId"] != null)
             {
                 BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
             }

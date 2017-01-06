@@ -65,7 +65,7 @@ namespace WealthERP.OnlineOrderManagement
             RadInformation.VisibleOnPageLoad = false;
             rwTermsCondition.VisibleOnPageLoad = false;
             TimeSpan now = DateTime.Now.TimeOfDay;
-            if ((Session["BackOfficeUserId"].ToString() != null) && (Session["BackOfficeUserId"].ToString() != ""))
+            if (System.Web.HttpContext.Current.Session["BackOfficeUserId"] != null)
             {
                 BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
             }

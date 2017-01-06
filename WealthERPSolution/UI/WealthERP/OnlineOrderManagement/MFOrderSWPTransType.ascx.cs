@@ -72,7 +72,7 @@ namespace WealthERP.OnlineOrderManagement
                 custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
             }
             divValidationError.Visible = false;
-            if ((Session["BackOfficeUserId"].ToString() != null) && (Session["BackOfficeUserId"].ToString() != ""))
+            if (System.Web.HttpContext.Current.Session["BackOfficeUserId"] != null)
             {
                 BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
             }

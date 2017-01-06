@@ -58,15 +58,17 @@ namespace WealthERP.OnlineOrderManagement
             OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
-            Session["OrderId"] = OrderId;
-            if ((Session["BackOfficeUserId"].ToString() != null) && (Session["BackOfficeUserId"].ToString() != ""))
+            Session["OrderId"] = OrderId; 
+            if (System.Web.HttpContext.Current.Session["BackOfficeUserId"] != null)
             {
                 BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
+
             }
             else
             {
                 BackOfficeUserId = 0;
             }
+                       
             RadInformation.VisibleOnPageLoad = false;
             TimeSpan now = DateTime.Now.TimeOfDay;
             if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
