@@ -33,7 +33,7 @@ namespace WealthERP.Alerts
                 ddlAssetGroupName1.DataTextField = "Name";
                 ddlAssetGroupName1.DataBind();
                 ddlAssetGroupName1.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
-                ddlAssetGroupName1.Items.Insert(4, new System.Web.UI.WebControls.ListItem("Welcome Letter", "WL"));
+                ddlAssetGroupName1.Items.Insert(ds.Tables[1].Rows.Count+1, new System.Web.UI.WebControls.ListItem("Welcome Letter", "WL"));
                 Panel1.Visible = false;
                 pnlWelcomeLetter.Visible = false;
             }
