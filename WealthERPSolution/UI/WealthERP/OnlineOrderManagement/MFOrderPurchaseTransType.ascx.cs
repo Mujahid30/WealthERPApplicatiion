@@ -45,6 +45,7 @@ namespace WealthERP.OnlineOrderManagement
         string schemeName = string.Empty;
         string amcName = string.Empty;
         int scheme;
+        int BackOfficeUserId;
         string schemeDividendOption;
         string exchangeType = string.Empty;
         int debitstatus = 0;
@@ -58,6 +59,14 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
+            if (Session["BackOfficeUserId"].ToString() != null)
+            {
+                BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
+            }
+            else
+            {
+                BackOfficeUserId = 0;
+            }
             RadInformation.VisibleOnPageLoad = false;
             TimeSpan now = DateTime.Now.TimeOfDay;
             if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
@@ -68,11 +77,11 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
                     return;
                 }
-                if (!(now >= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeOpTime"]) && now <= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeEnTime"])))
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
-                    return;
-                }
+                //if (!(now >= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeOpTime"]) && now <= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeEnTime"])))
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvwewv", "LoadTransactPanel('MFOnlineSchemeManager')", true);
+                //    return;
+                //}
             }
             int TOcpmaretime = int.Parse(DateTime.Now.ToShortTimeString().Split(':')[0]);
             if (TOcpmaretime >= int.Parse(ConfigurationSettings.AppSettings["START_TIME"]) && TOcpmaretime < int.Parse(ConfigurationSettings.AppSettings["END_TIME"]))
@@ -85,6 +94,7 @@ namespace WealthERP.OnlineOrderManagement
                 exchangeType = Session["ExchangeMode"].ToString();
             else
                 exchangeType = "Online";
+           
             if (!IsPostBack)
             {
                 BindKYCDetailDDl();
@@ -438,6 +448,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void OnClick_Submit(object sender, EventArgs e)
         {
+           
             confirmMessage.Text = onlineMforderBo.GetOnlineOrderUserMessage("EUIN");
             string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
@@ -446,6 +457,8 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
+           
+ 
             commonLookupBo.GetSchemeAMCSchemeCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out categoryname, out amcName, out schemeName, out  IsSIPAvaliable, out  IspurchaseAvaliable, out  IsRedeemAvaliable, exchangeType == "Online" ? 1 : 0);
 
             if (IspurchaseAvaliable == 1)
@@ -540,7 +553,7 @@ namespace WealthERP.OnlineOrderManagement
                 onlinemforderVo.OrderType = 1;
                 if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
                 {
-                    OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                    OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, (BackOfficeUserId != 0) ? BackOfficeUserId:userVo.UserId  , customerVo.CustomerId);
                     OrderId = int.Parse(OrderIds[0].ToString());
 
                     if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))

@@ -68,13 +68,13 @@ namespace WealthERP.Advisor
                 rmVo = (RMVo)Session["rmVo"];
                 if (!string.IsNullOrEmpty(customerVo.AccountId))
                 {
-                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=MF&x-Account-ID=" + customerVo.AccountId.ToString();
+                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=MF&BackOfficeuserId="+userVo.UserId +"&x-Account-ID=" + customerVo.AccountId.ToString() ;
                     btnOnlineOrder.ToolTip = "Click here for MF online Order";
 
-                    btnNCDOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=NCD&x-Account-ID=" + customerVo.AccountId.ToString();
+                    btnNCDOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=NCD&BackOfficeuserId=" + userVo.UserId + "&x-Account-ID=" + customerVo.AccountId.ToString();
                     btnNCDOnline.ToolTip = "Click here for NCD online Order";
 
-                    btnIPOOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=IPO&x-Account-ID=" + customerVo.AccountId.ToString();
+                    btnIPOOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=IPO&BackOfficeuserId=" + userVo.UserId + "&x-Account-ID=" + customerVo.AccountId.ToString();
                     btnIPOOnline.ToolTip = "Click here for IPO online Order";
                 }
                 else
@@ -982,7 +982,7 @@ namespace WealthERP.Advisor
         //                        }
         //                    }
 
-        //                }
+        //                } 
         //            }
         //        }
         //    }

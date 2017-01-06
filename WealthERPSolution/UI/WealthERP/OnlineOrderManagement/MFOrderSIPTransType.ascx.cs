@@ -57,6 +57,7 @@ namespace WealthERP.OnlineOrderManagement
         string clientMFAccessCode = string.Empty;
         int debitstatus = 0;
         string exchangeType = string.Empty;
+        int BackOfficeUserId;
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -75,6 +76,14 @@ namespace WealthERP.OnlineOrderManagement
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
             RadInformation.VisibleOnPageLoad = false;
             TimeSpan now = DateTime.Now.TimeOfDay;
+            if (Session["BackOfficeUserId"].ToString() != null)
+            {
+                BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
+            }
+            else
+            {
+                BackOfficeUserId = 0;
+            }
             if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
             {
                 CommonLookupBo boCommon = new CommonLookupBo();
@@ -458,6 +467,10 @@ namespace WealthERP.OnlineOrderManagement
             int amcCode = 0;
             string category = string.Empty;
             int isSipAvaliable = 0;
+           
+            //HttpRequest request = HttpContext.Current.Request;
+            //string q= request.UserHostAddress;
+           
             commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable, exchangeType == "Online" ? 1 : 0);
 
             if (isSipAvaliable == 1)
@@ -499,7 +512,7 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         SaveOrderDetails();
                         onlineMFOrderVo.ModeTypeCode = "RSIP";
-                        sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                        sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, (BackOfficeUserId != 0) ? BackOfficeUserId:userVo.UserId);
                         OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
 

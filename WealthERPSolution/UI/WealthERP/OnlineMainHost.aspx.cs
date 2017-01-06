@@ -78,7 +78,12 @@ namespace WealthERP
                 if (Request.QueryString["WERP"] != null)
                     isWerp = Request.QueryString["WERP"];
 
+                if (isWerp == "CustomerDrillDown")
+                {
 
+                    Session["BackOfficeUserId"] = Request.QueryString["BackOfficeuserId"];
+
+                }
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
                     if (string.IsNullOrEmpty(productType))
@@ -431,6 +436,7 @@ namespace WealthERP
             {
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 userVo = userBo.GetUserAccountDetails(userAccountId, advisorVo.advisorId);
+                
             }
 
             if (!string.IsNullOrEmpty(isWerp))
@@ -824,14 +830,14 @@ namespace WealthERP
                     return;
                 }
 
-                if (!(now >= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeOpTime"]) && now <= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeEnTime"])))
-                {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
-                }
+                //if (!(now >= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeOpTime"]) && now <= TimeSpan.Parse(ConfigurationSettings.AppSettings["BSETradeEnTime"])))
+                //{
+                //    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOnlineSchemeManager');", true);
+                //}
+                //else
+                //{
+                //    ScriptManager.RegisterStartupScript(this, typeof(Page), "LoadBottomPanelFromBlocking", "LoadTransactPanel('MFOrderPurchaseTransType');", true);
+                //}
             }
             else if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Online")
             {

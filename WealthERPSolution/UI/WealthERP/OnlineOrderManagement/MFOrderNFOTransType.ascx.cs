@@ -41,6 +41,8 @@ namespace WealthERP.OnlineOrderManagement
         string clientMFAccessCode = string.Empty;
         string exchangeType = string.Empty;
         int debitstatus = 0;
+        int BackOfficeUserId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -50,6 +52,14 @@ namespace WealthERP.OnlineOrderManagement
             Session["OrderId"] = OrderId;
             RadInformation.VisibleOnPageLoad = false;
             TimeSpan now = DateTime.Now.TimeOfDay;
+            if (Session["BackOfficeUserId"].ToString() != null)
+            {
+                BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
+            }
+            else
+            {
+                BackOfficeUserId = 0;
+            }
             if (Session["ExchangeMode"] != null && Session["ExchangeMode"].ToString() == "Demat")
             {
                 CommonLookupBo boCommon = new CommonLookupBo();
@@ -416,11 +426,8 @@ namespace WealthERP.OnlineOrderManagement
 
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                if (exchangeType == "Online")
-                {
-                    onlinemforderVo.OrderType = 1;
-                    OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-                    OrderId = int.Parse(OrderIds[0].ToString());
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId, customerVo.CustomerId);
+                OrderId = int.Parse(OrderIds[0].ToString());
 
                     if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                     {

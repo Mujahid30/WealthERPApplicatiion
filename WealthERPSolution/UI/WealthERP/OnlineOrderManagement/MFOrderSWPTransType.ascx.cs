@@ -56,6 +56,7 @@ namespace WealthERP.OnlineOrderManagement
         DataTable dtFrequency;
         string clientMFAccessCode = string.Empty;
         string subcategory = string.Empty;
+        int BackOfficeUserId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -71,7 +72,14 @@ namespace WealthERP.OnlineOrderManagement
                 custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
             }
             divValidationError.Visible = false;
-
+            if (Session["BackOfficeUserId"].ToString() != null)
+            {
+                BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
+            }
+            else
+            {
+                BackOfficeUserId = 0;
+            }
             if (!IsPostBack)
             {
                 clientMFAccessCode = boOnlineOrder.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -440,7 +448,7 @@ namespace WealthERP.OnlineOrderManagement
                 //if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
                 //{
                     SaveOrderDetails();
-                    sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                    sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId);
                     OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
                     sipId = int.Parse(sipOrderIds["SIPId"].ToString());
 

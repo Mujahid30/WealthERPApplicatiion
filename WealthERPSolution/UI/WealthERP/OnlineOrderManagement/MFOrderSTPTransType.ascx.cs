@@ -35,6 +35,8 @@ namespace WealthERP.OnlineOrderManagement
         string path;
         int OrderId;
         string clientMFAccessCode = string.Empty;
+        int BackOfficeUserId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -42,6 +44,14 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;
+            if (Session["BackOfficeUserId"].ToString() != null)
+            {
+                BackOfficeUserId = Convert.ToInt32(Session["BackOfficeUserId"]);
+            }
+            else
+            {
+                BackOfficeUserId = 0;
+            }
             if (!IsPostBack)
             {
                 clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
@@ -491,7 +501,7 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo[1].TransactionType = "SI";
             string message = string.Empty;
             lsonlinemforder.Add(onlinemforderVo[1]);
-            OrderIds = onlineMforderBo.CreateOnlineMFSwitchOrderDetails(lsonlinemforder, userVo.UserId, customerVo.CustomerId);
+            OrderIds = onlineMforderBo.CreateOnlineMFSwitchOrderDetails(lsonlinemforder, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
             char msgType = 's';
             ShowMessage(message, msgType);
