@@ -759,7 +759,7 @@ namespace WealthERP.OnlineOrderManagement
 
             if (strAction != "Edit" && Convert.ToInt32(ddlScheme.SelectedValue) != 0)
             {
-                dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
+                dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue,false);
                 //else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
 
                 foreach (DateTime d in dtStartdates) ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
@@ -784,7 +784,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindSipDetOnFreqSel(string schemeId, string freq)
         {
-            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
+            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq,false);
 
             if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count == 0) return;
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
