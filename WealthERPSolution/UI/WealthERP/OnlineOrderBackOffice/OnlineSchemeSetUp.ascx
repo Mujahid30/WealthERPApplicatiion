@@ -638,9 +638,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtACno" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <div id="dvsp11" runat="server" visible="false">
                 <span id="Span11" class="spnRequiredField">*</span>
-                </div>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtACno" EnableClientScript="true" runat="server"
                     ErrorMessage="Please Enter A/C no" ValidationGroup="btnsubmit" CssClass="rfvPCG"
