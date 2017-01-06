@@ -204,6 +204,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlMFHoldingRecons.Visible = false;
                 DataTable dtMFHoldingReconSync = new DataTable();
                 dtMFHoldingReconSync = OnlineOrderMISBo.GetMFHoldingReconAfterSync(int.Parse(ddlIssue.SelectedValue), Convert.ToDateTime(txtTo.SelectedDate), int.Parse(ddlType.SelectedValue), int.Parse(ddlDifference.SelectedValue), int.Parse(ddlAMC.SelectedValue), isSync);
+               
+               
+               
                 if (dtMFHoldingReconSync.Rows.Count > 0)
                 {
                     if (Cache["MFHoldingMIS" + userVo.UserId] == null)
@@ -225,6 +228,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemNAVDate").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemAUM").Display = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = true;
+                   
+
+                   
+                    
                 }
 
             }
@@ -244,6 +251,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
+       
         protected void gvMFHoldinfRecon_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
@@ -288,6 +296,8 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnFilter_OnClick(object sender, EventArgs e)
         {
             BindMFHoldingReconAfterSync(false);
+            gvMFHoldinfRecon.MasterTableView.GetColumn("SystemInvestorName").Visible = true;
+            gvMFHoldinfRecon.MasterTableView.GetColumn("SystemPan").Visible = true;
         }
 
 
