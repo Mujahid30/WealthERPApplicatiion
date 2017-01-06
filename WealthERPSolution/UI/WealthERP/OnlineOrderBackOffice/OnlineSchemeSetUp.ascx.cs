@@ -1743,13 +1743,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (Request.QueryString["Mode"] == "1")
             {
                 rbtnBSE.Enabled = false;
-                rbtnRTA.Enabled = true;
+                rbtnRTA.Enabled = false;
             }
 
             else
             {
-                rbtnBSE.Enabled = true;
-                rbtnRTA.Enabled = true;
+                rbtnBSE.Enabled = false;
+                rbtnRTA.Enabled = false;
             }
             btnsubmit.Visible = false;
             btnupdate.Visible = true;
@@ -3056,6 +3056,7 @@ namespace WealthERP.OnlineOrderBackOffice
             lblESSchemecode.Visible = true;
             txtESSchemecode.Visible = true;
             ddlDFrequency.SelectedValue = "0";
+            
             ControlEditSubmit();
 
         }

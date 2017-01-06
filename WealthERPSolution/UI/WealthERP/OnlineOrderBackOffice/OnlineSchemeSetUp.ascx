@@ -568,7 +568,7 @@
                 <span id="Span5" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="ISIN PayOut"
-                    CssClass="rfvPCG" ControlToValidate="txtPay" ValidationGroup="btnbasicsubmit"
+                    CssClass="rfvPCG" ControlToValidate="txtPay" ValidationGroup="btnsubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
             <td id="tdPayOurExternalCode" runat="server" visible="false">
@@ -579,7 +579,7 @@
                 <span id="Span12" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="PayOut External Code"
-                    CssClass="rfvPCG" ControlToValidate="txtpayOutExtCode" ValidationGroup="btnbasicsubmit"
+                    CssClass="rfvPCG" ControlToValidate="txtpayOutExtCode" ValidationGroup="btnsubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
@@ -592,7 +592,7 @@
                 <span id="Span23" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="ISIN Reinvestment"
-                    CssClass="rfvPCG" ControlToValidate="TextINV" ValidationGroup="btnbasicsubmit"
+                    CssClass="rfvPCG" ControlToValidate="TextINV" ValidationGroup="btnsubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
             <td id="tdlblDInv" runat="server" visible="false">
@@ -603,7 +603,7 @@
                 <span id="Span24" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Reinvestment External Code"
-                    CssClass="rfvPCG" ControlToValidate="txtReInv" ValidationGroup="btnbasicsubmit"
+                    CssClass="rfvPCG" ControlToValidate="txtReInv" ValidationGroup="btnsubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
@@ -638,7 +638,9 @@
             </td>
             <td>
                 <asp:TextBox ID="txtACno" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                <div id="dvsp11" runat="server" visible="false">
                 <span id="Span11" class="spnRequiredField">*</span>
+                </div>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtACno" EnableClientScript="true" runat="server"
                     ErrorMessage="Please Enter A/C no" ValidationGroup="btnsubmit" CssClass="rfvPCG"
