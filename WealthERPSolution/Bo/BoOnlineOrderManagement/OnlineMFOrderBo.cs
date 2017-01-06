@@ -198,13 +198,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
-        public DataSet GetSipDetails(int SchemeId, string frequency)
+        public DataSet GetSipDetails(int SchemeId, string frequency,bool IsDemat)
         {
             DataSet dsSipDetails = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSipDetails = OnlineMFOrderDao.GetSipDetails(SchemeId, frequency);
+                dsSipDetails = OnlineMFOrderDao.GetSipDetails(SchemeId, frequency, IsDemat);
             }
             catch (BaseApplicationException Ex)
             {
@@ -231,7 +231,7 @@ namespace BoOnlineOrderManagement
         /// <param name="schemePlanCode"></param>
         /// <param name="sipFreqCode"></param>
         /// <returns></returns>
-        public DateTime[] GetSipStartDates(int schemePlanCode, string sipFreqCode)
+        public DateTime[] GetSipStartDates(int schemePlanCode, string sipFreqCode, bool IsDemat)
         {
             DataSet dsSipDetails = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
@@ -239,7 +239,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                dsSipDetails = OnlineMFOrderDao.GetSipDetails(schemePlanCode, sipFreqCode);
+                dsSipDetails = OnlineMFOrderDao.GetSipDetails(schemePlanCode, sipFreqCode, IsDemat);
                 if (dsSipDetails == null) return lstSipStartDates.ToArray();
 
                 string sipStartDates = dsSipDetails.Tables[0].Rows[0]["PASPSD_StatingDates"].ToString();
@@ -775,6 +775,7 @@ namespace BoOnlineOrderManagement
             int rmsId = 0;
             string uniqueRefNo;
             sipOrderIds = null;
+            
                        
             try
             {
