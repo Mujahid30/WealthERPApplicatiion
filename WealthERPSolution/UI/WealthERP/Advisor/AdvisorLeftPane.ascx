@@ -441,8 +441,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Product Mobilization" Value="Product_Mobilization">
-                                            </telerik:RadPanelItem>
+                                            
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MIS_MF">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF DashBoard" Value="MFDashBoard" Vissble="true">
