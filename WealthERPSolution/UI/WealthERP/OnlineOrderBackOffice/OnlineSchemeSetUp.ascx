@@ -614,7 +614,7 @@
             <td>
                 <asp:DropDownList ID="ddlBname" runat="server" CssClass="cmbField" AutoPostBack="false">
                 </asp:DropDownList>
-                <span id="Span9" class="spnRequiredField">*</span>
+                 <asp:Label ID ="lblBankName" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlBname" runat="server" ErrorMessage="Please Select Bank Name"
                     CssClass="rfvPCG" ControlToValidate="ddlBname" Enabled="false" ValidationGroup="btnsubmit" Display="Dynamic"
@@ -625,7 +625,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtBranch" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span10" class="spnRequiredField">*</span>
+                <asp:Label ID ="lbBranch" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtBranch" runat="server" ErrorMessage="Please Enter Bank Branch"
                     CssClass="rfvPCG" ControlToValidate="txtBranch" EnableClientScript="true" Enabled="false" ValidationGroup="btnsubmit"
@@ -638,7 +638,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtACno" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span11" class="spnRequiredField">*</span>
+                <asp:Label ID ="lblAno" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtACno" EnableClientScript="true" runat="server"
                     ErrorMessage="Please Enter A/C no" ValidationGroup="btnsubmit" CssClass="rfvPCG"
@@ -657,7 +657,8 @@
             </td>
             <td>
                 <asp:TextBox ID="txtLIperiod" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <%-- <span id="Span23" class="spnRequiredField">*</span>
+                <span id="Span23" class="spnRequiredField">*</span>
+                
                     <br />
                     <asp:RequiredFieldValidator ID="rfvtxtLIperiod" runat="server" ErrorMessage="Please Enter Lock in period"
                         CssClass="rfvPCG" ControlToValidate="txtLIperiod" ValidationGroup="btnsubmit"
@@ -665,7 +666,7 @@
                     <asp:RegularExpressionValidator ID="regtxtLIperiod" ControlToValidate="txtLIperiod"
                         runat="server" ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG"
                         ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>--%>
+                    </asp:RegularExpressionValidator>
             </td>
             <td align="right">
                 <asp:Label ID="lblCOtime" runat="server" Text="Cut Off Time:" CssClass="FieldName"></asp:Label>
@@ -744,7 +745,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtEload" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span14" class="spnRequiredField">*</span>
+               <asp:Label ID ="lblEntryLoad" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtEload" runat="server" ErrorMessage="Please Enter Entry Load"
                     CssClass="rfvPCG" ControlToValidate="txtEload" ValidationGroup="btnsubmit" Enabled="false" Display="Dynamic"
@@ -759,7 +760,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtELremark" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span15" class="spnRequiredField">*</span>
+                 <asp:Label ID ="lblERemarks" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtELremark" ValidationGroup="btnsubmit" runat="server"
                     ErrorMessage="Please Enter Load Remark" Enabled="false" CssClass="rfvPCG" ControlToValidate="txtELremark"
@@ -772,7 +773,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtExitLoad" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span16" class="spnRequiredField">*</span>
+                <asp:Label ID ="lablExitLaod" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtExitLoad" ValidationGroup="btnsubmit" runat="server"
                     ErrorMessage="Please Enter Exit Load" Enabled="false" CssClass="rfvPCG" ControlToValidate="txtExitLoad"
@@ -787,7 +788,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtExitLremark" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <span id="Span25" class="spnRequiredField">*</span>
+                <asp:Label ID ="lblExitLoadRemarks" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtExitLremark" ValidationGroup="btnsubmit" runat="server"
                     ErrorMessage="Please Enter Exit Load Remark" Enabled="false" CssClass="rfvPCG" ControlToValidate="txtExitLremark"

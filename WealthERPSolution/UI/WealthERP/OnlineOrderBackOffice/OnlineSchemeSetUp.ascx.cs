@@ -42,20 +42,20 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
 
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             if (!IsPostBack)
             {
-                
+
                 BindAMC();
                 BindCategory();
                 BindBankName();
                 BindFrequency();
                 Bindscheme(schemeplancode);
-                
+
                 BindSchemeLoockUpType();
                 if (Request.QueryString["SchemePlanCode"] != null)
                 {
@@ -949,6 +949,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtPay.Text = mfProductAMCSchemePlanDetailsVo.DVPISIN;
                         TextINV.Text = mfProductAMCSchemePlanDetailsVo.DVRISIN;
                         txtReInv.Text = mfProductAMCSchemePlanDetailsVo.DVRExternalCode;
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
                     }
                     else if (ddlDFrequency.SelectedValue == "DVR" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
                     {
@@ -959,6 +966,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         tdtxtDInv.Visible = false;
                         TextINV.Text = mfProductAMCSchemePlanDetailsVo.DVRISIN;
                         txtReInv.Text = mfProductAMCSchemePlanDetailsVo.DVRExternalCode;
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
                     }
                     else if (ddlDFrequency.SelectedValue == "DVP" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
                     {
@@ -969,7 +983,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         tdtxtPayExternalCode.Visible = false;
                         txtpayOutExtCode.Text = mfProductAMCSchemePlanDetailsVo.DVPExternalCode;
                         txtPay.Text = mfProductAMCSchemePlanDetailsVo.DVPISIN;
-
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
                     }
                 }
                 else if (ddlOption.SelectedValue == "GR" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
@@ -980,6 +1000,13 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtESSchemecode.Visible = true;
                     lblESSchemecode.Visible = true;
                     txtPay.Text = mfProductAMCSchemePlanDetailsVo.DVPISIN;
+                    lblBankName.Visible = false;
+                    lbBranch.Visible = false;
+                    lblAno.Visible = false;
+                    lblEntryLoad.Visible = false;
+                    lblERemarks.Visible = false;
+                    lablExitLaod.Visible = false;
+                    lblExitLoadRemarks.Visible = false;
                 }
 
             }
@@ -1352,6 +1379,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtReInv.Text = mfProductAMCSchemePlanDetailsVo.DVRExternalCode;
                         txtESSchemecode.Visible = false;
                         lblESSchemecode.Visible = false;
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
                     }
                     else if (ddlDFrequency.SelectedValue == "DVR" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
                     {
@@ -1364,6 +1398,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtReInv.Text = mfProductAMCSchemePlanDetailsVo.DVRExternalCode;
                         txtESSchemecode.Visible = false;
                         lblESSchemecode.Visible = false;
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
                     }
                     else if (ddlDFrequency.SelectedValue == "DVP" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
                     {
@@ -1376,6 +1417,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtPay.Text = mfProductAMCSchemePlanDetailsVo.DVPISIN;
                         txtESSchemecode.Visible = false;
                         lblESSchemecode.Visible = false;
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
 
                     }
                     else if (ddlOption.SelectedValue == "GR" && mfProductAMCSchemePlanDetailsVo.BSE == 1)
@@ -1385,6 +1433,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         tdtxtpay.Visible = true;
                         txtESSchemecode.Visible = true;
                         lblESSchemecode.Visible = true;
+                        lblBankName.Visible = false;
+                        lbBranch.Visible = false;
+                        lblAno.Visible = false;
+                        lblEntryLoad.Visible = false;
+                        lblERemarks.Visible = false;
+                        lablExitLaod.Visible = false;
+                        lblExitLoadRemarks.Visible = false;
                     }
                 }
             }
@@ -1900,8 +1955,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnsubmit_click(object sender, EventArgs e)
         {
-            
-            
+
+
 
             if (!string.IsNullOrEmpty(txtESSchemecode.Text) && !string.IsNullOrEmpty(ddlAmc.SelectedValue) && chkBSE.Checked == false)
             {
@@ -2363,7 +2418,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 userMessage = "Scheme Updated successfully";
             }
             return userMessage;
-            
+
 
         }
         private void ShowMessage(string msg)
@@ -3056,7 +3111,7 @@ namespace WealthERP.OnlineOrderBackOffice
             lblESSchemecode.Visible = true;
             txtESSchemecode.Visible = true;
             ddlDFrequency.SelectedValue = "0";
-            
+
             ControlEditSubmit();
 
         }
@@ -3148,6 +3203,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblESSchemecode.Visible = true;
                 txtESSchemecode.Visible = true;
 
+
             }
             else
             {
@@ -3185,6 +3241,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblESSchemecode.Visible = true;
                 txtESSchemecode.Visible = true;
                 rbtnRTA.Enabled = false;
+                lblBankName.Visible = false;
+                lbBranch.Visible = false;
+                lblAno.Visible = false;
+                lblEntryLoad.Visible = false;
+                lblERemarks.Visible = false;
+                lablExitLaod.Visible = false;
+                lblExitLoadRemarks.Visible = false;
+
+
             }
             else
             {
@@ -3192,6 +3257,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblESSchemecode.Visible = true;
                 txtESSchemecode.Visible = true;
                 rbtnRTA.Enabled = true;
+                lblBankName.Visible = true;
+                lbBranch.Visible = true;
+                lblAno.Visible = true;
+                lblEntryLoad.Visible = true;
+                lblERemarks.Visible = true;
+                lablExitLaod.Visible = true;
+                lblExitLoadRemarks.Visible = true;
             }
             if (chkRTA.Checked == true && chkBSE.Checked == true)
             {
