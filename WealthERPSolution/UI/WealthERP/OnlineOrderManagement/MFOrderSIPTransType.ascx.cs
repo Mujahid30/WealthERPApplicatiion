@@ -58,7 +58,6 @@ namespace WealthERP.OnlineOrderManagement
         int debitstatus = 0;
         string exchangeType = string.Empty;
         int BackOfficeUserId;
-
         protected void Page_Init(object sender, EventArgs e)
         {
 
@@ -147,9 +146,16 @@ namespace WealthERP.OnlineOrderManagement
                             {
                                 ShowMessage("SIP is not available", 'I'); return;
                             }
-                           
+
                             OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
-                            ddlFolio.SelectedValue = accountId.ToString();
+                            if (amcCode != 1)
+                            {
+                                ddlFolio.SelectedValue = accountId.ToString();
+                            }
+                            else
+                            {
+                                ddlFolio.SelectedValue = "1";
+                            }
                             DataViewOnEdit();
                         }
                         else
@@ -159,7 +165,7 @@ namespace WealthERP.OnlineOrderManagement
                             {
                                 ShowMessage("SIP is not available", 'I'); return;
                             }
-                          
+
                             OnDrillDownBindControlValue(amcCode, category, 0, int.Parse(Session["MFSchemePlan"].ToString()));
                             BindSchemeDividendTypes(int.Parse(Session["MFSchemePlan"].ToString()));
                         }
@@ -200,7 +206,7 @@ namespace WealthERP.OnlineOrderManagement
             BindAMCSchemes(amcCode, category);
             ddlScheme.SelectedValue = schemeCode.ToString();
             lblScheme.Text = ddlScheme.SelectedItem.Text;
-            BindSipUiOnSchemeSelection(schemeCode);
+            BindSipUiOnSchemeSelection(schemeCode, amcCode);
             //ddlFolio.SelectedValue = accountId.ToString();
 
         }
@@ -460,10 +466,6 @@ namespace WealthERP.OnlineOrderManagement
             int amcCode = 0;
             string category = string.Empty;
             int isSipAvaliable = 0;
-           
-            //HttpRequest request = HttpContext.Current.Request;
-            //string q= request.UserHostAddress;
-           
             commonLookupBo.GetSchemeAMCCategory(int.Parse(Session["MFSchemePlan"].ToString()), out amcCode, out category, out  isSipAvaliable, exchangeType == "Online" ? 1 : 0);
 
             if (isSipAvaliable == 1)
@@ -498,14 +500,14 @@ namespace WealthERP.OnlineOrderManagement
                 string message = string.Empty;
                 int OrderId = 0;
                 int sipId = 0;
-                char msgType='F';
+                char msgType = 'F';
                 if (exchangeType == "Online")
                 {
                     if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
                     {
                         SaveOrderDetails();
                         onlineMFOrderVo.ModeTypeCode = "RSIP";
-                        sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, (BackOfficeUserId != 0) ? BackOfficeUserId:userVo.UserId);
+                        sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId);
                         OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
 
@@ -515,8 +517,7 @@ namespace WealthERP.OnlineOrderManagement
                             ShowAvailableLimits();
                         }
                     }
-                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
-                    
+
                 }
                 else if (exchangeType == "Demat")
                 {
@@ -527,7 +528,7 @@ namespace WealthERP.OnlineOrderManagement
                     //onlineMFOrderVo.BSESchemeCode = lblDemate.Text;
                     SaveOrderDetails();
                     onlineMFOrderVo.ModeTypeCode = "BSSIP";
-                    
+
                     OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
                     message = OnlineMFOrderBo.BSESIPorderEntryParam(userVo.UserId, customerVo.CustCode, onlineMFOrderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType, out sipOrderIds);
                     if (sipOrderIds != null)
@@ -536,7 +537,7 @@ namespace WealthERP.OnlineOrderManagement
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
                     }
                 }
-                
+                //message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
                 ShowMessage(message, msgType);
 
             }
@@ -610,7 +611,7 @@ namespace WealthERP.OnlineOrderManagement
             //Reset dependent controls
             ddlFrequency.SelectedIndex = 0;
             if (ddlScheme.SelectedIndex == 0) return;
-            BindSipUiOnSchemeSelection(Convert.ToInt32(ddlScheme.SelectedValue));
+            //BindSipUiOnSchemeSelection(Convert.ToInt32(ddlScheme.SelectedValue));
 
         }
 
@@ -672,7 +673,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
 
-            ds = boOnlineOrder.GetControlDetails(scheme, folio, GetExchangeType(exchangeType));
+            ds = boOnlineOrder.GetControlDetails(scheme, folio, 1);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -695,8 +696,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlStartDate.Items.Clear();
             DateTime[] dtStartdates;
-            if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue, GetExchangeType(exchangeType) == 1 ? false : true);
-            else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode, GetExchangeType(exchangeType) == 1 ? false : true);
+            if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
+            else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
             DateTime currentDate = DateTime.Now;
             foreach (DateTime d in dtStartdates)
                 if (d.Date != currentDate.Date)
@@ -717,11 +718,11 @@ namespace WealthERP.OnlineOrderManagement
             BindStartDates();
             BindTotalInstallments();
             ShowHideControlsForDivAndGrowth();
-            BindSipDetOnFreqSel(ddlScheme.SelectedValue, ddlFrequency.SelectedValue,GetExchangeType(exchangeType)==1?false:true);
+            BindSipDetOnFreqSel(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
         }
-        protected void BindSipDetOnFreqSel(string schemeId, string freq,bool IsDemat)
+        protected void BindSipDetOnFreqSel(string schemeId, string freq)
         {
-            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq, IsDemat);
+            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
 
             if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count == 0) return;
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
@@ -781,14 +782,14 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void BindSipUiOnSchemeSelection(int schemeCode)
+        protected void BindSipUiOnSchemeSelection(int schemeCode, int amcCode)
         {
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequency.SelectedValue.ToString(), "SIP", GetExchangeType(exchangeType));
 
             SetLatestNav();
             BindFrequency();
             BindAllControlsWithSIPData();
-            BindFolioNumber(schemeCode);
+            BindFolioNumber(schemeCode, amcCode);
         }
 
         protected void BindFrequency()
@@ -873,7 +874,7 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        private void BindFolioNumber(int amcCode)
+        private void BindFolioNumber(int schemeCode, int amcCode)
         {
             ddlFolio.Items.Clear();
             if (ddlAmc.SelectedIndex == 0) return;
@@ -882,18 +883,21 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtgetfolioNo;
             try
             {
-                if (strAction != "Edit")
-                    dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, amcCode, exchangeType == "Online" ? 1 : 0);
-                //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
-                else
-                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId, 0);
-
-                if (dtgetfolioNo.Rows.Count > 0)
+                if (amcCode != 1)
                 {
-                    ddlFolio.DataSource = dtgetfolioNo;
-                    ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
-                    ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
-                    ddlFolio.DataBind();
+                    if (strAction != "Edit")
+                        dtgetfolioNo = boOnlineOrder.GetCustomerFolioSchemeWise(customerVo.CustomerId, schemeCode, exchangeType == "Online" ? 1 : 0);
+                    //commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                    else
+                        dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId, 0);
+
+                    if (dtgetfolioNo.Rows.Count > 0)
+                    {
+                        ddlFolio.DataSource = dtgetfolioNo;
+                        ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
+                        ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                        ddlFolio.DataBind();
+                    }
                 }
                 ddlFolio.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
                 //ddlFolio.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
