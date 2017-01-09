@@ -3289,23 +3289,23 @@ namespace DaoAdvisorProfiling
                     //    }
                     //}
 
-                    if (getCustomerDs.Tables[2].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
-                        {
-                            if (dr["RMName"].ToString().Trim() != "")
-                            {
-                                genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
-                            }
-                        }
-                    }
-                    if (getCustomerDs.Tables[3].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
-                        {
-                            genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
-                        }
-                    }
+                    //if (getCustomerDs.Tables[2].Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow dr in getCustomerDs.Tables[2].Rows)
+                    //    {
+                    //        if (dr["RMName"].ToString().Trim() != "")
+                    //        {
+                    //            genDictRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                    //        }
+                    //    }
+                    //}
+                    //if (getCustomerDs.Tables[3].Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow dr in getCustomerDs.Tables[3].Rows)
+                    //    {
+                    //        genDictReassignRM.Add(dr["RMId"].ToString(), dr["RMName"].ToString());
+                    //    }
+                    //}
                 }
                 // if (UserRole == "advisor")
                 // {
