@@ -9,7 +9,7 @@
     }
 </style>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-</asp:ScriptManager>
+</asp:ScriptManager> 
 
 <script type="text/javascript">
     function openpopupSchemeSetUp() {

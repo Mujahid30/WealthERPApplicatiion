@@ -53,7 +53,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindAMC();
                 BindCategory();
                 BindBankName();
-                BindFrequency();
+                BindFrequency(); 
                 Bindscheme(schemeplancode);
 
                 BindSchemeLoockUpType();
