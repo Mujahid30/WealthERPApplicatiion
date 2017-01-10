@@ -513,7 +513,7 @@ namespace WealthERP.Uploads
 
                 newFileName = uploadFilePath + newFileName;
                 //   packagePath = Server.MapPath("\\UploadPackages\\Integration Services Project1\\Integration Services Project1\\Package9.dtsx");
-                werpTaskRequestManagementBo.CreateTaskRequest(13, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 52, Convert.ToInt32(ddlType.SelectedValue));
+                werpTaskRequestManagementBo.CreateTaskRequest(13, userVo.UserId, out ReqId, newFileName, adviserVo.advisorId, Convert.ToInt32(ddlRM.SelectedValue), Convert.ToInt32(ddlListBranch.SelectedValue), ddlListCompany.SelectedValue, 20, Convert.ToInt32(ddlType.SelectedValue));
 
                 if (ReqId > 0)
                 {
