@@ -696,8 +696,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             ddlStartDate.Items.Clear();
             DateTime[] dtStartdates;
-            if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
-            else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
+            if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue, GetExchangeType(exchangeType) == 1 ? false : true);
+            else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode, GetExchangeType(exchangeType) == 1 ? false : true);
             DateTime currentDate = DateTime.Now;
             foreach (DateTime d in dtStartdates)
                 if (d.Date != currentDate.Date)
@@ -722,7 +722,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindSipDetOnFreqSel(string schemeId, string freq)
         {
-            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
+            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq, GetExchangeType(exchangeType) == 1 ? false : true);
 
             if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count == 0) return;
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
