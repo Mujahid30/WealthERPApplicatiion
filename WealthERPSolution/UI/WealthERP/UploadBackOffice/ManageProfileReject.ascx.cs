@@ -71,6 +71,7 @@ namespace WealthERP.UploadBackOffice
                     rgKycRejectlist.DataBind();
                     rgKycRejectlist.Visible = true;
                     gvProfileIncreamenetReject.Visible = false;
+                    gvSIPReject.Visible = false;
                     btnDelete.Visible = false;
                     btnReProcess.Visible = false;
                     LinkButton2.Visible = false;
@@ -104,6 +105,7 @@ namespace WealthERP.UploadBackOffice
                 //}
                 if (transactionId == 3 || transactionId == 4)
                 {
+                    gvSIPReject.Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = false;
@@ -131,6 +133,7 @@ namespace WealthERP.UploadBackOffice
                 }
                 else if (transactionId == 8)
                 {
+                    gvSIPReject.Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = true;
@@ -158,6 +161,7 @@ namespace WealthERP.UploadBackOffice
                 }
                 else if (transactionId == 9 )
                 {
+                    gvSIPReject.Visible = false;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("ProductCode").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("FolioNo").Visible = true;
                     gvProfileIncreamenetReject.MasterTableView.GetColumn("BranchAdrLine1").Visible = false;
