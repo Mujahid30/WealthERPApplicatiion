@@ -537,7 +537,7 @@ namespace WealthERP.OnlineOrderManagement
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
                     }
                 }
-                //message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
+                message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
                 ShowMessage(message, msgType);
 
             }

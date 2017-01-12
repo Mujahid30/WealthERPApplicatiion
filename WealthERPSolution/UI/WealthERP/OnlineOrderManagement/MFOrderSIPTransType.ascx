@@ -112,7 +112,8 @@
             <table class="tblMessage" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center">
-                        <div id="divMessage" align="center">
+                        <div id="divMessage"  align="center">
+                      
                         </div>
                         <div style="clear: both">
                         </div>
