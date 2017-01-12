@@ -37,11 +37,7 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             txtReqDate.SelectedDate = DateTime.Now.Date.AddDays(-2);
             rdpToDate.SelectedDate = DateTime.Now.Date;
-            //tdCategory.Visible = false;
-            //radGridOrderDetails.Visible = false;
-            //rgBondsGrid.Visible = false;
-            //rgRequests.Visible = false;
-            ////pnlRequest.Visible = false;
+           
           
             if (!IsPostBack)
             {
@@ -135,6 +131,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     radGridOrderDetails.Visible = false;
                     rgRequests.Visible = true;
+                    rgRequests.CurrentPageIndex = 0;
                     rgBondsGrid.Visible = false;
                     rgRequests.DataSource = dtType;
                     rgRequests.DataBind();
