@@ -1246,7 +1246,7 @@ namespace WealthERP.CustomerPortfolio
                             ErrorMessage.Visible = false;
                             gvMFTransactionWithoutAgentCode.Visible = true;
                             btnTrnxExportMFOffLineWithoutSubbroker.Visible = true;
-                            Panel2.Visible = true;
+                            Panel2.Visible = false;
                             btnTrnxExport.Visible = false;
                         }
                         else

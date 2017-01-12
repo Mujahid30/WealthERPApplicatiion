@@ -48,7 +48,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnExportTrnxToBeMerged;
-        protected global::System.Web.UI.WebControls.ImageButton btnTrnxExportMFOffLineWithoutSubbroker;
+        
         /// <summary>
         /// gvManualMerge control.
         /// </summary>
@@ -95,6 +95,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.ImageButton btnTrnxExport;
         
         /// <summary>
+        /// btnTrnxExportMFOffLineWithoutSubbroker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnTrnxExportMFOffLineWithoutSubbroker;
+        
+        /// <summary>
         /// trRangeNcustomer control.
         /// </summary>
         /// <remarks>
@@ -102,29 +111,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRangeNcustomer;
-        /// <summary>
-        /// trCustomer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomer;
-              /// <summary>
-        /// trAMC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAMC;
-        /// trBtnGo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnGo;
         
         /// <summary>
         /// Label4 control.
@@ -206,6 +192,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+        
+        /// <summary>
+        /// trCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomer;
         
         /// <summary>
         /// lblAgentCode control.
@@ -331,15 +326,6 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-         protected global::System.Web.UI.WebControls.TextBox txtPansearch;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
         
         /// <summary>
@@ -352,14 +338,32 @@ namespace WealthERP.CustomerPortfolio {
         protected global::AjaxControlToolkit.AutoCompleteExtender txtClientCode_autoCompleteExtender;
         
         /// <summary>
-        /// rbtnAll control.
+        /// txtPansearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPansearch;
+        
+        /// <summary>
+        /// TextBoxWatermarkExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
+        
+        /// <summary>
+        /// txtPansearch_autoCompleteExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtPansearch_autoCompleteExtender;
-
+        
         /// <summary>
         /// rbtnAll control.
         /// </summary>
@@ -451,6 +455,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
         
         /// <summary>
+        /// trAMC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAMC;
+        
+        /// <summary>
         /// lblAMC control.
         /// </summary>
         /// <remarks>
@@ -503,6 +516,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        
+        /// <summary>
+        /// trBtnGo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnGo;
         
         /// <summary>
         /// btnGo control.
