@@ -350,8 +350,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblType.Visible = true;
                 tdlblAMC.Visible = false;
                 tdddlAMC.Visible = false;
-                pnlCustomerDetails.Visible = true;
+               
                 pnlFATCA.Visible = false;
+                //pnlCustomerDetails.Visible = true;
                 pnlOrderReport.Visible = false;
                 ddlType.Visible = true;
                 
@@ -368,7 +369,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblType.Visible = true;
                 tdlblAMC.Visible = false;
                 tdddlAMC.Visible = false;
-                pnlCustomerDetails.Visible = true;
                 pnlFATCA.Visible = false;
                 pnlOrderReport.Visible = false;
                 ddlType.Visible = true;
@@ -376,6 +376,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlType.Items.FindByValue("EMIS").Enabled = false;
                 ddlType.Items.FindByValue("AMC").Enabled = false;
                 ddlType.Items.FindByValue("RNT").Enabled = false;
+                //pnlCustomerDetails.Visible = true;
+
                 if (ddlOrderType.SelectedValue == "KA")
                 {
                     ddlType.Items.FindByValue("FCD").Enabled = true;
@@ -466,6 +468,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         public void AutoOrderExtract()
         {
+           
             if (txtFromDate.SelectedDate != null)
                 fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
             if (txtToDate.SelectedDate != null)
@@ -491,6 +494,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 Response.TransmitFile(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 Response.End();
+               
 
         }       
         protected void Go_OnClick(object sender, EventArgs e)
@@ -505,6 +509,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (ddlType.SelectedValue == "FCS" || ddlType.SelectedValue == "FCD")
             {
+                pnlCustomerDetails.Visible = true;
                 AutoOrderExtract();
             }
         }
