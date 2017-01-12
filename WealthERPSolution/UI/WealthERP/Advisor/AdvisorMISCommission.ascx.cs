@@ -37,27 +37,11 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             if (!Page.IsPostBack)
             {
-                BindBondCategories();
                 BindProduct();
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
-                if (RcbProductCategory.SelectedItem.Text == "Company Fixed Deposits" && rcbProductType.SelectedItem.Text == "Bond")
-                {
-                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
-                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
-                }
-                else if (RcbProductCategory.SelectedItem.Text == "54 EC bonds" && rcbProductType.SelectedItem.Text == "Bond")
-                {
-                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Online"));
-                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
-                }
-                else if (RcbProductCategory.SelectedItem.Text == "Sovereign Gold Bond" && rcbProductType.SelectedItem.Text == "Bond")
-                {
-                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("All"));
-                    rcbMode.Items.Remove(rcbMode.Items.FindItemByText("Offline"));
-
-                }
+               
 
             }
 
@@ -455,21 +439,21 @@ namespace WealthERP.Advisor
         }
         protected void btnView_Click(object sender, EventArgs e)
         {
-            if (ddlMISType.SelectedItem.Text == "AMC Wise")
+            if (ddlMISType.SelectedValue == "1")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "AMC";
             }
-            else if (ddlMISType.SelectedItem.Text == "Broker code Wise")
+            else if (ddlMISType.SelectedValue == "2")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "Broker code ";
                 gvNonMFMobilization.Columns[0].HeaderText = "Broker code";
             }
-            else if (ddlMISType.SelectedItem.Text == "Branch Wise")
+            else if (ddlMISType.SelectedValue == "3")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "Branch Wise";
                 gvNonMFMobilization.Columns[0].HeaderText = "Branch Wise";
             }
-            else if (ddlMISType.SelectedItem.Text == "Summary")
+            else if (ddlMISType.SelectedValue=="0")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "Summary";
                 gvNonMFMobilization.Columns[0].HeaderText = "Summary";
@@ -664,6 +648,8 @@ namespace WealthERP.Advisor
                 tdDdlCategory.Visible = true;
                 BindBondCategories();
                 ddlMISType.Items.FindItemByValue("1").Enabled = false;
+                ddlMISType.Items.FindItemByValue("2").Enabled = false;
+                ddlMISType.Items.FindItemByValue("3").Enabled = false;
 
             }
             else
