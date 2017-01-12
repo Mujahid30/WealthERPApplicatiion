@@ -121,11 +121,13 @@ namespace WealthERP.Alerts
                     }
                     pnlWelcomeLetter.Visible = true;
                     Panel1.Visible = false;
+                    trNoRcrdFound.Visible = false;
                     rgWelcomeLetter.DataSource = ds;
                     rgWelcomeLetter.DataBind();
                 }
                 else
                 {
+                    trNoRcrdFound.Visible = true;
                     pnlWelcomeLetter.Visible = false;
                     Panel1.Visible = false;
                 }
@@ -149,12 +151,16 @@ namespace WealthERP.Alerts
                         Cache.Insert("MessageDetails" + userVo.UserId.ToString(), ds.Tables[0]);
                     }
                     Panel1.Visible = true;
+                    trNoRcrdFound.Visible = false;
+
                     pnlWelcomeLetter.Visible = false;
                     RadGrid3.DataSource = ds;
                     RadGrid3.DataBind();
                 }
                 else
                 {
+                    trNoRcrdFound.Visible = true;
+
                     Panel1.Visible = false;
                     pnlWelcomeLetter.Visible = false;
                 }

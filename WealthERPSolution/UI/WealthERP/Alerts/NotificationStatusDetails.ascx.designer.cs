@@ -84,6 +84,8 @@ namespace WealthERP.Alerts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator8;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRcrdFound;
         
         /// <summary>
         /// Label1 control.
@@ -165,6 +167,8 @@ namespace WealthERP.Alerts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNfoEnddate;
+
+       
         
         /// <summary>
         /// txtToDate control.
@@ -192,6 +196,8 @@ namespace WealthERP.Alerts {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel1;
+
+     
 
         /// <summary>
         /// pnlWelcomeLetter control.

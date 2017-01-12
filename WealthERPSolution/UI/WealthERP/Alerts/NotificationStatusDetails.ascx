@@ -173,6 +173,16 @@
         </ClientSettings>
     </telerik:RadGrid>
 </asp:Panel>
+    
+    <table style="width: 100%" class="TableBackground">
+    <tr id="trNoRcrdFound" runat="server" visible="false">
+        <td align="center">
+            <div id="divNoRecords" runat="server" class="failure-msg" visible="true">
+                No Record Found
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="pnlWelcomeLetter" runat="server" ScrollBars="Vertical" >
     <telerik:RadGrid ID="rgWelcomeLetter" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" 
         AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" AllowAutomaticDeletes="false" AllowFilteringByColumn="true"
