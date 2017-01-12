@@ -70,6 +70,7 @@
                 <asp:ListItem Value="51">Profile And Folio</asp:ListItem>
                 <asp:ListItem Value="52">MF Transaction</asp:ListItem>
                 <asp:ListItem Value="53">MF RTA Unit Recon</asp:ListItem>
+                 <asp:ListItem Value="20">Systematic</asp:ListItem>
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span> </br>
             <asp:RequiredFieldValidator ID="ddlUploadType_RequiredFieldValidator" ControlToValidate="ddlMappingType"
