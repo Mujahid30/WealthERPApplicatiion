@@ -376,7 +376,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlType.Items.FindByValue("EMIS").Enabled = false;
                 ddlType.Items.FindByValue("AMC").Enabled = false;
                 ddlType.Items.FindByValue("RNT").Enabled = false;
-                //pnlCustomerDetails.Visible = true;
+                pnlCustomerDetails.Visible = true;
 
                 if (ddlOrderType.SelectedValue == "KA")
                 {
