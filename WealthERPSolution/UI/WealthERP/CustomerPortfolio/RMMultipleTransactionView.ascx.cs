@@ -58,7 +58,6 @@ namespace WealthERP.CustomerPortfolio
         DateTime dtFrom = new DateTime();
         static DateTime convertedFromDate = new DateTime();
         static DateTime convertedToDate = new DateTime();
-        DataTable dt = new DataTable();
         static double totalAmount = 0;
         static double totalUnits = 0;
         int PasssedFolioValue = 0;
@@ -1945,7 +1944,8 @@ namespace WealthERP.CustomerPortfolio
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
         {
 
-            ExportGrid(hdnExportType.Value);
+            DataTable dt = (DataTable)Cache["ViewBalance" + userVo.UserId + userType];
+            ExcelToExportData(dt, "View ReturnHolding Details");
         }
         protected void btnbalncExport_Click(object sender, ImageClickEventArgs e)
         {
@@ -2141,18 +2141,17 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnTrnxExportMFOffLineWithoutSubbroker_Click(object sender, ImageClickEventArgs e)
         {
-            ExcelToExportData();
+            DataTable dt = (DataTable)Cache["ViewTransactionWithoutAgent" + userVo.UserId + userType];
+            ExcelToExportData(dt,"ViewTransactions");
         }
 
-        private void ExcelToExportData()
+        private void ExcelToExportData(DataTable dt,string fileName)
         {
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "ViewTransactions.xls"));
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName+".xls"));
             Response.ContentType = "application/ms-excel";
-          
-             
-            dt = (DataTable)Cache["ViewTransactionWithoutAgent" + userVo.UserId + userType];
+           
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
