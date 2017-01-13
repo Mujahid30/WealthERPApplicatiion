@@ -58,6 +58,7 @@ namespace WealthERP.CustomerPortfolio
         DateTime dtFrom = new DateTime();
         static DateTime convertedFromDate = new DateTime();
         static DateTime convertedToDate = new DateTime();
+        DataTable dt = new DataTable();
         static double totalAmount = 0;
         static double totalUnits = 0;
         int PasssedFolioValue = 0;
@@ -2140,8 +2141,38 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnTrnxExportMFOffLineWithoutSubbroker_Click(object sender, ImageClickEventArgs e)
         {
-            ExportGrid("TVW");
+            ExcelToExportData();
+        }
 
+        private void ExcelToExportData()
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "ViewTransactions.xls"));
+            Response.ContentType = "application/ms-excel";
+          
+             
+            dt = (DataTable)Cache["ViewTransactionWithoutAgent" + userVo.UserId + userType];
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+
+
+            Response.End();
         }
     }
 }
