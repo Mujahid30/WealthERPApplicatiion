@@ -15,9 +15,9 @@
                                 <td align="left">
                                     MF Holding Recon
                                 </td>
-                                <td align="right">
-                                    <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                        Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                <td align="right" id="td1" runat="server" >
+                                    <asp:ImageButton ID="imgexportButton" visible="false"  ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                        runat="server" AlternateText="Excel" ToolTip="Export To Excel"
                                         OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                         Width="25px"></asp:ImageButton>
                                 </td>

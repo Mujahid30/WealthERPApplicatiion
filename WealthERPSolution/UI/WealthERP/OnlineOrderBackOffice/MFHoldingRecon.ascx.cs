@@ -159,7 +159,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvMFHoldinfRecon.DataBind();
                     MFHoldingRecons.Visible = true;
                     pnlMFHoldingRecons.Visible = true;
-
+                    imgexportButton.Visible = true;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SchemePlanName").Display = false;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("Diff").Display = false;
                     gvMFHoldinfRecon.MasterTableView.GetColumn("SystemUnits").Display = false;
