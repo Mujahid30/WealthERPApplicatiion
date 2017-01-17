@@ -41,7 +41,7 @@ namespace WealthERP.Advisor
                 ddlMISType.SelectedIndex = 0;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
-               
+
 
             }
 
@@ -439,6 +439,13 @@ namespace WealthERP.Advisor
         }
         protected void btnView_Click(object sender, EventArgs e)
         {
+            if (ddlMISType.SelectedValue == "0")
+            {
+                gvCommissionMIS.Columns[0].HeaderText = "Summary";
+                gvNonMFMobilization.Columns[0].HeaderText = "Summary";
+               // gvNonMFMobilization.Columns[0].Visible = false;
+            }
+
             if (ddlMISType.SelectedValue == "1")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "AMC";
@@ -453,12 +460,7 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.Columns[0].HeaderText = "Branch Wise";
                 gvNonMFMobilization.Columns[0].HeaderText = "Branch Wise";
             }
-            else if (ddlMISType.SelectedValue=="0")
-            {
-                gvCommissionMIS.Columns[0].HeaderText = "Summary";
-                gvNonMFMobilization.Columns[0].HeaderText = "Summary";
-            }
-            
+
 
 
             gvNonMFMobilization.Visible = false;
@@ -575,8 +577,8 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.ExportSettings.FileName = rcbProductType.Text + " " + txtFromDate.SelectedDate.Value.ToString("dd MMM yyyy") + "  " + txtToDate.SelectedDate.Value.ToString("dd MMM yyyy");
                 gvCommissionMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvCommissionMIS.MasterTableView.ExportToExcel();
-               
- 
+
+
 
 
             }
@@ -671,10 +673,12 @@ namespace WealthERP.Advisor
 
             if (RcbProductCategory.SelectedValue == "FICDCD" && rcbProductType.SelectedValue == "FI")
             {
-                
+
                 rcbMode.Items.FindItemByValue("1").Enabled = false;
                 rcbMode.Items.FindItemByValue("2").Enabled = false;
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
+                ddlMISType.Items.FindItemByValue("2").Enabled = true;
+                ddlMISType.Items.FindItemByValue("3").Enabled = true;
 
             }
             else if (RcbProductCategory.SelectedValue == "FICGCG" && rcbProductType.SelectedValue == "FI")
@@ -682,12 +686,15 @@ namespace WealthERP.Advisor
                 rcbMode.Items.FindItemByValue("1").Enabled = false;
                 rcbMode.Items.FindItemByValue("2").Enabled = false;
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
+                ddlMISType.Items.FindItemByValue("2").Enabled = true;
+                ddlMISType.Items.FindItemByValue("3").Enabled = true;
             }
             else if (RcbProductCategory.SelectedValue == "FISSGB" && rcbProductType.SelectedValue == "FI")
             {
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
                 rcbMode.Items.FindItemByValue("2").Enabled = false;
-                rcbMode.Items.FindItemByValue("3").Enabled = false;
+                ddlMISType.Items.FindItemByValue("2").Enabled = false;
+                ddlMISType.Items.FindItemByValue("3").Enabled = false;
 
             }
             else if (RcbProductCategory.SelectedValue == "FITFTF" && rcbProductType.SelectedValue == "FI")
@@ -695,6 +702,8 @@ namespace WealthERP.Advisor
                 rcbMode.Items.FindItemByValue("1").Enabled = true;
                 rcbMode.Items.FindItemByValue("2").Enabled = true;
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
+                ddlMISType.Items.FindItemByValue("2").Enabled = true;
+                ddlMISType.Items.FindItemByValue("3").Enabled = true;
 
             }
             else if (RcbProductCategory.SelectedValue == "FISDSD" && rcbProductType.SelectedValue == "FI")
@@ -702,12 +711,13 @@ namespace WealthERP.Advisor
                 rcbMode.Items.FindItemByValue("1").Enabled = true;
                 rcbMode.Items.FindItemByValue("2").Enabled = true;
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
-
+                ddlMISType.Items.FindItemByValue("2").Enabled = true;
+                ddlMISType.Items.FindItemByValue("3").Enabled = true;
             }
             tdIssueName.Visible = true;
             tdlblIssueName.Visible = true;
             BindIssueName();
-            
+
 
         }
         protected void rcbMode_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
