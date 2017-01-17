@@ -799,10 +799,12 @@ namespace BoOnlineOrderManagement
                                     AMFE_NomineeDateofBirth = drNominee["AMFE_JointNomineeDateofBirth"].ToString();
                                     AMFE_NomineeGaurdianName = drNominee["AMFE_JointNomineeGaurdianName"].ToString();
                                     AMFE_NominationNotOpted = "N";
+                                    AMFE_Dp_Id = drNominee["AMFE_Dp_Id"].ToString();
                                     break;
                                 case "2":
                                     AMFE_Nom2Name = drNominee["AMFE_JointNomineeName"].ToString();
                                     AMFE_Nom2_Relationship = drNominee["AMFE_JointNomineeRelation"].ToString();
+                                    AMFE_Dp_Id = drNominee["AMFE_Dp_Id"].ToString();
                                     break;
 
                             }
