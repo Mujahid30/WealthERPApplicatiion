@@ -446,7 +446,7 @@ namespace WealthERP.Advisor
                // gvNonMFMobilization.Columns[0].Visible = false;
             }
 
-            if (ddlMISType.SelectedValue == "1")
+            else if (ddlMISType.SelectedValue == "1")
             {
                 gvCommissionMIS.Columns[0].HeaderText = "AMC";
             }
