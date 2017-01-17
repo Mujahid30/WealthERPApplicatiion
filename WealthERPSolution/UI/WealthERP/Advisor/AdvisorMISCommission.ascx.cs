@@ -648,8 +648,6 @@ namespace WealthERP.Advisor
                 tdDdlCategory.Visible = true;
                 BindBondCategories();
                 ddlMISType.Items.FindItemByValue("1").Enabled = false;
-                ddlMISType.Items.FindItemByValue("2").Enabled = false;
-                ddlMISType.Items.FindItemByValue("3").Enabled = false;
 
             }
             else
@@ -669,9 +667,9 @@ namespace WealthERP.Advisor
         }
         protected void RcbProductCategory_OnSelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
-           
 
-            if (RcbProductCategory.SelectedItem.Text == "Company Fixed Deposits" && rcbProductType.SelectedItem.Text == "Bond")
+
+            if (RcbProductCategory.SelectedValue == "FICDCD" && rcbProductType.SelectedValue == "FI")
             {
                 
                 rcbMode.Items.FindItemByValue("1").Enabled = false;
@@ -679,27 +677,27 @@ namespace WealthERP.Advisor
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
 
             }
-            else if (RcbProductCategory.SelectedItem.Text == "54 EC bonds" && rcbProductType.SelectedItem.Text == "Bond")
+            else if (RcbProductCategory.SelectedValue == "FICGCG" && rcbProductType.SelectedValue == "FI")
             {
                 rcbMode.Items.FindItemByValue("1").Enabled = false;
                 rcbMode.Items.FindItemByValue("2").Enabled = false;
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
             }
-            else if (RcbProductCategory.SelectedItem.Text == "Sovereign Gold Bond" && rcbProductType.SelectedItem.Text == "Bond")
+            else if (RcbProductCategory.SelectedValue == "FISSGB" && rcbProductType.SelectedValue == "FI")
             {
-                rcbMode.Items.FindItemByValue("1").Enabled = true;
+                rcbMode.Items.FindItemByValue("0").Enabled = true;
                 rcbMode.Items.FindItemByValue("2").Enabled = false;
-                rcbMode.Items.FindItemByValue("0").Enabled = false;
+                rcbMode.Items.FindItemByValue("3").Enabled = false;
 
             }
-            else if (RcbProductCategory.SelectedItem.Text == "Tax Free Bond" && rcbProductType.SelectedItem.Text == "Bond")
+            else if (RcbProductCategory.SelectedValue == "FITFTF" && rcbProductType.SelectedValue == "FI")
             {
                 rcbMode.Items.FindItemByValue("1").Enabled = true;
                 rcbMode.Items.FindItemByValue("2").Enabled = true;
                 rcbMode.Items.FindItemByValue("0").Enabled = true;
 
             }
-            else if (RcbProductCategory.SelectedItem.Text == "NCD" && rcbProductType.SelectedItem.Text == "Bond")
+            else if (RcbProductCategory.SelectedValue == "FISDSD" && rcbProductType.SelectedValue == "FI")
             {
                 rcbMode.Items.FindItemByValue("1").Enabled = true;
                 rcbMode.Items.FindItemByValue("2").Enabled = true;

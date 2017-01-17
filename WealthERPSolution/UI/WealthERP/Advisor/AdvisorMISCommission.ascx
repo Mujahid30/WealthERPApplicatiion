@@ -66,7 +66,7 @@
                     <td id="tdCategory" runat="server" visible="false">
                         <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td id="tdDdlCategory" runat="server" visible="false">
+                    <td id="tdDdlCategory" runat="server" visible="false"> 
                         <telerik:RadComboBox ID="RcbProductCategory" AutoPostBack="true" OnSelectedIndexChanged="RcbProductCategory_OnSelectedIndexChanged"
                             runat="server" CssClass="cmbFielde" EnableEmbeddedSkins="false" Skin="Telerik"
                             AllowCustomText="true">
