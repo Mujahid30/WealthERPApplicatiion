@@ -164,9 +164,15 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
             DataTable dtSchemeAmcCategory;
-            ds = onlineMforderBo.GetControlDetails(scheme, folio,1);
+            ds = onlineMforderBo.GetControlDetails(scheme, folio, exchangeType == "Online" ? 1 : 0);
             dtSchemeAmcCategory = commonLookupBo.GetMFSchemeAMCCategory(scheme);
-
+            if (ds.Tables[0].Rows.Count > 0 && !string.IsNullOrEmpty(ds.Tables[0].Rows[0]["PASP_Status"].ToString()))
+            {
+                if (ds.Tables[0].Rows[0]["PASP_Status"].ToString() != "NFO")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Scheme Is not Available as NFO');", true); return;
+                }
+            }
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -217,6 +223,11 @@ namespace WealthERP.OnlineOrderManagement
                 lblSchemeCategory.Text = dtSchemeAmcCategory.Rows[0]["PAIC_AssetInstrumentCategoryName"].ToString();
                 BindFolioNumber(Convert.ToInt32(dtSchemeAmcCategory.Rows[0]["PA_AMCCode"].ToString()));
             }
+            if (ds.Tables[4].Rows.Count > 0)
+            {
+                lblDemate.Text = ds.Tables[4].Rows[0][0].ToString();
+                onlinemforderVo.BSESchemeCode = ds.Tables[4].Rows[0][0].ToString();
+            }
 
         }
         private void BindFolioNumber(int amcCode)
@@ -225,7 +236,7 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
                 ddlFolio.Items.Clear();
-                dtCustomerFolioList = commonLookupBo.GetFolioNumberForSIP(amcCode, customerVo.CustomerId,0);
+                dtCustomerFolioList = commonLookupBo.GetFolioNumberForSIP(amcCode, customerVo.CustomerId, exchangeType == "Online" ? 0 : 1);
                 if (dtCustomerFolioList.Rows.Count > 0)
                 {
                     ddlFolio.DataSource = dtCustomerFolioList;
@@ -350,17 +361,14 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
-            if(exchangeType =="Online")
             CreateNFOOrderType();
-            else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('NFO is not avaliable for Exchange');", true); return;
-
         }
 
         private void CreateNFOOrderType()
         {
             List<int> OrderIds = new List<int>();
             bool accountDebitStatus = false;
+            char msgType = 'F';
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
             if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
             {
@@ -418,18 +426,42 @@ namespace WealthERP.OnlineOrderManagement
 
             if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId, customerVo.CustomerId);
-                OrderId = int.Parse(OrderIds[0].ToString());
-
-                if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                if (exchangeType == "Online")
                 {
-                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId, out debitstatus);
-                    ShowAvailableLimits();
+                    onlinemforderVo.OrderType = 1;
+                    OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId, customerVo.CustomerId);
+                    OrderId = int.Parse(OrderIds[0].ToString());
+
+                    if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                    {
+                        accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId, out debitstatus);
+                        ShowAvailableLimits();
+                    }
+                    message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
+                }
+                else if (exchangeType == "Demat")
+                {
+                    onlinemforderVo.OrderType = 0;
+                    DematAccountVo dematevo = new DematAccountVo();
+                    BoDematAccount bo = new BoDematAccount();
+                    dematevo = bo.GetCustomerActiveDematAccount(customerVo.CustomerId);
+                    onlinemforderVo.BSESchemeCode = lblDemate.Text;
+                    if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
+                    {
+                        OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+                        message = OnlineMFOrderBo.BSEorderEntryParam(userVo.UserId, customerVo.CustCode, onlinemforderVo, customerVo.CustomerId, dematevo.DepositoryName, out msgType);
+                    }
+                    else
+                    {
+                        message = "Order cannot be processed. Insufficient balance";
+                    }
                 }
 
             }
-            char msgType;
-            message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
+            else
+            {
+                message = "Order cannot be processed. Insufficient balance";
+            }
             PurchaseOrderControlsEnable(false);
             ShowMessage(message, msgType);
 
