@@ -287,10 +287,12 @@ namespace WealthERP.OnlineOrderBackOffice
             gvOrderBookMIS.Visible = true;
             DataTable dtOrderBookMIS = new DataTable();
             dtOrderBookMIS = (DataTable)Cache["OrderList" + userVo.UserId.ToString()];
+           
             if (dtOrderBookMIS != null)
             {
-                gvOrderBookMIS.DataSource = dtOrderBookMIS;
+                gvOrderBookMIS.DataSource = dtOrderBookMIS;  
                 gvOrderBookMIS.Visible = true;
+                
             }
            
         }
@@ -398,7 +400,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     gvOrderBookMIS.MasterTableView.GetColumn("RevertToExecute").Visible = false;
                 }
-                if (Request.QueryString["IsDemat"] == "True")
+                if (Request.QueryString["IsDemat"] == "True" ||ddlMode.SelectedValue=="1")
                 {
 
                     gvOrderBookMIS.MasterTableView.GetColumn("BMOERD_BSEOrderId").Visible = true;
@@ -407,7 +409,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     gvOrderBookMIS.MasterTableView.GetColumn("BMOERD_BSEOrderId").Visible = false;
                 }
-                
+               
                
                
                
