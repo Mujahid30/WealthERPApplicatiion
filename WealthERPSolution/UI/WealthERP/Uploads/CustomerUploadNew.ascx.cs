@@ -410,9 +410,13 @@ namespace WealthERP.Uploads
                     gvbrokerageRecon.MasterTableView.GetColumn("TotalNAV").Visible = true;
                 }
             }
+
             else if (ddlProduct.SelectedValue == "IP" || ddlProduct.SelectedValue == "FI")
             {
-                IssueId = Int32.Parse(ddlIssueName.SelectedValue);
+                if (!String.IsNullOrEmpty(ddlIssueName.SelectedValue))
+                {
+                    IssueId = Int32.Parse(ddlIssueName.SelectedValue);
+                }
             }
             if (ddlProduct.SelectedValue == "FI")
             {
@@ -792,7 +796,7 @@ namespace WealthERP.Uploads
             gvbrokerageRecon.ExportSettings.IgnorePaging = true;
             gvbrokerageRecon.ExportSettings.HideStructureColumns = true;
             gvbrokerageRecon.ExportSettings.ExportOnlyData = true;
-
+            gvbrokerageRecon.ExportSettings.FileName = ddlProduct.SelectedValue + "-" + ddlCommType.SelectedValue + "-" + ddlMnthQtr.SelectedItem.Text + "-" + ddlYear.SelectedValue + "-" + ddlIssuer.SelectedItem.Text;
             gvbrokerageRecon.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvbrokerageRecon.MasterTableView.ExportToExcel();
 
