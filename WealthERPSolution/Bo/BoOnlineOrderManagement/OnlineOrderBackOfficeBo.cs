@@ -914,7 +914,8 @@ namespace BoOnlineOrderManagement
 
                         }
                     }
-
+                    if (Convert.ToBoolean(drProfileOrder["PASPD_IsETFType"].ToString()) == true && string.IsNullOrEmpty(drFinalRTAExtract["AMFE_Dp_Id"].ToString()))
+                        drFinalRTAExtract["AMFE_Dp_Id"] = drProfileOrder["AMFE_Dp_Id"].ToString();
                     dtRTAOrderExtract.Rows.Add(drFinalRTAExtract);
 
                 }
