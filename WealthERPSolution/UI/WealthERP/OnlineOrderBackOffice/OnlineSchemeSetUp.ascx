@@ -9,7 +9,7 @@
     }
 </style>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-</asp:ScriptManager> 
+</asp:ScriptManager>
 
 <script type="text/javascript">
     function openpopupSchemeSetUp() {
@@ -74,11 +74,11 @@
 
     function EnableValidator() {
 
-      
+
 
 
         if (document.getElementById('<%=rbtnRTA.ClientID%>').checked) {
-            
+
             var validatorObj = document.getElementById('<%=rfvddlBname.ClientID%>');
             ValidatorEnable(validatorObj, true);
             var validatorObj = document.getElementById('<%=rfvtxtBranch.ClientID%>');
@@ -93,12 +93,12 @@
             ValidatorEnable(validatorObj, true);
             var validatorObj = document.getElementById('<%=rfvtxtExitLoad.ClientID%>')
             ValidatorEnable(validatorObj, true);
-           
-            
+
+
 
         }
         else {
-          
+
             validatorObj = document.getElementById('<%=rfvddlBname.ClientID%>');
             ValidatorEnable(validatorObj, false);
             var validatorObj = document.getElementById('<%=rfvtxtBranch.ClientID%>')
@@ -113,7 +113,7 @@
             ValidatorEnable(validatorObj, false);
             var validatorObj = document.getElementById('<%=rfvtxtExitLoad.ClientID%>')
             ValidatorEnable(validatorObj, false);
-           
+
         }
 
     }
@@ -568,8 +568,7 @@
                 <span id="Span5" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="ISIN PayOut"
-                    CssClass="rfvPCG" ControlToValidate="txtPay" ValidationGroup="btnsubmit"
-                    Display="Dynamic"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtPay" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
             <td id="tdPayOurExternalCode" runat="server" visible="false">
                 <asp:Label ID="lblpayOutExtCode" runat="server" CssClass="FieldName" Text="PayOut External Code"></asp:Label>
@@ -592,8 +591,7 @@
                 <span id="Span23" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="ISIN Reinvestment"
-                    CssClass="rfvPCG" ControlToValidate="TextINV" ValidationGroup="btnsubmit"
-                    Display="Dynamic"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="TextINV" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
             <td id="tdlblDInv" runat="server" visible="false">
                 <asp:Label ID="lblReInv" runat="server" CssClass="FieldName" Text="Reinvestment External Code"></asp:Label>
@@ -603,8 +601,7 @@
                 <span id="Span24" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Reinvestment External Code"
-                    CssClass="rfvPCG" ControlToValidate="txtReInv" ValidationGroup="btnsubmit"
-                    Display="Dynamic"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtReInv" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -614,22 +611,22 @@
             <td>
                 <asp:DropDownList ID="ddlBname" runat="server" CssClass="cmbField" AutoPostBack="false">
                 </asp:DropDownList>
-                 <asp:Label ID ="lblBankName" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lblBankName" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlBname" runat="server" ErrorMessage="Please Select Bank Name"
-                    CssClass="rfvPCG" ControlToValidate="ddlBname" Enabled="false" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue="Select"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="ddlBname" Enabled="false" ValidationGroup="btnsubmit"
+                    Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
             <td align="right">
                 <asp:Label ID="lblBranch" runat="server" Text="Bank Branch:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtBranch" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <asp:Label ID ="lbBranch" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lbBranch" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtBranch" runat="server" ErrorMessage="Please Enter Bank Branch"
-                    CssClass="rfvPCG" ControlToValidate="txtBranch" EnableClientScript="true" Enabled="false" ValidationGroup="btnsubmit"
-                    Display="Dynamic"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtBranch" EnableClientScript="true" Enabled="false"
+                    ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -638,7 +635,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtACno" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <asp:Label ID ="lblAno" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lblAno" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtACno" EnableClientScript="true" runat="server"
                     ErrorMessage="Please Enter A/C no" ValidationGroup="btnsubmit" CssClass="rfvPCG"
@@ -658,15 +655,14 @@
             <td>
                 <asp:TextBox ID="txtLIperiod" runat="server" CssClass="cmbFielde"></asp:TextBox>
                 <span id="Span23" class="spnRequiredField">*</span>
-                
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvtxtLIperiod" runat="server" ErrorMessage="Please Enter Lock in period"
-                        CssClass="rfvPCG" ControlToValidate="txtLIperiod" ValidationGroup="btnsubmit"
-                        Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="regtxtLIperiod" ControlToValidate="txtLIperiod"
-                        runat="server" ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG"
-                        ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit">     
-                    </asp:RegularExpressionValidator>
+                <br />
+                <asp:RequiredFieldValidator ID="rfvtxtLIperiod" runat="server" ErrorMessage="Please Enter Lock in period"
+                    CssClass="rfvPCG" ControlToValidate="txtLIperiod" ValidationGroup="btnsubmit"
+                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="regtxtLIperiod" ControlToValidate="txtLIperiod"
+                    runat="server" ErrorMessage="Enter Only Number" Display="Dynamic" CssClass="cvPCG"
+                    ValidationExpression="[0-9]\d*$" ValidationGroup="btnsubmit">     
+                </asp:RegularExpressionValidator>
             </td>
             <td align="right">
                 <asp:Label ID="lblCOtime" runat="server" Text="Cut Off Time:" CssClass="FieldName"></asp:Label>
@@ -745,11 +741,11 @@
             </td>
             <td>
                 <asp:TextBox ID="txtEload" runat="server" CssClass="cmbFielde"></asp:TextBox>
-               <asp:Label ID ="lblEntryLoad" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lblEntryLoad" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtEload" runat="server" ErrorMessage="Please Enter Entry Load"
-                    CssClass="rfvPCG" ControlToValidate="txtEload" ValidationGroup="btnsubmit" Enabled="false" Display="Dynamic"
-                    InitialValue=""></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtEload" ValidationGroup="btnsubmit" Enabled="false"
+                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="regtxtEload" ControlToValidate="txtEload" runat="server"
                     ErrorMessage="Enter Only Number" ValidationGroup="btnsubmit" Display="Dynamic"
                     CssClass="cvPCG" ValidationExpression="[0-9]\d*(\.\d?[0-9])?$">     
@@ -760,7 +756,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtELremark" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                 <asp:Label ID ="lblERemarks" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lblERemarks" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtELremark" ValidationGroup="btnsubmit" runat="server"
                     ErrorMessage="Please Enter Load Remark" Enabled="false" CssClass="rfvPCG" ControlToValidate="txtELremark"
@@ -773,7 +769,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtExitLoad" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <asp:Label ID ="lablExitLaod" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lablExitLaod" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtExitLoad" ValidationGroup="btnsubmit" runat="server"
                     ErrorMessage="Please Enter Exit Load" Enabled="false" CssClass="rfvPCG" ControlToValidate="txtExitLoad"
@@ -788,11 +784,11 @@
             </td>
             <td>
                 <asp:TextBox ID="txtExitLremark" runat="server" CssClass="cmbFielde"></asp:TextBox>
-                <asp:Label ID ="lblExitLoadRemarks" runat="server" Text="*" class="spnRequiredField"></asp:Label>
+                <asp:Label ID="lblExitLoadRemarks" runat="server" Text="*" class="spnRequiredField"></asp:Label>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtExitLremark" ValidationGroup="btnsubmit" runat="server"
-                    ErrorMessage="Please Enter Exit Load Remark" Enabled="false" CssClass="rfvPCG" ControlToValidate="txtExitLremark"
-                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+                    ErrorMessage="Please Enter Exit Load Remark" Enabled="false" CssClass="rfvPCG"
+                    ControlToValidate="txtExitLremark" Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -1330,7 +1326,7 @@
     <tr>
         <td align="right">
             <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click"
-                OnClientClick="EnableValidator();" Visible="false"  ValidationGroup="btnsubmit" />
+                OnClientClick="EnableValidator();" Visible="false" ValidationGroup="btnsubmit" />
         </td>
         <td align="left">
             <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"

@@ -110,8 +110,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         else
                         {
-                            rbtnBSE.Enabled = true;
-                            rbtnRTA.Enabled = true;
+                            rbtnBSE.Enabled = false;
+                            rbtnRTA.Enabled = false;
                         }
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
@@ -3067,7 +3067,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique Product Code.');", true);
                             return;
                         }
-                        else if (count == 0)
+                        else if (count >= 0)
                         {
                             isUpdated = OnlineOrderBackOfficeBo.UpdateProductcode(productmappingcode, txtgproductcode.Text, userVo.UserId);
 
