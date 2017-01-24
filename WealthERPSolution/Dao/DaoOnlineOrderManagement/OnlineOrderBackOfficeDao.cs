@@ -135,7 +135,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetMfOrderExtract;
         }
-        public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode,string Type,DateTime fromDate, DateTime toDate)
+        public DataSet GetMfFATCAOrderExtract(int AdviserId, string ExternalCode, string Type, DateTime fromDate, DateTime toDate)
         {
             DataSet dsGetMfFATCAOrderExtract;
             Database db;
@@ -161,7 +161,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetMfFATCAOrderExtract(int AdviserId, string ExternalCode, int FACTAType)");
                 object[] objects = new object[10];
-              
+
                 objects[0] = AdviserId;
                 objects[1] = ExternalCode;
                 objects[2] = Type;
@@ -217,7 +217,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_OrderExtractHeaderMapping");
-              
+
                 dsHeaderMapping = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -1479,6 +1479,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_CreatedBy", DbType.Double, userId);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_IsRTA", DbType.Boolean, mfProductAMCSchemePlanDetailsVo.RTA);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_IsBSE", DbType.Boolean, mfProductAMCSchemePlanDetailsVo.BSE);
                 if (db.ExecuteNonQuery(CreateSystematicDetailsCmd) != 0)
                     bResult = true;
             }
@@ -1524,6 +1526,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(EditSystematicDetailscmd, "@XSTT_SystematicTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SystematicCode);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_IsRTA", DbType.Boolean, mfProductAMCSchemePlanDetailsVo.RTA);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_IsBSE", DbType.Boolean, mfProductAMCSchemePlanDetailsVo.BSE);
                 db.ExecuteNonQuery(EditSystematicDetailscmd);
                 if (db.ExecuteNonQuery(EditSystematicDetailscmd) != 0)
                     blResult = true;
@@ -2787,13 +2791,13 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool UpdateCustomerCode(DataTable dtcustomer,int userid)
+        public bool UpdateCustomerCode(DataTable dtcustomer, int userid)
         {
             bool bResult = false;
             Database db;
             DbCommand UpdateNewCustomerCode;
             DataSet dsUpdateNewCustomerCode = new DataSet();
-             
+
             try
             {
                 dsUpdateNewCustomerCode.Tables.Add(dtcustomer.Copy());
@@ -3439,7 +3443,7 @@ namespace DaoOnlineOrderManagement
                 cmdStoredProcedure = db.GetStoredProcCommand(SPName);
                 db.AddInParameter(cmdStoredProcedure, "@CTNS_Id", DbType.Int32, CNT_ID);
                 db.AddInParameter(cmdStoredProcedure, "@DeliveryOption", DbType.String, DeliveryOption);
-                 if (db.ExecuteNonQuery(cmdStoredProcedure) != 0)
+                if (db.ExecuteNonQuery(cmdStoredProcedure) != 0)
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -3548,11 +3552,11 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetNotificationTypes;
         }
-       
+
         //public DataSet GetBSECustomer(int A_AdviserId)
         //{
         //    DataSet dsBSECustomer;
-          
+
         //    Database db;
         //    DbCommand cmdGetBSECustomer;
         //    try
@@ -3561,7 +3565,7 @@ namespace DaoOnlineOrderManagement
         //        cmdGetBSECustomer = db.GetStoredProcCommand("SPROC_ONL_BSECustomerDematAcceptance");
         //        db.AddInParameter(cmdGetBSECustomer, "@A_AdviserId", DbType.String, A_AdviserId);
         //        dsBSECustomer = db.ExecuteDataSet(cmdGetBSECustomer);
-                
+
         //    }
         //    catch (BaseApplicationException Ex)
         //    {
@@ -3569,7 +3573,7 @@ namespace DaoOnlineOrderManagement
         //    }
         //    return dsBSECustomer;
         //}
-       
+
 
         public DataSet GetNotificationHeader(int notificationTypeId, int adviserId)
         {
@@ -3623,7 +3627,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
                 db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, todate);
-               
+
                 ds = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -3632,7 +3636,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetWLNotificationMessageDetails( string ChannelType, DateTime fromDate, DateTime todate,int adviserId)
+        public DataSet GetWLNotificationMessageDetails(string ChannelType, DateTime fromDate, DateTime todate, int adviserId)
         {
             DataSet ds;
             Database db;
@@ -3641,7 +3645,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_GetWLNotificationMessageDetails");
-                
+
                 db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
                 db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, todate);
