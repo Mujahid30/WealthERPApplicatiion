@@ -2624,6 +2624,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.RTA = (rbtnRTA.Checked) ? 1 : 0;
+                    mfProductAMCSchemePlanDetailsVo.BSE = (rbtnBSE.Checked) ? 1 : 0;
                     OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode, userVo.UserId);
 
                 }
@@ -2650,6 +2652,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.RTA = (rbtnRTA.Checked) ? 1 : 0;
+                    mfProductAMCSchemePlanDetailsVo.BSE = (rbtnBSE.Checked) ? 1 : 0;
                     isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid, userVo.UserId);
                 }
 
