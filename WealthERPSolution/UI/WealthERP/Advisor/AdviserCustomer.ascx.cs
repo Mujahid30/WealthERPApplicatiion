@@ -728,9 +728,26 @@ namespace WealthERP.Advisor
             }
             if (userVo.UserType == "Associates")
             {
-                gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("Action").Visible = true;
                 gvCustomerList.MasterTableView.GetColumn("MarkFPClient").Visible = false;
                 gvCustomerList.MasterTableView.GetColumn("ActionForProspect").Visible = false;
+                gvCustomerList.MasterTableView.GetColumn("custcode").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("CustomerId").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("UserId").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("MobileNumber").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("PhoneNumber").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Email").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Address").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Area").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("City").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Pincode").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("IsMFKYC").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("ADUL_ProcessId").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("CreatedOn").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Cust_Comp_Name").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("C_ModifiedOn").Visible = true;
+                gvCustomerList.MasterTableView.GetColumn("Cust_Comp_Name").Visible = true;
+              
             }
             if (userVo.AdviserRole.ContainsValue("CNT")) 
             {
@@ -1775,7 +1792,7 @@ namespace WealthERP.Advisor
                             drCustomer["Address"] = customerVo.Adr1Line1.ToString();
                         else
                             drCustomer["Address"] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
-                        drCustomer["Area"] = customerVo.Adr1Line3.ToString();
+                         drCustomer["Area"] = customerVo.Adr1Line3.ToString();
                         drCustomer["City"] = customerVo.Adr1City.ToString();
                         drCustomer["Pincode"] = customerVo.Adr1PinCode.ToString();
                         if (UserRole != "rm")
