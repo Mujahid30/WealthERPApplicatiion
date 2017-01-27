@@ -555,6 +555,40 @@ namespace BoOnlineOrderManagement
 
 
         }
+        public int CreateMandateOrder(int customerId, double Amount, string BankName, string BankBranch, int UserId,int mandateId)
+        {
+            int result = 0;
+            try
+            {
+                OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+                {
+                   result= OnlineMFOrderDao.CreateMandateOrder(customerId, Amount, BankName, BankBranch, UserId, mandateId);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CreateMandateOrder(int customerId, double Amount, string BankName, string BankBranch, int UserId)");
+
+                object[] objects = new object[5];
+                objects[0] = customerId;
+                objects[1] = Amount;
+                objects[2] = BankName;
+                objects[3] = BankBranch;
+                objects[4] = UserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
         public DataSet GetOrderIssueStatus()
         {
             DataSet dsOrderStatus = null;
@@ -764,7 +798,7 @@ namespace BoOnlineOrderManagement
             return message;
         }
 
-
+       
         public string BSESIPorderEntryParam(int UserID, string ClientCode, OnlineMFOrderVo onlinemforderVo, int CustomerId, string DematAcctype, out char msgType, out  IDictionary<string, string> sipOrderIds)
         {
             DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
@@ -901,7 +935,7 @@ namespace BoOnlineOrderManagement
 
             return message;
         }
-
+       
         private string GetBSESIPFrequencyCode(string frequencyCode)
         {
             string BSEFrequencyCode = string.Empty;

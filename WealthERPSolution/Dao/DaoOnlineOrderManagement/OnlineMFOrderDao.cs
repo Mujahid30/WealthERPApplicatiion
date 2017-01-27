@@ -919,6 +919,53 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             }
             return ds;
         }
+        public int CreateMandateOrder(int customerId, double Amount, string BankName, string BankBranch, int UserId,int mandateId)
+        {
+            Database db;
+            DbCommand cmd;
+            int result = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_CreateCustomerBSEMandateOrder");
+                db.AddInParameter(cmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(cmd, "@Amount", DbType.Double, Amount);
+                db.AddInParameter(cmd, "@BankName", DbType.String, BankName);
+                db.AddInParameter(cmd, "@BankBranch", DbType.String, BankBranch);
+                db.AddInParameter(cmd, "@UserId", DbType.Int32, UserId);
+                db.AddInParameter(cmd, "@MandateId", DbType.Int32, mandateId);
+                db.AddOutParameter(cmd, "co_OrderId", DbType.Int32, 10);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                {
+                    result = Convert.ToInt32(db.GetParameterValue(cmd, "co_OrderId").ToString());
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DAO:CreateMandateOrder(int customerId, double Amount, string BankName, string BankBranch, int UserId)");
+
+                object[] objects = new object[5];
+                objects[0] = customerId;
+                objects[1] = Amount;
+                objects[2] = BankName;
+                objects[3] = BankBranch;
+                objects[4] = UserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
         public int BSEMFSIPorderResponseParam(BSEMFSIPOdererVo bseMFSIPOdererVo, int rmId, int userId)
         {
             Database db;

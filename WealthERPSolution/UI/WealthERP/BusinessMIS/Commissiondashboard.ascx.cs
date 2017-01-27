@@ -11,7 +11,12 @@ using BoCommon;
 using System.Configuration;
 using BoCustomerPortfolio;
 using System.Data;
-
+using VOAssociates;
+using VoAdvisorProfiling;
+using VoCustomerPortfolio;
+using BoCustomerProfiling;
+using BoOnlineOrderManagement;
+using BoAdvisorProfiling;
 namespace WealthERP.BusinessMIS
 {
     public partial class Commissiondashboard : System.Web.UI.UserControl
@@ -20,123 +25,135 @@ namespace WealthERP.BusinessMIS
         UserVo userVo;
         AdvisorVo advisorVo;
         string path;
+        AdvisorPreferenceVo advisorPrefernceVo = new AdvisorPreferenceVo();
+        AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesUserHeirarchyVo assocUsrHeirVo = new AssociatesUserHeirarchyVo();
+        RMVo rmVo = new RMVo();
+        CustomerBo customerBo = new CustomerBo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            userBo = new UserBo();
-            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            userVo = (UserVo)Session[SessionContents.UserVo];
-            AssetBo assetBo = new AssetBo();
-            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            if (!IsPostBack)
+            userVo = (UserVo)Session["userVo"];
+            advisorPrefernceVo = (AdvisorPreferenceVo)Session["AdvisorPreferenceVo"];
+            rmVo = (RMVo)Session["rmVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            associatesVo = (AssociatesVO)Session["associatesVo"];
+            assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
+            trNewOrder.Visible = false;
+            if(!Page.IsPostBack)
             {
-                BindReptCommissionDashBoard();
+                if (Request.QueryString["IsAdd"] != null)
+                {
+                    if (Request.QueryString["IsAdd"].ToString() == "1")
+                        dvAddMandate.Visible = true;
+                    else
+                        dvViewMandateMis.Visible = true;
+                }
+            }
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || userVo.AdviserRole.ContainsValue("CNT"))
+            {
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            {
+
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            {
+
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+            {
+
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
             }
         }
-
-        private void BindReptCommissionDashBoard()
+        protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
-            DataSet dsTreeNodes = new DataSet();
-            dsTreeNodes = XMLBo.GetSuperAdminTreeNodes(path);
-            DataRow[] drXmlTreeSubSubNode;
-            DataRow drCommissionTreeNode;
-            DataTable dtCommissionTreeNode = new DataTable();
 
-            dtCommissionTreeNode.Columns.Add("TreeNode1", typeof(Int32));
-
-            dtCommissionTreeNode.Columns.Add("TreeNodeText1", typeof(String));
-
-            dtCommissionTreeNode.Columns.Add("Path1", typeof(String));
-
-            dtCommissionTreeNode.Columns.Add("TreeNode2", typeof(Int32));
-
-            dtCommissionTreeNode.Columns.Add("TreeNodeText2", typeof(String));
-            dtCommissionTreeNode.Columns.Add("Path2", typeof(String));
-            
-            //For Commission 2015 is Tree Node Id in Sub Table in XML...
-            int treeSubNodeId = 2015;
-            drXmlTreeSubSubNode = dsTreeNodes.Tables[2].Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
-
-            int count = 0;
-            drCommissionTreeNode = dtCommissionTreeNode.NewRow();
-            foreach (DataRow drSubSubNode in drXmlTreeSubSubNode)
+            if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
-                if (count == 0)
-                {
+                CustomerVo customerVo = new CustomerVo();
+                Session["customerid"] = txtCustomerId.Value.ToString();
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+                customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+                Session["customerVo"] = customerVo;
 
-                    count++;
-                    drCommissionTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drCommissionTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    drCommissionTreeNode["Path1"] = drSubSubNode["Path"].ToString();
-                    dtCommissionTreeNode.Rows.Add(drCommissionTreeNode);
-
-                }
-                else if (count == 1)
-                {
-                    count++;
-                    drCommissionTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                    drCommissionTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    drCommissionTreeNode["Path2"] = drSubSubNode["Path"].ToString();
-                    count = 0;
-                    drCommissionTreeNode = dtCommissionTreeNode.NewRow();
-
-                }
-                //else if (count == 1)
-                //{
-                //    count++;
-                //    drCommissionTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                //    drCommissionTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                //    drCommissionTreeNode["Path2"] = drSubSubNode["Path"].ToString();
-
-                //}
-                //else if (count == 2)
-                //{
-                //    count++;
-                //    drCommissionTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                //    drCommissionTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                //    drCommissionTreeNode["Path3"] = drSubSubNode["Path"].ToString();
-                //}
-                //else if (count == 3)
-                //{
-                //    count++;
-                //    drCommissionTreeNode["TreeNode4"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
-                //    drCommissionTreeNode["TreeNodeText4"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                //    drCommissionTreeNode["Path4"] = drSubSubNode["Path"].ToString();
-                //    count = 0;
-                //    drCommissionTreeNode = dtCommissionTreeNode.NewRow();
-                //}
-
+                lblgetPan.Text = customerVo.PANNum;
+                lblgetcust.Text = customerVo.FirstName ;
 
             }
-            rptCommissionTree.DataSource = dtCommissionTreeNode;
-            rptCommissionTree.DataBind();
-        }
 
-        protected void rptCommissionTree_ItemCommand(object source, RepeaterCommandEventArgs e)
+        }
+        protected void btnMandateSubmit_Click(object sender, EventArgs e)
         {
-            LinkButton lnkbtn1 = e.Item.FindControl("lnkCommissionTreeNode1") as LinkButton;
-            LinkButton lnkbtn2 = e.Item.FindControl("lnkCommissionTreeNode2") as LinkButton;
-
-            if (e.CommandName == "Tree_Navi_Row1")
+            string userMessage = string.Empty;
+            string BSEMessage=string.Empty;
+            char msgtype = 's';
+            bool result = false;
+            OnlineMFOrderBo onlineMFOrderBo = new OnlineMFOrderBo();
+            int mandateId = 0;
+            AdviserStaffSMTPBo advstaffsmtpbo = new AdviserStaffSMTPBo();
+            if (txtCustomerId.Value != "0")
             {
-
-                if (lnkbtn1.CommandArgument == "3026")
+                result = advstaffsmtpbo.BSEMandateCreate(txtClientCode.Text, lblgetcust.Text, Convert.ToDouble(txtAmount.Text), txtBankName.Text, txtBBranch.Text, userVo.UserId, out BSEMessage, out mandateId);
+                if (result)
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('AdvisorMISCommission','login');", true);
+                    int OrderId = onlineMFOrderBo.CreateMandateOrder(int.Parse(txtCustomerId.Value.ToString()), Convert.ToDouble(txtAmount.Text), txtBankName.Text, txtBBranch.Text, userVo.UserId, mandateId);
+                    if (OrderId != 0)
+                    {
+                        userMessage = BSEMessage + " "  + "Order Reference Number is: " + OrderId.ToString();
+                        msgtype = 'S';
+                        freezeControls();
+                        trNewOrder.Visible = true;
+                    }
+                    else
+                    {
+                        userMessage = "Order cannot be processed";
+                        msgtype = 'F';
+                    }
                 }
-            }
-            if (e.CommandName == "Tree_Navi_Row2")
-            {
-
-                if (lnkbtn2.CommandArgument == "3030")
+                else
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
+                    userMessage = BSEMessage;
+                    msgtype = 'F';
                 }
+                ShowMessage(userMessage, msgtype);
 
             }
-
-
         }
+        private void ShowMessage(string msg, char type)
+        {
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','" + type.ToString() + "');", true);
+        }
+        private void freezeControls()
+        {
+            txtClientCode.Enabled = false;
+            txtBankName.Enabled = false;
+            txtBBranch.Enabled = false;
+            txtAmount.Enabled = false;
+            txtCustomerId.Value = "0";
+        }
+        protected void lnkMandateOrder_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+        }
+        
 
     }
+
 }
