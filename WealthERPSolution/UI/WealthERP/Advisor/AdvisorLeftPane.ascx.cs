@@ -620,6 +620,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
                 }
+                else if (e.Item.Value == "Add_Bank_Mandate")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','IsAdd=" + "1" + "');", true);
+                }
+                else if (e.Item.Value == "View_Mandate_MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','IsAdd=" + "0" + "');", true);
+                }
                 else if (e.Item.Value == "Advertisement_Manage")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BannerManager','login');", true);
@@ -1997,6 +2005,14 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View_AMC")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AMCManage','login');", true);
+                }
+                else if (e.Item.Value == "Add_Bank_Mandate")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                }
+                else if (e.Item.Value == "View_Mandate_MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
                 }
                 else if (e.Item.Value == "View_UTIAMC")
                 {
