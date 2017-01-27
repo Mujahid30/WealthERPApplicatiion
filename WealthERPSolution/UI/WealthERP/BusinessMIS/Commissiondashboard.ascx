@@ -192,47 +192,47 @@
                                     <MasterTableView ShowGroupFooter="true" EditMode="EditForms" GroupLoadMode="Client"
                                         CommandItemSettings-ShowRefreshButton="false">
                                         <Columns>
-                                            <telerik:GridBoundColumn UniqueName="C_CustCode" HeaderStyle-Width="120px" HeaderText="Zone"
+                                            <telerik:GridBoundColumn UniqueName="C_CustCode" HeaderStyle-Width="120px" HeaderText="Client Code"
                                                 DataField="C_CustCode" SortExpression="C_CustCode" AllowFiltering="true" ShowFilterIcon="false"
                                                 AutoPostBackOnFilter="true" Visible="false">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="C_FirstName" HeaderStyle-Width="120px" HeaderText="Zone"
+                                            <telerik:GridBoundColumn UniqueName="C_FirstName" HeaderStyle-Width="120px" HeaderText="Customer Name"
                                                 DataField="C_FirstName" SortExpression="C_FirstName" AllowFiltering="true" ShowFilterIcon="false"
                                                 AutoPostBackOnFilter="true" Aggregate="Count" FooterText="Row Count : ">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="C_PANNum" HeaderStyle-Width="120px" HeaderText="Cluster"
+                                            <telerik:GridBoundColumn UniqueName="C_PANNum" HeaderStyle-Width="120px" HeaderText="PAN"
                                                 DataField="C_PANNum" SortExpression="C_PANNum" AllowFiltering="true" ShowFilterIcon="false"
                                                 AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="CMFOD_Amount" HeaderStyle-Width="120px" HeaderText="Code"
+                                            <telerik:GridBoundColumn UniqueName="CMFOD_Amount" HeaderStyle-Width="120px" HeaderText="Amount"
                                                 DataField="CMFOD_Amount" SortExpression="CMFOD_Amount" AllowFiltering="true"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="CMFOD_BankName" HeaderStyle-Width="120px" HeaderText="CMFOD_BankName"
+                                            <telerik:GridBoundColumn UniqueName="CMFOD_BankName" HeaderStyle-Width="120px" HeaderText="Bank Name"
                                                 DataField="CMFOD_BankName" SortExpression="CMFOD_BankName" AllowFiltering="true"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn UniqueName="CMFOD_BranchName" HeaderStyle-Width="120px"
-                                                HeaderText="Head" DataField="CMFOD_BranchName" SortExpression="CMFOD_BranchName"
+                                                HeaderText="Branch Name" DataField="CMFOD_BranchName" SortExpression="CMFOD_BranchName"
                                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="MandateType" HeaderStyle-Width="180px" HeaderText="MandateType"
-                                                DataField="MandateType" SortExpression="MandateType" AllowFiltering="true" ShowFilterIcon="false"
+                                            <telerik:GridBoundColumn UniqueName="CMFOD_MandateId" HeaderStyle-Width="180px" HeaderText="Mandate Id"
+                                                DataField="CMFOD_MandateId" SortExpression="CMFOD_MandateId" AllowFiltering="true" ShowFilterIcon="false"
                                                 AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="CreatedBy" HeaderStyle-Width="100px" HeaderText="Phone"
+                                            <telerik:GridBoundColumn UniqueName="CreatedBy" HeaderStyle-Width="100px" HeaderText="Created By"
                                                 DataField="CreatedBy" SortExpression="CreatedBy" AllowFiltering="true" ShowFilterIcon="false"
                                                 AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="CO_CreatedOn" HeaderStyle-Width="100px" HeaderText="Type"
+                                            <telerik:GridBoundColumn UniqueName="CO_CreatedOn" HeaderStyle-Width="100px" HeaderText="Created On"
                                                 DataField="CO_CreatedOn" SortExpression="CO_CreatedOn" AllowFiltering="true"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
