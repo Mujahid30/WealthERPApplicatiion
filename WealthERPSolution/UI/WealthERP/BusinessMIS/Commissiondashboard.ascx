@@ -177,9 +177,9 @@
         </tr>
         <tr>
             <td style="padding-top: 8px;">
-                <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" runat="server" Visible="true">
+                <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" runat="server" >
                     <div runat="server" id="divZoneCluster" visible="true" style="margin: 2px; width: 640px;">
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="true">
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
                             <ContentTemplate>
                                 <telerik:RadGrid ID="gvMandatedetails" runat="server" CssClass="RadGrid" GridLines="None"
                                     enableloadondemand="True" Width="195%" AllowSorting="True" PagerStyle-AlwaysVisible="true"

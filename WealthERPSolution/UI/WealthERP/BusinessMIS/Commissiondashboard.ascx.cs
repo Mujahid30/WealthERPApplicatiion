@@ -44,40 +44,47 @@ namespace WealthERP.BusinessMIS
             trNewOrder.Visible = false;
             if (!Page.IsPostBack)
             {
+
                 if (Request.QueryString["IsAdd"] != null)
                 {
                     if (Request.QueryString["IsAdd"].ToString() == "1")
+                    {
                         dvAddMandate.Visible = true;
+                        if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || userVo.AdviserRole.ContainsValue("CNT"))
+                        {
+                            txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                        {
+
+                            txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        {
+
+                            txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                        {
+
+                            txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                        }
+                    }
                     else
+                    {
                         dvViewMandateMis.Visible = true;
+                        BindMandateddetailsDetailsGrid(advisorVo.advisorId);
+                    }
                 }
             }
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || userVo.AdviserRole.ContainsValue("CNT"))
-            {
-                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-            {
-
-                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-            {
-
-                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
-            {
-
-                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
-            }
+            
         }
         protected void hdnCustomerId_ValueChanged(object sender, EventArgs e)
         {
@@ -88,8 +95,6 @@ namespace WealthERP.BusinessMIS
                 Session["customerid"] = txtCustomerId.Value.ToString();
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-                Session["customerVo"] = customerVo;
-
                 lblgetPan.Text = customerVo.PANNum;
                 lblgetcust.Text = customerVo.FirstName;
 
@@ -130,7 +135,7 @@ namespace WealthERP.BusinessMIS
                     msgtype = 'F';
                 }
                 ShowMessage(userMessage, msgtype);
-                BindMandateddetailsDetailsGrid(advisorVo.advisorId);
+                
 
             }
         }
@@ -152,7 +157,7 @@ namespace WealthERP.BusinessMIS
         }
         protected void lnkMandateOrder_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','IsAdd=" + "1" + "');", true);
         }
 
 
@@ -162,25 +167,18 @@ namespace WealthERP.BusinessMIS
             DataTable dt = new DataTable();
             OnlineMFOrderBo onlineMFOrderBo = new OnlineMFOrderBo();
             ds = onlineMFOrderBo.BindMandateddetailsDetails(adviserId);
-            dt = ds.Tables[0];
-
-            gvMandatedetails.DataSource = dt;
+            gvMandatedetails.DataSource = ds.Tables[0];
             gvMandatedetails.DataBind();
             pnlZoneCluster.Visible = true;
             gvMandatedetails.Visible = true;
             UpdatePanel1.Visible = true;
-            dvViewMandateMis.Visible = true;
             btnExportFilteredMandatedetails.Visible = true;
-
-            if (Cache["gvMandatedetails" + advisorVo.advisorId.ToString()] == null)
-            {
-                Cache.Insert("gvMandatedetails" + advisorVo.advisorId.ToString(), dt);
-            }
-            else
+            if (Cache["gvMandatedetails" + advisorVo.advisorId.ToString()] != null)
             {
                 Cache.Remove("gvMandatedetails" + advisorVo.advisorId.ToString());
-                Cache.Insert("gvMandatedetails" + advisorVo.advisorId.ToString(), dt);
             }
+            Cache.Insert("gvMandatedetails" + advisorVo.advisorId.ToString(), ds.Tables[0]);
+   
         }
 
 
