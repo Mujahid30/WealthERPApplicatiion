@@ -1043,5 +1043,31 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             {
             }
         }
+
+        public DataSet BindMandateddetailsDetails(int AdviserId)
+        {
+            DataSet ds = new DataSet();
+            Database db;
+            DbCommand ViewMandatedetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                ViewMandatedetailsCmd = db.GetStoredProcCommand("SPROC_ONL_GetAdviserCustomerMandate");
+                db.AddInParameter(ViewMandatedetailsCmd, "@AdviserId", DbType.Int32, AdviserId);
+                ViewMandatedetailsCmd.CommandTimeout = 60 * 60;
+                ds = db.ExecuteDataSet(ViewMandatedetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+
+            }
+            return ds;
+        }
+
+    
     }
 }

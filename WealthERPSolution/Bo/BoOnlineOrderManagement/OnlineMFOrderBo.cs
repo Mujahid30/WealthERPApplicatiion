@@ -958,5 +958,24 @@ namespace BoOnlineOrderManagement
 
         }
 
+        public DataSet BindMandateddetailsDetails(int adviserId)
+        {
+            DataSet ds = null; ;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                ds = OnlineMFOrderDao.BindMandateddetailsDetails(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+               
+            }
+            return ds;
+        }
+
     }
 }

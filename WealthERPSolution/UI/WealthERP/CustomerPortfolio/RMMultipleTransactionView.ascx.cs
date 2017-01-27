@@ -1943,7 +1943,6 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
         {
-
             DataTable dt = (DataTable)Cache["ViewBalance" + userVo.UserId + userType];
             ExcelToExportData(dt, "View ReturnHolding Details");
         }
@@ -2141,17 +2140,19 @@ namespace WealthERP.CustomerPortfolio
 
         public void btnTrnxExportMFOffLineWithoutSubbroker_Click(object sender, ImageClickEventArgs e)
         {
+           
             DataTable dt = (DataTable)Cache["ViewTransactionWithoutAgent" + userVo.UserId + userType];
-            ExcelToExportData(dt,"ViewTransactions");
+            ExcelToExportData(dt, "ViewTransactions");
         }
 
-        private void ExcelToExportData(DataTable dt,string fileName)
+        private void ExcelToExportData(DataTable dt, string fileName)
         {
+
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName+".xls"));
             Response.ContentType = "application/ms-excel";
-           
+
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
@@ -2167,9 +2168,8 @@ namespace WealthERP.CustomerPortfolio
                     Response.Write(str + Convert.ToString(dr[j]));
                     str = "\t";
                 }
-                Response.Write("\n");
-            }
 
+            }
 
             Response.End();
         }

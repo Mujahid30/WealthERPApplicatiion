@@ -286,8 +286,7 @@
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField"  
-                Width="320px"  >
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" Width="320px" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged">
                 <asp:ListItem Text="All" Value="1" Enabled="false">
                 </asp:ListItem>
                 <asp:ListItem Text="Orders Exist & Transaction Exist(Accepted)" Value="2">
@@ -295,8 +294,6 @@
                 <asp:ListItem Text="Orders Exist & Transaction Not Exist" Value="3">
                 </asp:ListItem>
                 <asp:ListItem Text="Orders Not Exist & Transaction Exist" Value="4">
-                </asp:ListItem>
-                <asp:ListItem Text="Orders Exist & Transaction Exist(Partial Match)" Value="5">
                 </asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -337,21 +334,21 @@
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
                         </ExportSettings>
-                        <MasterTableView DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch,CO_IsOnline,CMFT_UserTransactionNo,Tra_TransactionType,Tra_AMC,Tra_SchemplanCode,TransactionPAN,TransactionSubbrokerCode"
+                        <MasterTableView DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch,CO_IsOnline,CMFT_UserTransactionNo,Tra_TransactionType,Tra_AMC,Tra_SchemplanCode,TransactionPAN,TransactionSubbrokerCode,CMFT_Amount"
                             Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                             EditMode="PopUp">
                             <Columns>
-                                <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false">
+                              <telerik:GridTemplateColumn HeaderText="Select"  Visible="false" ShowFilterIcon="false" AllowFiltering="false">
                                     <HeaderTemplate>
-                                        <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                                        <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                                        <asp:Label ID="lblchkBxSelect" Visible="false" runat="server" Text="Select"></asp:Label>
+                                      <input id="chkBxWerpAll" name="chkBxWerpAll" visible="false"  type="checkbox" onclick="checkAllBoxes()" />
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
+                                        <asp:CheckBox ID="cbRecons" Visible="false" runat="server" Checked="false" />
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
-                                    SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="EqualTo"
+                                    SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="EqualTo" AllowFiltering="true"
                                     AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn HeaderText="OrderDetID" DataField="CMFOD_OrderNumber"
@@ -411,7 +408,7 @@
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridBoundColumn DataField="CMFA_FolioNum" HeaderText="Folio No" SortExpression="CMFA_FolioNum"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="CMFA_FolioNum" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="CMFA_FolioNum" AllowFiltering="true" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="Scheme Name"
@@ -504,14 +501,14 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="100px" UniqueName="MarkAsReject"
+                                <telerik:GridEditCommandColumn Visible="false" HeaderStyle-Width="100px" UniqueName="MarkAsReject"
                                     EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridEditCommandColumn>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
-                                    ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="Order1" Visible="true">
+                                    ShowFilterIcon="false" AutoPostBackOnFilter="true"  UniqueName="Order1" Visible="false">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkMatch" runat="server" Text="Add Order" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
+                                        <asp:LinkButton ID="lnkMatch" runat="server" Visible="false" Text="Add Order" OnClick="lnkMatch_SelectedIndexChanged"></asp:LinkButton>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
                             </Columns>
@@ -593,8 +590,8 @@
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderText="Select">
                                     <HeaderTemplate>
-                                        <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                                        <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                                        <asp:Label ID="lblchkBxSelect" Visible="false" runat="server" Text="Select"></asp:Label>
+                                        <input id="chkBxWerpAll" visible="false" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
@@ -650,9 +647,15 @@
             </td>
         </tr>
         <tr>
-        <td>&nbsp;</td>
+            <td>
+                &nbsp;
+            </td>
         </tr>
-        <tr>
+        
+    </table>
+</asp:Panel>
+<table>
+<tr>
             <td>
                 <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
                     OnClick="btnSync_Click" Visible="false" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -660,8 +663,7 @@
                     OnClick="btnMannualMatch_Click" Visible="false" />
             </td>
         </tr>
-    </table>
-</asp:Panel>
+</table>
 <table width="50%">
     <tr>
     </tr>

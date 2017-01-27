@@ -156,7 +156,6 @@
     </table>
 </div>
 <div id="dvViewMandateMis" runat="server" visible="false">
-    
     <table id="tblClusterZone" runat="server" width="100%" class="TableBackground">
         <tr>
             <td>
@@ -167,9 +166,8 @@
                                 Mandate Details
                             </td>
                             <td align="right">
-                                <asp:ImageButton Visible="false" ID="btnExportFilteredMandatedetails"
-                                    ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png" runat="server" AlternateText="Excel"
-                                    ToolTip="Export To Excel" OnClick="btnExportFilteredMandatedetails_OnClick"
+                                <asp:ImageButton Visible="false" ID="btnExportFilteredMandatedetails" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredMandatedetails_OnClick"
                                     OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                             </td>
                         </tr>
@@ -179,76 +177,73 @@
         </tr>
         <tr>
             <td style="padding-top: 8px;">
-                <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" runat="server">
-                    <div runat="server" id="divZoneCluster" style="margin: 2px; width: 640px;">
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" runat="server" Visible="true">
+                    <div runat="server" id="divZoneCluster" visible="true" style="margin: 2px; width: 640px;">
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" Visible="true">
                             <ContentTemplate>
                                 <telerik:RadGrid ID="gvMandatedetails" runat="server" CssClass="RadGrid" GridLines="None"
-                                    enableloadondemand="True" Width="120%" AllowSorting="True" PagerStyle-AlwaysVisible="true"
+                                    enableloadondemand="True" Width="195%" AllowSorting="True" PagerStyle-AlwaysVisible="true"
                                     AllowPaging="true" AutoGenerateColumns="false" ShowStatusBar="true" PageSize="10"
                                     AllowAutomaticInserts="false" AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvMandatedetails_NeedDataSource"
                                     EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
                                     AllowFilteringByColumn="true" ShowFooter="false">
-                                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="Mandatedetails">
-                                </exportsettings>
-                                    <mastertableview showgroupfooter="true" editmode="EditForms" grouploadmode="Client"
-                                        commanditemsettings-showrefreshbutton="false">
-                                       <Columns>
-                                        <telerik:GridBoundColumn UniqueName="C_CustCode" HeaderStyle-Width="120px" HeaderText="Zone"
-                                            DataField="C_CustCode" SortExpression="C_CustCode" AllowFiltering="true" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" Visible="false">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="C_FirstName" HeaderStyle-Width="120px" HeaderText="Zone"
-                                            DataField="C_FirstName" SortExpression="C_FirstName" AllowFiltering="true" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" Aggregate="Count" FooterText="Row Count : ">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="C_PANNum" HeaderStyle-Width="120px" HeaderText="Cluster"
-                                            DataField="C_PANNum" SortExpression="C_PANNum" AllowFiltering="true" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                       
-                                        <telerik:GridBoundColumn UniqueName="CMFOD_Amount" HeaderStyle-Width="120px" HeaderText="Code"
-                                            DataField="CMFOD_Amount" SortExpression="CMFOD_Amount" AllowFiltering="true"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        
-                                        <telerik:GridBoundColumn UniqueName="CMFOD_BankName" HeaderStyle-Width="120px" HeaderText="CMFOD_BankName"
-                                            DataField="CMFOD_BankName" SortExpression="CMFOD_BankName" AllowFiltering="true"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CMFOD_BranchName" HeaderStyle-Width="120px" HeaderText="Head"
-                                            DataField="CMFOD_BranchName" SortExpression="CMFOD_BranchName" AllowFiltering="true"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="MandateType" HeaderStyle-Width="180px" HeaderText="MandateType"
-                                            DataField="MandateType" SortExpression="MandateType" AllowFiltering="true" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CreatedBy" HeaderStyle-Width="100px" HeaderText="Phone"
-                                            DataField="CreatedBy" SortExpression="CreatedBy" AllowFiltering="true" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn UniqueName="CO_CreatedOn" HeaderStyle-Width="100px"
-                                            HeaderText="Type" DataField="CO_CreatedOn" SortExpression="CO_CreatedOn"
-                                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                                            <HeaderStyle></HeaderStyle>
-                                        </telerik:GridBoundColumn>
-                                        
-                                    </Columns>
-                                    <HeaderStyle Width="110px" />
-                                </mastertableview>
-                                    <clientsettings>
-                                    <Selecting AllowRowSelect="true" />
-                                    <Resizing AllowColumnResize="true" />
-                                </clientsettings>
+                                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="Mandatedetails">
+                                    </ExportSettings>
+                                    <MasterTableView ShowGroupFooter="true" EditMode="EditForms" GroupLoadMode="Client"
+                                        CommandItemSettings-ShowRefreshButton="false">
+                                        <Columns>
+                                            <telerik:GridBoundColumn UniqueName="C_CustCode" HeaderStyle-Width="120px" HeaderText="Zone"
+                                                DataField="C_CustCode" SortExpression="C_CustCode" AllowFiltering="true" ShowFilterIcon="false"
+                                                AutoPostBackOnFilter="true" Visible="false">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="C_FirstName" HeaderStyle-Width="120px" HeaderText="Zone"
+                                                DataField="C_FirstName" SortExpression="C_FirstName" AllowFiltering="true" ShowFilterIcon="false"
+                                                AutoPostBackOnFilter="true" Aggregate="Count" FooterText="Row Count : ">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="C_PANNum" HeaderStyle-Width="120px" HeaderText="Cluster"
+                                                DataField="C_PANNum" SortExpression="C_PANNum" AllowFiltering="true" ShowFilterIcon="false"
+                                                AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="CMFOD_Amount" HeaderStyle-Width="120px" HeaderText="Code"
+                                                DataField="CMFOD_Amount" SortExpression="CMFOD_Amount" AllowFiltering="true"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="CMFOD_BankName" HeaderStyle-Width="120px" HeaderText="CMFOD_BankName"
+                                                DataField="CMFOD_BankName" SortExpression="CMFOD_BankName" AllowFiltering="true"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="CMFOD_BranchName" HeaderStyle-Width="120px"
+                                                HeaderText="Head" DataField="CMFOD_BranchName" SortExpression="CMFOD_BranchName"
+                                                AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="MandateType" HeaderStyle-Width="180px" HeaderText="MandateType"
+                                                DataField="MandateType" SortExpression="MandateType" AllowFiltering="true" ShowFilterIcon="false"
+                                                AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="CreatedBy" HeaderStyle-Width="100px" HeaderText="Phone"
+                                                DataField="CreatedBy" SortExpression="CreatedBy" AllowFiltering="true" ShowFilterIcon="false"
+                                                AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn UniqueName="CO_CreatedOn" HeaderStyle-Width="100px" HeaderText="Type"
+                                                DataField="CO_CreatedOn" SortExpression="CO_CreatedOn" AllowFiltering="true"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                        </Columns>
+                                        <HeaderStyle Width="110px" />
+                                    </MasterTableView>
+                                    <ClientSettings>
+                                        <Selecting AllowRowSelect="true" />
+                                        <Resizing AllowColumnResize="true" />
+                                    </ClientSettings>
                                 </telerik:RadGrid>
                             </ContentTemplate>
                             <Triggers>

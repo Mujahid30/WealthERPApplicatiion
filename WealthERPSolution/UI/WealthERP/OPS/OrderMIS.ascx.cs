@@ -189,7 +189,7 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 gvCustomerOrderMIS.Visible = false;
-               
+
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -382,7 +382,7 @@ namespace WealthERP.OPS
                 gvCustomerFIOrderMIS.DataBind();
                 gvCustomerFIOrderMIS.Visible = true;
                 //this.GetPageCount();
-               
+
                 if (ddlMISOrderStatus.SelectedValue == "OMIP")
                 {
                     btnSync.Visible = true;
@@ -442,9 +442,9 @@ namespace WealthERP.OPS
             }
 
             dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value, OnlineStatus, ddlType.SelectedValue);
-          
-            
-           if (dsOrderMIS.Tables.Count > 0)
+
+
+            if (dsOrderMIS.Tables.Count > 0)
             {
                 dtOrderMIS = dsOrderMIS.Tables[0];
                 if (dtOrderMIS.Rows.Count > 0)
@@ -479,16 +479,13 @@ namespace WealthERP.OPS
                     gvCustomerOrderMIS.DataSource = dtOrderMIS;
                     gvCustomerOrderMIS.DataBind();
                     Cache.Remove("OrderMIS" + userVo.UserId);
-                    //ErrorMessage.Visible = true;
-                    //tblMessage.Visible = true;
+
                 }
             }
 
             else
             {
                 gvCustomerOrderMIS.Visible = false;
-                //tblMessage.Visible = true;
-
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
                 btnMannualMatch.Visible = false;
@@ -498,19 +495,22 @@ namespace WealthERP.OPS
 
             }
 
-            //setMatchButtonsVisblity();
-            if(ddlType.SelectedValue=="2")
+            if (ddlType.SelectedValue == "2")
             {
                 btnMannualMatch.Visible = false;
                 btnSync.Visible = false;
+
             }
+
             else
             {
                 //if (dsOrderMIS.Tables.Count > 0)
                 //{
                     btnMannualMatch.Visible = true;
                     btnSync.Visible = true;
+
                 //}
+              
             }
 
 
@@ -575,7 +575,7 @@ namespace WealthERP.OPS
         }
 
 
-       
+
 
 
 
@@ -669,7 +669,9 @@ namespace WealthERP.OPS
                 hdnOrdStatus.Value = string.Empty;
                 SetParameters();
                 BindMISGridView();
+
             }
+
             else if (hdnProductType.Value == "FI")
             {
                 tbgvMIS.Visible = true;
@@ -683,7 +685,7 @@ namespace WealthERP.OPS
 
         private void setMatchButtonsVisblity()
         {
-            if (ddlMISOrderStatus.SelectedValue == "IP" && ddlOnlineOffline.SelectedValue.ToUpper() == "OFFLINE" && ddlType.SelectedValue=="2")
+            if (ddlMISOrderStatus.SelectedValue == "IP" && ddlOnlineOffline.SelectedValue.ToUpper() == "OFFLINE" && ddlType.SelectedValue == "2")
             {
                 btnMannualMatch.Visible = false;
                 btnSync.Visible = false;
@@ -693,7 +695,7 @@ namespace WealthERP.OPS
                 btnMannualMatch.Visible = true;
                 btnSync.Visible = true;
             }
-          
+
         }
         private void SetFIParameters()
         {
@@ -931,13 +933,7 @@ namespace WealthERP.OPS
         protected void btnSync_Click(object sender, EventArgs e)
         {
             int i = 0;
-            int gvOrderId = 0;
-            //int gvCustomerId = 0;
-            int gvPortfolioId = 0;
-            int gvSchemeCode = 0;
-            int gvaccountId = 0;
-            string gvTrxType = "";
-            double gvAmount = 0.0;
+
             DateTime gvOrderDate = DateTime.MinValue;
             bool result = false;
             if (hdnProductType.Value == "FI")
@@ -1045,24 +1041,21 @@ namespace WealthERP.OPS
         private bool MFAutoMatch()
         {
             int gvOrderDetId = 0;
-            //int gvCustomerId = 0;
             int gvPortfolioId = 0;
             int gvSchemeCode = 0;
             int gvaccountId = 0;
-            string gvTrxType = "";
+            string gvTrxType = string.Empty;
             double gvAmount = 0.0;
-            DateTime gvOrderDate = DateTime.MinValue;
+            DateTime gvOrderDate = DateTime.Now;
             bool result = false;
             foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
             {
                 if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
                 {
-                    //CheckBox lnkOrderId = (CheckBox)sender;
-                    //GridDataItem gdi;
-                    //gdi = (GridDataItem)lnkOrderId.NamingContainer;
+
                     int selectedRow = gdi.ItemIndex + 1;
-                    gvOrderDetId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
-                    //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
+                    if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString().Trim()))
+                        gvOrderDetId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
                     if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString().Trim()))
                         gvPortfolioId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString());
                     else
@@ -1073,9 +1066,11 @@ namespace WealthERP.OPS
                         gvaccountId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
                     else
                         gvaccountId = 0;
-                    gvTrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
-                    gvAmount = Convert.ToDouble(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
-                    gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
+                    gvTrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["Tra_TransactionType"].ToString();
+                    if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString()))
+                        gvAmount = Convert.ToDouble(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
+                    if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString()))
+                        gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
                     if (ddlOnlineOffline.SelectedValue == "Online")
                     {
                         result = operationBo.Update_Onl_MFTransactionForSynch(gvOrderDetId);
@@ -1335,7 +1330,8 @@ namespace WealthERP.OPS
                         //GridDataItem gdi;
                         //gdi = (GridDataItem)lnkOrderId.NamingContainer;
                         int selectedRow = gdi.ItemIndex + 1;
-                        OrderId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
+                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()))
+                            OrderId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
                         if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_UserTransactionNo"].ToString()))
                             UserTransactionNo = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_UserTransactionNo"].ToString());
                         CustomerId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString());
@@ -1346,8 +1342,10 @@ namespace WealthERP.OPS
                         else
                             accountId = 0;
                         TrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
-                        Amount = double.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
-                        OrderDate = DateTime.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
+                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString()))
+                            Amount = double.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
+                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString()))
+                            OrderDate = DateTime.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
                         if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanSwitch"].ToString()))
                             schemeCodeSwitch = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanSwitch"].ToString());
                         else
@@ -1362,6 +1360,7 @@ namespace WealthERP.OPS
                     }
 
                 }
+
                 BindMISGridView();
             }
             else
@@ -1526,23 +1525,13 @@ namespace WealthERP.OPS
         //    }
         //}
 
-        //protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if (ddlType.SelectedValue = 2)
-        //    {
-        //        btnMannualMatch.Visible = false;
-        //        btnSync.Visible = false;
 
-        //    }
-        //    else
-        //    {
-        //        btnMannualMatch.Visible = true;
-        //        btnSync.Visible = true;
-        //    }
-        
-        
-        //}
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+
+
+        }
 
         protected void ddlCustomerType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1697,8 +1686,8 @@ namespace WealthERP.OPS
             string Tra_TransactionType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["Tra_TransactionType"].ToString();
             string Tra_AMC = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["Tra_AMC"].ToString();
             string Tra_SchemplanCode = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["Tra_SchemplanCode"].ToString();
-
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','FormAction=" + "MfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&Tra_TransactionType=" + Tra_TransactionType + "&Tra_AMC=" + Tra_AMC + "&Tra_SchemplanCode=" + Tra_SchemplanCode + " ');", true);
+            string Tra_Amount = gvCustomerOrderMIS.MasterTableView.DataKeyValues[rowindex]["CMFT_Amount"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','FormAction=" + "MfRecon_OrderAdd" + "&SubBrokerCode=" + SubBrokerCode + "&PAN=" + PAN + "&Tra_TransactionType=" + Tra_TransactionType + "&Tra_AMC=" + Tra_AMC + "&CMFT_Amount=" + Tra_Amount + "&Tra_SchemplanCode=" + Tra_SchemplanCode + " ');", true);
 
         }
 
@@ -1711,24 +1700,43 @@ namespace WealthERP.OPS
                 GridDataItem dataItem = e.Item as GridDataItem;
 
                 Label lblordertype = dataItem.FindControl("lblOrderType") as Label;
-                //    LinkButton lbtnMarkAsReject = dataItem.FindControl("MarkAsReject") as LinkButton;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
 
                 Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
                 Label OrderStepCode = dataItem.FindControl("lblOrderStepCode") as Label;
-                // Label lnkMatch = dataItem.FindControl("lnkMatch") as Label;
 
 
                 int selectedRow = dataItem.ItemIndex + 1;
-                //LinkButton lnkMatch = (LinkButton)dataItem.FindControl("lnkMatch");
-                //if (ddlType.SelectedValue == "4")
-                //{
-                //    lnkMatch.Visible = true;
-                //}
-                //else
-                //{
-                //    lnkMatch.Visible = false;
-                //}
+                LinkButton lnkMatch = (LinkButton)dataItem.FindControl("lnkMatch");
+                CheckBox cbRecons = (CheckBox)dataItem.FindControl("cbRecons");
+                Label lblchkBxSelect = dataItem.FindControl("lblOrderStepCode") as Label;
+                if (ddlType.SelectedValue == "2")
+                {
+                    lnkMatch.Visible = false;
+                    lblchkBxSelect.Visible = false;
+                    cbRecons.Visible = false;
+                    lbtnMarkAsReject.Visible = false;
+                    gvCustomerOrderMIS.Columns[0].Visible = false;
+                    gvCustomerOrderMIS.Columns[29].Visible = false;
+                }
+
+                else if (ddlType.SelectedValue == "3")
+                {
+                    lnkMatch.Visible = false;
+                    lblchkBxSelect.Visible = true;
+                    cbRecons.Visible = true;
+                    lbtnMarkAsReject.Visible = false;
+                    gvCustomerOrderMIS.Columns[0].Visible = true;
+                    gvCustomerOrderMIS.Columns[29].Visible = false;
+                }
+                else if (ddlType.SelectedValue == "4")
+                {
+                    lnkMatch.Visible = true;
+                    lblchkBxSelect.Visible = true;
+                    cbRecons.Visible = true;
+                    gvCustomerOrderMIS.Columns[0].Visible = true;
+                    gvCustomerOrderMIS.Columns[29].Visible = true;
+                }
                 if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
                 {
                     if ((OrderStepCode.Text.Trim() == "AL") || (OrderStepCode.Text.Trim() == "IP"))
@@ -1739,7 +1747,6 @@ namespace WealthERP.OPS
                     {
                         lbtnMarkAsReject.Visible = false;
                     }
-                    // lnkMatch.Visible = false;
                 }
                 else
                 {
@@ -2145,16 +2152,17 @@ namespace WealthERP.OPS
             dtOrderMIS = (DataTable)Cache["OrderMIS" + userVo.UserId];
             gvCustomerOrderMIS.DataSource = dtOrderMIS;
             gvCustomerOrderMIS.Visible = true;
-            //if (ddlMISOrderStatus.SelectedValue == "IP")
-            //{
-            //    btnSync.Visible = false;
-            //    btnMannualMatch.Visible = false;
-            //}
-            //else
-            //{
-            //    btnSync.Visible = false;
-            //    btnMannualMatch.Visible = false;
-            //}
+            if (ddlType.SelectedValue == "2")
+            {
+                btnSync.Visible = false;
+                btnMannualMatch.Visible = false;
+            }
+            else
+            {
+                btnSync.Visible = true;
+                btnMannualMatch.Visible = true;
+            }
+
         }
 
         protected void btnMForderRecon_Click(object sender, ImageClickEventArgs e)
@@ -2168,19 +2176,7 @@ namespace WealthERP.OPS
             gvCustomerOrderMIS.MasterTableView.ExportToExcel();
         }
 
-        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlType.SelectedValue == "2")
-            {
-                btnSync.Visible = false;
-                btnMannualMatch.Visible = false;
-            
-            }
-            else
-            {
-                btnSync.Visible = true;
-                btnMannualMatch.Visible = true;
-            }
-        }
+
+
     }
 }

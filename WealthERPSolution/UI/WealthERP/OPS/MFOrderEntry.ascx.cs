@@ -187,8 +187,8 @@ namespace WealthERP.OPS
                         txtAssociateSearch.Text = Request.QueryString["SubBrokerCode"].ToString();
                         transactionType = Request.QueryString["Tra_TransactionType"].ToString();
                         Tra_AMC = Request.QueryString["Tra_AMC"].ToString();
+                        txtAmount.Text = Request.QueryString["CMFT_Amount"];
                         Tra_SchemplanCode = Request.QueryString["Tra_SchemplanCode"].ToString();
-
 
                         mfOrderBo.GetPanDetails(txtPansearch.Text, txtAssociateSearch.Text, advisorVo.advisorId, out customerId, out customerName, out  agentIds);
                         txtCustomerId.Value = customerId.ToString();
@@ -5064,7 +5064,7 @@ namespace WealthERP.OPS
 
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-           
+
             if (AgentId.Rows.Count > 0)
             {
                 mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());

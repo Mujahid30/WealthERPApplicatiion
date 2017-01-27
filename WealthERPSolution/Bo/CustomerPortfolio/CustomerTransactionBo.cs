@@ -2029,6 +2029,7 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
+       
 
         public bool MergeTrailDetailsWithTransaction(int accountId, int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual, string folionoForMerge, int schemeplancodeForMerge, string transactionnoForMerge, double unitsForMerge, double amountForMerge, DateTime transactionDateForMerge, int adviserId)
         {
@@ -2579,5 +2580,35 @@ namespace BoCustomerPortfolio
                return eqTransactionVo;
            }
 
+
+
+           public void ExcelToExportData(DataTable dt, string fileName)
+           {
+               //Response.ClearContent();
+               //Response.Buffer = true;
+               //Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
+               //Response.ContentType = "application/ms-excel";
+
+               string str = string.Empty;
+               foreach (DataColumn dtcol in dt.Columns)
+               {
+                   //Response.Write(str + dtcol.ColumnName);
+                   str = "\t";
+               }
+               //Response.Write("\n");
+               foreach (DataRow dr in dt.Rows)
+               {
+                   str = "";
+                   for (int j = 0; j < dt.Columns.Count; j++)
+                   {
+                       //Response.Write(str + Convert.ToString(dr[j]));
+                       str = "\t";
+                   }
+                   //Response.Write("\n");
+               }
+
+
+               //Response.End();
+           }
     }
 }

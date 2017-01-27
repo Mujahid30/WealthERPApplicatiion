@@ -1507,7 +1507,7 @@
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtAmount"
                             runat="server" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
-                            ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
+                            ValidationExpression="((\d+)((\.\d{1,6})?))$">
                         </asp:RegularExpressionValidator>
                     </td>
                     <td align="right" style="width: 22.5%;">

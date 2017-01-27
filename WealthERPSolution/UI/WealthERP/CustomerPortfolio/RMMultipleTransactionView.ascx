@@ -148,6 +148,12 @@
         }
     }
 </script>
+<script type="text/javascript">
+    function ExcelToExport() 
+    {
+       
+    }
+    </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -409,7 +415,7 @@
                                         <td align="right">
                                             &nbsp; &nbsp; &nbsp; &nbsp;<asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
                                         </td>
-                                        <td colspan="2">
+                                        <td>
                                             <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                                                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                                                 <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -567,7 +573,7 @@
                                     Visible="false"></asp:Label>
                                 <asp:Label ID="lblSchemeList" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td align="left" colspan="3">
+                            <td align="left">
                                 <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
                                     Width="500px">
                                 </asp:DropDownList>

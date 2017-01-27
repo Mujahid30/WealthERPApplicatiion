@@ -17,6 +17,7 @@ using VoCustomerPortfolio;
 using BoCustomerProfiling;
 using BoOnlineOrderManagement;
 using BoAdvisorProfiling;
+using Telerik.Web.UI;
 namespace WealthERP.BusinessMIS
 {
     public partial class Commissiondashboard : System.Web.UI.UserControl
@@ -41,7 +42,7 @@ namespace WealthERP.BusinessMIS
             associatesVo = (AssociatesVO)Session["associatesVo"];
             assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
             trNewOrder.Visible = false;
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
                 if (Request.QueryString["IsAdd"] != null)
                 {
@@ -90,7 +91,7 @@ namespace WealthERP.BusinessMIS
                 Session["customerVo"] = customerVo;
 
                 lblgetPan.Text = customerVo.PANNum;
-                lblgetcust.Text = customerVo.FirstName ;
+                lblgetcust.Text = customerVo.FirstName;
 
             }
 
@@ -98,7 +99,7 @@ namespace WealthERP.BusinessMIS
         protected void btnMandateSubmit_Click(object sender, EventArgs e)
         {
             string userMessage = string.Empty;
-            string BSEMessage=string.Empty;
+            string BSEMessage = string.Empty;
             char msgtype = 's';
             bool result = false;
             OnlineMFOrderBo onlineMFOrderBo = new OnlineMFOrderBo();
@@ -112,7 +113,7 @@ namespace WealthERP.BusinessMIS
                     int OrderId = onlineMFOrderBo.CreateMandateOrder(int.Parse(txtCustomerId.Value.ToString()), Convert.ToDouble(txtAmount.Text), txtBankName.Text, txtBBranch.Text, userVo.UserId, mandateId);
                     if (OrderId != 0)
                     {
-                        userMessage = BSEMessage + " "  + "Order Reference Number is: " + OrderId.ToString();
+                        userMessage = BSEMessage + " " + "Order Reference Number is: " + OrderId.ToString();
                         msgtype = 'S';
                         freezeControls();
                         trNewOrder.Visible = true;
@@ -129,6 +130,7 @@ namespace WealthERP.BusinessMIS
                     msgtype = 'F';
                 }
                 ShowMessage(userMessage, msgtype);
+                BindMandateddetailsDetailsGrid(advisorVo.advisorId);
 
             }
         }
@@ -152,8 +154,59 @@ namespace WealthERP.BusinessMIS
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
         }
-        
 
+
+        private void BindMandateddetailsDetailsGrid(int adviserId)
+        {
+            DataSet ds;
+            DataTable dt = new DataTable();
+            OnlineMFOrderBo onlineMFOrderBo = new OnlineMFOrderBo();
+            ds = onlineMFOrderBo.BindMandateddetailsDetails(adviserId);
+            dt = ds.Tables[0];
+
+            gvMandatedetails.DataSource = dt;
+            gvMandatedetails.DataBind();
+            pnlZoneCluster.Visible = true;
+            gvMandatedetails.Visible = true;
+            UpdatePanel1.Visible = true;
+            dvViewMandateMis.Visible = true;
+            btnExportFilteredMandatedetails.Visible = true;
+
+            if (Cache["gvMandatedetails" + advisorVo.advisorId.ToString()] == null)
+            {
+                Cache.Insert("gvMandatedetails" + advisorVo.advisorId.ToString(), dt);
+            }
+            else
+            {
+                Cache.Remove("gvMandatedetails" + advisorVo.advisorId.ToString());
+                Cache.Insert("gvMandatedetails" + advisorVo.advisorId.ToString(), dt);
+            }
+        }
+
+
+
+
+        protected void gvMandatedetails_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvMandatedetails" + advisorVo.advisorId.ToString()];
+            gvMandatedetails.DataSource = dt;
+
+        }
+
+
+        protected void btnExportFilteredMandatedetails_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvMandatedetails.ExportSettings.OpenInNewWindow = true;
+            gvMandatedetails.ExportSettings.IgnorePaging = true;
+            gvMandatedetails.ExportSettings.HideStructureColumns = true;
+            gvMandatedetails.ExportSettings.ExportOnlyData = true;
+            gvMandatedetails.ExportSettings.FileName = "Mandate details";
+            gvMandatedetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvMandatedetails.MasterTableView.ExportToExcel();
+
+
+        }
     }
 
 }

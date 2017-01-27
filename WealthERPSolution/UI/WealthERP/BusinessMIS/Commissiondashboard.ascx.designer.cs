@@ -257,6 +257,62 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvViewMandateMis;
         
         /// <summary>
+        /// tblClusterZone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblClusterZone;
+        
+        /// <summary>
+        /// btnExportFilteredMandatedetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredMandatedetails;
+        
+        /// <summary>
+        /// pnlZoneCluster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlZoneCluster;
+        
+        /// <summary>
+        /// divZoneCluster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divZoneCluster;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+     
+
+        /// <summary>
+        /// gvMandatedetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvMandatedetails;
+        
+        /// <summary>
         /// txtCustomerId control.
         /// </summary>
         /// <remarks>
