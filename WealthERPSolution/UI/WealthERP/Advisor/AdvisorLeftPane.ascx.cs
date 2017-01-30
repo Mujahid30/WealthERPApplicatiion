@@ -36,7 +36,7 @@ namespace WealthERP.Advisor
         string sourcePath = "";
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+       {
             DataSet dsAdviserTreeNodes;
             SessionBo.CheckSession();
             Session["BranchAdd"] = "forRM";
@@ -2008,11 +2008,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Add_Bank_Mandate")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','IsAdd=" + "1" + "');", true);
                 }
                 else if (e.Item.Value == "View_Mandate_MIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','IsAdd=" + "0" + "');", true);
                 }
                 else if (e.Item.Value == "View_UTIAMC")
                 {
