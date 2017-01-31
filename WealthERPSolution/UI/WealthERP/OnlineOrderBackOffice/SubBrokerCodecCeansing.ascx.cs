@@ -187,13 +187,35 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvSubBrokerCleansing.ExportSettings.OpenInNewWindow = true;
-            gvSubBrokerCleansing.ExportSettings.IgnorePaging = true;
-            gvSubBrokerCleansing.ExportSettings.HideStructureColumns = true;
-            gvSubBrokerCleansing.ExportSettings.ExportOnlyData = true;
-            gvSubBrokerCleansing.ExportSettings.FileName = "SubBroker Code Cleansing";
-            gvSubBrokerCleansing.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvSubBrokerCleansing.MasterTableView.ExportToExcel();
+            ExcelToExport();
+         
+        }
+        private void ExcelToExport()
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "SubBroker Code Cleansing.xls"));
+            Response.ContentType = "application/ms-excel";
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["SubBrokerCleansing" + userVo.UserId];
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
         protected void btnUpdateSubBroker_OnClick(object sender, EventArgs e)
         {
