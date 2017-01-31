@@ -660,7 +660,7 @@ namespace BoOnlineOrderManagement
                 if (Response.Contains("FALSE"))
                 {
                     resultRmsId = onlineOrderDao.CreateOrUpdateRMSLog(userId, rmsID, 0, rmsType, amount, requestTime, responseTime, string.Empty, "RMSREsponse:-" + Response, dt.Rows[0]["ReferenceNumber"].ToString());
-                    result = true;
+                    result = false;
 
                 }
             }
