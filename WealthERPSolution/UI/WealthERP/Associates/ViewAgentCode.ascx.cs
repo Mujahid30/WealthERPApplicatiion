@@ -31,14 +31,14 @@ namespace WealthERP.Associates
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
-            associateuserheirarchyVo=(AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
             associatesVo = (AssociatesVO)Session["associatesVo"];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                
+
             }
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
@@ -46,18 +46,19 @@ namespace WealthERP.Associates
                 {
                     Agentcode = Request.QueryString["AgentCode"].ToString();
                 }
-                else {
+                else
+                {
                     Agentcode = string.Empty;
                 }
-               
+
             }
             else
             {
-                Agentcode = associateuserheirarchyVo.AgentCode;   
+                Agentcode = associateuserheirarchyVo.AgentCode;
             }
 
-              //  Agentcode = associateuserheirarchyVo.AgentCode;
-            
+            //  Agentcode = associateuserheirarchyVo.AgentCode;
+
             BindAgentCodeList();
 
         }
@@ -102,14 +103,38 @@ namespace WealthERP.Associates
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvAgentCodeView.ExportSettings.OpenInNewWindow = true;
-            gvAgentCodeView.ExportSettings.IgnorePaging = true;
-            gvAgentCodeView.ExportSettings.HideStructureColumns = true;
-            gvAgentCodeView.ExportSettings.ExportOnlyData = true;
-            gvAgentCodeView.ExportSettings.FileName = "View Code Master";
-            gvAgentCodeView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvAgentCodeView.MasterTableView.ExportToExcel();
+            ExcelToExport();
+
         }
+
+        private void ExcelToExport()
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "View Code Master.xls"));
+            Response.ContentType = "application/ms-excel";
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvAgentCodeView" + userVo.UserId + userType];
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
+        }
+
         protected void LnkRQ_Click(object sender, EventArgs e)
         {
             GridDataItem gvRow = ((GridDataItem)(((LinkButton)sender).Parent.Parent));
