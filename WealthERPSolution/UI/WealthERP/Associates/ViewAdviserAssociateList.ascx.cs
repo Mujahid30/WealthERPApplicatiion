@@ -106,15 +106,36 @@ namespace WealthERP.Associates
         }
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            ExcelToExport();
+          
 
-            gvAdviserAssociateList.ExportSettings.OpenInNewWindow = true;
-            gvAdviserAssociateList.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvAdviserAssociateList.MasterTableView.GetItems(GridItemType.FilteringItem))
+        }
+        private void ExcelToExport()
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "AdviserAssociateList.xls"));
+            Response.ContentType = "application/ms-excel";
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvAdviserAssociateList" + userVo.UserId + userType];
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
             {
-                filter.Visible = false;
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
             }
-            gvAdviserAssociateList.MasterTableView.ExportToExcel();
-
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
         protected void gvAdviserAssociateList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
