@@ -1226,17 +1226,36 @@ namespace WealthERP.Advisor
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            DataTable dtGvFolioDetails = new DataTable();
-            dtGvFolioDetails = (DataTable)Cache["gvCustomerFolioMerge" + adviserVo.advisorId];
-            gvCustomerFolioMerge.DataSource = dtGvFolioDetails;
+           
+            ExcelToExport();
 
-            gvCustomerFolioMerge.ExportSettings.OpenInNewWindow = true;
-            gvCustomerFolioMerge.ExportSettings.IgnorePaging = true;
-            gvCustomerFolioMerge.ExportSettings.HideStructureColumns = true;
-            gvCustomerFolioMerge.ExportSettings.ExportOnlyData = true;
-            gvCustomerFolioMerge.ExportSettings.FileName = "Accounts Details";
-            gvCustomerFolioMerge.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvCustomerFolioMerge.MasterTableView.ExportToExcel();
+        }
+        private void ExcelToExport()
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "Accounts Details.xls"));
+            Response.ContentType = "application/ms-excel";
+            DataTable dt = new DataTable();
+            dt = (DataTable)Cache["gvCustomerFolioMerge" + adviserVo.advisorId];
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
         protected void ddlSelect_SelectedIndexChanged(object sender, EventArgs e)
         {

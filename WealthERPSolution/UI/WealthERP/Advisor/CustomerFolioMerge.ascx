@@ -14,7 +14,7 @@
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
-</asp:ScriptManager>
+</asp:ScriptManager> 
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
