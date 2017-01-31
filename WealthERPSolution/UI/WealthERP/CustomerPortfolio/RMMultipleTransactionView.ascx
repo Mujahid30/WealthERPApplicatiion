@@ -148,12 +148,12 @@
         }
     }
 </script>
+
 <script type="text/javascript">
-    function ExcelToExport() 
-    {
-       
+    function ExcelToExport() {
+
     }
-    </script>
+</script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -370,6 +370,12 @@
                                                     OnClientClick="setFormat('excel')" Height="23px" Width="25px" OnClick="btnTrnxExportMFOffLineWithoutSubbroker_Click">
                                                 </asp:ImageButton>
                                             </td>
+                                          <%--  <td align="right" style="width: 10px">
+                                                <asp:ImageButton ID="BtnExpotTrail" ImageUrl="~/Images/Export_Excel.png"
+                                                    Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                                    OnClientClick="setFormat('excel')" Height="23px" Width="25px" OnClick="BtnExpotTrail_Click">
+                                                </asp:ImageButton>
+                                            </td>--%>
                             </td>
                         </tr>
                     </table>
@@ -1345,13 +1351,12 @@
             </tr>
             <tr>
                 <td style="padding-top: 20px">
-                    <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: auto"
-                        visible="false">
+                    <div id="divTrail" runat="server" visible="false">
                         <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
                         <table cellpadding="0" cellspacing="0" width="100%">
                             <tr>
                                 <td>
-                                    <div id="Div3" runat="server" style="margin: 2px; width: 100%;" visible="false">
+                                    <div id="Div3" runat="server" style="margin: 2px; height:100%; width: 100%;" visible="false">
                                         <telerik:RadGrid ID="gvTrail" runat="server" AllowAutomaticInserts="false" AllowFilteringByColumn="true"
                                             AllowPaging="True" AllowSorting="true" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
                                             ExportSettings-FileName="Trail DETAILS" GridLines="None" OnItemDataBound="gvTrail_ItemDataBound"
@@ -1578,7 +1583,7 @@
                                                 <HeaderStyle Width="180px" />
                                             </MasterTableView>
                                             <ClientSettings>
-                                                <Scrolling AllowScroll="true" ScrollHeight="380px" UseStaticHeaders="true" />
+                                                <%--<Scrolling AllowScroll="true" ScrollHeight="100%" UseStaticHeaders="true" />--%>
                                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                                 <Resizing AllowColumnResize="true" />
                                             </ClientSettings>

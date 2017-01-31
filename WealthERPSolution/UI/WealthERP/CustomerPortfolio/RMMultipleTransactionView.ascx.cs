@@ -741,7 +741,8 @@ namespace WealthERP.CustomerPortfolio
                 Panel2.Visible = false;
                 gvTrail.Visible = false;
                 divTrail.Visible = false;
-
+                btnTrnxExportMFOffLineWithoutSubbroker.Visible = false;
+                pnlMFTransactionWithoutAgentCode.Visible = false;
             }
 
             if (DisplayType == "TCV")
@@ -752,6 +753,8 @@ namespace WealthERP.CustomerPortfolio
                 Panel2.Visible = false;
                 gvBalanceView.Visible = false;
                 Panel1.Visible = false;
+                pnlMFTransactionWithoutAgentCode.Visible = false;
+                btnTrnxExport.Visible = false;
 
             }
 
@@ -1946,9 +1949,7 @@ namespace WealthERP.CustomerPortfolio
             DataTable dt = (DataTable)Cache["ViewBalance" + userVo.UserId + userType];
             ExcelToExportData(dt, "View ReturnHolding Details");
         }
-        protected void btnbalncExport_Click(object sender, ImageClickEventArgs e)
-        {
-        }
+     
         protected void Transaction_PreRender(object sender, EventArgs e)
         {
             RadComboBox Combo = sender as RadComboBox;
@@ -2150,9 +2151,8 @@ namespace WealthERP.CustomerPortfolio
 
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName+".xls"));
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
             Response.ContentType = "application/ms-excel";
-
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
@@ -2168,9 +2168,8 @@ namespace WealthERP.CustomerPortfolio
                     Response.Write(str + Convert.ToString(dr[j]));
                     str = "\t";
                 }
-
+                Response.Write("\n");
             }
-
             Response.End();
         }
     }
