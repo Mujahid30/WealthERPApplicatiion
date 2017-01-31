@@ -1102,7 +1102,7 @@ namespace WealthERP.Advisor
                     if (advisorVo.A_AgentCodeBased == 0)
                     {
                         Session["UserType"] = "adviser";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','ordertype=XSIP');", true);
 
                     }
                     else
@@ -1377,6 +1377,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerNCDHoldings','login');", true);
 
+                }
+                else if (e.Item.Value == "Add_X-SIP_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','ordertype=XSIP');", true);
                 }
                 else if (e.Item.Value == "IPO_Holdings")
                 {
@@ -2014,6 +2018,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','IsAdd=" + "0" + "');", true);
                 }
+                else if (e.Item.Value == "Add_X-SIP_Order")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','ordertype=XSIP');", true);
+                }
                 else if (e.Item.Value == "View_UTIAMC")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UTIAMCManage','login');", true);
@@ -2559,7 +2567,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','ordertype=XSIP');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -3925,7 +3933,7 @@ namespace WealthERP.Advisor
                     if (advisorVo.A_AgentCodeBased == 1)
                     {
                         Session["UserType"] = "Associates";
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','ordertype=XSIP');", true);
                     }
                     else
                     {

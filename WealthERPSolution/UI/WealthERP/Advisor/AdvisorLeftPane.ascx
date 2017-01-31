@@ -320,6 +320,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Online RMS_Log" Value="Online_RMS_Log">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add X-SIP Order" Value="Add_X-SIP_Order">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -1100,6 +1102,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Bank Mandate" Value="Add_Bank_Mandate">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Mandate MIS" Value="View_Mandate_MIS">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Add X-SIP Order" Value="Add_X-SIP_Order">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
