@@ -102,33 +102,45 @@ namespace WealthERP.BusinessMIS
         }
         protected void imgProduct_Click(object sender, ImageClickEventArgs e)
         {
-            gvProduct.ExportSettings.OpenInNewWindow = true;
-            gvProduct.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvProduct.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
-            gvProduct.MasterTableView.ExportToExcel();
+            DataTable dt = (DataTable)Cache["gvProduct" + advisorVo.advisorId];
+            ExcelToExport(dt, "Product Details");
         }
         protected void imgOrganization_Click(object sender, ImageClickEventArgs e)
         {
-            gvOrganization.ExportSettings.OpenInNewWindow = true;
-            gvOrganization.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvOrganization.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
-            gvOrganization.MasterTableView.ExportToExcel();
+            DataTable dt = (DataTable)Cache["gvOrganization" + advisorVo.advisorId];
+            ExcelToExport(dt, "Organization Details");
         }
         protected void imgMember_Click(object sender, ImageClickEventArgs e)
         {
-            gvMember.ExportSettings.OpenInNewWindow = true;
-            gvMember.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvMember.MasterTableView.GetItems(GridItemType.FilteringItem))
+            DataTable dt = (DataTable)Cache["gvMember" + advisorVo.advisorId];
+            ExcelToExport(dt, "Member Details");
+        }
+
+
+        private void ExcelToExport(DataTable dt, string fileName)
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
+            Response.ContentType = "application/ms-excel";
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
             {
-                filter.Visible = false;
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
             }
-            gvMember.MasterTableView.ExportToExcel();
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
 
         private void BindProductGrid()
