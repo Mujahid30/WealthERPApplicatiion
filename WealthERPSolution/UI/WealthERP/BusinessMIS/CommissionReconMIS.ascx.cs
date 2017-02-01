@@ -440,28 +440,59 @@ namespace WealthERP.BusinessMIS
 
             if (ddlRequestProduct.SelectedValue == "MF")
             {
-                gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
-                gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
-                gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS For " + ddlRequestAmc.SelectedItem.Text + "  " + ddlRequesttMnthQtr.SelectedItem.Text;
+                //gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
+                //gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
+                //gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS For " + ddlRequestAmc.SelectedItem.Text + "  " + ddlRequesttMnthQtr.SelectedItem.Text;
 
-                foreach (GridFilteringItem filter in gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.FilteringItem))
-                {
-                    filter.Visible = false;
-                }
-                gvCommissionReceiveRecon.MasterTableView.ExportToExcel();
+                //foreach (GridFilteringItem filter in gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.FilteringItem))
+                //{
+                //    filter.Visible = false;
+                //}
+                //gvCommissionReceiveRecon.MasterTableView.ExportToExcel();
+
+                DataTable dt = (DataTable)Cache["gvBrokerageRequestStatus" + userVo.UserId];
+                ExcelToExport(dt, "View CommissionReceive Details");
             }
             else
             {
-                rgNCDIPOMIS.ExportSettings.OpenInNewWindow = true;
-                rgNCDIPOMIS.ExportSettings.IgnorePaging = true;
-                rgNCDIPOMIS.ExportSettings.FileName = "CommissionExceptedMIS";
-                foreach (GridFilteringItem filter in rgNCDIPOMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
-                {
-                    filter.Visible = false;
-                }
-                rgNCDIPOMIS.MasterTableView.ExportToExcel();
+                //rgNCDIPOMIS.ExportSettings.OpenInNewWindow = true;
+                //rgNCDIPOMIS.ExportSettings.IgnorePaging = true;
+                //rgNCDIPOMIS.ExportSettings.FileName = "CommissionExceptedMIS";
+                //foreach (GridFilteringItem filter in rgNCDIPOMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+                //{
+                //    filter.Visible = false;
+                //}
+                //rgNCDIPOMIS.MasterTableView.ExportToExcel();
+                DataTable dt = (DataTable)Cache["gvBrokerageRequestStatus" + userVo.UserId];
+                ExcelToExport(dt, "View CommissionReceive Details");
+                
             }
 
+        }
+        private void ExcelToExport(DataTable dt, string fileName)
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
+            Response.ContentType = "application/ms-excel";
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
         protected void ddlType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -643,13 +674,14 @@ namespace WealthERP.BusinessMIS
                 gvBrokerageRequestStatus.DataSource = DtStatus;
                 gvBrokerageRequestStatus.DataBind();
                 gvBrokerageRequestStatus.Visible = true;
-                btnExportFilteredData.Visible = false;
+                //btnExportFilteredData.Visible = false;
                 dvMfMIS.Visible = false;
                 dvNCDIPOMIS.Visible = false;
                 if (DtStatus.Rows.Count > 0)
                 {
                     btnDelete.Visible = true;
                     btnReprocess.Visible = true;
+                    btnExportFilteredData.Visible = true;
                 }
 
 
