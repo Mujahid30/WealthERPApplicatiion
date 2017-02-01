@@ -871,12 +871,12 @@ namespace WealthERP.BusinessMIS
 
                 if (Cache["gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
                 {
-                    Cache.Insert("gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString(), dtMISReport);
                 }
                 else
                 {
                     Cache.Remove("gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString());
-                    Cache.Insert("gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString(), dtMISReport);
                 }
             }
         }
@@ -935,18 +935,19 @@ namespace WealthERP.BusinessMIS
             }
             else
             {
+
                 imgBtnGvSchemeWiseAUM.Visible = true;
                 lblErrorMsg.Visible = false;
-                gvSchemeWiseAUM.DataSource = dsMISReport;
+                gvSchemeWiseAUM.DataSource = dsMISReport.Tables[0];
                 gvSchemeWiseAUM.DataBind();
                 if (Cache["gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
                 {
-                    Cache.Insert("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport.Tables[0]);
                 }
                 else
                 {
                     Cache.Remove("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString());
-                    Cache.Insert("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport.Tables[0]);
                 }
             }
         }
@@ -1010,16 +1011,16 @@ namespace WealthERP.BusinessMIS
             {
                 imgBtnGvFolioWiseAUM.Visible = true;
                 lblErrorMsg.Visible = false;
-                gvFolioWiseAUM.DataSource = dsMISReport;
+                gvFolioWiseAUM.DataSource = dsMISReport.Tables[0];
                 gvFolioWiseAUM.DataBind();
                 if (Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()] == null)
                 {
-                    Cache.Insert("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport.Tables[0]);
                 }
                 else
                 {
                     Cache.Remove("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString());
-                    Cache.Insert("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport);
+                    Cache.Insert("gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString(), dsMISReport.Tables[0]);
                 }
             }
         }
@@ -1177,22 +1178,22 @@ namespace WealthERP.BusinessMIS
 
         protected void gvAmcWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString()];
             gvAmcWiseAUM.DataSource = dtProcessLogDetails;
         }
 
         protected void gvFolioWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
             gvFolioWiseAUM.DataSource = dtProcessLogDetails;
         }
 
         protected void gvSchemeWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()];
             gvSchemeWiseAUM.DataSource = dtProcessLogDetails;
         }
 
@@ -1235,37 +1236,61 @@ namespace WealthERP.BusinessMIS
 
         public void imgBtnGvAmcWiseAUM_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvAmcWiseAUM.ExportSettings.OpenInNewWindow = true;
-            gvAmcWiseAUM.ExportSettings.IgnorePaging = true;
-            gvAmcWiseAUM.ExportSettings.HideStructureColumns = true;
-            gvAmcWiseAUM.ExportSettings.ExportOnlyData = true;
-            gvAmcWiseAUM.ExportSettings.FileName = "AmcWise AUM Details";
-            gvAmcWiseAUM.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvAmcWiseAUM.MasterTableView.ExportToExcel();
+            
+
+            DataTable dt = (DataTable)Cache["gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            ExcelToExportData(dt, "AmcWise AUM Details");
+
+
         }
 
         public void imgBtnGvSchemeWiseAUM_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvSchemeWiseAUM.ExportSettings.OpenInNewWindow = true;
-            gvSchemeWiseAUM.ExportSettings.IgnorePaging = true;
-            gvSchemeWiseAUM.ExportSettings.HideStructureColumns = true;
-            gvSchemeWiseAUM.ExportSettings.ExportOnlyData = true;
-            gvSchemeWiseAUM.ExportSettings.FileName = "SchemeWise AUM Details";
-            gvSchemeWiseAUM.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvSchemeWiseAUM.MasterTableView.ExportToExcel();
+            DataTable dt = (DataTable)Cache["gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            ExcelToExportData(dt, "SchemeWise AUM Details");
         }
 
         public void imgBtnGvFolioWiseAUM_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvFolioWiseAUM.ExportSettings.OpenInNewWindow = true;
-            gvFolioWiseAUM.ExportSettings.IgnorePaging = true;
-            gvFolioWiseAUM.ExportSettings.HideStructureColumns = true;
-            gvFolioWiseAUM.ExportSettings.ExportOnlyData = true;
-            gvFolioWiseAUM.ExportSettings.FileName = "FolioWise AUM Details";
-            gvFolioWiseAUM.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvFolioWiseAUM.MasterTableView.ExportToExcel();
+            //gvFolioWiseAUM.ExportSettings.OpenInNewWindow = true;
+            //gvFolioWiseAUM.ExportSettings.IgnorePaging = true;
+            //gvFolioWiseAUM.ExportSettings.HideStructureColumns = true;
+            //gvFolioWiseAUM.ExportSettings.ExportOnlyData = true;
+            //gvFolioWiseAUM.ExportSettings.FileName = "FolioWise AUM Details";
+            //gvFolioWiseAUM.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvFolioWiseAUM.MasterTableView.ExportToExcel();
+            DataTable dt = (DataTable)Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            ExcelToExportData(dt, "FolioWise AUM Details");
 
         }
+
+        private void ExcelToExportData(DataTable dt, string fileName)
+        {
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", fileName + ".xls"));
+            Response.ContentType = "application/ms-excel";
+            string str = string.Empty;
+            foreach (DataColumn dtcol in dt.Columns)
+            {
+                Response.Write(str + dtcol.ColumnName);
+                str = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                str = "";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Response.Write(str + Convert.ToString(dr[j]));
+                    str = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
+        }
+
 
         #endregion
 
@@ -1756,8 +1781,8 @@ namespace WealthERP.BusinessMIS
         }
         protected void rgvFolioWiseAUM_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet dtProcessLogDetails = new DataSet();
-            dtProcessLogDetails = (DataSet)Cache["rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            DataTable dtProcessLogDetails = new DataTable();
+            dtProcessLogDetails = (DataTable)Cache["rgvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
             rgvFolioWiseAUM.DataSource = dtProcessLogDetails;
         }
 
