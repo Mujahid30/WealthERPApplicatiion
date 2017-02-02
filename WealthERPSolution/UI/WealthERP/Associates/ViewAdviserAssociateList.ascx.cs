@@ -15,6 +15,7 @@ using System.Configuration;
 using VOAssociates;
 using BOAssociates;
 using BoUploads;
+using WealthERP.General;
 
 namespace WealthERP.Associates
 {
@@ -41,7 +42,7 @@ namespace WealthERP.Associates
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             //currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-            imgViewAssoList.Visible = false;
+            imgViewAssoList.Visible = true;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
@@ -88,6 +89,7 @@ namespace WealthERP.Associates
             }
             else
             {
+              
                 gvAdviserAssociateList.DataSource = dtGetAdviserAssociateList;
                 gvAdviserAssociateList.DataBind();
                 pnlAdviserAssociateList.Visible = true;
@@ -107,17 +109,27 @@ namespace WealthERP.Associates
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             ExcelToExport();
+            //ExcelToExport(getHeaderNameNValue());
           
 
         }
         private void ExcelToExport()
         {
+            
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            DataTable dt = new DataTable();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            dt = (DataTable)Cache["gvAdviserAssociateList" + userVo.UserId + userType];
+            for (int i = 0; i < gvAdviserAssociateList.Columns.Count; i++)
+            {
+                if (gvAdviserAssociateList.Columns[i].Visible == true)
+                    dHeaderText.Add(gvAdviserAssociateList.Columns[i].UniqueName, gvAdviserAssociateList.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "AdviserAssociateList.xls"));
             Response.ContentType = "application/ms-excel";
-            DataTable dt = new DataTable();
-            dt = (DataTable)Cache["gvAdviserAssociateList" + userVo.UserId + userType];
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
@@ -177,29 +189,58 @@ namespace WealthERP.Associates
             Session["associatesVo"] = associatesVo;
         }
 
-       
+        private DataTable getHeaderNameNValue()
+        {
+           DataTable dt =new DataTable();
+           Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+           dt = (DataTable)Cache["gvAdviserAssociateList" + userVo.UserId + userType];
+            for (int i = 0; i < gvAdviserAssociateList.Columns.Count; i++)
+            {
+                if (gvAdviserAssociateList.Columns[i].Visible == true)
+                    dHeaderText.Add(gvAdviserAssociateList.Columns[i].UniqueName, gvAdviserAssociateList.MasterTableView.Columns[i].HeaderText);
+            }
+            if (dHeaderText != null)
+            {
+                foreach (KeyValuePair<string, string> dHeader in dHeaderText)
+                {
+                    if (dt.Columns.Contains(dHeader.Key))
+                    {
+                        if (dt.Columns[dHeader.Key].ToString() == dHeader.Key)
+                        {
+                            dt.Columns[dHeader.Key].ColumnName = dHeader.Value;
+                        }
+                    }
+                }
+                dt.AcceptChanges();
+            }
+            return dt;
+           
+       }
 
         protected void gvAdviserAssociateList_ItemDataBound(Object sender, GridItemEventArgs e)
         {
             if (advisorVo.advisorId != Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
             {
                 gvAdviserAssociateList.MasterTableView.GetColumn("Welcome").Visible = false;
+                for (int i = 0; i < gvAdviserAssociateList.Columns.Count; i++)
+                {
+                    string header = gvAdviserAssociateList.Columns[i].HeaderText;
+
+                                      
+                }
+              
             }
             if (userVo.UserType == "Advisor") return;
 
             if ((e.Item is GridDataItem) == false) return;
 
             GridDataItem item = (GridDataItem)e.Item;
-            //GridColumn column=(GridColumn)sender as GridColumn;
             DropDownList actions = (DropDownList)item.FindControl("ddlMenu");
             if (userType == "associates")
                 gvAdviserAssociateList.Columns[0].Visible = false;
-        
-           
-            //column.Visible = false;
 
-            //RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
-            //rbcItem.Visible = false;
+           
+          
         }
         //protected void gvAdviserAssociateList_OnItemDataBound(object sender, GridItemEventArgs e)
         //{
