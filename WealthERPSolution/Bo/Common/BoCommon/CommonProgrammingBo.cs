@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Data;
 namespace BoCommon
 {
-    public class CommonProgrammingBo
+    public class CommonProgrammingBo 
     {
         string filename;
         string delimeter;
@@ -78,6 +78,28 @@ namespace BoCommon
                 delimeter = "|";
             }
             return filename + "~" + delimeter;
+        }
+
+
+        public DataTable getHeaderNameNValue(DataTable dt,Dictionary<string, string> dHeaderText)
+        {
+            
+            if (dHeaderText != null)
+            {
+                foreach (KeyValuePair<string, string> dHeader in dHeaderText)
+                {
+                    if (dt.Columns.Contains(dHeader.Key))
+                    {
+                        if (dt.Columns[dHeader.Key].ToString() == dHeader.Key)
+                        {
+                            dt.Columns[dHeader.Key].ColumnName = dHeader.Value;
+                        }
+                    }
+                }
+                dt.AcceptChanges();
+            }
+            return dt;
+
         }
     }
 }
