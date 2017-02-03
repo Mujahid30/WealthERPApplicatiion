@@ -1947,6 +1947,13 @@ namespace WealthERP.CustomerPortfolio
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
         {
             DataTable dt = (DataTable)Cache["ViewBalance" + userVo.UserId + userType];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvBalanceView.MasterTableView.Columns.Count; i++)
+            {
+                if (gvBalanceView.Columns[i].Visible == true)
+                    dHeaderText.Add(gvBalanceView.Columns[i].UniqueName, gvBalanceView.MasterTableView.Columns[i].HeaderText);
+            }
             ExcelToExportData(dt, "View ReturnHolding Details");
         }
      
@@ -2143,6 +2150,13 @@ namespace WealthERP.CustomerPortfolio
         {
            
             DataTable dt = (DataTable)Cache["ViewTransactionWithoutAgent" + userVo.UserId + userType];
+             CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvMFTransactionWithoutAgentCode.MasterTableView.Columns.Count; i++)
+            {
+                if (gvMFTransactionWithoutAgentCode.Columns[i].Visible == true)
+                    dHeaderText.Add(gvMFTransactionWithoutAgentCode.Columns[i].UniqueName, gvMFTransactionWithoutAgentCode.MasterTableView.Columns[i].HeaderText);
+            }
             ExcelToExportData(dt, "ViewTransactions");
         }
 
