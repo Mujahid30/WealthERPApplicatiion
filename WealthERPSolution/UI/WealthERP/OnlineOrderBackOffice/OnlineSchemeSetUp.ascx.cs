@@ -2624,8 +2624,22 @@ namespace WealthERP.OnlineOrderBackOffice
                     mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                    mfProductAMCSchemePlanDetailsVo.RTA = (rbtnRTA.Checked) ? 1 : 0;
-                    mfProductAMCSchemePlanDetailsVo.BSE = (rbtnBSE.Checked) ? 1 : 0;
+                    if (rbtnBSE.Checked == true)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.RTA = 0;
+                        mfProductAMCSchemePlanDetailsVo.BSE = 1;
+                    }
+                    else if (rbtnRTA.Checked == true)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.RTA = 1;
+                        mfProductAMCSchemePlanDetailsVo.BSE = 0;
+                    }
+                    else
+                    {
+                        mfProductAMCSchemePlanDetailsVo.RTA = 1;
+                        mfProductAMCSchemePlanDetailsVo.BSE = 1;
+                    }
+                  
                     OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode, userVo.UserId);
 
                 }
@@ -2652,8 +2666,22 @@ namespace WealthERP.OnlineOrderBackOffice
                     mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
                     mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                    mfProductAMCSchemePlanDetailsVo.RTA = (rbtnRTA.Checked) ? 1 : 0;
-                    mfProductAMCSchemePlanDetailsVo.BSE = (rbtnBSE.Checked) ? 1 : 0;
+                    if (rbtnBSE.Checked == true)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.RTA = 0;
+                        mfProductAMCSchemePlanDetailsVo.BSE = 1;
+                    }
+                    else if (rbtnRTA.Checked == true)
+                    {
+                        mfProductAMCSchemePlanDetailsVo.RTA = 1;
+                        mfProductAMCSchemePlanDetailsVo.BSE = 0;
+                    }
+                    else
+                    {
+                        mfProductAMCSchemePlanDetailsVo.RTA = 1;
+                        mfProductAMCSchemePlanDetailsVo.BSE = 1;
+                    }
+
                     isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid, userVo.UserId);
                 }
 
