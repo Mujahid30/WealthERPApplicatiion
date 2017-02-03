@@ -456,7 +456,7 @@
                     <asp:ListItem Text="Select" Value="Select" Selected="false" />
                 </asp:DropDownList>
             </td>
-            <td align="right">
+            <td align="right"> 
                 <asp:CheckBox ID="chkRTA" runat="server" Text="RTA" CssClass="cmbfielde" AutoPostBack="true"
                     OnCheckedChanged="chkRTA_OnCheckedChanged" />
                 <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="Please check RTA or BSE"
