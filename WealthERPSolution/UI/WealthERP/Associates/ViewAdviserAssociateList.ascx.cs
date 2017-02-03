@@ -123,7 +123,7 @@ namespace WealthERP.Associates
             for (int i = 0; i < gvAdviserAssociateList.Columns.Count; i++)
             {
                 if (gvAdviserAssociateList.Columns[i].Visible == true)
-                    dHeaderText.Add(gvAdviserAssociateList.Columns[i].UniqueName, gvAdviserAssociateList.MasterTableView.Columns[i].HeaderText);
+                    dHeaderText.Add(gvAdviserAssociateList.Columns[i].UniqueName, gvAdviserAssociateList.Columns[i].HeaderText);
             }
             dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             Response.ClearContent();
@@ -238,7 +238,7 @@ namespace WealthERP.Associates
             DropDownList actions = (DropDownList)item.FindControl("ddlMenu");
             if (userType == "associates")
                 gvAdviserAssociateList.Columns[0].Visible = false;
-
+           
            
           
         }
@@ -280,6 +280,7 @@ namespace WealthERP.Associates
                 string SubBrokerCode = gvAdviserAssociateList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SubBrokerCode"].ToString();
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewAgentCode','AgentCode=" + SubBrokerCode + "');", true);
             }
+          
         
         }
 

@@ -109,12 +109,21 @@ namespace WealthERP.Associates
 
         private void ExcelToExport()
         {
+
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            DataTable dt = new DataTable();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            dt = (DataTable)Cache["gvAgentCodeView" + userVo.UserId + userType];
+            for (int i = 0; i < gvAgentCodeView.MasterTableView.Columns.Count; i++)
+            {
+                if (gvAgentCodeView.Columns[i].Visible == true)
+                    dHeaderText.Add(gvAgentCodeView.Columns[i].UniqueName, gvAgentCodeView.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "View Code Master.xls"));
             Response.ContentType = "application/ms-excel";
-            DataTable dt = new DataTable();
-            dt = (DataTable)Cache["gvAgentCodeView" + userVo.UserId + userType];
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
