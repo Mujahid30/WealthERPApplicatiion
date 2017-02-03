@@ -1232,12 +1232,20 @@ namespace WealthERP.Advisor
         }
         private void ExcelToExport()
         {
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            DataTable dt = new DataTable();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            dt = (DataTable)Cache["gvCustomerFolioMerge" + adviserVo.advisorId];
+            for (int i = 0; i < gvCustomerFolioMerge.MasterTableView.Columns.Count; i++)
+            {
+                if (gvCustomerFolioMerge.Columns[i].Visible == true)
+                    dHeaderText.Add(gvCustomerFolioMerge.Columns[i].UniqueName, gvCustomerFolioMerge.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "Accounts Details.xls"));
             Response.ContentType = "application/ms-excel";
-            DataTable dt = new DataTable();
-            dt = (DataTable)Cache["gvCustomerFolioMerge" + adviserVo.advisorId];
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
