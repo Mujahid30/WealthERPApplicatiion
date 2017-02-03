@@ -440,30 +440,31 @@ namespace WealthERP.BusinessMIS
 
             if (ddlRequestProduct.SelectedValue == "MF")
             {
-                //gvCommissionReceiveRecon.ExportSettings.OpenInNewWindow = true;
-                //gvCommissionReceiveRecon.ExportSettings.IgnorePaging = true;
-                //gvCommissionReceiveRecon.ExportSettings.FileName = "CommissionExceptedMIS For " + ddlRequestAmc.SelectedItem.Text + "  " + ddlRequesttMnthQtr.SelectedItem.Text;
-
-                //foreach (GridFilteringItem filter in gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.FilteringItem))
-                //{
-                //    filter.Visible = false;
-                //}
-                //gvCommissionReceiveRecon.MasterTableView.ExportToExcel();
+               
 
                 DataTable dt = (DataTable)Cache["gvBrokerageRequestStatus" + userVo.UserId];
+                CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+                Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+                for (int i = 0; i < gvBrokerageRequestStatus.MasterTableView.Columns.Count; i++)
+                {
+                    if (gvBrokerageRequestStatus.Columns[i].Visible == true)
+                        dHeaderText.Add(gvBrokerageRequestStatus.Columns[i].UniqueName, gvBrokerageRequestStatus.MasterTableView.Columns[i].HeaderText);
+                }
+                dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
                 ExcelToExport(dt, "View CommissionReceive Details");
             }
             else
             {
-                //rgNCDIPOMIS.ExportSettings.OpenInNewWindow = true;
-                //rgNCDIPOMIS.ExportSettings.IgnorePaging = true;
-                //rgNCDIPOMIS.ExportSettings.FileName = "CommissionExceptedMIS";
-                //foreach (GridFilteringItem filter in rgNCDIPOMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
-                //{
-                //    filter.Visible = false;
-                //}
-                //rgNCDIPOMIS.MasterTableView.ExportToExcel();
+               
                 DataTable dt = (DataTable)Cache["gvBrokerageRequestStatus" + userVo.UserId];
+                CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+                Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+                for (int i = 0; i < gvBrokerageRequestStatus.MasterTableView.Columns.Count; i++)
+                {
+                    if (gvBrokerageRequestStatus.Columns[i].Visible == true)
+                        dHeaderText.Add(gvBrokerageRequestStatus.Columns[i].UniqueName, gvBrokerageRequestStatus.MasterTableView.Columns[i].HeaderText);
+                }
+                dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
                 ExcelToExport(dt, "View CommissionReceive Details");
                 
             }

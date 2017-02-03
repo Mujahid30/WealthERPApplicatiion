@@ -103,16 +103,40 @@ namespace WealthERP.BusinessMIS
         protected void imgProduct_Click(object sender, ImageClickEventArgs e)
         {
             DataTable dt = (DataTable)Cache["gvProduct" + advisorVo.advisorId];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvProduct.MasterTableView.Columns.Count; i++)
+            {
+                if (gvProduct.Columns[i].Visible == true)
+                    dHeaderText.Add(gvProduct.Columns[i].UniqueName, gvProduct.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             ExcelToExport(dt, "Product Details");
         }
         protected void imgOrganization_Click(object sender, ImageClickEventArgs e)
         {
             DataTable dt = (DataTable)Cache["gvOrganization" + advisorVo.advisorId];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvOrganization.MasterTableView.Columns.Count; i++)
+            {
+                if (gvOrganization.Columns[i].Visible == true)
+                    dHeaderText.Add(gvOrganization.Columns[i].UniqueName, gvOrganization.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             ExcelToExport(dt, "Organization Details");
         }
         protected void imgMember_Click(object sender, ImageClickEventArgs e)
         {
             DataTable dt = (DataTable)Cache["gvMember" + advisorVo.advisorId];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvMember.MasterTableView.Columns.Count; i++)
+            {
+                if (gvMember.Columns[i].Visible == true)
+                    dHeaderText.Add(gvMember.Columns[i].UniqueName, gvMember.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             ExcelToExport(dt, "Member Details");
         }
 
