@@ -1239,6 +1239,13 @@ namespace WealthERP.BusinessMIS
             
 
             DataTable dt = (DataTable)Cache["gvAmcWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvAmcWiseAUM.MasterTableView.Columns.Count; i++)
+            {
+                if (gvAmcWiseAUM.Columns[i].Visible == true)
+                    dHeaderText.Add(rgvFolioWiseAUM.Columns[i].UniqueName, gvAmcWiseAUM.MasterTableView.Columns[i].HeaderText);
+            }
             ExcelToExportData(dt, "AmcWise AUM Details");
 
 
@@ -1247,19 +1254,32 @@ namespace WealthERP.BusinessMIS
         public void imgBtnGvSchemeWiseAUM_OnClick(object sender, ImageClickEventArgs e)
         {
             DataTable dt = (DataTable)Cache["gvSchemeWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < gvSchemeWiseAUM.MasterTableView.Columns.Count; i++)
+            {
+                if (gvSchemeWiseAUM.Columns[i].Visible == true)
+                    dHeaderText.Add(gvSchemeWiseAUM.Columns[i].UniqueName, gvSchemeWiseAUM.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             ExcelToExportData(dt, "SchemeWise AUM Details");
         }
 
         public void imgBtnGvFolioWiseAUM_OnClick(object sender, ImageClickEventArgs e)
         {
-            //gvFolioWiseAUM.ExportSettings.OpenInNewWindow = true;
-            //gvFolioWiseAUM.ExportSettings.IgnorePaging = true;
-            //gvFolioWiseAUM.ExportSettings.HideStructureColumns = true;
-            //gvFolioWiseAUM.ExportSettings.ExportOnlyData = true;
-            //gvFolioWiseAUM.ExportSettings.FileName = "FolioWise AUM Details";
-            //gvFolioWiseAUM.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //gvFolioWiseAUM.MasterTableView.ExportToExcel();
             DataTable dt = (DataTable)Cache["gvFolioWiseAUMDetails" + advisorVo.advisorId.ToString()];
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            for (int i = 0; i < rgvFolioWiseAUM.MasterTableView.Columns.Count; i++)
+            {
+                //if (rgvFolioWiseAUM.Columns[i].Visible == true)
+                //    dHeaderText.Add(rgvFolioWiseAUM.Columns[i].UniqueName, rgvFolioWiseAUM.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
+
+
+           
+            
             ExcelToExportData(dt, "FolioWise AUM Details");
 
         }
