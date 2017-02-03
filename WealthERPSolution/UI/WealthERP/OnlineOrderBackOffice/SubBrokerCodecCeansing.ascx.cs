@@ -40,14 +40,14 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtBindAMC;
             try
             {
-            //    if (ddlRTA.SelectedValue == "")
-            //    {
+                //    if (ddlRTA.SelectedValue == "")
+                //    {
                 dtBindAMC = OnlineOrderBackOfficeBo.GetAMCListRNTWise("Select");
-                    ddlAMC.DataSource = dtBindAMC;
-                    ddlAMC.DataTextField = dtBindAMC.Columns["PA_AMCName"].ToString();
-                    ddlAMC.DataValueField = dtBindAMC.Columns["PA_AMCCode"].ToString();
-                    ddlAMC.DataBind();
-                    ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlAMC.DataSource = dtBindAMC;
+                ddlAMC.DataTextField = dtBindAMC.Columns["PA_AMCName"].ToString();
+                ddlAMC.DataValueField = dtBindAMC.Columns["PA_AMCCode"].ToString();
+                ddlAMC.DataBind();
+                ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
                 //}
                 //else
                 //{
@@ -182,22 +182,30 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtSubBrokerCode.Text = newSubBrokerCode.Text;
                     }
                 }
-            
+
             }
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
             ExcelToExport();
-         
+
         }
         private void ExcelToExport()
         {
+            CommonProgrammingBo commonProgrammingBo = new CommonProgrammingBo();
+            DataTable dt = new DataTable();
+            Dictionary<string, string> dHeaderText = new Dictionary<string, string>();
+            dt = (DataTable)Cache["SubBrokerCleansing" + userVo.UserId];
+            for (int i = 0; i < gvSubBrokerCleansing.MasterTableView.Columns.Count; i++)
+            {
+                if (gvSubBrokerCleansing.Columns[i].Visible == true)
+                    dHeaderText.Add(gvSubBrokerCleansing.Columns[i].UniqueName, gvSubBrokerCleansing.MasterTableView.Columns[i].HeaderText);
+            }
+            dt = commonProgrammingBo.getHeaderNameNValue(dt, dHeaderText);
             Response.ClearContent();
             Response.Buffer = true;
             Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "SubBroker Code Cleansing.xls"));
             Response.ContentType = "application/ms-excel";
-            DataTable dt = new DataTable();
-            dt = (DataTable)Cache["SubBrokerCleansing" + userVo.UserId];
             string str = string.Empty;
             foreach (DataColumn dtcol in dt.Columns)
             {
@@ -216,10 +224,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 Response.Write("\n");
             }
             Response.End();
+
+
+
         }
+
+
         protected void btnUpdateSubBroker_OnClick(object sender, EventArgs e)
         {
-            int i=0;
+            int i = 0;
             foreach (GridDataItem dataItem in gvSubBrokerCleansing.MasterTableView.Items)
             {
                 if ((dataItem.FindControl("txtSubBrokerCode") as TextBox).Text != string.Empty)
