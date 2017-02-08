@@ -858,7 +858,44 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             }
             return result;
         }
+        public bool UpdateSystematicStep(int systematicId,string StepCode,int userId)
+        {
+            Database db;
+            DbCommand cmd;
+            bool result = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_CreateSystematicRequestStep");
+                db.AddInParameter(cmd, "@CMFSS_SystematicSetupId", DbType.Int32, systematicId);
+                db.AddInParameter(cmd, "@WOS_StepCode", DbType.String, StepCode);
+                db.AddInParameter(cmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmd, "@CMFSS_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(cmd, "@IsUpdateStep", DbType.Boolean, true);
+                db.AddOutParameter(cmd,"@CMFSS_StepId",DbType.Int32, 1000);
+                if (db.ExecuteNonQuery(cmd) != 0)
+                    result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DAO:UpdateSystematicStep(int systematicId)");
 
+                object[] objects = new object[1];
+                objects[0] = systematicId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
         public bool BSESIPRequestUpdate(int systematicId, long bseReqId)
         {
             Database db;
