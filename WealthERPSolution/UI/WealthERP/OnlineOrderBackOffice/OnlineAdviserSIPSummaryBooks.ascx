@@ -36,40 +36,39 @@
                     <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                     <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
                 </asp:DropDownList>
-                  <span id="Span3" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlSystematicType"
-                        ErrorMessage="<br />Select systematic type" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
-                    </asp:RequiredFieldValidator>
+                <span id="Span3" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlSystematicType"
+                    ErrorMessage="<br />Select systematic type" CssClass="cvPCG" Display="Dynamic"
+                    runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
+                </asp:RequiredFieldValidator>
             </td>
-             <td>
+            <td>
                 <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
             </td>
             <td>
-            <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMode_OnSelectedIndexChanged" AutoPostBack="true">
-           
-            <asp:ListItem Value="1" Text="Online"></asp:ListItem>
-            <asp:ListItem Value="2" Text="Demat"></asp:ListItem>
-            <asp:ListItem Value="0" Text="Offline" enabled="false"></asp:ListItem>
-          
- </asp:DropDownList>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMode"
-                        ErrorMessage="<br />Select Mode" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
-                    </asp:RequiredFieldValidator>
+                <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMode_OnSelectedIndexChanged"
+                    AutoPostBack="true">
+                    <asp:ListItem Value="1" Text="Online"></asp:ListItem>
+                    <asp:ListItem Value="2" Text="Demat"></asp:ListItem>
+                    <asp:ListItem Value="0" Text="Offline" Enabled="false"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMode"
+                    ErrorMessage="<br />Select Mode" CssClass="cvPCG" Display="Dynamic" runat="server"
+                    InitialValue="Select" ValidationGroup="btnViewSIP">
+                </asp:RequiredFieldValidator>
             </td>
             <td>
                 <asp:Label runat="server" class="FieldName" Text="SIP Type:" ID="Label4"></asp:Label>
             </td>
             <td>
-            <asp:DropDownList ID="ddlSIP" runat="server" CssClass="cmbField" AutoPostBack="true">
-             <asp:ListItem Value="BSSIP" Text="BSE Normal SIP "></asp:ListItem>
-            <asp:ListItem Value="BXSIP" Text="X-SIP"></asp:ListItem>
-            </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlSIP"
-                        ErrorMessage="<br />Select SIP Type" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
-                    </asp:RequiredFieldValidator>
+                <asp:DropDownList ID="ddlSIP" runat="server" CssClass="cmbField" AutoPostBack="true">
+                    <asp:ListItem Value="BSSIP" Text="BSE Normal SIP "></asp:ListItem>
+                    <asp:ListItem Value="BXSIP" Text="X-SIP"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlSIP"
+                    ErrorMessage="<br />Select SIP Type" CssClass="cvPCG" Display="Dynamic" runat="server"
+                    InitialValue="Select" ValidationGroup="btnViewSIP">
+                </asp:RequiredFieldValidator>
             </td>
             <td id="tdlblRejectReason" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
@@ -156,13 +155,14 @@
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                     ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
                 </asp:CompareValidator>
-            <%--</td>
+                <%--</td>
             <td id="tdBtnOrder" runat="server">--%>
-            &nbsp
-               
+                &nbsp
             </td>
-            <td> <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
-                    OnClick="btnViewOrder_Click" /></td>
+            <td>
+                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
+                    OnClick="btnViewOrder_Click" />
+            </td>
         </tr>
     </table>
 </div>
@@ -192,12 +192,19 @@
                     OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate"
+                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled,AcceptCount,InProcessCount,RejectedCount,CMFA_AccountId,PASP_SchemePlanCode,CMFSS_IsSourceAA,C_CustomerId,CMFSS_TotalInstallment,CMFSS_CurrentInstallmentNumber,CMFSS_EndDate,WOS_OrderStepCode"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                         EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
+                            <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="30px" UniqueName="chkBoxColumn"
+                                Visible="false">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkItem" runat="server" CssClass="chkItem"></asp:CheckBox>
+                                </ItemTemplate>
+                                <ItemStyle Width="20px" />
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="CMFSS_RegistrationDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                 AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CMFSS_RegistrationDate"
                                 SortExpression="CMFSS_RegistrationDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -214,9 +221,10 @@
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                             <telerik:GridBoundColumn  DataField="BMFSRD_BSESIPREGID" AllowFiltering="true" HeaderText="BSE Exchange No"
-                                UniqueName="BMFSRD_BSESIPREGID" SortExpression="BMFSRD_BSESIPREGID" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                            <telerik:GridBoundColumn DataField="BMFSRD_BSESIPREGID" AllowFiltering="true" HeaderText="BSE Exchange No"
+                                UniqueName="BMFSRD_BSESIPREGID" SortExpression="BMFSRD_BSESIPREGID" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="75px"
+                                FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="U_UMId" AllowFiltering="true" HeaderText="User Id"
@@ -305,6 +313,12 @@
                                 UniqueName="DivedendFrequency" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn Visible="false" DataField="WOS_OrderStep" HeaderText="Status"
+                                AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="WOS_OrderStep"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="100px" UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="CMFT_TransactionNumber" HeaderText="Transaction No"
                                 AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CMFT_TransactionNumber"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
@@ -317,11 +331,11 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridNumericColumn  DataField="Unit" AllowFiltering="false" HeaderText="Unit"
+                            <telerik:GridNumericColumn DataField="Unit" AllowFiltering="false" HeaderText="Unit"
                                 UniqueName="Unit" SortExpression="Unit" ShowFilterIcon="false" HeaderStyle-Width="80px"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"  DataFormatString="{0:N0}">
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" DataFormatString="{0:N0}">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridNumericColumn >
+                            </telerik:GridNumericColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="CMFOD_Units" AllowFiltering="false"
                                 HeaderText="Order Units" DataFormatString="{0:N0}" UniqueName="CMFOD_Units" SortExpression="CMFOD_Units"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
@@ -553,6 +567,12 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Button ID="btnRegister" Text="Register In BSE" runat="server" CausesValidation="False"
+                    CssClass="PCGButton" CommandName="Register" OnClick="btnRegister_OnClick"></asp:Button>
             </td>
         </tr>
     </table>

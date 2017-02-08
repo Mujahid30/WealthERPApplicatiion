@@ -16,6 +16,11 @@ using BoCustomerProfiling;
 using BoOnlineOrderManagement;
 using VoOps;
 using BoOps;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+using VoOnlineOrderManagemnet;
+using VoCustomerPortfolio;
+using BoCustomerPortfolio;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -37,6 +42,7 @@ namespace WealthERP.OnlineOrderBackOffice
         int searchType = 0;
         int statusType = 0;
         string exchangeType = string.Empty;
+        OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -51,10 +57,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 exchangeType = Session["ExchangeMode"].ToString();
             else
                 exchangeType = "Online";
-            
+
             if (!Page.IsPostBack)
             {
-               
+
                 BindAmc();
                 BindOrderStatus();
                 fromDate = DateTime.Now;
@@ -92,7 +98,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdTxtFromDate.Visible = false;
                 tdlblToDate.Visible = false;
                 tdTxtToDate.Visible = false;
-               
+
             }
             else
             {
@@ -206,7 +212,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-
+            btnRegister.Visible = false;
             searchType = Convert.ToInt32(ddlSearchtype.SelectedValue.ToString());
             if (searchType == 5)
             {
@@ -216,7 +222,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue == "2" ? ddlSIP.SelectedValue : "RSIP",ddlMode.SelectedValue);
+            dsSIPBookMIS = OnlineOrderMISBo.GetSIPSummaryBookMIS(advisorVo.advisorId, int.Parse(hdnAmc.Value), fromDate, toDate, searchType, statusType, ddlSystematicType.SelectedValue, ddlMode.SelectedValue == "2" ? ddlSIP.SelectedValue : "RSIP", ddlMode.SelectedValue);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -230,7 +236,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     Cache.Remove("SIPSumList" + advisorVo.advisorId);
                     Cache.Insert("SIPSumList" + advisorVo.advisorId, dtSIPBookMIS);
                 }
-                
+
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPSummaryBookMIS.DataBind();
                 gvSIPSummaryBookMIS.Visible = true;
@@ -238,7 +244,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnExport.Visible = true;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
-               
+                gvSIPSummaryBookMIS.MasterTableView.GetColumn("chkBoxColumn").Visible = false;
+                if (ddlSIP.SelectedValue == "BXSIP")
+                {
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("chkBoxColumn").Visible = true;
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("WOS_OrderStep").Visible = true;
+                    btnRegister.Visible = true;
+                }
 
             }
             else
@@ -251,7 +263,104 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnExport.Visible = false;
             }
         }
+        protected void btnRegister_OnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                int i = 0, systematicId = 0;
 
+                foreach (GridDataItem dataItem in gvSIPSummaryBookMIS.MasterTableView.Items)
+                {
+                    if ((dataItem.FindControl("chkItem") as CheckBox).Checked)
+                    {
+                        systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[dataItem.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
+                        i++;
+                    }
+                   
+                }
+                if (i == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select an Request!');", true);
+                    return;
+                }
+                else
+                {
+                    RegisterBSESIP(systematicId);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineAdviserSIPSummaryBooks.ascx.cs:btnRegister_OnClick()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+        private void RegisterBSESIP(int systematicId)
+        {
+            Boolean result = false;
+            DataTable dtXSIP = new DataTable();
+            DematAccountVo dematevo = new DematAccountVo();
+            BoDematAccount bo = new BoDematAccount();
+            OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
+            string message = string.Empty;
+            int OrderId = 0;
+            int sipId = 0;
+            char msgType = 'F';
+            List<int> OrderIds = new List<int>();
+            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
+            try
+            {
+                dtXSIP = OnlineOrderMISBo.GetSystematicDetails(systematicId);
+                if (dtXSIP.Rows.Count > 0)
+                {
+                    onlineMFOrderVo.SchemePlanCode = Convert.ToInt32(dtXSIP.Rows[0]["PASP_SchemePlanCode"]);
+                    onlineMFOrderVo.SystematicTypeCode = "SIP";
+                    onlineMFOrderVo.SystematicDate = Convert.ToInt32(dtXSIP.Rows[0]["CMFSS_SystematicDate"]);
+                    onlineMFOrderVo.Amount = double.Parse(dtXSIP.Rows[0]["CMFSS_Amount"].ToString());
+                    onlineMFOrderVo.SourceCode = "";
+                    onlineMFOrderVo.FrequencyCode = dtXSIP.Rows[0]["XF_FrequencyCode"].ToString();
+                    onlineMFOrderVo.CustomerId = Convert.ToInt32(dtXSIP.Rows[0]["C_CustomerId"].ToString());
+                    onlineMFOrderVo.StartDate = DateTime.Parse(dtXSIP.Rows[0]["CMFSS_StartDate"].ToString());
+                    onlineMFOrderVo.EndDate = DateTime.Parse(dtXSIP.Rows[0]["CMFSS_EndDate"].ToString());
+                    onlineMFOrderVo.SystematicDates = "";
+                    onlineMFOrderVo.TotalInstallments = int.Parse(dtXSIP.Rows[0]["CMFSS_TotalInstallment"].ToString());
+                    onlineMFOrderVo.DivOption = dtXSIP.Rows[0]["CMFSS_DividendOption"].ToString();
+                    dematevo = bo.GetCustomerActiveDematAccount(onlineMFOrderVo.CustomerId);
+                    onlineMFOrderVo.ModeTypeCode = "BXSIP";
+                    if (!string.IsNullOrEmpty(dtXSIP.Rows[0]["CMFSS_MandateId"].ToString()))
+                        onlineMFOrderVo.MandateId = int.Parse(dtXSIP.Rows[0]["CMFSS_MandateId"].ToString());
+                    onlineMFOrderVo.SystematicId = systematicId;
+                    OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+                    message = OnlineMFOrderBo.BSESIPorderEntryParam(userVo.UserId, dtXSIP.Rows[0]["C_CustCode"].ToString(), onlineMFOrderVo, onlineMFOrderVo.CustomerId, dematevo.DepositoryName, out msgType, out sipOrderIds);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + message + "');", true);
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineAdviserSIPSummaryBooks.ascx.cs:RegisterBSESIP(int systematicId)");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         protected DataTable createSIPOrderBook(DataSet dsSIPOrderDetails)
         {
             DataTable dtFinalSIPOrderBook = new DataTable();
@@ -394,9 +503,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["C_Email"] = drSIP["C_Email"];
                 drSIPOrderBook["Unit"] = drSIP["Unit"];
                 drSIPOrderBook["BMFSRD_BSESIPREGID"] = drSIP["BMFSRD_BSESIPREGID"];
+                drSIPOrderBook["WOS_OrderStepCode"] = drSIP["WOS_OrderStepCode"];
+                drSIPOrderBook["WOS_OrderStep"] = drSIP["WOS_OrderStep"];
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
-            if (ddlMode.SelectedValue == "1"||ddlMode.SelectedValue=="0")
+            if (ddlMode.SelectedValue == "1" || ddlMode.SelectedValue == "0")
             {
                 gvSIPSummaryBookMIS.Columns[2].Visible = false;
             }
@@ -454,6 +565,8 @@ namespace WealthERP.OnlineOrderBackOffice
             dtSIPOrderBook.Columns.Add("C_Email");
             dtSIPOrderBook.Columns.Add("BMFSRD_BSESIPREGID");
             dtSIPOrderBook.Columns.Add("Unit", typeof(double));
+            dtSIPOrderBook.Columns.Add("WOS_OrderStepCode");
+            dtSIPOrderBook.Columns.Add("WOS_OrderStep");
             return dtSIPOrderBook;
 
         }
@@ -540,7 +653,7 @@ namespace WealthERP.OnlineOrderBackOffice
                                 int schemeplanCode = int.Parse(gvr.GetDataKeyValue("PASP_SchemePlanCode").ToString());
                                 int IsSourceAA = int.Parse(gvr.GetDataKeyValue("CMFSS_IsSourceAA").ToString());
                                 int customerId = int.Parse(gvr.GetDataKeyValue("C_CustomerId").ToString());
-                                
+
                                 //int accept = int.Parse(gvr.GetDataKeyValue("AcceptCount").ToString());
                                 if (e.CommandName == "Select")
                                 {
@@ -596,8 +709,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         }
                     }
                 }
-               
-                    
+
+
             }
         }
         protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
@@ -626,6 +739,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 string Iscancel = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
+                string OrderStep = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"]);
                 int totalInstallment = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_TotalInstallment"].ToString());
                 int currentInstallmentNumber = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_CurrentInstallmentNumber"].ToString());
                 DateTime endDate = Convert.ToDateTime(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_EndDate"].ToString());
@@ -634,7 +748,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 DateTime fixedTime = Convert.ToDateTime("08:35:00 AM");
                 int compare = DateTime.Compare(currentTime, fixedTime);
                 //DropDownList ddlSystematicType = (DropDownList)e.Item.FindControl("ddlSystematicType");
-
+                CheckBox chkbx = (CheckBox)e.Item.FindControl("chkItem");
+                chkbx.Enabled = false;
                 if (Iscancel == "Cancelled" || totalInstallment == currentInstallmentNumber || endDate < DateTime.Now)
                 {
 
@@ -653,14 +768,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = false;
                     gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = true;
                 }
+                else if (ddlSIP.SelectedValue == "BXSIP" && (OrderStep == "AL") && Iscancel != "Cancelled")
+                {
+                    chkbx.Enabled = true;
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
+                    gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
+                }
                 else
                 {
                     gvSIPSummaryBookMIS.MasterTableView.GetColumn("CMFSS_Amount").Visible = true;
                     gvSIPSummaryBookMIS.MasterTableView.GetColumn("Unit").Visible = false;
-
                 }
             }
         }
-
+        protected void ddlItem_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            string SystematicSetupId =Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFSS_SystematicSetupId"]);
+        }
     }
 }
