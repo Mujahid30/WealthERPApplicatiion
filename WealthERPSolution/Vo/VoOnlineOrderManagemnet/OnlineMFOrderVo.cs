@@ -36,6 +36,8 @@ namespace VoOnlineOrderManagemnet
         public string ModeTypeCode { set; get; }
         public string BSESchemeCode { set; get; }
         public int OrderType { get; set; }
+        public int MandateId { get; set; }
+        public int SystematicId { set; get; }
        
     }
 
@@ -76,6 +78,7 @@ namespace VoOnlineOrderManagemnet
         public int ModifiedBy { set; get; }
         public DateTime ModifiedOn { set; get; }
         public int SystematicSetupId { set; get; }
+        public string MandateId { set; get; }
 
     }
 }
