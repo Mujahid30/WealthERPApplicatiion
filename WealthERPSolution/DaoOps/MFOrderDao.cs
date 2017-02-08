@@ -356,7 +356,7 @@ namespace DaoOps
                 db.AddOutParameter(createMFOrderTrackingCmd, "@SetupId", DbType.Int32, 10);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCodeSwitch", DbType.Int32, mforderVo.SchemePlanSwitch);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_AccountIdSwitch", DbType.Int32, mforderVo.AccountIdSwitch);
-
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_MandateId", DbType.String, systematicSetupVo.MandateId);
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
