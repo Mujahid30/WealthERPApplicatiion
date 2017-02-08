@@ -831,6 +831,31 @@ namespace BoCommon
             }
             return dtSchemeAMCCategory;
         }
+        public DataTable GetCustomerMandateId(int customerId)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = daoCommonLookup.GetCustomerMandateId(customerId);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCustomerMandateId(int customerId)");
+                object[] objParams = new object[1];
+                objParams[0] = customerId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        
+        }
 
         public DataTable GetMFSchemeDividentType(int schemeId)
         {           
