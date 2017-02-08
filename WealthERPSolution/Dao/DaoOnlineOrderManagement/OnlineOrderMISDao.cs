@@ -123,6 +123,36 @@ namespace DaoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
+        public DataTable GetSystematicDetails(int systematicId)
+        {
+            DataSet dsSIPDetails;
+            Database db;
+            DbCommand GetSIPBookMISCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_ONL_GetXSIPDetails");
+                db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, systematicId);
+                GetSIPBookMISCmd.CommandTimeout = 60 * 60;
+                dsSIPDetails = db.ExecuteDataSet(GetSIPBookMISCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderMISDao.cs:GetSystematicDetails(int systematicId)");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSIPDetails.Tables[0];
+        }
         public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode,string Mode)
         {
             DataSet dsSIPSummaryBookMIS;
