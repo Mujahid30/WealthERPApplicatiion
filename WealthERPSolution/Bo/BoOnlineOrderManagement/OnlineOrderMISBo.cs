@@ -74,6 +74,32 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
+        public DataTable GetSystematicDetails(int systematicId)
+        {
+            DataTable dtSIPDetails = new DataTable();
+            try
+            {
+                OnlineOrderMISDao OnlineOrderMISDao = new OnlineOrderMISDao();
+               dtSIPDetails= OnlineOrderMISDao.GetSystematicDetails(systematicId);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderMISBo.cs:GetSystematicDetails(int systematicId)");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSIPDetails;
+        } 
         public DataSet GetSIPSummaryBookMIS(int adviserId, int AmcCode, DateTime dtFrom, DateTime dtTo, int searchType, int statusType, string systematicType, string SIPMode, string Mode)
         {
             DataSet dsSIPSummaryBookMIS = null;
