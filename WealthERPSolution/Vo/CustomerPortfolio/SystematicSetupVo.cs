@@ -230,6 +230,11 @@ namespace VoCustomerPortfolio
             get { return m_SubBrokerCode; }
             set { m_SubBrokerCode = value; }
         }
+        public string MandateId
+        {
+            get;
+            set;
+        }
 
         #endregion
 
