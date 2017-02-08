@@ -1063,5 +1063,36 @@ namespace DaoCommon
             }
 
         }
+        public DataTable GetCustomerMandateId(int customerId)
+        {
+            Database db;
+            DbCommand cmd;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerMandateId");
+                db.AddInParameter(cmd, "@CustomerId", DbType.Int32, customerId);
+                dt=db.ExecuteDataSet(cmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetCustomerMandateId(int customerId)");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           return dt;
+        }
+
     }
 }
