@@ -663,6 +663,7 @@
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Customer Name" Value="1"></asp:ListItem>
                             <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="Custcode" Value="3"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
                     <td align="right">
@@ -750,7 +751,29 @@
                         <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
-                <tr>
+                <tr id="trCustCode" runat="server">
+                <td align="right">
+                        <asp:Label ID="lblCustCode" runat="server" Text="CustCode:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td align="left" id="tdtxtClientCode" runat="server">
+                        <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" AutoComplete="Off"
+                            AutoPostBack="True" onclientClick="ShowIsa()" Width="250px"></asp:TextBox>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" TargetControlID="txtClientCode"
+                            WatermarkText="Enter few characters of Client Code" runat="server" EnableViewState="false">
+                        </cc1:TextBoxWatermarkExtender>
+                        <ajaxToolkit:AutoCompleteExtender ID="txtClientCode_autoCompleteExtender" runat="server"
+                            TargetControlID="txtClientCode" ServiceMethod="GetCustCode" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                            MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                            CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                            Enabled="True" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtClientCode"
+                            ErrorMessage="<br />Please Enter Client Code" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="btnMandateSubmit"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr id="trBranch" runat="server">
                     <td align="right">
                         <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
                     </td>
@@ -758,21 +781,21 @@
                         <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                     <td align="right">
-                        <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName" ></asp:Label>
-                        </td>
-                        <td >
-                        <asp:DropDownList ID="ddlEUIN" runat="server" CssClass="cmbField" >
+                        <asp:Label ID="Label1" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlEUIN" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
-                         <span id="Span37" runat="server" class="spnRequiredField" >*</span>
-                        <asp:CompareValidator ID="cvEUIN" runat="server" ControlToValidate="ddlEUIN"
-                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an EUIN"
-                            Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                        <span id="Span37" runat="server" class="spnRequiredField">*</span>
+                        <asp:CompareValidator ID="cvEUIN" runat="server" ControlToValidate="ddlEUIN" CssClass="cvPCG"
+                            Display="Dynamic" ErrorMessage="<br />Please select an EUIN" Operator="NotEqual"
+                            ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                     </td>
                     <td>
                         <asp:Label ID="lb1EUIN" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
-                <tr>
+                <tr id="trSubBroker" runat="server">
                     <td align="right">
                         <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Sub Broker Code:"></asp:Label>
                     </td>
@@ -805,7 +828,7 @@
                     --%>
                     </td>
                 </tr>
-                <tr>
+                <tr id="trRm" runat="server">
                     <td align="right">
                     </td>
                     <td>
@@ -819,7 +842,7 @@
                     <td>
                     </td>
                 </tr>
-                 <tr>
+                <tr id="trblp" runat="server">
                     <td align="right">
                         <asp:Label ID="lblBusinessLeadProvider" runat="server" CssClass="FieldName" Text="Business Lead Provider:"></asp:Label>
                     </td>
@@ -827,17 +850,18 @@
                         <asp:TextBox ID="txtBLPSearch" runat="server" CssClass="txtField" AutoComplete="Off"
                             OnTextChanged="OnBLPTextchanged" AutoPostBack="True" TabIndex="5">
                         </asp:TextBox>
-<%--                        <span id="Span38" class="spnRequiredField">*</span>
---%>                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtBLPSearch"
+                        <%--                        <span id="Span38" class="spnRequiredField">*</span>
+--%>
+                        <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" TargetControlID="txtBLPSearch"
                             WatermarkText="Enter few chars of Employee Code" runat="server" EnableViewState="false">
                         </cc1:TextBoxWatermarkExtender>
                         <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender4" runat="server" TargetControlID="txtBLPSearch"
                             ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                             MinimumPrefixLength="1" EnableCaching="False"
-                            CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
-                            CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                            MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                            CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                            CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                             UseContextKey="True" DelimiterCharacters="" Enabled="True" ShowOnlyCurrentWordInCompletionListItem="true" />
-                     <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtBLPSearch"
+                        <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator28" ControlToValidate="txtBLPSearch"
                             ErrorMessage="<br />Please Enter a Business Lead Provider" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
                     </td>
@@ -847,8 +871,8 @@
                     <td>
                         <asp:Label ID="lblBLPText" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
                     </td>
-                    </tr>
-                    <tr>
+                </tr>
+                <tr id="trbplCode" runat="server">
                     <td align="right">
                     </td>
                     <td>
@@ -934,6 +958,7 @@
                             <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
                             <asp:ListItem Text="Redemption" Value="Sel"></asp:ListItem>
                             <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                            <asp:ListItem Text="XSIP" Value="XSIP"></asp:ListItem>
                             <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
                             <asp:ListItem Text="STP" Value="STB" Enabled="true"></asp:ListItem>
                             <asp:ListItem Text="Switch" Value="SWB" Enabled="true"></asp:ListItem>
@@ -1102,10 +1127,10 @@
                                 </td>
                             </tr>
                             <tr runat="server">
-                                <td align="left" style="vertical-align: top;" runat="server" visible="false">
+                                <td align="left" style="vertical-align: top;" runat="server">
                                     <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                                 </td>
-                                <td runat="server" visible="false">
+                                <td runat="server">
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td align="left" style="vertical-align: top;">
@@ -1412,6 +1437,89 @@
                 </tr>
             </table>
         </asp:Panel>
+        <asp:Panel ID="pnl_XSIP_PaymentSection" class="Landscape" Width="100%" runat="server">
+            <table width="100%">
+                <tr id="tr2" runat="server">
+                    <td align="right" style="width: 18%">
+                        <asp:Label ID="Label10" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlFrequencyXSIP" runat="server" CssClass="cmbField" TabIndex="20"
+                            OnSelectedIndexChanged="ddlFrequencyXSIP_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                    </td>
+                    <td align="right" style="width: 10%">
+                        <asp:Label ID="Label11" runat="server" Text="Start Date:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlXSIPStartDate" CssClass="cmbField" runat="server" AutoPostBack="True"
+                            OnSelectedIndexChanged="ddlXSIPStartDate_SelectedIndexChanged" ValidationGroup="MFSubmit">
+                            <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                        </asp:DropDownList>
+                        <span id="Span38" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="rfvStartDate" runat="server" ErrorMessage="Please select a start date"
+                            InitialValue="0" ControlToValidate="ddlXSIPStartDate" ValidationGroup="MFSubmit"
+                            CssClass="rfvPCG" Display="Dynamic">Please select a start date</asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="Label12" runat="server" Text="Total Installments:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlXSIPTotalInstallments" CssClass="cmbField" runat="server"
+                            AutoPostBack="True" OnSelectedIndexChanged="ddlXSIPTotalInstallments_SelectedIndexChanged"
+                            Width="90px">
+                            <asp:ListItem Value="0">SELECT</asp:ListItem>
+                        </asp:DropDownList>
+                        <span id="Span39" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="rfvInstallments" runat="server" ErrorMessage="Please select a value"
+                            ControlToValidate="ddlXSIPTotalInstallments" InitialValue="0" ValidationGroup="MFSubmit"
+                            CssClass="rfvPCG" Display="Dynamic">Please select a value</asp:RequiredFieldValidator>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblEndDate" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblEndDateValue" runat="server" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="lblMandateId" runat="server" Text="Mandate Id:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlMandateId" CssClass="cmbField" runat="server" AutoPostBack="True"
+                            Width="90px">
+                        </asp:DropDownList>
+                        <span id="Span40" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator29" runat="server" ErrorMessage="Please select a value"
+                            ControlToValidate="ddlMandateId" InitialValue="0" ValidationGroup="MFSubmit"
+                            CssClass="rfvPCG" Display="Dynamic">Please select a value</asp:RequiredFieldValidator>
+                    </td>
+                    <td align="right">
+                        <asp:Label ID="lblAmt" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" TabIndex="28"></asp:TextBox><span
+                            id="Span41" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator30" ControlToValidate="txtAmt"
+                            CssClass="rfvPCG" ErrorMessage="<br />Please select Amount" Display="Dynamic"
+                            runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtAmt" runat="server"
+                            Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="Double"
+                            Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                        <asp:RangeValidator ID="RangeValidator4" Display="Dynamic" ValidationGroup="MFSubmit"
+                            runat="server" ErrorMessage="<br />Please enter a valid amount" ControlToValidate="txtAmt"
+                            MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtAmt"
+                            runat="server" CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit"
+                            ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
+                        </asp:RegularExpressionValidator>
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
         <asp:Panel ID="pnl_SEL_PaymentSection" runat="server" class="Landscape" Width="100%"
             Height="80%" ScrollBars="None">
             <table id="tb_SEL_PaymentSection" width="100%">
@@ -1440,8 +1548,9 @@
                         <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="MFSubmit"
                             runat="server" ErrorMessage="<br />Please enter a valid amount" ControlToValidate="txtNewAmount"
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
-                        <asp:RegularExpressionValidator ID="rvDecimal" ControlToValidate="txtNewAmount" runat="server" CssClass="cvPCG"
-                            ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
+                        <asp:RegularExpressionValidator ID="rvDecimal" ControlToValidate="txtNewAmount" runat="server"
+                            CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit"
+                            ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
                         </asp:RegularExpressionValidator>
                     </td>
                 </tr>
@@ -1506,8 +1615,8 @@
                             runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount"
                             MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtAmount"
-                            runat="server" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit" CssClass="cvPCG"
-                            ValidationExpression="((\d+)((\.\d{1,6})?))$">
+                            runat="server" ValidationGroup="MFSubmit" ErrorMessage="Please enter a valid amount/Unit"
+                            CssClass="cvPCG" ValidationExpression="((\d+)((\.\d{1,6})?))$">
                         </asp:RegularExpressionValidator>
                     </td>
                     <td align="right" style="width: 22.5%;">

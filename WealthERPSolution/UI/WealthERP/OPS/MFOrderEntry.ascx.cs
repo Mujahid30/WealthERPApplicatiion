@@ -61,6 +61,7 @@ namespace WealthERP.OPS
         UserVo tempUserVo = new UserVo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+        OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
 
         UserVo userVo;
         PriceBo priceBo = new PriceBo();
@@ -103,7 +104,7 @@ namespace WealthERP.OPS
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             GetUserType();
 
-          
+
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -114,18 +115,24 @@ namespace WealthERP.OPS
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
                 AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
             {
                 txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
             }
             else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
             {
@@ -140,6 +147,8 @@ namespace WealthERP.OPS
                 AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
                 AutoCompleteExtender4.ContextKey = advisorVo.advisorId.ToString();
                 AutoCompleteExtender4.ServiceMethod = "GetBLPNameDetails";
+                txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
 
             }
             if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
@@ -151,9 +160,9 @@ namespace WealthERP.OPS
                 else
                     txtAssociateSearch.Enabled = false;
             }
-           
-             
-         
+
+
+
 
             if (!IsPostBack)
             {
@@ -167,7 +176,7 @@ namespace WealthERP.OPS
                 //else
                 //    txtAssociateSearch.Enabled = true;
                 DefaultBindings();
-              
+
                 if (Request.QueryString["FormAction"] != null)
                 {
                     if (Request.QueryString["FormAction"].Trim() == "MfRecon_OrderAdd")
@@ -221,6 +230,22 @@ namespace WealthERP.OPS
                     ShowPaymentSectionBasedOnTransactionType(ddltransType.SelectedValue, ViewForm);
                     ButtonsEnablement(ViewForm);
                     FrequencyEnablityForTransactionType(ddltransType.SelectedValue);
+                }
+                else if (Request.QueryString["ordertype"] != null)
+                {
+                    if (Request.QueryString["ordertype"] == "XSIP")
+                    {
+                        trBranch.Visible = false;
+                        trSubBroker.Visible = false;
+                        trRm.Visible = false;
+                        trblp.Visible = false;
+                        trbplCode.Visible = false;
+                        ddltransType.SelectedValue = "XSIP";
+                        ShowPaymentSectionBasedOnTransactionType("XSIP", "");
+                        ControlsEnblity("New");
+                        ButtonsEnablement("New");
+                        BindAMC(0);
+                    }
                 }
                 else
                 {
@@ -276,12 +301,12 @@ namespace WealthERP.OPS
 
 
             }
-            SerachBoxes();
+            //SerachBoxes();
         }
 
-        protected void BindTotalInstallments()
+        protected void BindTotalInstallments(DropDownList ddlTotal, DropDownList ddlFrequency, int mode)
         {
-            ddlTotalInstallments.Items.Clear();
+            ddlTotal.Items.Clear();
             string frequency = string.Empty;
 
             if (ddltransType.SelectedValue == "SWP")
@@ -297,7 +322,7 @@ namespace WealthERP.OPS
                 frequency = "SIP";
             }
 
-            dtGetAllSIPDataForOrder = commonLookupBo.Get_Offline_AllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue.ToString(), frequency);
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequency.SelectedValue.ToString(), "SIP", 0);
             if (dtGetAllSIPDataForOrder == null)
             {
                 return;
@@ -323,29 +348,28 @@ namespace WealthERP.OPS
             foreach (string s in strSplit)
             {
                 if (string.IsNullOrEmpty(s.Trim())) continue;
-                ddlTotalInstallments.Items.Add(new ListItem(s.ToString()));
+                ddlTotal.Items.Add(new ListItem(s.ToString()));
             }
-            ddlTotalInstallments.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
-            //ddlTotalInstallments.Items.Insert(0, new ListItem("--SELECT--"));
-            ddlTotalInstallments.SelectedIndex = 0;
+            ddlTotal.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlTotal.SelectedIndex = 0;
         }
         protected void ddlARNNo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlARNNo.SelectedValue == "ARN-0011")
-                {
-                    ddlEUIN.Visible = true;
-                    Label1.Visible = true;
-                    Span37.Visible = true;
-                    cvEUIN.Visible = true;
-                }
-                else
-                {
-                    ddlEUIN.Visible = false;
-                    Label1.Visible = false;
-                    Span37.Visible = false;
-                    cvEUIN.Visible = false;
-                }
-            
+            {
+                ddlEUIN.Visible = true;
+                Label1.Visible = true;
+                Span37.Visible = true;
+                cvEUIN.Visible = true;
+            }
+            else
+            {
+                ddlEUIN.Visible = false;
+                Label1.Visible = false;
+                Span37.Visible = false;
+                cvEUIN.Visible = false;
+            }
+
         }
         protected void ddlStartDate_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -357,16 +381,16 @@ namespace WealthERP.OPS
         protected void BindStartDates()
         {
 
-            ddlStartDate.Items.Clear();
+            ddlXSIPStartDate.Items.Clear();
             if (ddlFrequencySIP.SelectedValue == "0")
                 return;
             DateTime[] dtStartdates;
 
-            dtStartdates = mfOrderBo.GetSipStartDates(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencySIP.SelectedValue);
+            dtStartdates = mfOrderBo.GetSipStartDates(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencyXSIP.SelectedValue);
 
             foreach (DateTime d in dtStartdates) ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
-            ddlStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
-            ddlStartDate.SelectedIndex = 0;
+            ddlXSIPStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlXSIPStartDate.SelectedIndex = 0;
         }
 
         private string CreateUserMessage(int orderId, int sipId, string mode)
@@ -379,7 +403,7 @@ namespace WealthERP.OPS
                 {
                     userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString();
                 }
-                else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB")
+                else if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "XSIP")
                 {
                     userMessage = ddltransType.SelectedValue + " Requested successfully," + ddltransType.SelectedValue + " reference no. is " + sipId.ToString();
                 }
@@ -411,7 +435,7 @@ namespace WealthERP.OPS
             DividendendOption();
             ddlStartDate.DataSource = null;
             GetControlDetails(int.Parse(txtSchemeCode.Value), null, ddlFrequencySIP.SelectedValue);
-            BindTotalInstallments();
+            BindTotalInstallments(ddlTotalInstallments, ddlFrequencySIP, 0);
             //BindStartDates();
             ddlFrequencySIP.Focus();
         }
@@ -442,7 +466,12 @@ namespace WealthERP.OPS
             txtTotalInstallments.Focus();
             //.ToString("dd-MMM-yyyy");
         }
-
+        protected void ddlXSIPTotalInstallments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlXSIPTotalInstallments.SelectedIndex == 0 || ddlXSIPStartDate.SelectedIndex == 0 || ddlFrequencyXSIP.SelectedIndex == 0) return;
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlXSIPStartDate.SelectedValue), ddlFrequencyXSIP.SelectedValue, Convert.ToInt32(ddlXSIPTotalInstallments.SelectedValue) - 1);
+            lblEndDateValue.Text = dtEndDate.ToString("dd-MMM-yyyy");
+        }
         private void CaliculateEndDate()
         {
             if (string.IsNullOrEmpty(txtTotalInstallments.Text) || ddlFrequencySIP.SelectedIndex == 0) return;
@@ -503,8 +532,8 @@ namespace WealthERP.OPS
                     AgentCode = "0";
             }
         }
-      
-         private void BindEUIN(int adviserId)
+
+        private void BindEUIN(int adviserId)
         {
             DataSet dsEUIN = mfOrderBo.GetEUIN(adviserId);
             if (dsEUIN.Tables[0].Rows.Count > 0)
@@ -539,7 +568,7 @@ namespace WealthERP.OPS
             //ddlAMCList.Enabled = false;
             Pan_Cust_Search("1");
             GetuserTypeTransactionSlipDownload();
-           
+
 
 
         }
@@ -576,8 +605,8 @@ namespace WealthERP.OPS
         {
             int agentId = 0;
             string agentCode = "";
-           string EmpId="";
-             string EmpName = "";
+            string EmpId = "";
+            string EmpName = "";
 
             DataSet dsGetMFOrderDetails = mfOrderBo.GetCustomerMFOrderDetails(orderId);
             if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
@@ -611,19 +640,19 @@ namespace WealthERP.OPS
                         }
                         else
                             lblAssociatetext.Text = string.Empty;
-                       
+
                     }
                     if (!string.IsNullOrEmpty(dr["AR_RMId"].ToString()))
                     {
                         EmpId = (dr["AR_StaffCode"].ToString());
                         EmpName = dr["AR_FirstName"].ToString();
                     }
-                
-                        txtBLPSearch.Text = EmpName;
-                        lblBLPCodeText.Text =EmpId;
-                        lblBLPText.Text = EmpName;
-                       
-                    
+
+                    txtBLPSearch.Text = EmpName;
+                    lblBLPCodeText.Text = EmpId;
+                    lblBLPText.Text = EmpName;
+
+
 
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
                     {
@@ -723,7 +752,7 @@ namespace WealthERP.OPS
                     {
                         txtReceivedDate.SelectedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
                     }
-                  
+
                     ddlPortfolio.SelectedValue = dr["CP_portfolioId"].ToString();
 
                     ddlPaymentMode.SelectedValue = dr["XPM_PaymentModeCode"].ToString();
@@ -815,7 +844,7 @@ namespace WealthERP.OPS
                             string startDates = Convert.ToDateTime(dr["CMFSS_StartDate"].ToString()).ToString("dd-MMM-yyyy");
                             ddlStartDate.SelectedValue = startDates;
                             txtstartDateSIP.SelectedDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
-                            BindTotalInstallments();
+                            BindTotalInstallments(ddlTotalInstallments, ddlFrequencySIP, 0);
                             ddlTotalInstallments.SelectedValue = dr["CMFSS_TotalInstallment"].ToString();
                             txtTotalInstallments.Text = dr["CMFSS_TotalInstallment"].ToString();
                             CaliculateEndDate();
@@ -866,6 +895,7 @@ namespace WealthERP.OPS
             pnl_BUY_ABY_SIP_PaymentSection.Enabled = enableMent;
             pnl_SIP_PaymentSection.Enabled = enableMent;
             pnl_SEL_PaymentSection.Enabled = enableMent;
+            pnl_XSIP_PaymentSection.Enabled = enableMent;
 
 
 
@@ -962,7 +992,7 @@ namespace WealthERP.OPS
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetNFOSchemeNames";
             }
-            else if (transactionType == "SIP")
+            else if (transactionType == "SIP" || transactionType=="XSIP")
             {
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSIPSchemeNames";
@@ -1167,13 +1197,13 @@ namespace WealthERP.OPS
                 return;
             }
 
-            if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") && (ddltransType.SelectedValue != "NFO"))
+            if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") && (ddltransType.SelectedValue != "NFO") &&  (ddltransType.SelectedValue != "XSIP"))
             {
                 mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue), out folioNo, out accountid);
                 txtFolioNumber.Text = folioNo;
                 hidFolioNumber.Value = accountid.ToString();
             }
-            if (ddltransType.SelectedValue == "SIP" | ddltransType.SelectedValue == "SWP" | ddltransType.SelectedValue == "STB")
+            if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "XSIP")
             {
                 BindSipUiOnSchemeSelection(int.Parse(txtSchemeCode.Value));
 
@@ -1188,7 +1218,6 @@ namespace WealthERP.OPS
         {
 
             string frequency = string.Empty;
-
             if (ddltransType.SelectedValue == "SWP")
             {
                 frequency = "SWP";
@@ -1197,19 +1226,44 @@ namespace WealthERP.OPS
             {
                 frequency = "STP";
             }
-            else
+            else if (ddltransType.SelectedValue == "SIP")
             {
                 frequency = "SIP";
             }
-
-
-            dtGetAllSIPDataForOrder = commonLookupBo.Get_Offline_AllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString(), frequency);
-
-            BindFrequencies();
+            if (ddltransType.SelectedValue != "XSIP")
+            {
+                dtGetAllSIPDataForOrder = commonLookupBo.Get_Offline_AllSIPDataForOrder(schemeCode, ddlFrequencySIP.SelectedValue.ToString(), frequency);
+                BindFrequencies();
+            }
+            else if (ddltransType.SelectedValue == "XSIP")
+            {
+                dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequencyXSIP.SelectedValue.ToString(), "SIP", 0);
+                BindFrequency();
+            }
 
         }
 
+        protected void BindSipUiOnSchemeSelectionNew(int schemeCode)
+        {
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode, ddlFrequencyXSIP.SelectedValue.ToString(), "SIP", 0);
+            BindFrequency();
+        }
+        protected void BindFrequency()
+        {
+            ddlFrequencyXSIP.Items.Clear();
+            if (dtGetAllSIPDataForOrder == null) return;
 
+            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
+            {
+                if (row["PASP_SchemePlanCode"].ToString() == txtSchemeCode.Value.ToString())
+                {
+                    ddlFrequencyXSIP.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
+                }
+            }
+
+            ddlFrequencyXSIP.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlFrequencyXSIP.SelectedIndex = 0;
+        }
         protected void BindFrequencies()
         {
             ddlFrequencySIP.Items.Clear();
@@ -1240,14 +1294,14 @@ namespace WealthERP.OPS
         }
         protected void BindDIvidendOptions(int schemPlanCode)
         {
-            //DataTable dtScheme = new DataTable();
+            DataTable dtScheme = new DataTable();
 
-            //dtScheme = commonLookupBo.GetMFSchemeDividentType(schemPlanCode);
-            //ddlDivType.DataSource = dtScheme;
-            //ddlDivType.DataValueField = "PSLV_LookupValueCode";
-            //ddlDivType.DataTextField = "PSLV_LookupValue";
-            //ddlDivType.DataBind();
-            //ddlDivType.Items.Insert(0, new ListItem("Select", "0"));
+            dtScheme = commonLookupBo.GetMFSchemeDividentType(schemPlanCode);
+            ddlDivType.DataSource = dtScheme;
+            ddlDivType.DataValueField = "PSLV_LookupValueCode";
+            ddlDivType.DataTextField = "PSLV_LookupValue";
+            ddlDivType.DataBind();
+            ddlDivType.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void GetControlDetails(int scheme, string folio, string frequency)
@@ -2925,22 +2979,6 @@ namespace WealthERP.OPS
             ddlCorrAdrState.DataBind();
             ddlCorrAdrState.Items.Insert(0, new ListItem("Select", "Select"));
         }
-        private void BindFrequency()
-        {
-            //dtFrequency = assetBo.GetFrequencyCode(path);
-            //ddlFrequencySIP.DataSource = dtFrequency;
-            //ddlFrequencySIP.DataTextField = "Frequency";
-            //ddlFrequencySIP.DataValueField = "FrequencyCode";
-            //ddlFrequencySIP.DataBind();
-            //ddlFrequencySIP.Items.Insert(0, new ListItem("Select", "0"));
-
-            ////---------------------------------------------
-            //ddlFrequencySTP.DataSource = dtFrequency;
-            //ddlFrequencySTP.DataTextField = "Frequency";
-            //ddlFrequencySTP.DataValueField = "FrequencyCode";
-            //ddlFrequencySTP.DataBind();
-
-        }
         public void ISA_Onclick(object obj, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerISARequest','');", true);
@@ -2990,6 +3028,7 @@ namespace WealthERP.OPS
             pnl_BUY_ABY_SIP_PaymentSection.Visible = false;
             pnl_SIP_PaymentSection.Visible = false;
             pnl_SEL_PaymentSection.Visible = false;
+            pnl_XSIP_PaymentSection.Visible = false;
             Tr1.Visible = true;
             txtFolioNumber.Enabled = true;
             imgFolioAdd.Enabled = true;
@@ -2997,11 +3036,6 @@ namespace WealthERP.OPS
             if (transType == "BUY" | transType == "ABY" | transType == "NFO")
             {
                 pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
-                //if (transType == "BUY")
-                //{
-                //    txtFolioNumber.Enabled = false;
-                //    imgFolioAdd.Enabled = false;
-                //}
             }
             else if (transType == "Sel")
             {
@@ -3031,6 +3065,13 @@ namespace WealthERP.OPS
             {
                 pnl_SEL_PaymentSection.Visible = true;
                 trScheme.Visible = true;
+            }
+            else if (transType == "XSIP")
+            {
+                pnl_BUY_ABY_SIP_PaymentSection.Visible = true;
+                pnl_XSIP_PaymentSection.Visible = true;
+                pnl_BUY_ABY_SIP_PaymentSection.Visible = false;
+                Tr1.Visible = false;
             }
 
         }
@@ -3065,7 +3106,7 @@ namespace WealthERP.OPS
                 trSIPStartDate.Visible = false;
                 trAddress6.Visible = false;
 
-               // trSection2.Visible = false;
+                // trSection2.Visible = false;
 
                 trGetAmount.Visible = false;
                 trRedeemed.Visible = false;
@@ -3286,7 +3327,7 @@ namespace WealthERP.OPS
                     lblBLPText.Text = BLPName.Rows[0][1].ToString();
                 }
             }
-           
+
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
@@ -3383,18 +3424,18 @@ namespace WealthERP.OPS
                 {
                     lb1EUIN.Text = string.Empty;
                 }
-               
+
                 if (!string.IsNullOrEmpty(Agentname.Rows[0][4].ToString()))
                 {
-                   lb1RepTo.Text = Agentname.Rows[0][4].ToString();
+                    lb1RepTo.Text = Agentname.Rows[0][4].ToString();
                 }
-                    else
+                else
                 {
-                   lb1RepTo.Text = string.Empty;
+                    lb1RepTo.Text = string.Empty;
                 }
-              
+
             }
-            
+
         }
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
@@ -3434,8 +3475,8 @@ namespace WealthERP.OPS
         {
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(int.Parse(txtCustomerId.Value));
-             customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
-            Session["customerVo"] =customerVo;
+            customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
+            Session["customerVo"] = customerVo;
             lblGetBranch.Text = customerVo.BranchName;
             lblgetPan.Text = customerVo.PANNum;
 
@@ -3853,9 +3894,9 @@ namespace WealthERP.OPS
 
                 BindBank();
                 BindPortfolioDropdown(customerId);
-                ddltransType.SelectedIndex = 0;
                 BindISAList();
-
+                bindMandateId();
+               
             }
             if (ddlsearch.SelectedValue == "2")
             {
@@ -3969,21 +4010,21 @@ namespace WealthERP.OPS
         private void BindAMC(int Aflag)
         {
             DataSet dsProductAmc = new DataSet();
-            DataTable dtProductAMC;
+            DataTable dtProductAMC = new DataTable();
 
             try
             {
                 if (Aflag == 0)
-                    dsProductAmc = productMFBo.GetProductAmc();
+                    dtProductAMC = commonLookupBo.GetProdAmc(0, ddltransType.SelectedValue == "XSIP" ? true : false);
                 else if (Aflag == 1)
                     dsProductAmc = operationBo.GetAMCForOrderEntry(Aflag, int.Parse(txtCustomerId.Value));
                 else if (Aflag == 2)
                     dsProductAmc = operationBo.Get_NFO_AMC();
 
 
-                if (dsProductAmc.Tables.Count > 0)
+                if (dsProductAmc.Tables.Count>0 || dtProductAMC.Rows.Count > 0)
                 {
-                    dtProductAMC = dsProductAmc.Tables[0];
+                    dtProductAMC = (dtProductAMC == null) ? dsProductAmc.Tables[0] : dtProductAMC;
                     ddlAMCList.DataSource = dtProductAMC;
                     ddlAMCList.DataTextField = dtProductAMC.Columns["PA_AMCName"].ToString();
                     ddlAMCList.DataValueField = dtProductAMC.Columns["PA_AMCCode"].ToString();
@@ -4114,15 +4155,6 @@ namespace WealthERP.OPS
 
         private void GetAmcBasedonTransactionType(string transactionType)
         {
-
-            //if (transactionType == "SWB" || transactionType == "SWP" || transactionType == "STB" || transactionType == "Sel" || transactionType == "ABY")
-            //{
-            //    BindAMC(1);
-            //}
-            //else
-            //{
-            //  BindAMC(0);
-            //}
 
             if (transactionType == "NFO")
             {
@@ -4389,22 +4421,17 @@ namespace WealthERP.OPS
 
         private void Pan_Cust_Search(string seacrch)
         {
-            if (seacrch == "2")
-                seacrch = "Pan";
-            else
-                seacrch = "Customer";
-
-            if (seacrch == "Customer")
+            trCust.Visible = false;
+            trpan.Visible = false;
+            trCustCode.Visible = false;
+            if (seacrch == "1")
             {
                 clearPancustomerDetails();
                 trCust.Visible = true;
-
-                trpan.Visible = false;
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
@@ -4423,10 +4450,9 @@ namespace WealthERP.OPS
                 }
 
             }
-            else if (seacrch == "Pan")
+            else if (seacrch == "2")
             {
                 clearPancustomerDetails();
-                trCust.Visible = false;
                 trpan.Visible = true;
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -4450,6 +4476,32 @@ namespace WealthERP.OPS
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                 }
 
+            }
+            else if (seacrch == "3")
+            {
+                clearPancustomerDetails();
+                trCustCode.Visible = true;
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
+                    txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                {
+                    txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                {
+                    txtClientCode_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtClientCode_autoCompleteExtender.ServiceMethod = "GetCustCode";
+                }
             }
         }
         protected void ddlsearch_Selectedindexchanged(object sender, EventArgs e)
@@ -4528,27 +4580,6 @@ namespace WealthERP.OPS
             {
                 BindSchemeSwitch();
             }
-            //if (ddlAMCList.SelectedIndex != 0)
-            //{
-            //    BindFolioNumberSearch(0, 0);
-            //    txtSearchScheme.Text = "";
-            //    hdnAmcCode.Value = ddlAMCList.SelectedItem.Text;
-            //    amcCode = int.Parse(ddlAMCList.SelectedValue);
-            //    if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
-            //    {
-            //        BindScheme(0);
-            //        Sflag = 0;
-            //    }
-            //    else
-            //    {
-            //        BindScheme(1);
-            //        Sflag = 1;
-            //    }
-            //    BindSchemeSwitch();
-            //}
-
-            //bindSearchScheme();
-
         }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -4657,11 +4688,12 @@ namespace WealthERP.OPS
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-
+            string message = string.Empty;
+            int OrderId = 0;
+            int sipId = 0;
+            char msgType = 'F';
             List<int> OrderIds = new List<int>();
-
-            // string confirmValue = Request.Form["confirm_value"];
-
+            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
             bool isvalidOfflineFolio = mfOrderBo.ChkOfflineValidFolio(txtFolioNumber.Text);
             if (string.IsNullOrEmpty(lblMintxt.Text))
             {
@@ -4680,29 +4712,12 @@ namespace WealthERP.OPS
                 txtAmount.Text = txtNewAmount.Text;
             }
 
-
-            //int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmount.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
-            //if (retVal != 0)
-            //{
-            //    if (retVal == -2)
-            //    {
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
-
-            //    }
-            //    if (retVal == -1)
-            //    {
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
-
-            //    }
-
-            //}
-
-            if (string.IsNullOrEmpty(txtAgentId.Value))
+            if (string.IsNullOrEmpty(txtAgentId.Value) && ddltransType.SelectedValue != "XSIP")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid SubBroker Code.');", true);
                 return;
             }
-            if ((string.IsNullOrEmpty(hidFolioNumber.Value)) && (!string.IsNullOrEmpty(txtFolioNumber.Text)))
+            if ((string.IsNullOrEmpty(hidFolioNumber.Value)) && (!string.IsNullOrEmpty(txtFolioNumber.Text)) && ddltransType.SelectedValue != "XSIP")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Enter a valid Folio Number.');", true);
                 return;
@@ -4733,10 +4748,11 @@ namespace WealthERP.OPS
 
             int setupId = 0;
 
-
+            
             if (ddltransType.SelectedValue != "SWB")
             {
                 SaveOrderDetails();
+                systematicSetupVo.MandateId = ddlMandateId.SelectedValue.ToString();
                 OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo, out setupId);
                 lblGetOrderNo.Text = OrderIds[0].ToString();
                 rgvOrderSteps.Visible = true;
@@ -4754,7 +4770,22 @@ namespace WealthERP.OPS
         }
 
 
-
+        private void XSIPSaveOrderDetails()
+        {
+            onlineMFOrderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value.ToString());
+            onlineMFOrderVo.SystematicTypeCode = "SIP";
+            onlineMFOrderVo.SystematicDate = DateTime.Parse(ddlXSIPStartDate.SelectedValue).Day;
+            onlineMFOrderVo.Amount = double.Parse(txtAmt.Text);
+            onlineMFOrderVo.SourceCode = "";
+            onlineMFOrderVo.FrequencyCode = ddlFrequencyXSIP.SelectedValue.ToString();
+            onlineMFOrderVo.CustomerId = customerVo.CustomerId;
+            onlineMFOrderVo.StartDate = DateTime.Parse(ddlXSIPStartDate.SelectedValue);
+            onlineMFOrderVo.EndDate = DateTime.Parse(lblEndDateValue.Text);
+            onlineMFOrderVo.SystematicDates = "";
+            onlineMFOrderVo.TotalInstallments = int.Parse(ddlXSIPTotalInstallments.SelectedValue);
+            if (ddlDivType.SelectedIndex > -1)
+                onlineMFOrderVo.DivOption = ddlDivType.SelectedValue;
+        }
         private void CreatePurchaseOrderType(int systematicId)
         {
             if (string.IsNullOrEmpty(hidFolioNumber.Value))
@@ -4843,11 +4874,11 @@ namespace WealthERP.OPS
             //ddlSwitchDvdnType.Items.Clear();
             if (dtSchemeDividendOption.Rows.Count > 0)
             {
-               // ddlSwitchDvdnType.DataSource = dtSchemeDividendOption;
-               // ddlSwitchDvdnType.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
-               // ddlSwitchDvdnType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
+                // ddlSwitchDvdnType.DataSource = dtSchemeDividendOption;
+                // ddlSwitchDvdnType.DataValueField = dtSchemeDividendOption.Columns["PSLV_LookupValueCode"].ToString();
+                // ddlSwitchDvdnType.DataTextField = dtSchemeDividendOption.Columns["PSLV_LookupValue"].ToString();
                 //ddlSwitchDvdnType.DataBind();
-               // ddlSwitchDvdnType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+                // ddlSwitchDvdnType.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
             }
 
@@ -4926,6 +4957,10 @@ namespace WealthERP.OPS
                         mforderVo.Units = 0;
                 }
 
+            }
+            else if (ddltransType.SelectedValue == "XSIP")
+            {
+                mforderVo.Amount = Convert.ToDouble(txtAmt.Text);
             }
             else
             {
@@ -5030,8 +5065,11 @@ namespace WealthERP.OPS
                 mforderVo.Remarks = "";
             if (ddltransType.SelectedValue != "BUY" | ddltransType.SelectedValue != "ABY" | ddltransType.SelectedValue != "Sel" | ddltransType.SelectedValue != "NFO")
             {
-                if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
+
+                if (ddltransType.SelectedValue == "SIP" && !string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                     mforderVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
+                else if (ddltransType.SelectedValue == "XSIP" && !string.IsNullOrEmpty((ddlFrequencyXSIP.SelectedValue).ToString().Trim()))
+                    mforderVo.FrequencyCode = ddlFrequencyXSIP.SelectedValue;
             }
             //if (!string.IsNullOrEmpty(ddlStartDate.SelectedValue) && ddlStartDate.SelectedValue != "0")
             //{
@@ -5040,13 +5078,16 @@ namespace WealthERP.OPS
             //else
             //    mforderVo.StartDate = DateTime.MinValue;
 
-            if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()))
+            if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()) && ddltransType.SelectedValue == "SIP")
                 mforderVo.StartDate = DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
+            else if (ddltransType.SelectedValue == "XSIP")
+                mforderVo.StartDate = DateTime.Parse(ddlXSIPStartDate.SelectedValue.ToString());
             else
                 mforderVo.StartDate = DateTime.MinValue;
-
-            if (!string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
+            if (ddltransType.SelectedValue == "SIP" && !string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
+            else  if (ddltransType.SelectedValue == "XSIP" && !string.IsNullOrEmpty((lblEndDateValue.Text).ToString().Trim()))
+                mforderVo.EndDate = DateTime.Parse(lblEndDateValue.Text.ToString());
             else
                 mforderVo.EndDate = DateTime.MinValue;
 
@@ -5065,7 +5106,7 @@ namespace WealthERP.OPS
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
 
-            if (AgentId.Rows.Count > 0)
+            if (AgentId!=null && AgentId.Rows.Count > 0)
             {
                 mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
             }
@@ -5085,7 +5126,7 @@ namespace WealthERP.OPS
                     mforderVo.EmpId = 0;
                 }
             }
-                
+
             if (!String.IsNullOrEmpty(txtSystematicdates.Text))
                 systematicSetupVo.SystematicDate = Convert.ToInt32(txtSystematicdates.Text);
 
@@ -5093,8 +5134,10 @@ namespace WealthERP.OPS
             //if (!string.IsNullOrEmpty(ddlTotalInstallments.SelectedValue))
             //    systematicSetupVo.Period = Convert.ToInt32(ddlTotalInstallments.SelectedValue);
 
-            if (!string.IsNullOrEmpty(txtTotalInstallments.Text))
+            if (!string.IsNullOrEmpty(txtTotalInstallments.Text) && ddltransType.SelectedValue == "SIP")
                 systematicSetupVo.Period = Convert.ToInt32(txtTotalInstallments.Text);
+            else if (!string.IsNullOrEmpty(ddlXSIPTotalInstallments.SelectedValue) && ddltransType.SelectedValue == "XSIP")
+                systematicSetupVo.Period = Convert.ToInt32(ddlXSIPTotalInstallments.SelectedValue.ToString());
 
             systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedValue;
             if (!string.IsNullOrEmpty(txtRegistrationDate.Text))
@@ -5109,7 +5152,10 @@ namespace WealthERP.OPS
             else
                 systematicSetupVo.CeaseDate = DateTime.MinValue;
 
-
+            if (ddltransType.SelectedValue == "XSIP")
+            {
+                systematicSetupVo.MandateId = ddlMandateId.SelectedValue.ToString();
+            }
 
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
@@ -5995,7 +6041,101 @@ namespace WealthERP.OPS
             }
 
         }
+        protected void BindXStartDates()
+        {
+            ddlXSIPStartDate.Items.Clear();
+            DateTime[] dtStartdates;
+            dtStartdates = boOnlineOrder.GetSipStartDates(int.Parse(txtSchemeCode.Value), ddlFrequencyXSIP.SelectedValue, true);
+            DateTime currentDate = DateTime.Now;
+            foreach (DateTime d in dtStartdates)
+                if (d.Date != currentDate.Date)
+                    ddlXSIPStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
+            ddlXSIPStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlXSIPStartDate.SelectedIndex = 0;
+        }
+        protected void BindXSIPTotalInstallments()
+        {
+            ddlFrequencyXSIP.Items.Clear();
+            if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(txtSchemeCode.Value), ddlFrequencyXSIP.SelectedValue.ToString(), "SIP", 0);
+            if (dtGetAllSIPDataForOrder == null) return;
 
+            int minDues;
+            int maxDues;
+            minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
+            maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
+            StringBuilder strTotalInstallments = new StringBuilder();
+
+            for (int i = minDues; i <= maxDues; i++) strTotalInstallments.Append(i + "~");
+
+            string str = strTotalInstallments.ToString();
+
+            string[] strSplit = str.Split('~');
+
+            foreach (string s in strSplit)
+            {
+                if (string.IsNullOrEmpty(s.Trim())) continue;
+                ddlFrequencyXSIP.Items.Add(new ListItem(s.ToString()));
+            }
+            ddlFrequencyXSIP.Items.Insert(0, new System.Web.UI.WebControls.ListItem("SELECT", "0"));
+            ddlFrequencyXSIP.SelectedIndex = 0;
+        }
+        protected void ShowHideControlsForDivAndGrowth()
+        {
+            DataView dvFilterDivNGrowth = new DataView(dtGetAllSIPDataForOrder, "PASP_SchemePlanCode='" + txtSchemeCode.Value + "'", "PSLV_LookupValueCodeForSchemeOption", DataViewRowState.CurrentRows);
+            dtGetAllSIPDataForOrder = dvFilterDivNGrowth.ToTable();
+            if (dtGetAllSIPDataForOrder.Rows[0]["PSLV_LookupValueCodeForSchemeOption"].ToString() == "DV")
+            {
+                trdividenttype.Visible = true;
+                BindSchemeDividendTypes(Convert.ToInt32(txtSchemeCode.Value.ToString()));
+            }
+            else
+            {
+                trdividenttype.Visible = false;
+            }
+        }
+        protected void BindSipDetOnFreqSel(string schemeId, string freq)
+        {
+            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq, true);
+            if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count == 0) return;
+            DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
+            lblMintxt.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MinAmount"].ToString()), 2).ToString();
+            lblMintxt.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MinAmount"].ToString()), 2).ToString();
+            lblMulti.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MultipleAmount"].ToString()), 2).ToString();
+            lbltime.Text = dtSipDet["PASPD_CutOffTime"].ToString();
+
+
+        }
+        protected void ddlXSIPStartDate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Reset dependent controls
+            ddlTotalInstallments.SelectedIndex = 0;
+            if (ddlTotalInstallments.SelectedIndex == 0 || ddlStartDate.SelectedIndex == 0 || ddlFrequencyXSIP.SelectedIndex == 0) return;
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequencyXSIP.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
+            lblEndDateValue.Text = dtEndDate.ToString("dd-MMM-yyyy");
+        }
+        protected void ddlFrequencyXSIP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Reset dpendent controls
+            ddlXSIPStartDate.SelectedIndex = 0;
+            ddlXSIPTotalInstallments.SelectedIndex = 0;
+            if (ddlFrequencyXSIP.SelectedIndex == 0) return;
+            BindXStartDates();
+            BindTotalInstallments(ddlXSIPTotalInstallments, ddlFrequencyXSIP, 1);
+            ShowHideControlsForDivAndGrowth();
+
+
+        }
+        private void bindMandateId()
+        {
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            DataTable dtMandateId = new DataTable();
+            dtMandateId= commonLookupBo.GetCustomerMandateId(Convert.ToInt32(txtCustomerId.Value.ToString()));
+            ddlMandateId.DataSource = dtMandateId;
+            ddlMandateId.DataValueField = dtMandateId.Columns["CMFOD_MandateId"].ToString();
+            ddlMandateId.DataTextField = dtMandateId.Columns["CMFOD_MandateId"].ToString();
+            ddlMandateId.DataBind();
+
+        }
 
     }
 }

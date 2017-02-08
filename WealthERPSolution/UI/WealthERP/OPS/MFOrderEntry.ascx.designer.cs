@@ -3595,5 +3595,44 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAccountIdSwitch;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBranch;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSubBroker;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRm;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trblp;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trbplCode;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFrequencyXSIP;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtClientCode_autoCompleteExtender;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustCode;
+        protected global::System.Web.UI.WebControls.Panel pnl_XSIP_PaymentSection;
+        protected global::System.Web.UI.WebControls.Label lblEndDateValue;
+        protected global::System.Web.UI.WebControls.DropDownList ddlXSIPStartDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlXSIPTotalInstallments;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMandateId;
+        protected global::System.Web.UI.WebControls.TextBox txtAmt;
+        protected global::System.Web.UI.WebControls.TextBox txtClientCode;
     }
 }
