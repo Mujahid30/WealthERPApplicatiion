@@ -42,17 +42,15 @@ namespace WealthERP.OnlineOrderBackOffice
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
-             
+
                 fromdate = DateTime.Now.AddDays(-1);
                 txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
+               
                 BindAMC();
                 btnDownload.Visible = false;
                 ddlType.Visible = false;
-                
             }
-
-
         }
         protected void BindAMC()
         {
@@ -87,8 +85,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-            }
+            } 
         }
+            
+
         protected void btnDownload_Click(object sender, EventArgs e)
         {
             DataSet dsExtractData = new DataSet(); 
@@ -198,16 +198,19 @@ namespace WealthERP.OnlineOrderBackOffice
                         Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
                     }
                     gvCustomerDetails.DataSource = dsExtractData;
+                    //gvCustomerDetails.MasterTableView.GetColumn("C_isRealInvestor").Visible = true;
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     btnDownload.Visible = true;
                     imgexportButton.Visible = true;
+                    
                 }
                 else
                 {
                     gvCustomerDetails.DataSource = dsExtractData;
                     gvCustomerDetails.DataBind();
                 }
+
                 
             }
             catch (BaseApplicationException Ex)
@@ -226,7 +229,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
 
             }
+            
         }
+      
         protected void BindRTAInitialReport()
         {
             try
@@ -270,6 +275,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlFATCA.Visible = false;
                     imgexportButton.Visible = true;
                     pnlOrderReport.Visible = false;
+                    
+                    
                 }
                 else if (ddlOrderType.SelectedValue == "2")
                 {
@@ -288,6 +295,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlOrderReport.Visible = false;
                     btnDownload.Visible = false;
                 }
+                  
             }
 
             catch (BaseApplicationException Ex)
@@ -308,6 +316,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+       
         protected void ddlOrderType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             ddlType.Items.FindByValue("FCS").Enabled = false;
@@ -396,10 +405,12 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataTable dtCustomerDetailsReport = new DataTable();
             dtCustomerDetailsReport = (DataTable)Cache["pnlCustomerDetails" + advisorVo.advisorId];
-
+            gvCustomerDetails.MasterTableView.GetColumn("C_IsRealInvestor").Visible = true;
             if (dtCustomerDetailsReport != null)
             {
                 gvCustomerDetails.DataSource = dtCustomerDetailsReport;
+
+
             }
         }
         protected void gvOrderReport_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -411,6 +422,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 gvOrderReport.DataSource = dtBindRTAInitialReport;
             }
+            
         }
         protected void rgFATCA_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -561,6 +573,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvAdviserIssueList.DataSource = dsGetAdviserissueallotmentList;
             }
         }
+        protected void RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                for (int i = 0; i < e.Row.Cells.Count; i++)
+                {
+                    e.Row.Cells[i].Text = e.Row.Cells[i].Text.Replace("_", " ");
+                }
+            }
+        }
+
         protected void Button1_Click(object sender, EventArgs e)
         {
             int i = 0;
@@ -601,8 +624,12 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+     
         protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            gvCustomerDetails.MasterTableView.GetColumn("C_IsDematInvestor").Visible = true;
+          
+                   
             if (userVo.UserType == "Advisor")
             {
                 //if (rbtnProspect.Checked)
@@ -614,6 +641,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
                     gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
                     gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = true;
+
                 }
                 else
                 {
