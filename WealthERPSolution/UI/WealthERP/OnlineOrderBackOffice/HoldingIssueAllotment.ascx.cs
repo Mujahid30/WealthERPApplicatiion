@@ -198,7 +198,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
                     }
                     gvCustomerDetails.DataSource = dsExtractData;
-                    //gvCustomerDetails.MasterTableView.GetColumn("C_isRealInvestor").Visible = true;
+                    gvCustomerDetails.MasterTableView.GetColumn("C_isRealInvestor").Resizable = true;
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     btnDownload.Visible = true;
@@ -230,7 +230,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
             
-        }
+        }      
       
         protected void BindRTAInitialReport()
         {

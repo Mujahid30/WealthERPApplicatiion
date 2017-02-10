@@ -361,7 +361,7 @@
             </td>
         </tr>
     </table>
-</asp:Panel>
+</asp:Panel>     
 <asp:Panel ID="pnlCustomerDetails" runat="server" ScrollBars="Horizontal" Width="100%"
     Visible="false">
     <table width="100%" cellspacing="0" cellpadding="1">
