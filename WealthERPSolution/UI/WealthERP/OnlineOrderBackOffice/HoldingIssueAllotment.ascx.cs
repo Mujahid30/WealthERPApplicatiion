@@ -19,7 +19,7 @@ using System.Configuration;
 using Ionic.Zip;
 
 
-    
+
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class HoldingIssueAllotment : System.Web.UI.UserControl
@@ -28,16 +28,18 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineOrderBackOfficeBo onlineOrderBackOffice = new OnlineOrderBackOfficeBo();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         UserVo userVo = new UserVo();
+        CustomerVo customerVo = new CustomerVo();
         AdvisorVo advisorVo = new AdvisorVo();
         DateTime fromdate;
         DateTime todate;
         AdvisorVo adviserVo;
-          int producttype = 0;
+        int producttype = 0;
         OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             SessionBo.CheckSession();
+            customerVo = (CustomerVo)Session["CustomerVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
@@ -46,7 +48,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 fromdate = DateTime.Now.AddDays(-1);
                 txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
-               
+
                 BindAMC();
                 btnDownload.Visible = false;
                 ddlType.Visible = false;
@@ -85,16 +87,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-            } 
+            }
         }
-            
+
 
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            DataSet dsExtractData = new DataSet(); 
-           
-            String filename = "BSEClientupload-"+ DateTime.Now.Day.ToString()+"-"+ DateTime.Now.Month.ToString()+"-"+ DateTime.Now.Year.ToString()+".txt";
-            DownloadBidFile(dsExtractData,filename,"|");
+            DataSet dsExtractData = new DataSet();
+
+            String filename = "BSEClientupload-" + DateTime.Now.Day.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Year.ToString() + ".txt";
+            DownloadBidFile(dsExtractData, filename, "|");
         }
         private void DownloadBidFile(DataSet dsExtractData, string filename, string delimit)
         {
@@ -105,20 +107,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (txtToDate.SelectedDate != null)
                     todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
                 string dateFormat = "dd-mm-yyyy";
-              
+
                 dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId, fromdate, todate);
                 dsExtractData.Tables[0].Columns.Remove("C_DematAcceptedOn");
-                
+
                 StreamWriter str = new StreamWriter(Server.MapPath(@"~/UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
                 string Columns = string.Empty;
 
                 foreach (DataColumn column in dsExtractData.Tables[0].Columns)
-                
+
                     Columns += column.ColumnName + delimit;
-                  
-                
-                
+
+
+
                 // Headers  For different types
 
 
@@ -184,8 +186,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 if (txtToDate.SelectedDate != null)
                     todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
-                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId,fromdate,todate).Tables[0];
-               
+                dsExtractData = onlineOrderBackOfficeBo.GetBSECustomer(adviserVo.advisorId, fromdate, todate).Tables[0];
+
                 if (dsExtractData.Rows.Count > 0)
                 {
                     if (Cache["pnlCustomerDetails" + advisorVo.advisorId] == null)
@@ -203,7 +205,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlCustomerDetails.Visible = true;
                     btnDownload.Visible = true;
                     imgexportButton.Visible = true;
-                    
+
                 }
                 else
                 {
@@ -211,7 +213,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvCustomerDetails.DataBind();
                 }
 
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -229,9 +231,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
 
             }
-            
-        }      
-      
+
+        }
+
         protected void BindRTAInitialReport()
         {
             try
@@ -264,19 +266,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 else if (ddlOrderType.SelectedValue == "3")
                 {
                     dtBindRTAInitialReport = onlineOrderBackOffice.GetCustomerDetails(adviserVo.advisorId, ddlType.SelectedValue.ToString(), fromdate, todate);
-                    if (Cache["BSEReport" + advisorVo.advisorId] != null)
+                    if (Cache["gvCustomerDetails" + advisorVo.advisorId] != null)
                     {
-                        Cache.Remove("BSEReport" + advisorVo.advisorId);
+                        Cache.Remove("gvCustomerDetails" + advisorVo.advisorId);
                     }
-                    Cache.Insert("BSEReport" + advisorVo.advisorId, dtBindRTAInitialReport);
+                    Cache.Insert("gvCustomerDetails" + advisorVo.advisorId, dtBindRTAInitialReport);
                     gvCustomerDetails.DataSource = dtBindRTAInitialReport;
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     pnlFATCA.Visible = false;
                     imgexportButton.Visible = true;
                     pnlOrderReport.Visible = false;
-                    
-                    
+                    btnUpdate.Visible = true;
+
+
                 }
                 else if (ddlOrderType.SelectedValue == "2")
                 {
@@ -295,7 +298,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     pnlOrderReport.Visible = false;
                     btnDownload.Visible = false;
                 }
-                  
+
             }
 
             catch (BaseApplicationException Ex)
@@ -316,15 +319,15 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
-       
+
         protected void ddlOrderType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             ddlType.Items.FindByValue("FCS").Enabled = false;
             ddlType.Items.FindByValue("FCD").Enabled = false;
-            if (ddlOrderType.SelectedValue=="1")
+            if (ddlOrderType.SelectedValue == "1")
             {
-                tdlblAMC.Visible = false ;
-                tdddlAMC.Visible = false ;
+                tdlblAMC.Visible = false;
+                tdddlAMC.Visible = false;
                 tdddlType.Visible = true;
                 tdlblType.Visible = true;
                 ddlType.Visible = true;
@@ -333,15 +336,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlFATCA.Visible = false;
                 ddlType.Items.FindByValue("EBSE").Enabled = false;
                 ddlType.Items.FindByValue("EMIS").Enabled = false;
-               
+
 
             }
             if (ddlOrderType.SelectedValue == "2")
             {
-                tdddlType.Visible =false;
+                tdddlType.Visible = false;
                 tdlblType.Visible = false;
-                tdlblAMC.Visible = true ;
-                tdddlAMC.Visible = true ;
+                tdlblAMC.Visible = true;
+                tdddlAMC.Visible = true;
                 pnlFATCA.Visible = true;
                 pnlCustomerDetails.Visible = false;
                 pnlOrderReport.Visible = false;
@@ -359,12 +362,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblType.Visible = true;
                 tdlblAMC.Visible = false;
                 tdddlAMC.Visible = false;
-               
+
                 pnlFATCA.Visible = false;
                 //pnlCustomerDetails.Visible = true;
                 pnlOrderReport.Visible = false;
                 ddlType.Visible = true;
-                
+
                 ddlType.Items.FindByValue("EBSE").Enabled = true;
                 ddlType.Items.FindByValue("EMIS").Enabled = true;
                 ddlType.Items.FindByValue("AMC").Enabled = false;
@@ -395,17 +398,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlType.Items.FindByValue("FCS").Enabled = true;
                 }
-                
+
 
             }
-          
-         
+
+
         }
         protected void gvCustomerDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtCustomerDetailsReport = new DataTable();
-            dtCustomerDetailsReport = (DataTable)Cache["pnlCustomerDetails" + advisorVo.advisorId];
-            gvCustomerDetails.MasterTableView.GetColumn("C_IsRealInvestor").Visible = true;
+            dtCustomerDetailsReport = (DataTable)Cache["gvCustomerDetails" + advisorVo.advisorId];
             if (dtCustomerDetailsReport != null)
             {
                 gvCustomerDetails.DataSource = dtCustomerDetailsReport;
@@ -422,8 +424,19 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 gvOrderReport.DataSource = dtBindRTAInitialReport;
             }
-            
+
         }
+
+        protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                CheckBox chkBox = (CheckBox)dataItem["Is Real Investor"].Controls[0];
+                chkBox.Enabled = true;
+            }
+        }
+
         protected void rgFATCA_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtFATCAReport = new DataTable();
@@ -480,38 +493,38 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         public void AutoOrderExtract()
         {
-           
+
             if (txtFromDate.SelectedDate != null)
                 fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
             if (txtToDate.SelectedDate != null)
                 todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
-                string dailyDirName = ddlOrderType.SelectedItem.Text + @"_" + ddlType.SelectedItem.Text;
-                string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
-                string downloadFileName = ddlType.SelectedValue == "FCS" ? "CAMS_SM" : "DOC_0011" + todate.ToString("ddMMyyy");
-                string localFilePath = onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue, ddlType.SelectedValue, adviserVo.advisorId, fromdate,todate);
-                if (File.Exists(extractPath + @"\" + adviserVo.advisorId + @"\"+ downloadFileName + ".DBF") == true)
-                {
-                    System.IO.File.Delete(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
-                }
-                File.Copy(localFilePath, extractPath + @"\" + adviserVo.advisorId + @"\"  + downloadFileName + ".DBF");
-                System.Threading.Thread.Sleep(1000);
-                if (string.IsNullOrEmpty(localFilePath))
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Data Available to download');", true);
-                    return;
-                }
-                Response.ContentType = "application/dbf";
-                Response.AppendHeader("Content-Disposition", "attachment;filename=" + downloadFileName+".DBF");
-                string aaa = extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF";
-                Response.TransmitFile(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                Response.End();
-               
+            string dailyDirName = ddlOrderType.SelectedItem.Text + @"_" + ddlType.SelectedItem.Text;
+            string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
+            string downloadFileName = ddlType.SelectedValue == "FCS" ? "CAMS_SM" : "DOC_0011" + todate.ToString("ddMMyyy");
+            string localFilePath = onlineOrderBackOfficeBo.GenerateDailyOrderFATCASummaryFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), ddlOrderType.SelectedValue, ddlType.SelectedValue, adviserVo.advisorId, fromdate, todate);
+            if (File.Exists(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF") == true)
+            {
+                System.IO.File.Delete(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
+            }
+            File.Copy(localFilePath, extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
+            System.Threading.Thread.Sleep(1000);
+            if (string.IsNullOrEmpty(localFilePath))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Data Available to download');", true);
+                return;
+            }
+            Response.ContentType = "application/dbf";
+            Response.AppendHeader("Content-Disposition", "attachment;filename=" + downloadFileName + ".DBF");
+            string aaa = extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF";
+            Response.TransmitFile(extractPath + @"\" + adviserVo.advisorId + @"\" + downloadFileName + ".DBF");
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            Response.End();
 
-        }       
+
+        }
         protected void Go_OnClick(object sender, EventArgs e)
         {
-            if (ddlType.SelectedValue == "EBSE" )
+            if (ddlType.SelectedValue == "EBSE")
             {
                 GetExtractData();
             }
@@ -527,7 +540,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            if (ddlOrderType.SelectedValue=="1")
+            if (ddlOrderType.SelectedValue == "1")
             {
                 gvOrderReport.ExportSettings.OpenInNewWindow = true;
                 gvOrderReport.ExportSettings.IgnorePaging = true;
@@ -537,7 +550,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvOrderReport.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvOrderReport.MasterTableView.ExportToExcel();
             }
-            else if (ddlOrderType.SelectedValue=="2") 
+            else if (ddlOrderType.SelectedValue == "2")
             {
                 if (txtFromDate.SelectedDate != null)
                     fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
@@ -619,58 +632,68 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                 }
                 OnlineOrderBackOfficeBo.UpdateCustomerCode(dtcustomer, userVo.UserId);
-               
+
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Selected Customer Marked as Demat Investor!!');", true);
             }
 
         }
-     
-        protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
+
+        //protected void gvCustomerDetails_ItemDataBound(object sender, GridItemEventArgs e)
+        //{
+        //    gvCustomerDetails.MasterTableView.GetColumn("C_IsDematInvestor").Visible = true;
+
+
+        //    if (userVo.UserType == "Advisor")
+        //    {
+        //        //if (rbtnProspect.Checked)
+        //        //    producttype = 2;
+        //        //else if (rbtnFpClient.Checked)
+        //        //    producttype = 1;
+        //        if (producttype == 2)
+        //        {
+        //            gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
+        //            gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+        //            gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = true;
+
+        //        }
+        //        else
+        //        {
+        //            //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = true;
+        //            //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = true;
+        //            //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = false;
+        //        }
+        //        return;
+        //    }
+        //    if (userVo.UserType == "Associates")
+        //    {
+        //        gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
+        //        gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
+        //        gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = false;
+        //    }
+        //    if (e.Item is GridDataItem)
+        //    {
+        //        GridDataItem dataItem = (GridDataItem)e.Item;
+        //        Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsDematInvestor"]);
+        //        CheckBox chk = (CheckBox)e.Item.FindControl("chk");
+        //        if (Iscancel)
+        //            chk.Visible = false;
+        //        else
+        //            chk.Visible = true;
+        //    }
+        //}
+
+        protected void btnUpdate_OnClick(object sender, EventArgs e)
         {
-            gvCustomerDetails.MasterTableView.GetColumn("C_IsDematInvestor").Visible = true;
-          
-                   
-            if (userVo.UserType == "Advisor")
+            int CustomerId = 0;
+            foreach (GridDataItem gdi in gvCustomerDetails.Items)
             {
-                //if (rbtnProspect.Checked)
-                //    producttype = 2;
-                //else if (rbtnFpClient.Checked)
-                //    producttype = 1;
-                if (producttype == 2)
-                {
-                    gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
-                    gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
-                    gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = true;
+                int selectedRow = gdi.ItemIndex+1;
+                CustomerId = int.Parse(gvCustomerDetails.MasterTableView.DataKeyValues[selectedRow - 1]["Customer Id"].ToString());
+                bool result = onlineOrderBackOfficeBo.UpdateFlag(CustomerId);
+            }
 
-                }
-                else
-                {
-                    //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = true;
-                    //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = true;
-                    //gvCustomerDetails1.MasterTableView.GetColumn("").Visible = false;
-                }
-                return;
-            }
-            if (userVo.UserType == "Associates")
-            {
-                gvCustomerDetails.MasterTableView.GetColumn("Action").Visible = false;
-                gvCustomerDetails.MasterTableView.GetColumn("MarkFPClient").Visible = false;
-                gvCustomerDetails.MasterTableView.GetColumn("ActionForProspect").Visible = false;
-            }
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = (GridDataItem)e.Item;
-                Boolean Iscancel = Convert.ToBoolean(gvCustomerDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsDematInvestor"]);
-                CheckBox chk = (CheckBox)e.Item.FindControl("chk");
-                if (Iscancel)
-                    chk.Visible = false;
-                else
-                    chk.Visible = true;
-            }
+
         }
-
-
-
-
     }
-    }
+}
+    
