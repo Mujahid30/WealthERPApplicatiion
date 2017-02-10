@@ -2619,7 +2619,7 @@ namespace BoOnlineOrderManagement
             }
             return amcCode;
         }
-        public DataTable GetProductSearchType(string folioNo)
+        public  DataTable GetProductSearchType(string folioNo)
         {
             DataTable dt;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
@@ -2860,7 +2860,18 @@ namespace BoOnlineOrderManagement
             return ds;
         }
 
-
+        public bool UpdateFlag(int customerid)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                return OnlineOrderBackOfficeDao.Updateflag(customerid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
       
     }
 }

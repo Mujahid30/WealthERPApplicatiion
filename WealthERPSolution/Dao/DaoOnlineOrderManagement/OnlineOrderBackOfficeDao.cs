@@ -3683,7 +3683,27 @@ namespace DaoOnlineOrderManagement
         }
 
 
+        public bool Updateflag(int customerid)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateflagCmd;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateflagCmd = db.GetStoredProcCommand("SP_UpdateCustomerFlag");
+                db.AddInParameter(UpdateflagCmd, "@CustomerID", DbType.Int32, customerid);
+                if (db.ExecuteNonQuery(UpdateflagCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
 
         public DataSet BindCustomerDetails(int adviserId)
         {
