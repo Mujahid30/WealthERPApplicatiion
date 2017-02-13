@@ -190,20 +190,20 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (dsExtractData.Rows.Count > 0)
                 {
-                    if (Cache["pnlCustomerDetails" + advisorVo.advisorId] == null)
+                    if (Cache["gvCustomerDetails" + advisorVo.advisorId] == null)
                     {
-                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
+                        Cache.Insert("gvCustomerDetails" + advisorVo.advisorId, dsExtractData);
                     }
                     else
                     {
-                        Cache.Remove("pnlCustomerDetails" + advisorVo.advisorId);
-                        Cache.Insert("pnlCustomerDetails" + advisorVo.advisorId, dsExtractData);
+                        Cache.Remove("gvCustomerDetails" + advisorVo.advisorId);
+                        Cache.Insert("gvCustomerDetails" + advisorVo.advisorId, dsExtractData);
                     }
                     gvCustomerDetails.DataSource = dsExtractData;
-                    gvCustomerDetails.MasterTableView.GetColumn("C_isRealInvestor").Resizable = true;
                     gvCustomerDetails.DataBind();
                     pnlCustomerDetails.Visible = true;
                     btnDownload.Visible = true;
+                    btnUpdate.Visible = false;
                     imgexportButton.Visible = true;
 
                 }
