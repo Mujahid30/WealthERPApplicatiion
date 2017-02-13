@@ -278,6 +278,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     imgexportButton.Visible = true;
                     pnlOrderReport.Visible = false;
                     btnUpdate.Visible = true;
+                    btnDownload.Visible = false;
 
 
                 }
