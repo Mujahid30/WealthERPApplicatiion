@@ -503,8 +503,7 @@ namespace WealthERP.OnlineOrderManagement
                 char msgType = 'F';
                 if (exchangeType == "Online")
                 {
-                    if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
-                    {
+                    
                         SaveOrderDetails();
                         onlineMFOrderVo.ModeTypeCode = "RSIP";
                         sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, (BackOfficeUserId != 0) ? BackOfficeUserId : userVo.UserId);
@@ -516,11 +515,11 @@ namespace WealthERP.OnlineOrderManagement
                             accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId, out debitstatus);
                             ShowAvailableLimits();
                         }
-                    }
-
+                        message = CreateUserMessage(OrderId, sipId, retVal == 1 ? true : false, out msgType);
                 }
                 else if (exchangeType == "Demat")
                 {
+                    
                     onlineMFOrderVo.OrderType = 0;
                     DematAccountVo dematevo = new DematAccountVo();
                     BoDematAccount bo = new BoDematAccount();
@@ -537,7 +536,6 @@ namespace WealthERP.OnlineOrderManagement
                         sipId = int.Parse(sipOrderIds["SIPId"].ToString());
                     }
                 }
-                message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false, out msgType);
                 ShowMessage(message, msgType);
 
             }
@@ -564,32 +562,19 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        private string CreateUserMessage(int orderId, int sipId, bool accountDebitStatus, bool isCutOffTimeOver, out char msgType)
+        private string CreateUserMessage(int orderId, int sipId, bool isCutOffTimeOver, out char msgType)
         {
             string userMessage = string.Empty;
             msgType = 'S';
-            if (orderId != 0 && accountDebitStatus == true)
-            {
-                if (isCutOffTimeOver)
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
-                else
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
-
-                msgType = 'S';
-            }
-            else if (orderId != 0 && accountDebitStatus == false)
-            {
-                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
-                msgType = 'F';
-            }
-            else if (orderId == 0 && sipId != 0)
+           
+             if (orderId == 0 && sipId != 0)
             {
                 userMessage = "SIP Requested successfully, SIP reference no is " + sipId.ToString();
                 msgType = 'S';
             }
             else if (orderId == 0 && sipId == 0)
             {
-                userMessage = "Order cannot be processed. Insufficient balance";
+                userMessage = "Order cannot be processed.";
                 msgType = 'F';
 
             }

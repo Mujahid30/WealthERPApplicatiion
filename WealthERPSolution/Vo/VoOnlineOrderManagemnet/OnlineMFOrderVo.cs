@@ -38,7 +38,7 @@ namespace VoOnlineOrderManagemnet
         public int OrderType { get; set; }
         public int MandateId { get; set; }
         public int SystematicId { set; get; }
-       
+        public string IsCancelled { set; get; }
     }
 
     public class BSEMFSIPOdererVo

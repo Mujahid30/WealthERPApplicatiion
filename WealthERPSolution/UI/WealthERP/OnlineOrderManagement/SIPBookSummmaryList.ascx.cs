@@ -28,6 +28,10 @@ namespace WealthERP.OnlineOrderManagement
         MFOrderBo mforderBo = new MFOrderBo();
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
+        CustomerVo customerVo = new CustomerVo();
+        VoOnlineOrderManagemnet.OnlineMFOrderVo onlineMFOrderVo = new VoOnlineOrderManagemnet.OnlineMFOrderVo();
+        OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
+
         UserVo userVo;
         string userType;
         int customerId = 0;
@@ -626,12 +630,69 @@ namespace WealthERP.OnlineOrderManagement
                 strRemark = txtRemark.Text;
                 //LinkButton buttonEdit = editItem["editColumn"].Controls[0] as LinkButton;
                 Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
-                OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+                if (exchangeType == "Demat")
+                {
+               
+                    string a=  UpdateBSESIP(systematicId);
+                    if (a != "F")
+                    {
+                        OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+                    }
+                }
+                else
+                {
+                    OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+                }
                 BindSIPSummaryBook();
                 //buttonEdit.Enabled = false;
             }
 
         }
+        public string UpdateBSESIP(int systematicId)
+        {
+            Boolean result = false;
+            DataTable dtXSIP = new DataTable();
+            VoCustomerPortfolio.DematAccountVo dematevo = new VoCustomerPortfolio.DematAccountVo();
+            BoCustomerPortfolio.BoDematAccount bo = new BoCustomerPortfolio.BoDematAccount();
+            OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
+            string message = string.Empty;
+            int OrderId = 0;
+            int sipId = 0;
+            char msgType = 'F';
+            List<int> OrderIds = new List<int>();
+            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
+
+            dtXSIP = OnlineOrderMISBo.GetSystematicDetails(systematicId);
+            if (dtXSIP.Rows.Count > 0)
+            {
+                onlineMFOrderVo.SchemePlanCode = Convert.ToInt32(dtXSIP.Rows[0]["PASP_SchemePlanCode"]);
+                onlineMFOrderVo.SystematicTypeCode = "SIP";
+                onlineMFOrderVo.SystematicDate = Convert.ToInt32(dtXSIP.Rows[0]["CMFSS_SystematicDate"]);
+                onlineMFOrderVo.Amount = double.Parse(dtXSIP.Rows[0]["CMFSS_Amount"].ToString());
+                onlineMFOrderVo.SourceCode = "";
+                onlineMFOrderVo.FrequencyCode = dtXSIP.Rows[0]["XF_FrequencyCode"].ToString();
+                onlineMFOrderVo.CustomerId = Convert.ToInt32(dtXSIP.Rows[0]["C_CustomerId"].ToString());
+                onlineMFOrderVo.StartDate = DateTime.Parse(dtXSIP.Rows[0]["CMFSS_StartDate"].ToString());
+                onlineMFOrderVo.EndDate = DateTime.Parse(dtXSIP.Rows[0]["CMFSS_EndDate"].ToString());
+                onlineMFOrderVo.SystematicDates = "";
+                onlineMFOrderVo.TotalInstallments = int.Parse(dtXSIP.Rows[0]["CMFSS_TotalInstallment"].ToString());
+                onlineMFOrderVo.DivOption = dtXSIP.Rows[0]["CMFSS_DividendOption"].ToString();
+                dematevo = bo.GetCustomerActiveDematAccount(onlineMFOrderVo.CustomerId);
+                onlineMFOrderVo.ModeTypeCode = "BXSIP";
+                onlineMFOrderVo.IsCancelled = dtXSIP.Rows[0]["CMFSS_IsCanceled"].ToString();
+                if (!string.IsNullOrEmpty(dtXSIP.Rows[0]["CMFSS_MandateId"].ToString()))
+                    onlineMFOrderVo.MandateId = int.Parse(dtXSIP.Rows[0]["CMFSS_MandateId"].ToString());
+                onlineMFOrderVo.SystematicId = systematicId;
+                OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+                message = OnlineMFOrderBo.BSESIPorderEntryParam(userVo.UserId, dtXSIP.Rows[0]["C_CustCode"].ToString(), onlineMFOrderVo, onlineMFOrderVo.CustomerId, dematevo.DepositoryName, out msgType, out sipOrderIds);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + message + "');", true);
+            }
+                return msgType.ToString();
+            }
+        
+           
+        
+        
         protected void gvSIPSummaryBookMIS_OnItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)

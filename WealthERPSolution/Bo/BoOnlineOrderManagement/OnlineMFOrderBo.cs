@@ -826,7 +826,6 @@ namespace BoOnlineOrderManagement
                 {
                     bseuserID = ds.Tables[0].Rows[0]["AEAC_Username"].ToString();
                     bsepass = ds.Tables[0].Rows[0]["AEAC_Password"].ToString();
-
                     bseMemberId = ds.Tables[0].Rows[0]["AEAC_MemberId"].ToString();
                 }
                 string passkey = "E234586789D12";
@@ -846,7 +845,14 @@ namespace BoOnlineOrderManagement
                         DematAcctype = "N";
                     }
                     bseMFSIPOdererVo.Password = bsePassArray[1];
-                    bseMFSIPOdererVo.Transactioncode = "NEW";
+                    if (onlinemforderVo.IsCancelled != "True" && onlinemforderVo.IsCancelled==null)
+                    {
+                        bseMFSIPOdererVo.Transactioncode = "NEW";
+                    }
+                    else
+                    {
+                        bseMFSIPOdererVo.Transactioncode = "CXL";
+                    }
                     bseMFSIPOdererVo.BSEOrderId = 0;
                     bseMFSIPOdererVo.BSEUserId = bseuserID;
                     bseMFSIPOdererVo.MemberId = bseMemberId;
