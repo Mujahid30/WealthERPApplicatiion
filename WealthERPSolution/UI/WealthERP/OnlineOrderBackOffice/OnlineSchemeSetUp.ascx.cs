@@ -39,6 +39,8 @@ namespace WealthERP.OnlineOrderBackOffice
         string categoryCode;
         string subcategoryCode;
         int schemeplancode;
+        bool BSE;
+        bool RTA;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,7 +55,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindAMC();
                 BindCategory();
                 BindBankName();
-                BindFrequency(); 
+                BindFrequency();
                 Bindscheme(schemeplancode);
 
                 BindSchemeLoockUpType();
@@ -78,7 +80,6 @@ namespace WealthERP.OnlineOrderBackOffice
                         lnkMargeScheme.Visible = true;
                         lblAllproductcode.Visible = true;
                         lnkProductcode.Visible = true;
-
                         ddlMargeScheme.Enabled = true;
                         lblSchemeplancode.Visible = true;
                         lblschemeplanecodetext.Visible = true;
@@ -154,17 +155,19 @@ namespace WealthERP.OnlineOrderBackOffice
                             //td2.Visible = false;
                             //BindSchemeLoockUpType();
                         }
-                      
+
                         if (Request.QueryString["Mode"] == "1")
                         {
                             rbtnBSE.Enabled = false;
                             rbtnRTA.Enabled = true;
                         }
+
                         else
                         {
-                            rbtnBSE.Enabled = true;
+                            rbtnBSE.Enabled = false;
                             rbtnRTA.Enabled = false;
                         }
+                        
                         if (ddlNFoStatus.SelectedValue == "Merged")
                         {
                             lbBack.Visible = false;
@@ -1250,6 +1253,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblERemarks.Visible = false;
                 lablExitLaod.Visible = false;
                 lblExitLoadRemarks.Visible = false;
+            }
+            else if (chkBSE.Checked == true)
+            {
+
+                lblBankName.Visible = false;
+                lbBranch.Visible = false;
+                lblAno.Visible = false;
+                lblEntryLoad.Visible = false;
+                lblERemarks.Visible = false;
+                lablExitLaod.Visible = false;
+                lblExitLoadRemarks.Visible = false;
+
             }
             else
             {
@@ -2482,8 +2497,20 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 schemeplancode = int.Parse(Session["newschemeplancode"].ToString());//
             }
+            if (rbtnBSE.Checked == true)
+            {
+                bool RTA = false;
+                bool BSE = true;
+                dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode, RTA, BSE);
 
-            dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode);
+            }
+            else
+            {
+                bool RTA = true;
+                bool BSE = false;
+                dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode, RTA, BSE);
+
+            }
             dtSystematicDetails = dsSystematicDetails.Tables[0];
             if (dtSystematicDetails.Rows.Count > 0)
             {
@@ -2639,7 +2666,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         mfProductAMCSchemePlanDetailsVo.RTA = 1;
                         mfProductAMCSchemePlanDetailsVo.BSE = 1;
                     }
-                  
+
                     OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode, userVo.UserId);
 
                 }
