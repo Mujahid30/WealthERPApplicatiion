@@ -1432,7 +1432,7 @@ namespace DaoOnlineOrderManagement
             }
             return dt;
         }
-        public DataSet GetSystematicDetails(int schemeplancode)
+        public DataSet GetSystematicDetails(int schemeplancode, bool RTA, bool BSE)
         {
             Database db;
             DataSet dsSystematicDetails;
@@ -1442,6 +1442,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 SystematicDetailscmd = db.GetStoredProcCommand("SPROC_ONL_GetsystematicDetails");
                 db.AddInParameter(SystematicDetailscmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplancode);
+                db.AddInParameter(SystematicDetailscmd, "@PASPSD_IsRTA", DbType.Boolean, RTA);
+                db.AddInParameter(SystematicDetailscmd, "@PASPSD_IsBSE", DbType.Boolean, BSE);
                 dsSystematicDetails = db.ExecuteDataSet(SystematicDetailscmd);
             }
             catch (BaseApplicationException Ex)

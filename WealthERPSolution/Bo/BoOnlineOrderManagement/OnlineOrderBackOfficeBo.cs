@@ -1343,11 +1343,11 @@ namespace BoOnlineOrderManagement
             }
             return dtRandT;
         }
-        public DataSet GetSystematicDetails(int schemeplancode)
+        public DataSet GetSystematicDetails(int schemeplancode, bool RTA, bool BSE)
         {
             DataSet dsSystematicDetails;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-            dsSystematicDetails = daoOnlineOrderBackOffice.GetSystematicDetails(schemeplancode);
+            dsSystematicDetails = daoOnlineOrderBackOffice.GetSystematicDetails(schemeplancode, RTA, BSE);
             return dsSystematicDetails;
         }
         public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid, int userId)
