@@ -1,10 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BannerManager.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.BannerManager" %>
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%--<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+--%><%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+--%><%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<style type="text/css">
+    .GridPager a, .GridPager span
+    {
+    }
+    .GridPager a
+    {
+        color: #969696;
+    }
+    .GridPager span
+    {
+        color: #000;
+    }
+</style>
 
 <script type="text/javascript" language="javascript">
     function keyPress(sender, args) {
@@ -87,13 +100,14 @@
             <table id="tableGrid" runat="server" width="40%">
                 <tr>
                     <td>
-                        <telerik:RadGrid ID="RadGrid1" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
-                            AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
-                            AllowAutomaticDeletes="false" AllowAutomaticInserts="false" OnItemCreated="RadGrid1_ItemCreated"
-                            PageSize="3" OnInsertCommand="RadGrid1_InsertCommand" OnNeedDataSource="RadGrid1_NeedDataSource"
-                            OnDeleteCommand="RadGrid1_DeleteCommand" OnUpdateCommand="RadGrid1_UpdateCommand"
-                            OnItemCommand="RadGrid1_ItemCommand" OnItemDataBound="RadGrid1_ItemDataBound"
-                            AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="PBD_Id,PDB_ExpiryDate,PAG_AssetGroupCode">
+                        <telerik:RadGrid ID="RadGrid1" runat="server" Skin="Telerik" CssClass="GridPager"
+                            GridLines="None" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False"
+                            ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
+                            OnItemCreated="RadGrid1_ItemCreated" PageSize="3" OnInsertCommand="RadGrid1_InsertCommand"
+                            OnNeedDataSource="RadGrid1_NeedDataSource" OnDeleteCommand="RadGrid1_DeleteCommand"
+                            OnUpdateCommand="RadGrid1_UpdateCommand" OnItemCommand="RadGrid1_ItemCommand"
+                            OnItemDataBound="RadGrid1_ItemDataBound" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
+                            DataKeyNames="PBD_Id,PDB_ExpiryDate,PAG_AssetGroupCode">
                             <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="PBD_Id,PDB_ExpiryDate,PAG_AssetGroupCode">
                                 <Columns>
                                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
@@ -202,9 +216,9 @@
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvScroller" runat="server">
         <asp:Panel ID="Scroller" runat="server">
-            <telerik:RadGrid ID="RadGrid2" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None"
-                AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true"
-                AllowAutomaticDeletes="false" AllowAutomaticInserts="false" PageSize="3" OnInsertCommand="RadGrid2_InsertCommand"
+            <telerik:RadGrid ID="RadGrid2" runat="server" Skin="Telerik" GridLines="None" AllowPaging="True"
+                AllowSorting="True" CssClass="GridPager" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false"
+                AllowAutomaticInserts="false" PageSize="3" OnInsertCommand="RadGrid2_InsertCommand"
                 OnNeedDataSource="RadGrid2_NeedDataSource" OnDeleteCommand="RadGrid2_DeleteCommand"
                 OnUpdateCommand="RadGrid2_UpdateCommand" OnItemCommand="RadGrid2_ItemCommand"
                 OnItemDataBound="RadGrid2_ItemDataBound" AllowAutomaticUpdates="false" HorizontalAlign="NotSet"
@@ -563,8 +577,8 @@
         </telerik:RadGrid>
     </telerik:RadPageView>
     <telerik:RadPageView ID="rpvNotification" runat="server">
-        <asp:Panel ID="Notification" runat="server" ScrollBars="Horizontal"
-         Width="100%" Height="80%">
+        <asp:Panel ID="Notification" runat="server" ScrollBars="Horizontal" Width="100%"
+            Height="80%">
             <telerik:RadCodeBlock ID="RadCodeBlock2" runat="server">
 
                 <script type="text/javascript">
@@ -645,8 +659,8 @@
                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Update">
                         </telerik:GridEditCommandColumn>
-                        <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading" ItemStyle-Width="100px"
-                            DataField="CTNS_NotificationHeader">
+                        <telerik:GridBoundColumn UniqueName="CTNS_NotificationHeader" HeaderText="Notification Heading"
+                            ItemStyle-Width="100px" DataField="CTNS_NotificationHeader">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CNT_NotificationType" HeaderText="Notification Type"
                             DataField="CNT_NotificationType">
@@ -654,7 +668,8 @@
                         <telerik:GridBoundColumn UniqueName="PAG_AssetGroupName" HeaderText="Asset Group"
                             DataField="PAG_AssetGroupName">
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="TransType" HeaderText="Transaction/Product Types" DataField="TransType">
+                        <telerik:GridBoundColumn UniqueName="TransType" HeaderText="Transaction/Product Types"
+                            DataField="TransType">
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CTNS_PriorDays" HeaderText="Prior Days" DataField="CTNS_PriorDays">
                         </telerik:GridBoundColumn>
@@ -672,13 +687,14 @@
                         </telerik:GridTemplateColumn>
                         <telerik:GridTemplateColumn UniqueName="TemplateEditColumnDashBoard" HeaderText="Edit/View DashBoard">
                             <ItemTemplate>
-                                <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>' runat="server" Text="Edit/View"></asp:LinkButton>
+                                <asp:LinkButton ID="EditLinkDashBoard" Visible='<%# Eval("CTNS_IsDashBoardEnabled") %>'
+                                    runat="server" Text="Edit/View"></asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
                         <telerik:GridButtonColumn UniqueName="SendSMS" ConfirmText="Are you sure you want to Send SMS ?"
                             ConfirmDialogType="Classic" ConfirmTitle="SendSMS" ButtonType="LinkButton" CommandName="SMS"
                             Text="Send SMS">
-                            <ItemStyle HorizontalAlign="Center"  CssClass="MyImageButton" />
+                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                         <telerik:GridButtonColumn UniqueName="SendEMail" ConfirmText="Are you sure you want to Send Email ?"
                             ConfirmDialogType="Classic" ConfirmTitle="SendEmail" ButtonType="LinkButton"
@@ -775,7 +791,7 @@
                                         <asp:Label ID="Label8" runat="server" Text="IS SMS Enabled:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td class="rightField">
-                                        <asp:CheckBox ID="chkSMS" runat="server"  Checked='<%# Convert.IsDBNull(Eval("CTNS_IsSMSEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
+                                        <asp:CheckBox ID="chkSMS" runat="server" Checked='<%# Convert.IsDBNull(Eval("CTNS_IsSMSEnabled")) ? false :Convert.ToInt16( Eval("CTNS_IsSMSEnabled"))==1 ? true : false %>' />
                                     </td>
                                     <td class="leftField">
                                         <asp:Label ID="Label9" runat="server" Text="IS  Email Enabled:" CssClass="FieldName"></asp:Label>
