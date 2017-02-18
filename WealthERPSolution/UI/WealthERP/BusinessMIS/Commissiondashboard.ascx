@@ -41,6 +41,16 @@
     }
 </script>
 
+<script type="text/javascript">
+    function isNumberKey(evt) { // Numbers only
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            alert('Only Numeric');
+            return false;
+        }
+        return true;  
+</script>
+
 <div id="dvAddMandate" runat="server" visible="false">
     <table width="100%">
         <tr>
@@ -120,9 +130,12 @@
                 <asp:Label ID="lblBankName" runat="server" Text="Enter Bank Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" AutoComplete="Off"
-                    MaxLength="40" Width="220px" />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtBankName"
+             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true" >
+                        </asp:DropDownList>
+                     
+                        
+             
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="ddlBankName"
                     ErrorMessage="Please Enter the Bank Name" Display="Dynamic" ValidationGroup="btnMandateSubmit"
                     runat="server" CssClass="rfvPCG">
                 </asp:RequiredFieldValidator>
@@ -131,13 +144,36 @@
                 <asp:Label ID="lblBankBranch" runat="server" Text="Enter Bank Branch:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtBBranch" runat="server" CssClass="txtField" AutoComplete="Off"
+                <asp:TextBox ID="txtBBranch" runat="server" CssClass="txtField" AutoComplete="Off" 
                     MaxLength="40" Width="220px" />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBBranch"
                     ErrorMessage="Please Enter the Bank Branch Name" Display="Dynamic" ValidationGroup="btnMandateSubmit"
                     runat="server" CssClass="rfvPCG">
                 </asp:RequiredFieldValidator>
             </td>
+            </tr>
+            <tr>
+             <td  class="leftField">
+                    <asp:Label ID="lblBankAccount" Text="Bank Account No.:" runat="server" CssClass="FieldName"></asp:Label>
+                </td>
+                <td  class="rightField">
+                    <asp:TextBox ID="txtBankAccount" runat="server" CssClass="txtField" onkeydown="return (event.keyCode!=13);"
+                        OnKeypress="javascript:return isNumberKey(event);" MaxLength="16" TabIndex="15"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegtxtBankAccount" runat="server" Display="Dynamic"
+                        ValidationGroup="btnConfirmOrder" ErrorMessage="<br/>Please Enter Numeric" ControlToValidate="txtBankAccount"
+                        CssClass="rfvPCG" ValidationExpression="^([0-9]*[0-9])\d*$">
+                    </asp:RegularExpressionValidator>
+                </td>
+                <td class="leftField">
+                 <asp:Label ID="lblIFSC" Text="IFSC Code:" runat="server" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                 <asp:TextBox ID="txtIFSC" runat="server" CssClass="txtField" AutoComplete="Off" Width="220px" />
+                   <asp:RequiredFieldValidator ID="rfvIFSC" ControlToValidate="txtIFSC"
+                    ErrorMessage="Please Enter the IFSC Code" Display="Dynamic" ValidationGroup="btnMandateSubmit"
+                    runat="server" CssClass="rfvPCG">
+                </asp:RequiredFieldValidator>
+                </td>
         </tr>
         <tr>
             <td class="leftField">

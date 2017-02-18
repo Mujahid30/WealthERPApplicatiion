@@ -31,6 +31,8 @@ namespace WealthERP.BusinessMIS
         AssociatesUserHeirarchyVo assocUsrHeirVo = new AssociatesUserHeirarchyVo();
         RMVo rmVo = new RMVo();
         CustomerBo customerBo = new CustomerBo();
+        BoOps.MFOrderBo mfOrderBo = new BoOps.MFOrderBo();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,6 +44,7 @@ namespace WealthERP.BusinessMIS
             associatesVo = (AssociatesVO)Session["associatesVo"];
             assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session["associatesUserHeirarchyVo"];
             trNewOrder.Visible = false;
+            BindBank();
             if (!Page.IsPostBack)
             {
 
@@ -101,6 +104,23 @@ namespace WealthERP.BusinessMIS
             }
 
         }
+
+        private void BindBank()
+        {
+            CommonLookupBo commonLookupBo = new CommonLookupBo();
+            ddlBankName.Items.Clear();
+            DataTable dtBankName = new DataTable();
+            
+                dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000,0);
+           
+            ddlBankName.DataSource = dtBankName;
+            ddlBankName.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
+            ddlBankName.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
+            ddlBankName.DataBind();
+            ddlBankName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+        }
+
         protected void btnMandateSubmit_Click(object sender, EventArgs e)
         {
             string userMessage = string.Empty;
@@ -110,12 +130,13 @@ namespace WealthERP.BusinessMIS
             OnlineMFOrderBo onlineMFOrderBo = new OnlineMFOrderBo();
             int mandateId = 0;
             AdviserStaffSMTPBo advstaffsmtpbo = new AdviserStaffSMTPBo();
+       
             if (txtCustomerId.Value != "0")
             {
-                result = advstaffsmtpbo.BSEMandateCreate(txtClientCode.Text, lblgetcust.Text, Convert.ToDouble(txtAmount.Text), txtBankName.Text, txtBBranch.Text, userVo.UserId, out BSEMessage, out mandateId);
+                result = advstaffsmtpbo.BSEMandateCreate(txtClientCode.Text, lblgetcust.Text, Convert.ToDouble(txtAmount.Text), ddlBankName.SelectedItem.ToString().Substring(0,40), txtBBranch.Text, userVo.UserId, out BSEMessage, out mandateId);
                 if (result)
                 {
-                    int OrderId = onlineMFOrderBo.CreateMandateOrder(int.Parse(txtCustomerId.Value.ToString()), Convert.ToDouble(txtAmount.Text), txtBankName.Text, txtBBranch.Text, userVo.UserId, mandateId);
+                    int OrderId = onlineMFOrderBo.CreateMandateOrder(int.Parse(txtCustomerId.Value.ToString()), Convert.ToDouble(txtAmount.Text), int.Parse(ddlBankName.SelectedValue), txtBBranch.Text, userVo.UserId, mandateId,txtBankAccount.Text, txtIFSC.Text);
                     if (OrderId != 0)
                     {
                         userMessage = BSEMessage + " " + "Order Reference Number is: " + OrderId.ToString();
@@ -150,10 +171,12 @@ namespace WealthERP.BusinessMIS
         private void freezeControls()
         {
             txtClientCode.Enabled = false;
-            txtBankName.Enabled = false;
+            ddlBankName.Enabled = false;
             txtBBranch.Enabled = false;
             txtAmount.Enabled = false;
             txtCustomerId.Value = "0";
+            txtIFSC.Enabled = false;
+            txtBankAccount.Enabled = false;
         }
         protected void lnkMandateOrder_Click(object sender, EventArgs e)
         {

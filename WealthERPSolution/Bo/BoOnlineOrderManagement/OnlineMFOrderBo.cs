@@ -555,14 +555,14 @@ namespace BoOnlineOrderManagement
 
 
         }
-        public int CreateMandateOrder(int customerId, double Amount, string BankName, string BankBranch, int UserId, int mandateId)
+        public int CreateMandateOrder(int customerId, double Amount, int BankName, string BankBranch, int UserId, int mandateId,string BankAccNo,string IFSCCode)
         {
             int result = 0;
             try
             {
                 OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
                 {
-                    result = OnlineMFOrderDao.CreateMandateOrder(customerId, Amount, BankName, BankBranch, UserId, mandateId);
+                    result = OnlineMFOrderDao.CreateMandateOrder(customerId, Amount, BankName, BankBranch, UserId, mandateId, BankAccNo, IFSCCode);
                 }
             }
             catch (BaseApplicationException Ex)

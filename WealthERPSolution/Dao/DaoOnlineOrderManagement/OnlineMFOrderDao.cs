@@ -956,7 +956,7 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
             }
             return ds;
         }
-        public int CreateMandateOrder(int customerId, double Amount, string BankName, string BankBranch, int UserId,int mandateId)
+        public int CreateMandateOrder(int customerId, double Amount, int BankName, string BankBranch, int UserId, int mandateId, string BankAccNo, string IFSCCode)
         {
             Database db;
             DbCommand cmd;
@@ -967,10 +967,12 @@ string EUINVal, string MinRedeem, string DPC, string IPAdd, int rmsId)
                 cmd = db.GetStoredProcCommand("SPROC_ONL_CreateCustomerBSEMandateOrder");
                 db.AddInParameter(cmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(cmd, "@Amount", DbType.Double, Amount);
-                db.AddInParameter(cmd, "@BankName", DbType.String, BankName);
+                db.AddInParameter(cmd, "@BankLookUpId", DbType.Int32, BankName);
                 db.AddInParameter(cmd, "@BankBranch", DbType.String, BankBranch);
                 db.AddInParameter(cmd, "@UserId", DbType.Int32, UserId);
                 db.AddInParameter(cmd, "@MandateId", DbType.Int32, mandateId);
+                db.AddInParameter(cmd, "@BankAccNo", DbType.String, BankAccNo);
+                db.AddInParameter(cmd, "@IFSCCode", DbType.String, IFSCCode);
                 db.AddOutParameter(cmd, "co_OrderId", DbType.Int32, 10);
                 if (db.ExecuteNonQuery(cmd) != 0)
                 {
