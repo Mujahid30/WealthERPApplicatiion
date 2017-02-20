@@ -120,7 +120,8 @@ namespace BoAdvisorProfiling
             string[] bsePasswordResponse;
             AdvisorStaffBo adviserstaffbo = new AdvisorStaffBo();
             advrm = adviserstaffbo.GetAdvisorStaff(userId);
-            UCC.MFUploadServiceClient c = new BoAdvisorProfiling.UCC.MFUploadServiceClient();
+            //UCC.MFUploadServiceClient c = new BoAdvisorProfiling.UCC.MFUploadServiceClient();
+            BSESrcAdditional.StarMFWebServiceClient c = new BoAdvisorProfiling.BSESrcAdditional.StarMFWebServiceClient();
             mandateId = 0;
             try
             {
@@ -180,8 +181,8 @@ namespace BoAdvisorProfiling
 
                 //bResult = adviserStaffSMTdao.CreateAPIProviderDetails(adviserStaffSMTPvo);
 
-                UCC.MFUploadServiceClient c = new BoAdvisorProfiling.UCC.MFUploadServiceClient();
-
+                //UCC.MFUploadServiceClient c = new BoAdvisorProfiling.UCC.MFUploadServiceClient();
+                BSESrcAdditional.StarMFWebServiceClient c = new BoAdvisorProfiling.BSESrcAdditional.StarMFWebServiceClient();
                 string password = c.getPassword(adviserStaffSMTPvo.ApiUserName, adviserStaffSMTPvo.ApiMemberId, adviserStaffSMTPvo.Apipassword, "E234586789D12");
                 string[] bsePassArray = password.Split('|');
 
