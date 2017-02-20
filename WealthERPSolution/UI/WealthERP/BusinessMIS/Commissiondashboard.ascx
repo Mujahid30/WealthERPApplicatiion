@@ -273,6 +273,16 @@
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
+                                              <telerik:GridBoundColumn UniqueName="CMFOD_IFSCCode" HeaderStyle-Width="100px" HeaderText="IFSC Code"
+                                                DataField="CMFOD_IFSCCode" SortExpression="CMFOD_IFSCCode" AllowFiltering="true"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
+                                              <telerik:GridBoundColumn UniqueName="CMFOD_BankACCNo" HeaderStyle-Width="100px" HeaderText="Bank AccountNo"
+                                                DataField="CMFOD_BankACCNo" SortExpression="CMFOD_BankACCNo" AllowFiltering="true"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <HeaderStyle></HeaderStyle>
+                                            </telerik:GridBoundColumn>
                                         </Columns>
                                         <HeaderStyle Width="110px" />
                                     </MasterTableView>

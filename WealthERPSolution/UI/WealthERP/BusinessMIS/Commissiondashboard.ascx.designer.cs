@@ -176,13 +176,13 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.Label lblBankName;
         
         /// <summary>
-        /// txtBankName control.
+        /// ddlBankName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBankName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBankName;
         
         /// <summary>
         /// RequiredFieldValidator10 control.
@@ -219,6 +219,60 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
+        /// lblBankAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBankAccount;
+        
+        /// <summary>
+        /// txtBankAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBankAccount;
+        
+        /// <summary>
+        /// RegtxtBankAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegtxtBankAccount;
+        
+        /// <summary>
+        /// lblIFSC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIFSC;
+        
+        /// <summary>
+        /// txtIFSC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIFSC;
+        
+        /// <summary>
+        /// rfvIFSC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIFSC;
         
         /// <summary>
         /// btnMandateSubmit control.
@@ -301,8 +355,6 @@ namespace WealthERP.BusinessMIS {
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
-     
-
         /// <summary>
         /// gvMandatedetails control.
         /// </summary>
@@ -329,25 +381,5 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnIsSubscripted;
-
-        protected global::System.Web.UI.WebControls.DropDownList ddlBankName;
-
-        /// <summary>
-        /// txtBankAccount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBankAccount;
-
-        /// <summary>
-        /// txtIFSC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIFSC;
     }
 }
