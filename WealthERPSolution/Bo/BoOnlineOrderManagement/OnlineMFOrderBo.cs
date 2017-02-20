@@ -803,9 +803,10 @@ namespace BoOnlineOrderManagement
         {
             DemoBSEMFOrderEntry.MFOrderEntryClient webOrderEntryClient = new DemoBSEMFOrderEntry.MFOrderEntryClient();
             BSEMFSIPOdererVo bseMFSIPOdererVo = new BSEMFSIPOdererVo();
+            
             msgType = 'F';
             string message = string.Empty;
-            
+            int systematicId = 0;
             int rmsId = 0;
            
             sipOrderIds = null;
@@ -819,6 +820,7 @@ namespace BoOnlineOrderManagement
                 OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
                 string bseuserID = string.Empty;
                 string bsepass = string.Empty;
+                bool result=false;
                 string bseMemberId = string.Empty;
 
                 DataSet ds = OnlineMFOrderDao.GetAPICredentials("BSE", 1021);
@@ -852,6 +854,8 @@ namespace BoOnlineOrderManagement
                     else
                     {
                         bseMFSIPOdererVo.Transactioncode = "CXL";
+                        systematicId = onlinemforderVo.SystematicId;
+                       
                     }
                     bseMFSIPOdererVo.BSEOrderId = 0;
                     bseMFSIPOdererVo.BSEUserId = bseuserID;
@@ -873,7 +877,7 @@ namespace BoOnlineOrderManagement
                     bseMFSIPOdererVo.EUIN = "E116327";
                     bseMFSIPOdererVo.EUINDeclarationFlag = "Y";
                     bseMFSIPOdererVo.DPC = "Y";
-                    bseMFSIPOdererVo.REGID = string.Empty;
+                    bseMFSIPOdererVo.REGID = onlinemforderVo.IsCancelled == "True" ? onlinemforderVo.BSEREGID.ToString(): string.Empty;
                     bseMFSIPOdererVo.IPAddress = string.Empty;
                     bseMFSIPOdererVo.Password = bsePassArray[1];
                     bseMFSIPOdererVo.PassKey = passkey;
@@ -917,16 +921,17 @@ namespace BoOnlineOrderManagement
                     OnlineMFOrderDao.BSEMFSIPorderResponseParam(transCode, UserID, bseSIPId, bseMemberId, ClientCode, bseorderEntryresponseArray[6], bseorderEntryresponseArray[7], rmsId, bseMFSIPOdererVo.UniqueReferanceNumber);
                     if (bseorderEntryresponseArray[7] == "0")
                     {
-                        if (onlinemforderVo.ModeTypeCode == "BXSIP")
+                        if (onlinemforderVo.ModeTypeCode == "BXSIP" && onlinemforderVo.IsCancelled !="True")
                         {
-                            sipOrderIds["SIPId"] = onlinemforderVo.SystematicId.ToString();
                             OnlineMFOrderDao.UpdateSystematicStep(onlinemforderVo.SystematicId, "IP", UserID);
+                            systematicId = onlinemforderVo.SystematicId;
                         }
-                        else
+                        else if (onlinemforderVo.ModeTypeCode == "BSSIP" && onlinemforderVo.IsCancelled != "True")
                         {
                             sipOrderIds = CreateOrderMFSipDetails(onlinemforderVo, UserID);
+                            systematicId = Convert.ToInt32(sipOrderIds["SIPId"].ToString());
                         }
-                        bool result = OnlineMFOrderDao.BSESIPRequestUpdate(Convert.ToInt32(sipOrderIds["SIPId"].ToString()), transCode);
+                        result = OnlineMFOrderDao.BSESIPRequestUpdate(systematicId, transCode);
                         msgType = 'S';
                     }
                     else if (bseorderEntryresponseArray[7] != "0" && onlinemforderVo.ModeTypeCode == "BXSIP")
@@ -947,7 +952,7 @@ namespace BoOnlineOrderManagement
                     message = "Unable to process the order as Exchange is not available for Now.";
                 }
             }
-            catch (Exception ex)
+             catch (Exception ex)
             {
 
                 message = "Unable to process the order as Exchange is not available for Now." + ex.Message;
