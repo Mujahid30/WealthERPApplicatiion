@@ -248,8 +248,8 @@
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="CMFOD_BankName" HeaderStyle-Width="120px" HeaderText="Bank Name"
-                                                DataField="CMFOD_BankName" SortExpression="CMFOD_BankName" AllowFiltering="true"
+                                            <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderStyle-Width="120px" HeaderText="Bank Name"
+                                                DataField="WCMV_Name" SortExpression="WCMV_Name" AllowFiltering="true"
                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                 <HeaderStyle></HeaderStyle>
                                             </telerik:GridBoundColumn>
