@@ -3629,7 +3629,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@ChannelType", DbType.String, ChannelType);
                 db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, todate);
-
+                cmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
