@@ -447,6 +447,11 @@
                                 FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="120px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridCheckBoxColumn>
+                           <telerik:GridBoundColumn DataField="DematAcceptedon" UniqueName="DematAcceptedon" HeaderText="Demate Accepted Date"
+                                ShowFilterIcon="false"  AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
+                                SortExpression="DematAcceptedon" FilterControlWidth="70px" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
