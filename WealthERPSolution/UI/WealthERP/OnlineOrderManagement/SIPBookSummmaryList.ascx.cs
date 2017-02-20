@@ -678,11 +678,12 @@ namespace WealthERP.OnlineOrderManagement
                 onlineMFOrderVo.TotalInstallments = int.Parse(dtXSIP.Rows[0]["CMFSS_TotalInstallment"].ToString());
                 onlineMFOrderVo.DivOption = dtXSIP.Rows[0]["CMFSS_DividendOption"].ToString();
                 dematevo = bo.GetCustomerActiveDematAccount(onlineMFOrderVo.CustomerId);
-                onlineMFOrderVo.ModeTypeCode = "BXSIP";
-                onlineMFOrderVo.IsCancelled = dtXSIP.Rows[0]["CMFSS_IsCanceled"].ToString();
+                onlineMFOrderVo.ModeTypeCode = dtXSIP.Rows[0]["WSTM_ModeTypeCode"].ToString();
+                onlineMFOrderVo.IsCancelled = "True";
                 if (!string.IsNullOrEmpty(dtXSIP.Rows[0]["CMFSS_MandateId"].ToString()))
                     onlineMFOrderVo.MandateId = int.Parse(dtXSIP.Rows[0]["CMFSS_MandateId"].ToString());
                 onlineMFOrderVo.SystematicId = systematicId;
+                onlineMFOrderVo.BSEREGID = Convert.ToInt64(dtXSIP.Rows[0]["BMFSRD_BSESIPREGID"].ToString());
                 OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
                 message = OnlineMFOrderBo.BSESIPorderEntryParam(userVo.UserId, dtXSIP.Rows[0]["C_CustCode"].ToString(), onlineMFOrderVo, onlineMFOrderVo.CustomerId, dematevo.DepositoryName, out msgType, out sipOrderIds);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + message + "');", true);
