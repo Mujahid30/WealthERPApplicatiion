@@ -368,6 +368,60 @@ namespace DaoCustomerProfiling
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        /// 
+        public CustomerVo GetBankDetail(int MandateId)
+        {
+            CustomerVo customerVo = null;
+            Database db;
+            DbCommand getBankCmd;
+            DataSet getBankDs;
+            DataRow dr;
+            try
+            {
+                 customerVo = new CustomerVo();
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankCmd = db.GetStoredProcCommand("SPROC_GetBankDetail");
+                db.AddInParameter(getBankCmd, "@MandateId", DbType.Int32, MandateId);
+                getBankDs = db.ExecuteDataSet(getBankCmd);
+                if (getBankDs.Tables[0].Rows.Count > 0)
+                {
+                    dr = getBankDs.Tables[0].Rows[0];
+                    if (dr["CMFOD_IFSCCode"].ToString() != string.Empty)
+                    customerVo.BankIFSCCode = dr["CMFOD_IFSCCode"].ToString();
+                    if (dr["CMFOD_BankACCNo"].ToString() != string.Empty)
+                    customerVo.BankAccNo = dr["CMFOD_BankACCNo"].ToString();
+                    if (dr["WCMV_Name"].ToString() != string.Empty)
+                    customerVo.BankName = dr["WCMV_Name"].ToString();
+                    if (dr["CMFOD_BranchName"].ToString() != string.Empty)
+                        customerVo.MandateBankBranch = dr["CMFOD_BranchName"].ToString();
+                }
+                        
+            }
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetBankDetail()");
+
+
+                object[] objects = new object[1];
+                objects[0] = MandateId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return customerVo;
+        }
+        
         public CustomerVo GetCustomer(int customerId)
         {
             CustomerVo customerVo = null;

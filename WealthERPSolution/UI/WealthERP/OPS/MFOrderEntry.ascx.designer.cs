@@ -237,7 +237,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNonIndividualName;
-        
+
         /// <summary>
         /// lblCompanyName control.
         /// </summary>
@@ -282,6 +282,10 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtBankName;
+        protected global::System.Web.UI.WebControls.TextBox txtBankAccNo;
+        protected global::System.Web.UI.WebControls.TextBox txtIFSCCode;
+        protected global::System.Web.UI.WebControls.TextBox txtMandateBankBranchName;
         
         /// <summary>
         /// RegularExpressionValidator3 control.

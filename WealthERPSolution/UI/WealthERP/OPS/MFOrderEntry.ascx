@@ -1126,11 +1126,11 @@
                                     <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
                             </tr>
-                            <tr runat="server">
-                                <td align="left" style="vertical-align: top;" runat="server">
+                            <tr id="Tr1" runat="server">
+                                <td id="Td1" align="left" style="vertical-align: top;" runat="server">
                                     <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                                 </td>
-                                <td runat="server">
+                                <td id="Td2" runat="server">
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td align="left" style="vertical-align: top;">
@@ -1144,7 +1144,7 @@
                         </table>
                     </td>
                 </tr>
-                <tr id="Tr1" runat="server" visible="true">
+                <tr id="Tr2" runat="server" visible="true">
                     <td align="right">
                         <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
                     </td>
@@ -1168,7 +1168,7 @@
                             UseContextKey="true" OnClientItemSelected="GetFolioAccount" />
                     </td>
                 </tr>
-                <tr runat="server" visible="false">
+                <tr id="Tr3" runat="server" visible="false">
                     <td align="right">
                         <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" Width="400px"
                             AutoPostBack="true" OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged"
@@ -1280,7 +1280,7 @@
                 </tr>
             </table>
         </asp:Panel>
-        <table width="120%" visible="false" runat="server">
+        <table id="Table1" width="120%" visible="false" runat="server">
             <tr>
                 <td colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -1439,7 +1439,7 @@
         </asp:Panel>
         <asp:Panel ID="pnl_XSIP_PaymentSection" class="Landscape" Width="100%" runat="server">
             <table width="100%">
-                <tr id="tr2" runat="server">
+                <tr id="tr4" runat="server">
                     <td align="right" style="width: 18%">
                         <asp:Label ID="Label10" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
                     </td>
@@ -1485,17 +1485,46 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right">
+                    <td align="right" >
                         <asp:Label ID="lblMandateId" runat="server" Text="Mandate Id:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlMandateId" CssClass="cmbField" runat="server" AutoPostBack="True"
-                            Width="90px">
+                        <asp:DropDownList ID="ddlMandateId" CssClass="cmbField" runat="server" AutoPostBack="True" 
+                            Width="90px" OnSelectedIndexChanged="MandateId_SelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span40" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator29" runat="server" ErrorMessage="Please select a value"
                             ControlToValidate="ddlMandateId" InitialValue="0" ValidationGroup="MFSubmit"
                             CssClass="rfvPCG" Display="Dynamic">Please select a value</asp:RequiredFieldValidator>
+                    </td>
+                   
+                      <td align="right">
+                        <asp:Label ID="lblMandateBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" TabIndex="28" Enabled="false" ></asp:TextBox>
+                    </td>
+                    </tr>
+                    <tr>
+                     <td align="right">
+                        <asp:Label ID="lblBankAccNo" runat="server" Text="Bank Account No:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtBankAccNo" runat="server" CssClass="txtField" TabIndex="28" Enabled="false"></asp:TextBox>
+                    </td>
+                     <td align="right">
+                        <asp:Label ID="lblIFSCCode" runat="server" Text="IFSC Code:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtIFSCCode" runat="server" CssClass="txtField" TabIndex="28" Enabled="false"></asp:TextBox>
+                    </td>
+                    </tr>
+                    <tr>
+                       <td align="right">
+                        <asp:Label ID="lblMandateBankBranchName" runat="server" Text="Bank BranchName:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtMandateBankBranchName" runat="server" CssClass="txtField" TabIndex="28" Enabled="false"></asp:TextBox>
                     </td>
                     <td align="right">
                         <asp:Label ID="lblAmt" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
@@ -1517,6 +1546,7 @@
                             ValidationExpression="^(-)?\d+(\.\d\d\d\d)?$">
                         </asp:RegularExpressionValidator>
                     </td>
+                    </tr>
                 </tr>
             </table>
         </asp:Panel>
@@ -1717,7 +1747,7 @@
                 </tr>
             </table>
         </asp:Panel>
-        <table id="Table1" runat="server" visible="false">
+        <table id="Table2" runat="server" visible="false">
             <tr id="trFrequencySTP" runat="server" visible="false">
                 <td class="leftField" style="width: 20%">
                     <asp:Label ID="lblFrequencySTP" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
@@ -1773,7 +1803,7 @@
                 </td>
             </tr>
         </table>
-        <table id="Table2" visible="false" runat="server">
+        <table id="Table3" visible="false" runat="server">
             <tr id="trSection3" runat="server">
                 <td colspan="5">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -2022,7 +2052,7 @@
 </asp:UpdatePanel>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" Height="600px"
     ScrollBars="None">
-    <table runat="server">
+    <table id="Table4" runat="server">
         <tr id="trRemarks" visible="false" runat="server">
             <td>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -992,7 +994,7 @@ namespace WealthERP.OPS
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetNFOSchemeNames";
             }
-            else if (transactionType == "SIP" || transactionType=="XSIP")
+            else if (transactionType == "SIP" || transactionType == "XSIP")
             {
                 txtSearchScheme_autoCompleteExtender.ContextKey = amcCode.ToString();
                 txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSIPSchemeNames";
@@ -1197,7 +1199,7 @@ namespace WealthERP.OPS
                 return;
             }
 
-            if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") && (ddltransType.SelectedValue != "NFO") &&  (ddltransType.SelectedValue != "XSIP"))
+            if ((ddltransType.SelectedValue != "BUY") && (ddltransType.SelectedValue != "SIP") && (ddltransType.SelectedValue != "NFO") && (ddltransType.SelectedValue != "XSIP"))
             {
                 mfOrderBo.GetFolio(int.Parse(txtCustomerId.Value), int.Parse(ddlAMCList.SelectedValue), out folioNo, out accountid);
                 txtFolioNumber.Text = folioNo;
@@ -3874,6 +3876,18 @@ namespace WealthERP.OPS
             customerVo = (CustomerVo)Session["customerVo"];
             BindBank();
         }
+        protected void MandateId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ddlMandateId.SelectedItem.ToString()))
+            {
+                customerVo = customerBo.GetBankDetail(int.Parse(ddlMandateId.SelectedValue));
+                txtBankName.Text = customerVo.BankName;
+                txtBankAccNo.Text = customerVo.BankAccNo;
+                txtIFSCCode.Text = customerVo.BankIFSCCode;
+                txtMandateBankBranchName.Text = customerVo.MandateBankBranch;
+            }
+
+        }
 
 
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
@@ -3896,7 +3910,7 @@ namespace WealthERP.OPS
                 BindPortfolioDropdown(customerId);
                 BindISAList();
                 bindMandateId();
-               
+
             }
             if (ddlsearch.SelectedValue == "2")
             {
@@ -4022,7 +4036,7 @@ namespace WealthERP.OPS
                     dsProductAmc = operationBo.Get_NFO_AMC();
 
 
-                if (dsProductAmc.Tables.Count>0 || dtProductAMC.Rows.Count > 0)
+                if (dsProductAmc.Tables.Count > 0 || dtProductAMC.Rows.Count > 0)
                 {
                     dtProductAMC = (dtProductAMC == null) ? dsProductAmc.Tables[0] : dtProductAMC;
                     ddlAMCList.DataSource = dtProductAMC;
@@ -4748,7 +4762,7 @@ namespace WealthERP.OPS
 
             int setupId = 0;
 
-            
+
             if (ddltransType.SelectedValue != "SWB")
             {
                 SaveOrderDetails();
@@ -5086,7 +5100,7 @@ namespace WealthERP.OPS
                 mforderVo.StartDate = DateTime.MinValue;
             if (ddltransType.SelectedValue == "SIP" && !string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
                 mforderVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
-            else  if (ddltransType.SelectedValue == "XSIP" && !string.IsNullOrEmpty((lblEndDateValue.Text).ToString().Trim()))
+            else if (ddltransType.SelectedValue == "XSIP" && !string.IsNullOrEmpty((lblEndDateValue.Text).ToString().Trim()))
                 mforderVo.EndDate = DateTime.Parse(lblEndDateValue.Text.ToString());
             else
                 mforderVo.EndDate = DateTime.MinValue;
@@ -5106,7 +5120,7 @@ namespace WealthERP.OPS
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
 
-            if (AgentId!=null && AgentId.Rows.Count > 0)
+            if (AgentId != null && AgentId.Rows.Count > 0)
             {
                 mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
             }
@@ -6129,7 +6143,7 @@ namespace WealthERP.OPS
         {
             CommonLookupBo commonLookupBo = new CommonLookupBo();
             DataTable dtMandateId = new DataTable();
-            dtMandateId= commonLookupBo.GetCustomerMandateId(Convert.ToInt32(txtCustomerId.Value.ToString()));
+            dtMandateId = commonLookupBo.GetCustomerMandateId(Convert.ToInt32(txtCustomerId.Value.ToString()));
             ddlMandateId.DataSource = dtMandateId;
             ddlMandateId.DataValueField = dtMandateId.Columns["CMFOD_MandateId"].ToString();
             ddlMandateId.DataTextField = dtMandateId.Columns["CMFOD_MandateId"].ToString();

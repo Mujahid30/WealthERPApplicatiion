@@ -145,6 +145,11 @@ namespace VoUser
         public int Modifiedby { get; set; }
         public int CreatedBy { get; set; }
         public int CustomerPGroup { get; set; }
+        public string BankIFSCCode { get; set; }
+        public string BankName { get; set; }
+        public string BankAccNo { get; set; }
+        public string MandateBankBranch { get; set; }
+
         public bool IsDematAccepted { get; set; }
         public bool IsDematInvestor { get; set; }
         public DateTime DematAcceptedon { get; set; }
