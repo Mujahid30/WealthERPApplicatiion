@@ -133,7 +133,14 @@ namespace WealthERP.BusinessMIS
        
             if (txtCustomerId.Value != "0")
             {
-                result = advstaffsmtpbo.BSEMandateCreate(txtClientCode.Text, lblgetcust.Text, Convert.ToDouble(txtAmount.Text), ddlBankName.SelectedItem.ToString().Substring(0,40), txtBBranch.Text, userVo.UserId, out BSEMessage, out mandateId);
+                if (ddlBankName.SelectedItem.ToString().Length > 40)
+                {
+                    result = advstaffsmtpbo.BSEMandateCreate(txtClientCode.Text, lblgetcust.Text, Convert.ToDouble(txtAmount.Text), ddlBankName.SelectedItem.ToString().Substring(0, 40), txtBBranch.Text, userVo.UserId, out BSEMessage, out mandateId);
+                }
+                else
+                {
+                    result = advstaffsmtpbo.BSEMandateCreate(txtClientCode.Text, lblgetcust.Text, Convert.ToDouble(txtAmount.Text),  ddlBankName.SelectedItem.ToString() , txtBBranch.Text, userVo.UserId, out BSEMessage, out mandateId);
+                }
                 if (result)
                 {
                     int OrderId = onlineMFOrderBo.CreateMandateOrder(int.Parse(txtCustomerId.Value.ToString()), Convert.ToDouble(txtAmount.Text), int.Parse(ddlBankName.SelectedValue), txtBBranch.Text, userVo.UserId, mandateId,txtBankAccount.Text, txtIFSC.Text);
