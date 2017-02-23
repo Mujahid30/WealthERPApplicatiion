@@ -51,6 +51,7 @@ namespace WealthERP.Advisor
                 DisableControls(this);
                 lblView.Visible = true;
                 lblEdit.Visible = false;
+                lnkEdit.Visible = true;
             }
             else if (Session["LOBGridAction"].ToString() == "LOBEdit")
             {

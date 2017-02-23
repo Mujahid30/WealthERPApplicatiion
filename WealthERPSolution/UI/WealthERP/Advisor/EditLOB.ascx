@@ -7,7 +7,7 @@
         <table width="100%" class="TableBackground">
             <tr>
                 <td class="HeaderCell">
-                    <asp:Label ID="lblEdit" runat="server" CssClass="HeaderTextBig" Text="Edit LOB"></asp:Label>
+                    <asp:Label ID="lblEdit" runat="server" CssClass="HeaderTextBig" Text="Edit LOB" Visible="false"></asp:Label>
                     
                 </td>
             </tr>
@@ -15,15 +15,15 @@
         <table width="100%" class="TableBackground">
             <tr>
                 <td class="HeaderCell">
-                    <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="View LOB"></asp:Label>
+                    <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="View LOB" Visible="false"></asp:Label>
                     <hr />
                 </td>
             </tr>
         </table>
         <table>
-            <tr id="trMandatory" runat="server">
-                <td class="tdRequiredText">
-                    <label id="lbl" class="lblRequiredText">
+            <tr id="trMandatory" runat="server" visible="false">
+                <td class="tdRequiredText" visible="false">
+                    <label id="lbl" class="lblRequiredText" visible="false">
                         Note: Fields marked with ' * ' are compulsory</label>&nbsp;
                 </td>
             </tr>
@@ -32,7 +32,7 @@
                     <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                         OnClick="lnkBtnBack_Click" CausesValidation="false"></asp:LinkButton>
                     &nbsp;&nbsp;
-                    <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="lnkEdit_Click"></asp:LinkButton>
+                    <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" Text="Edit" OnClick="lnkEdit_Click" Visible="false"></asp:LinkButton>
                 </td>
             </tr>
             <tr>
@@ -67,7 +67,7 @@
                                 <asp:Label ID="Label18" runat="server" CssClass="FieldName" Text="AMFI ARN Code:"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMFARNCode" runat="server" CssClass="txtField"></asp:TextBox>
+                                <asp:TextBox ID="txtMFARNCode" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                                 <span id="Span2" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtMFARNCode"
                                     ValidationGroup="btnMF" ErrorMessage="<br />Please Enter the ARN Code" Display="Dynamic"
