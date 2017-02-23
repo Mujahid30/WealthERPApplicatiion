@@ -47,7 +47,7 @@ namespace WealthERP.OnlineOrderBackOffice
             userVo = (UserVo)Session["UserVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
            // customerId = customerVO.CustomerId;
-            //BindAmc();
+          //  BindAmc();
             //BindOrderStatus();
             BindLink();
             ViewState["FolioNo"] = null;
@@ -130,7 +130,8 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         protected void ddlMode_OnSelectedIndexChanged(object Sender, EventArgs e)
-        {
+        { 
+            
             if (ddlMode.SelectedValue == "0" || ddlMode.SelectedValue == "1")
             {
                 ddlSIP.Visible = false;
@@ -141,6 +142,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlSIP.Visible = true;
                 Label3.Visible = true;
             }
+            BindAmc();
         }
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
@@ -217,7 +219,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlAMCCode.Items.Clear();
             if (ddlAMCCode.SelectedIndex == 0) return;
 
-            DataTable dtAmc = commonLookupBo.GetProdAmc(0, true);
+            DataTable dtAmc = commonLookupBo.GetProdAmc(0, (ddlMode.SelectedItem.ToString() == "Online") ? true : false);
             if (dtAmc == null) return;
 
             if (dtAmc.Rows.Count > 0)

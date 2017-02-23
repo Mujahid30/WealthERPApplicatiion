@@ -49,26 +49,27 @@
 <div id="divConditional" runat="server" style="padding-top: 4px" visible="false">
     <table class="TableBackground">
         <tr>
-            <td id="tdlblRejectReason" runat="server" align="right" style="padding-left: 45px;">
-                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
-            </td>
-            <td>
-                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" runat="server" AutoPostBack="false">
-                    <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
-                </asp:DropDownList>
-            </td>
+           
             <td>
                 <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
             </td>
             <td>
             <asp:DropDownList ID="ddlMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMode_OnSelectedIndexChanged" AutoPostBack="true">
-            <asp:ListItem Value="1" Text="Online"></asp:ListItem>
-            <asp:ListItem Value="2" Text="Demat"></asp:ListItem>
+            <asp:ListItem Value="0" Text="Online"></asp:ListItem>
+            <asp:ListItem Value="1" Text="Demat"></asp:ListItem>
             </asp:DropDownList>
              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlMode"
                         ErrorMessage="<br />Select Mode" CssClass="cvPCG" Display="Dynamic"
                         runat="server" InitialValue="Select" ValidationGroup="btnViewSIP">
                     </asp:RequiredFieldValidator>
+            </td>
+             <td id="tdlblRejectReason" runat="server" align="right" style="padding-left: 45px;">
+                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" runat="server" AutoPostBack="true">
+                    <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
+                </asp:DropDownList>
             </td>
             <td>
                 <asp:Label runat="server" class="FieldName" Text="SIP Type:" ID="Label3"></asp:Label>
