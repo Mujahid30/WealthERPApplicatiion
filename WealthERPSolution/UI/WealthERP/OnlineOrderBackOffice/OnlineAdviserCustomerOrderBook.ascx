@@ -58,7 +58,7 @@
                 <asp:Label runat="server" class="FieldName" Text="Mode:" ID="lblMode"></asp:Label>
             </td>
             <td>
-            <asp:DropDownList ID="ddlMode"  runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlMode"  runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMode_OnSelectedIndexChanged" AutoPostBack="true" >
             <asp:ListItem Value="0" Text="Online"></asp:ListItem>
             <asp:ListItem Value="1" Text="Demat"></asp:ListItem>
             </asp:DropDownList>
@@ -67,7 +67,7 @@
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">
+                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="true">
                 </asp:DropDownList>
             </td>
             <%--  <td id="tdAccount" runat="server" align="left">

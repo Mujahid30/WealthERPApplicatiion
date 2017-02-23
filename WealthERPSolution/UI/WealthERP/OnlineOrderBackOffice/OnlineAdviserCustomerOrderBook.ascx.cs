@@ -46,7 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             userType = Session[SessionContents.CurrentUserRole].ToString();
-           
+
             // customerId = customerVO.CustomerId;                              
             if (!Page.IsPostBack)
             {
@@ -113,6 +113,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         }
+       
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
@@ -154,14 +155,17 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
         }
-
+        protected void ddlMode_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindAmc();
+        }
 
         protected void BindAmc()
         {
             ddlAmc.Items.Clear();
             if (ddlAmc.SelectedIndex == 0) return;
 
-            DataTable dtAmc = commonLookupBo.GetProdAmc(0, true);
+            DataTable dtAmc = commonLookupBo.GetProdAmc(0, (ddlMode.SelectedItem.ToString() == "Online") ? true : false);
             if (dtAmc == null) return;
 
             if (dtAmc.Rows.Count > 0)
