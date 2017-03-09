@@ -1,0 +1,158 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FOLIOCHK" type="xs:string" minOccurs="0" />
+                <xs:element name="INV_NAME" type="xs:string" minOccurs="0" />
+                <xs:element name="ADDRESS1" type="xs:string" minOccurs="0" />
+                <xs:element name="ADDRESS2" type="xs:string" minOccurs="0" />
+                <xs:element name="ADDRESS3" type="xs:string" minOccurs="0" />
+                <xs:element name="CITY" type="xs:string" minOccurs="0" />
+                <xs:element name="PINCODE" type="xs:string" minOccurs="0" />
+                <xs:element name="PRODUCT" type="xs:string" minOccurs="0" />
+                <xs:element name="SCH_NAME" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_DATE" type="xs:string" minOccurs="0" />
+                <xs:element name="CLOS_BAL" type="xs:string" minOccurs="0" />
+                <xs:element name="RUPEE_BAL" type="xs:string" minOccurs="0" />
+                <xs:element name="SUBBROK" type="xs:string" minOccurs="0" />
+                <xs:element name="REINV_FLAG" type="xs:string" minOccurs="0" />
+                <xs:element name="JOINT_NAME1" type="xs:string" minOccurs="0" />
+                <xs:element name="JOINT_NAME2" type="xs:string" minOccurs="0" />
+                <xs:element name="PHONE_OFF" type="xs:string" minOccurs="0" />
+                <xs:element name="PHONE_RES" type="xs:string" minOccurs="0" />
+                <xs:element name="EMAIL" type="xs:string" minOccurs="0" />
+                <xs:element name="HOLDING_NA" type="xs:string" minOccurs="0" />
+                <xs:element name="UIN_NO" type="xs:string" minOccurs="0" />
+                <xs:element name="BROKER_COD" type="xs:string" minOccurs="0" />
+                <xs:element name="PAN_NO" type="xs:string" minOccurs="0" />
+                <xs:element name="JOINT1_PAN" type="xs:string" minOccurs="0" />
+                <xs:element name="JOINT2_PAN" type="xs:string" minOccurs="0" />
+                <xs:element name="GUARD_PAN" type="xs:string" minOccurs="0" />
+                <xs:element name="TAX_STATUS" type="xs:string" minOccurs="0" />
+                <xs:element name="INV_IIN" type="xs:string" minOccurs="0" />
+                <xs:element name="ALTFOLIO" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <FOLIOCHK>1373542/31</FOLIOCHK>
+    <INV_NAME>Ankush Eknath Shinde</INV_NAME>
+    <ADDRESS1>778, Adarsh Colony, AT PO Karshet</ADDRESS1>
+    <ADDRESS2>Tal, Maval</ADDRESS2>
+    <CITY>Pune</CITY>
+    <PINCODE>410405</PINCODE>
+    <PRODUCT>K574</PRODUCT>
+    <SCH_NAME>Kotak Quarterly Interval Plan Series 9 - Dividend</SCH_NAME>
+    <REP_DATE>5/31/2009 12:00:00 AM</REP_DATE>
+    <CLOS_BAL>0</CLOS_BAL>
+    <RUPEE_BAL>0</RUPEE_BAL>
+    <REINV_FLAG>Y</REINV_FLAG>
+    <EMAIL>sai.ankush@gmail.com</EMAIL>
+    <HOLDING_NA>SI</HOLDING_NA>
+    <BROKER_COD>ARN-17078</BROKER_COD>
+    <PAN_NO>BJBPS4237A</PAN_NO>
+    <TAX_STATUS>Individual</TAX_STATUS>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1097</ProcessId>
+    <AdviserId>1044</AdviserId>
+    <CreatedBy>19927</CreatedBy>
+    <CreatedOn>6/22/2009 2:01:41 PM</CreatedOn>
+    <ModifiedBy>19927</ModifiedBy>
+    <ModifiedOn>6/22/2009 2:01:41 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <FOLIOCHK>1552464/63</FOLIOCHK>
+    <INV_NAME>Tushar Kishor Dange</INV_NAME>
+    <ADDRESS1>FLAT NO 19 BUILDING NO B1</ADDRESS1>
+    <ADDRESS2>LIC QUARTERS</ADDRESS2>
+    <ADDRESS3>GANSH KHIND SHIVAJI NAGAR</ADDRESS3>
+    <CITY>PUNE</CITY>
+    <PINCODE>411016</PINCODE>
+    <PRODUCT>K574</PRODUCT>
+    <SCH_NAME>Kotak Quarterly Interval Plan Series 9 - Dividend</SCH_NAME>
+    <REP_DATE>5/31/2009 12:00:00 AM</REP_DATE>
+    <CLOS_BAL>0</CLOS_BAL>
+    <RUPEE_BAL>0</RUPEE_BAL>
+    <REINV_FLAG>Y</REINV_FLAG>
+    <HOLDING_NA>SI</HOLDING_NA>
+    <BROKER_COD>ARN-17078</BROKER_COD>
+    <PAN_NO>AEWPD6019G</PAN_NO>
+    <TAX_STATUS>Individual</TAX_STATUS>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1097</ProcessId>
+    <AdviserId>1044</AdviserId>
+    <CreatedBy>19927</CreatedBy>
+    <CreatedOn>6/22/2009 2:01:41 PM</CreatedOn>
+    <ModifiedBy>19927</ModifiedBy>
+    <ModifiedOn>6/22/2009 2:01:41 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <FOLIOCHK>993243/14</FOLIOCHK>
+    <INV_NAME>Maria Sequeira</INV_NAME>
+    <ADDRESS1>B 1 Mayank Appartments Grd Floor</ADDRESS1>
+    <ADDRESS2>Holy Cross Road I C Colony</ADDRESS2>
+    <ADDRESS3>Borivli West</ADDRESS3>
+    <CITY>Mumbai</CITY>
+    <PINCODE>400103</PINCODE>
+    <PRODUCT>K154</PRODUCT>
+    <SCH_NAME>Kotak Tax Saver Scheme - Dividend</SCH_NAME>
+    <REP_DATE>5/31/2009 12:00:00 AM</REP_DATE>
+    <CLOS_BAL>1665.229</CLOS_BAL>
+    <RUPEE_BAL>14061.19</RUPEE_BAL>
+    <REINV_FLAG>Y</REINV_FLAG>
+    <JOINT_NAME1>022 26822033</JOINT_NAME1>
+    <JOINT_NAME2>022 28959673</JOINT_NAME2>
+    <EMAIL>marialanil@yahoo.com</EMAIL>
+    <HOLDING_NA>SI</HOLDING_NA>
+    <BROKER_COD>ARN-17078</BROKER_COD>
+    <PAN_NO>BEJPS2843M</PAN_NO>
+    <TAX_STATUS>Individual</TAX_STATUS>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1097</ProcessId>
+    <AdviserId>1044</AdviserId>
+    <CreatedBy>19927</CreatedBy>
+    <CreatedOn>6/22/2009 2:01:41 PM</CreatedOn>
+    <ModifiedBy>19927</ModifiedBy>
+    <ModifiedOn>6/22/2009 2:01:41 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <FOLIOCHK>1037007/60</FOLIOCHK>
+    <INV_NAME>Ganesh Chandrakant Kadge</INV_NAME>
+    <ADDRESS1>Room No 1 Sonabai Chawl Ganesh Naga</ADDRESS1>
+    <ADDRESS2>Near Link New Road Jogeshwari West</ADDRESS2>
+    <CITY>Mumbai</CITY>
+    <PINCODE>400102</PINCODE>
+    <PRODUCT>K03</PRODUCT>
+    <SCH_NAME>Kotak 30 Equity Scheme - Dividend</SCH_NAME>
+    <REP_DATE>5/31/2009 12:00:00 AM</REP_DATE>
+    <CLOS_BAL>7.362</CLOS_BAL>
+    <RUPEE_BAL>197.1</RUPEE_BAL>
+    <REINV_FLAG>Y</REINV_FLAG>
+    <HOLDING_NA>SI</HOLDING_NA>
+    <BROKER_COD>ARN-17078</BROKER_COD>
+    <PAN_NO>APJPK6193G</PAN_NO>
+    <TAX_STATUS>Individual</TAX_STATUS>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1097</ProcessId>
+    <AdviserId>1044</AdviserId>
+    <CreatedBy>19927</CreatedBy>
+    <CreatedOn>6/22/2009 2:01:41 PM</CreatedOn>
+    <ModifiedBy>19927</ModifiedBy>
+    <ModifiedOn>6/22/2009 2:01:41 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

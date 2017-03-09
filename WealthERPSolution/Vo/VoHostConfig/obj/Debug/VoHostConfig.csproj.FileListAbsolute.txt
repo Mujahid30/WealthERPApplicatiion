@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoHostConfig.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoHostConfig.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoHostConfig\obj\Debug\VoHostConfig.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoHostConfig\obj\Debug\VoHostConfig.pdb

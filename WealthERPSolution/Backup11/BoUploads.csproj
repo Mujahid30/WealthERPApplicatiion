@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7FB3964A-1B3C-45BF-88CB-2693C2C3CF67}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BoUploads</RootNamespace>
+    <AssemblyName>BoUploads</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>C:\git-tf\WealthERPApplication\WealthERPSolution\Backup10\</UpgradeBackupLocation>
+    <OldToolsVersion>14.0</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\UI\WealthERP\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\UI\WealthERP\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data.SqlCe, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SQLServer.DTSRuntimeWrap, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\UI\WealthERP\Libraries\Microsoft.SQLServer.DTSRuntimeWrap.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\UI\WealthERP\Libraries\Microsoft.SQLServer.ManagedDTS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CamsUploadsBo.cs" />
+    <Compile Include="DeutscheUploadsBo.cs" />
+    <Compile Include="KarvyUploadsBo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RejectedRecordsBo.cs" />
+    <Compile Include="RejectedTransactionsBo.cs" />
+    <Compile Include="StandardFolioUploadBo.cs" />
+    <Compile Include="StandardProfileUploadBo.cs" />
+    <Compile Include="TempletonUploadsBo.cs" />
+    <Compile Include="UploadCommonBo.cs" />
+    <Compile Include="UploadValidationBo.cs" />
+    <Compile Include="WerpEQUploadsBo.cs" />
+    <Compile Include="WerpMFUploadsBo.cs" />
+    <Compile Include="WerpUploadsBo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dao\Uploads\DaoUploads.csproj">
+      <Project>{134dab18-43b9-42c3-9907-376eb30bc2ac}</Project>
+      <Name>DaoUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerPortfolio\VoCustomerPortfolio.csproj">
+      <Project>{8250e435-88e6-4c95-824e-1bf111361708}</Project>
+      <Name>VoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerProfiling\VoCustomerProfiling.csproj">
+      <Project>{9adec963-65ff-407e-a710-e8dfaae884c9}</Project>
+      <Name>VoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\Uploads\VoUploads.csproj">
+      <Project>{a6b91ca0-3e43-469c-a808-7dfa8d2891aa}</Project>
+      <Name>VoUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\User\VoUser.csproj">
+      <Project>{5a775261-8919-4080-81aa-545763d709db}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdvisorProfiling\BoAdvisorProfiling.csproj">
+      <Project>{57f14cb4-03cf-4e2d-b015-cbf45984f8a6}</Project>
+      <Name>BoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\BoCommon\BoCommon.csproj">
+      <Project>{f034f6f7-2938-4126-921e-9847633f0624}</Project>
+      <Name>BoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomerPortfolio\BoCustomerPortfolio.csproj">
+      <Project>{f166259a-bf9e-457b-97e4-7b0157427d86}</Project>
+      <Name>BoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomerProfiling\BoCustomerProfiling.csproj">
+      <Project>{f15a983d-a783-4935-aabe-59173bcf134b}</Project>
+      <Name>BoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\User\BoUser.csproj">
+      <Project>{d34f58bd-27f2-4c13-82e0-1a694ceaa430}</Project>
+      <Name>BoUser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

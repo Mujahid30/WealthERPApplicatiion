@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\DaoOfflineOrderManagement.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\DaoOfflineOrderManagement.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoOfflineOrderManagement\obj\Debug\DaoOfflineOrderManagement.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoOfflineOrderManagement\obj\Debug\DaoOfflineOrderManagement.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoOfflineOrderManagement\obj\Debug\DaoOfflineOrderManagement.pdb

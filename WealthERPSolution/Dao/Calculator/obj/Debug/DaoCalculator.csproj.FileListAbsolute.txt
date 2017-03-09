@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCalculator.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCalculator.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\Calculator\obj\Debug\DaoCalculator.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\Calculator\obj\Debug\DaoCalculator.pdb

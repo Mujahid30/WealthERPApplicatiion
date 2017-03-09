@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerGoalProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerGoalProfiling.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerGoalProfiling\obj\Debug\VoCustomerGoalProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerGoalProfiling\obj\Debug\VoCustomerGoalProfiling.pdb

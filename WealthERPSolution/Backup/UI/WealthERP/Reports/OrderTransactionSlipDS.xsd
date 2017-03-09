@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OrderTransactionSlipDS" targetNamespace="http://tempuri.org/OrderTransactionSlipDS.xsd" xmlns:mstns="http://tempuri.org/OrderTransactionSlipDS.xsd" xmlns="http://tempuri.org/OrderTransactionSlipDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OrderTransactionSlipDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="OrderTransactionSlipDS" msprop:Generator_DataSetName="OrderTransactionSlipDS" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="JointHolders" msprop:Generator_UserTableName="JointHolders" msprop:Generator_RowDeletedName="JointHoldersRowDeleted" msprop:Generator_RowChangedName="JointHoldersRowChanged" msprop:Generator_RowClassName="JointHoldersRow" msprop:Generator_RowChangingName="JointHoldersRowChanging" msprop:Generator_RowEvArgName="JointHoldersRowChangeEvent" msprop:Generator_RowEvHandlerName="JointHoldersRowChangeEventHandler" msprop:Generator_TableClassName="JointHoldersDataTable" msprop:Generator_TableVarName="tableJointHolders" msprop:Generator_RowDeletingName="JointHoldersRowDeleting" msprop:Generator_TablePropName="JointHolders">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="JointHolderName" msprop:Generator_UserColumnName="JointHolderName" msprop:Generator_ColumnVarNameInTable="columnJointHolderName" msprop:Generator_ColumnPropNameInRow="JointHolderName" msprop:Generator_ColumnPropNameInTable="JointHolderNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="PAN" msprop:Generator_UserColumnName="PAN" msprop:Generator_ColumnVarNameInTable="columnPAN" msprop:Generator_ColumnPropNameInRow="PAN" msprop:Generator_ColumnPropNameInTable="PANColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CMFAA_AssociationType" msprop:Generator_UserColumnName="CMFAA_AssociationType" msprop:Generator_ColumnPropNameInRow="CMFAA_AssociationType" msprop:Generator_ColumnVarNameInTable="columnCMFAA_AssociationType" msprop:Generator_ColumnPropNameInTable="CMFAA_AssociationTypeColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

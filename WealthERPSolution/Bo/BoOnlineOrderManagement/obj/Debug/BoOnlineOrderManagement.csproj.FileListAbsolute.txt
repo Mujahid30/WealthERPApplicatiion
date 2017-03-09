@@ -1,0 +1,6 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoOnlineOrderManagement.dll.config
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoOnlineOrderManagement.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoOnlineOrderManagement.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoOnlineOrderManagement\obj\Debug\BoOnlineOrderManagement.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoOnlineOrderManagement\obj\Debug\BoOnlineOrderManagement.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoOnlineOrderManagement\obj\Debug\BoOnlineOrderManagement.pdb

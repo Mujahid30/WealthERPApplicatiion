@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoCustomerProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoCustomerProfiling.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\CustomerProfiling\obj\Debug\BoCustomerProfiling.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\CustomerProfiling\obj\Debug\BoCustomerProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\CustomerProfiling\obj\Debug\BoCustomerProfiling.pdb

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +16,11 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,11 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -53,8 +53,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonLookupBo.cs" />
@@ -74,12 +72,28 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Dao\Common\DaoCommon\DaoCommon.csproj">
+      <Project>{5707f305-5eef-4e89-bc28-5f771f3aba33}</Project>
+      <Name>DaoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vo\VoCommon\VoCommon.csproj">
+      <Project>{57bd0a78-1ca9-4da8-adb6-ffc3e9fc7581}</Project>
+      <Name>VoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Vo\VoEmailSMS\VoEmailSMS.csproj">
+      <Project>{63f55269-2303-4902-9aee-dd71db00675d}</Project>
+      <Name>VoEmailSMS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Vo\VoOnlineOrderManagemnet\VoOnlineOrderManagemnet.csproj">
-      <Project>{134BE137-EEE8-4C91-9893-F39E11E0C73C}</Project>
+      <Project>{134be137-eee8-4c91-9893-f39e11e0c73c}</Project>
       <Name>VoOnlineOrderManagemnet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Vo\VoReports\VoReports.csproj">
-      <Project>{07805AD5-0780-4FFF-9157-7714A5928E32}</Project>
+      <Project>{07805ad5-0780-4fff-9157-7714a5928e32}</Project>
       <Name>VoReports</Name>
     </ProjectReference>
   </ItemGroup>

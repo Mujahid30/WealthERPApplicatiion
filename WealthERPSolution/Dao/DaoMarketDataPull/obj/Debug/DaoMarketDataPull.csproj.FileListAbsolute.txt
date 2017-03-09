@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoMarketDataPull.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoMarketDataPull.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoMarketDataPull\obj\Debug\DaoMarketDataPull.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoMarketDataPull\obj\Debug\DaoMarketDataPull.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoMarketDataPull\obj\Debug\DaoMarketDataPull.pdb

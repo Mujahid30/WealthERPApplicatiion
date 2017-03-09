@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoWerpAdmin.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoWerpAdmin.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoWerpAdmin\obj\Debug\BoWerpAdmin.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoWerpAdmin\obj\Debug\BoWerpAdmin.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoWerpAdmin\obj\Debug\BoWerpAdmin.pdb

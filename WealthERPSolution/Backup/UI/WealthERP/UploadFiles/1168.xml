@@ -1,0 +1,779 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ProductCode" type="xs:string" minOccurs="0" />
+                <xs:element name="Fund" type="xs:string" minOccurs="0" />
+                <xs:element name="FolioNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="SchemeCode" type="xs:string" minOccurs="0" />
+                <xs:element name="DividendOption" type="xs:string" minOccurs="0" />
+                <xs:element name="FundDescription" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionHead" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="Switch_RefNo" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrumentNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="InvestorName" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionMode" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="BranchName" type="xs:string" minOccurs="0" />
+                <xs:element name="BranchTransactionNo" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionDate" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessDate" type="xs:string" minOccurs="0" />
+                <xs:element name="Price" type="xs:string" minOccurs="0" />
+                <xs:element name="LoadPercentage" type="xs:string" minOccurs="0" />
+                <xs:element name="Units" type="xs:string" minOccurs="0" />
+                <xs:element name="Amount" type="xs:string" minOccurs="0" />
+                <xs:element name="LoadAmount" type="xs:string" minOccurs="0" />
+                <xs:element name="AgentCode" type="xs:string" minOccurs="0" />
+                <xs:element name="Sub-BrokerCode" type="xs:string" minOccurs="0" />
+                <xs:element name="BrokeragePercentage" type="xs:string" minOccurs="0" />
+                <xs:element name="Commission" type="xs:string" minOccurs="0" />
+                <xs:element name="InvestorID" type="xs:string" minOccurs="0" />
+                <xs:element name="ReportDate" type="xs:string" minOccurs="0" />
+                <xs:element name="ReportTime" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionSub" type="xs:string" minOccurs="0" />
+                <xs:element name="ApplicationNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionID" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionDescription" type="xs:string" minOccurs="0" />
+                <xs:element name="TransactionType" type="xs:string" minOccurs="0" />
+                <xs:element name="OrgPurchaseDate" type="xs:string" minOccurs="0" />
+                <xs:element name="OrgPurchaseAmount" type="xs:string" minOccurs="0" />
+                <xs:element name="OrgPurchaseUnits" type="xs:string" minOccurs="0" />
+                <xs:element name="TrTypeFlag" type="xs:string" minOccurs="0" />
+                <xs:element name="SwitchFundDate" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrumentDate" type="xs:string" minOccurs="0" />
+                <xs:element name="InstrumentBank" type="xs:string" minOccurs="0" />
+                <xs:element name="Nav" type="xs:string" minOccurs="0" />
+                <xs:element name="PurchaseTrnNo" type="xs:string" minOccurs="0" />
+                <xs:element name="STT" type="xs:string" minOccurs="0" />
+                <xs:element name="IHNo" type="xs:string" minOccurs="0" />
+                <xs:element name="BranchCode" type="xs:string" minOccurs="0" />
+                <xs:element name="InwardNo" type="xs:string" minOccurs="0" />
+                <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+                <xs:element name="PAN1" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <ProductCode>RC37</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4194631245</FolioNumber>
+    <SchemeCode>BFDP</SchemeCode>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE BANKING FUND-DIVIDEND PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>143526</TransactionNumber>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>143526</BranchTransactionNo>
+    <TransactionDate>4/23/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>4/23/2004 12:00:00 AM</ProcessDate>
+    <Price>18.1500</Price>
+    <LoadPercentage>0</LoadPercentage>
+    <Units>2754.821</Units>
+    <Amount>50000</Amount>
+    <LoadAmount>0</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>0</BrokeragePercentage>
+    <Commission>0</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber xml:space="preserve"> </ApplicationNumber>
+    <TransactionID>BF4194631245LTIN143526</TransactionID>
+    <TransactionDescription>Lateral Shift In</TransactionDescription>
+    <TransactionType>LTIN</TransactionType>
+    <TrTypeFlag>SI</TrTypeFlag>
+    <SwitchFundDate>4/23/2004 12:00:00 AM</SwitchFundDate>
+    <Nav>18.1500</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1012000209</InwardNo>
+    <Remarks>From  - 4194631245 GS  DP</Remarks>
+    <PAN1>ADMPS0948D</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC03</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4194613136</FolioNumber>
+    <SchemeCode>GFDP</SchemeCode>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND DIVIDEND PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>142751</TransactionNumber>
+    <InstrumentNumber>18267</InstrumentNumber>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>142751</BranchTransactionNo>
+    <TransactionDate>4/13/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>4/13/2004 12:00:00 AM</ProcessDate>
+    <Price>30.2500</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>3305.785</Units>
+    <Amount>100000</Amount>
+    <LoadAmount>1950.41</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>1750</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0556966</ApplicationNumber>
+    <TransactionID>GF4194613136NEW142751</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>NEW</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>4/12/2004 12:00:00 AM</InstrumentDate>
+    <InstrumentBank>BANK OF INDIA</InstrumentBank>
+    <Nav>29.6600</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000266</InwardNo>
+    <PAN1>ADMPS 0948 D</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC03</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4194613136</FolioNumber>
+    <SchemeCode>GFDP</SchemeCode>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND DIVIDEND PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>143259</TransactionNumber>
+    <InstrumentNumber>300611</InstrumentNumber>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>143259</BranchTransactionNo>
+    <TransactionDate>4/21/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>4/21/2004 12:00:00 AM</ProcessDate>
+    <Price>31.0100</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>1612.383</Units>
+    <Amount>50000</Amount>
+    <LoadAmount>983.55</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>875</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0</ApplicationNumber>
+    <TransactionID>GF4194613136ADD143259</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>ADD</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>4/21/2004 12:00:00 AM</InstrumentDate>
+    <Nav>30.4000</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000270</InwardNo>
+    <PAN1>ADMPS 0948 D</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC03</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4195340012</FolioNumber>
+    <SchemeCode>GFDP</SchemeCode>
+    <DividendOption>R</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND DIVIDEND PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>149306</TransactionNumber>
+    <InstrumentNumber>646503</InstrumentNumber>
+    <InvestorName>P R SHIVASHANKAR</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>149306</BranchTransactionNo>
+    <TransactionDate>5/14/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>5/14/2004 12:00:00 AM</ProcessDate>
+    <Price>27.9300</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>716.076</Units>
+    <Amount>20000</Amount>
+    <LoadAmount>393.84</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>350</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0216237</ApplicationNumber>
+    <TransactionID>GF4195340012NEW149306</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>NEW</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>5/6/2004 12:00:00 AM</InstrumentDate>
+    <InstrumentBank>BANK OF INDIA</InstrumentBank>
+    <Nav>27.3800</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000286</InwardNo>
+    <PAN1 xml:space="preserve"> </PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC04</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4192288135</FolioNumber>
+    <SchemeCode>GFGP</SchemeCode>
+    <DividendOption>G</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND GROWTH PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>149001</TransactionNumber>
+    <InstrumentNumber>62071</InstrumentNumber>
+    <InvestorName>RAMA VENKATESH</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>149001</BranchTransactionNo>
+    <TransactionDate>5/12/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>5/12/2004 12:00:00 AM</ProcessDate>
+    <Price>78.7400</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>876.302</Units>
+    <Amount>69000</Amount>
+    <LoadAmount>1349.51</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>1207.5</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0</ApplicationNumber>
+    <TransactionID>GF4192288135ADD149001</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>ADD</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>5/12/2004 12:00:00 AM</InstrumentDate>
+    <InstrumentBank xml:space="preserve"> </InstrumentBank>
+    <Nav>77.2000</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000284</InwardNo>
+    <PAN1>ABDPR6503K</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC04</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4194594994</FolioNumber>
+    <SchemeCode>GFGP</SchemeCode>
+    <DividendOption>G</DividendOption>
+    <FundDescription>RELIANCE GROWTH FUND GROWTH PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>142098</TransactionNumber>
+    <InstrumentNumber>72140</InstrumentNumber>
+    <InvestorName>ABISHEK LAXMINARAYAN</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>142098</BranchTransactionNo>
+    <TransactionDate>4/2/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>4/2/2004 12:00:00 AM</ProcessDate>
+    <Price>79.1300</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>568.684</Units>
+    <Amount>45000</Amount>
+    <LoadAmount>881.46</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>787.5</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0556967</ApplicationNumber>
+    <TransactionID>GF4194594994NEW142098</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>NEW</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>4/2/2004 12:00:00 AM</InstrumentDate>
+    <InstrumentBank>BANK OF BARODA</InstrumentBank>
+    <Nav>77.5800</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000260</InwardNo>
+    <PAN1>ABIPA8053E</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC02</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4194631245</FolioNumber>
+    <SchemeCode>GSDP</SchemeCode>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE VISION FUND DIVIDEND PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>143265</TransactionNumber>
+    <InstrumentNumber>300610</InstrumentNumber>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>143265</BranchTransactionNo>
+    <TransactionDate>4/21/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>4/21/2004 12:00:00 AM</ProcessDate>
+    <Price>36.6900</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>4088.307</Units>
+    <Amount>150000</Amount>
+    <LoadAmount>2943.58</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>2625</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0560293</ApplicationNumber>
+    <TransactionID>GS4194631245NEW143265</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>NEW</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>4/20/2004 12:00:00 AM</InstrumentDate>
+    <InstrumentBank>SBI</InstrumentBank>
+    <Nav>35.9700</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000270</InwardNo>
+    <PAN1>ADMPS0948D</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC02</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4194631245</FolioNumber>
+    <SchemeCode>GSDP</SchemeCode>
+    <DividendOption>D</DividendOption>
+    <FundDescription>RELIANCE VISION FUND DIVIDEND PLAN</FundDescription>
+    <TransactionHead>R</TransactionHead>
+    <TransactionNumber>143525</TransactionNumber>
+    <InvestorName>P N SRIDHAR</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>143525</BranchTransactionNo>
+    <TransactionDate>4/23/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>4/23/2004 12:00:00 AM</ProcessDate>
+    <Price>36.4500</Price>
+    <LoadPercentage>0</LoadPercentage>
+    <Units>1371.742</Units>
+    <Amount>50000</Amount>
+    <LoadAmount>0</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>0</BrokeragePercentage>
+    <Commission>0</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <TransactionID>GS4194631245LTOP143525143265</TransactionID>
+    <TransactionDescription>Lateral Shift Out</TransactionDescription>
+    <TransactionType>LTOP</TransactionType>
+    <TrTypeFlag>SO</TrTypeFlag>
+    <SwitchFundDate>4/21/2004 12:00:00 AM</SwitchFundDate>
+    <Nav>36.4500</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1012000209</InwardNo>
+    <Remarks>To  - 4194631245 BF  DP</Remarks>
+    <PAN1>ADMPS0948D</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode>RC01</ProductCode>
+    <Fund>RMF </Fund>
+    <FolioNumber>4192288146</FolioNumber>
+    <SchemeCode>GSGP</SchemeCode>
+    <DividendOption>G</DividendOption>
+    <FundDescription>RELIANCE VISION FUND GROWTH PLAN</FundDescription>
+    <TransactionHead>P</TransactionHead>
+    <TransactionNumber>148813</TransactionNumber>
+    <InstrumentNumber>88827</InstrumentNumber>
+    <InvestorName>RAMA VENKATESH</InvestorName>
+    <TransactionMode>N</TransactionMode>
+    <TransactionStatus>Y</TransactionStatus>
+    <BranchName>BANGALORE</BranchName>
+    <BranchTransactionNo>148813</BranchTransactionNo>
+    <TransactionDate>5/11/2004 12:00:00 AM</TransactionDate>
+    <ProcessDate>5/11/2004 12:00:00 AM</ProcessDate>
+    <Price>62.8700</Price>
+    <LoadPercentage>2</LoadPercentage>
+    <Units>652.139</Units>
+    <Amount>41000</Amount>
+    <LoadAmount>802.13</LoadAmount>
+    <AgentCode>ARN-27305</AgentCode>
+    <Sub-BrokerCode>0</Sub-BrokerCode>
+    <BrokeragePercentage>1.75</BrokeragePercentage>
+    <Commission>717.5</Commission>
+    <ReportDate>2/16/2009 4:24:05 PM</ReportDate>
+    <ReportTime>16245</ReportTime>
+    <TransactionSub>N</TransactionSub>
+    <ApplicationNumber>0</ApplicationNumber>
+    <TransactionID>GS4192288146ADD148813</TransactionID>
+    <TransactionDescription>Purchase</TransactionDescription>
+    <TransactionType>ADD</TransactionType>
+    <TrTypeFlag>P</TrTypeFlag>
+    <InstrumentDate>5/11/2004 12:00:00 AM</InstrumentDate>
+    <InstrumentBank xml:space="preserve"> </InstrumentBank>
+    <Nav>61.6400</Nav>
+    <STT>0</STT>
+    <BranchCode>RC06</BranchCode>
+    <InwardNo>1004000283</InwardNo>
+    <PAN1>ABDPR6503K</PAN1>
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <ProductCode />
+    <ProcessId>1168</ProcessId>
+    <AdviserId>1045</AdviserId>
+    <CreatedBy>21856</CreatedBy>
+    <CreatedOn>6/26/2009 5:33:25 PM</CreatedOn>
+    <ModifiedBy>21856</ModifiedBy>
+    <ModifiedOn>6/26/2009 5:33:25 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

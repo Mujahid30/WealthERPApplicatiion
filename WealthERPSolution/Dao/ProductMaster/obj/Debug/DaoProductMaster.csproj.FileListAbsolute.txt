@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoProductMaster.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoProductMaster.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\ProductMaster\obj\Debug\DaoProductMaster.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\ProductMaster\obj\Debug\DaoProductMaster.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\ProductMaster\obj\Debug\DaoProductMaster.pdb

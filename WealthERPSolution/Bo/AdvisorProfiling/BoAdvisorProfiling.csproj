@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +16,11 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,13 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dao\User\bin\Debug\DaoUser.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -62,12 +60,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Vo\AdvisorProfiling\bin\Debug\VoAdvisorProfiling.dll</HintPath>
-    </Reference>
-    <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="VoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdviserAssociateCategorySetupBo.cs" />
@@ -143,6 +135,32 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj">
+      <Project>{b3a976e6-d981-4e80-8e59-92197cfb43b8}</Project>
+      <Name>DaoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\User\DaoUser.csproj">
+      <Project>{79b272b3-d311-430c-8559-7ec324e0c9e7}</Project>
+      <Name>DaoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\AdvisorProfiling\VoAdvisorProfiling.csproj">
+      <Project>{e48ffebf-ac77-4063-a48c-c9381b5d4c6f}</Project>
+      <Name>VoAdvisorProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\User\VoUser.csproj">
+      <Project>{5a775261-8919-4080-81aa-545763d709db}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoEmailSMS\VoEmailSMS.csproj">
+      <Project>{63f55269-2303-4902-9aee-dd71db00675d}</Project>
+      <Name>VoEmailSMS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

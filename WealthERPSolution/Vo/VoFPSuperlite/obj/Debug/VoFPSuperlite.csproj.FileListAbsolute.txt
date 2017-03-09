@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoFPSuperlite.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoFPSuperlite.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoFPSuperlite\obj\Debug\VoFPSuperlite.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoFPSuperlite\obj\Debug\VoFPSuperlite.pdb

@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCommon.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCommon.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoCommon\obj\Debug\VoCommon.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoCommon\obj\Debug\VoCommon.pdb

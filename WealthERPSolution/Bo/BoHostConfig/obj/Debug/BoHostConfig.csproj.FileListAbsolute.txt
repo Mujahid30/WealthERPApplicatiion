@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoHostConfig.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoHostConfig.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoHostConfig\obj\Debug\BoHostConfig.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoHostConfig\obj\Debug\BoHostConfig.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoHostConfig\obj\Debug\BoHostConfig.pdb

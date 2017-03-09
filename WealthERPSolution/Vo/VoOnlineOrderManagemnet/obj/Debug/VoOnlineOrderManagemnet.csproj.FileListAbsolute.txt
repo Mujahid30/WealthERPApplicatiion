@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\VoOnlineOrderManagemnet.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\VoOnlineOrderManagemnet.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoOnlineOrderManagemnet\obj\Debug\VoOnlineOrderManagemnet.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VoOnlineOrderManagemnet\obj\Debug\VoOnlineOrderManagemnet.pdb

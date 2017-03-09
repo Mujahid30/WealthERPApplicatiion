@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoMarketDataPull.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoMarketDataPull.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoMarketDataPull\obj\Debug\BoMarketDataPull.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoMarketDataPull\obj\Debug\BoMarketDataPull.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoMarketDataPull\obj\Debug\BoMarketDataPull.pdb

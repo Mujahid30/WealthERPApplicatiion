@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerAnalytics.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerAnalytics.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerAnalytics\obj\Debug\VoCustomerAnalytics.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerAnalytics\obj\Debug\VoCustomerAnalytics.pdb

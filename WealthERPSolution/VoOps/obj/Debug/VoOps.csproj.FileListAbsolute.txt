@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\VoOps.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\VoOps.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\VoOps\obj\Debug\VoOps.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\VoOps\obj\Debug\VoOps.pdb

@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCalculator.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCalculator.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\Calculator\obj\Debug\VoCalculator.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\Calculator\obj\Debug\VoCalculator.pdb

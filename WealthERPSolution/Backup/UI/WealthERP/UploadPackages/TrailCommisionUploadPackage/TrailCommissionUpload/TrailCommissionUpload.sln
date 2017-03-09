@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "TrailCommissionUpload", "TrailCommissionUpload\TrailCommissionUpload.dtproj", "{B31C35AB-02A2-421A-97A1-9F74DE3F28F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B31C35AB-02A2-421A-97A1-9F74DE3F28F0}.Development|Default.ActiveCfg = Development
+		{B31C35AB-02A2-421A-97A1-9F74DE3F28F0}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

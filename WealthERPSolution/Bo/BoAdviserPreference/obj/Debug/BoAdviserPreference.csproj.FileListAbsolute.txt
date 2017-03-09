@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoAdviserPreference.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoAdviserPreference.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoAdviserPreference\obj\Debug\BoAdviserPreference.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoAdviserPreference\obj\Debug\BoAdviserPreference.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoAdviserPreference\obj\Debug\BoAdviserPreference.pdb

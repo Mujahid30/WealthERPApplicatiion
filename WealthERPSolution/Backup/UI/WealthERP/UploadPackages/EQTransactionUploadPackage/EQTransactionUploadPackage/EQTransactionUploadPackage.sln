@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "EQTransactionUploadPackage", "EQTransactionUploadPackage\EQTransactionUploadPackage.dtproj", "{7982B5A5-B468-473B-9B14-24B817542016}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://122.166.49.39:8080/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EQTransactionUploadPackage\\EQTransactionUploadPackage.dtproj
+		SccProjectName1 = EQTransactionUploadPackage
+		SccLocalPath1 = EQTransactionUploadPackage
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7982B5A5-B468-473B-9B14-24B817542016}.Development|Default.ActiveCfg = Development
+		{7982B5A5-B468-473B-9B14-24B817542016}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

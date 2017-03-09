@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoMarketFeeds.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoMarketFeeds.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\MarketFeeds\obj\Debug\DaoMarketFeeds.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\MarketFeeds\obj\Debug\DaoMarketFeeds.pdb

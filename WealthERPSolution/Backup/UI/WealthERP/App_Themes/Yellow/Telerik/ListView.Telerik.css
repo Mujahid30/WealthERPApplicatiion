@@ -1,0 +1,154 @@
+/*Telerik RadListView Vista Skin*/
+
+/*global*/
+
+.RadListView_Telerik
+{
+	border:1px solid #a1b6c4;
+	background:#ffffff;
+	color:#333333;
+	font:12px/16px "segoe ui",arial,sans-serif;
+}
+
+.RadListView_Telerik .rlvISel
+{
+	background:#b3d9f5;/*#dceffc*/
+}
+
+.RadListView_Telerik .rlvIEdit
+{
+	background:#76b1db;
+}
+
+/*buttons*/
+
+.RadListView_Telerik .rlvBAdd,
+.RadListView_Telerik .rlvBUpdate,
+.RadListView_Telerik .rlvBCancel,
+.RadListView_Telerik .rlvBDel,
+.RadListView_Telerik .rlvBEdit
+{
+	background-image:url('Grid/sprite.gif');
+}
+
+.RadListView_Telerik .rlvBAdd
+{
+	background-position:0 -1648px;
+}
+.RadListView_Telerik .rlvBUpdate
+{
+	background-position:0 -1800px;
+}
+.RadListView_Telerik .rlvBCancel
+{
+	background-position:0 -1850px;
+}
+.RadListView_Telerik .rlvBSel
+{
+	background-image:url('FormDecorator/CheckBoxSprites.gif');
+	background-position:-2px -2px;
+}
+.RadListView_Telerik .rlvISel .rlvBSel
+{
+	background-position:-2px -422px;
+}
+.RadListView_Telerik .rlvBDel
+{
+	background-position:0 -1750px;
+}
+.RadListView_Telerik .rlvBEdit
+{
+	background-position:0 -1700px;
+}
+
+.RadListView_Telerik .rlvDrag
+{
+	background-image:url('ListView/drag.gif');
+	background-position:center center;
+}
+
+/*flow*/
+
+.RadListView_Telerik div.rlvI,
+.RadListView_Telerik div.rlvA,
+.RadListView_Telerik div.rlvIEmpty,
+.RadListView_Telerik div.rlvIEdit
+{
+	border-color:#ededed;
+}
+
+.RadListView_Telerik div.rlvISel
+{
+	border-color:#dceffc;
+}
+
+/*grid*/
+
+.RadListView_Telerik tr.rlvHeader th
+{
+	border:1px solid;
+	border-color:#ffffff #e1f1fc #4885b0 #95bfde;
+	background:0 -2300px repeat-x #b0d8f5 url('Grid/sprite.gif');
+}
+
+.RadListView_Telerik tr.rlvI td,
+.RadListView_Telerik tr.rlvA td,
+.RadListView_Telerik tr.rlvISel td,
+.RadListView_Telerik tr.rlvIEmpty td
+{
+	border:1px solid;
+	border-top:0;
+}
+
+.RadListView_Telerik tr.rlvI td,
+.RadListView_Telerik tr.rlvA td,
+.RadListView_Telerik tr.rlvIEmpty td
+{
+	border-color:#ffffff #ffffff #ffffff #ededed;
+}
+
+.RadListView_Telerik tr.rlvISel td
+{
+	border-color:#dceffc #b3d9f5;
+}
+
+.RadListView_Telerik tr.rlvIEdit td
+{
+	border-color:#9fcded #9fcded #ededed #ededed;
+}
+
+/*single row*/
+
+.RadListView_Telerik td.rlvI,
+.RadListView_Telerik td.rlvA,
+.RadListView_Telerik td.rlvISel,
+.RadListView_Telerik td.rlvIEmpty,
+.RadListView_Telerik td.rlvIEdit
+{
+	border:0;
+	border-right:1px solid #ededed;
+}
+
+.RadListView_Telerik td.rlvISel
+{
+	border-color:#dceffc;
+}
+
+/*floated*/
+
+.RadListView_Telerik .rlvFloated .rlvI,
+.RadListView_Telerik .rlvFloated .rlvA,
+.RadListView_Telerik .rlvFloated .rlvISel,
+.RadListView_Telerik .rlvFloated .rlvIEdit
+{
+	border-color:#a1b6c4;
+}
+
+/*edit*/
+
+.RadListView_Telerik .rlvInput
+{
+	border-color:#adb0b2 #dce2e6 #e6ecf0 #e6e9eb;
+	background:#ffffff;
+	color:#000000;
+}

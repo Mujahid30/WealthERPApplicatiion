@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoMarketFeeds.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoMarketFeeds.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\MarketFeeds\obj\Debug\BoMarketFeeds.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\MarketFeeds\obj\Debug\BoMarketFeeds.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\MarketFeeds\obj\Debug\BoMarketFeeds.csprojResolveAssemblyReference.cache

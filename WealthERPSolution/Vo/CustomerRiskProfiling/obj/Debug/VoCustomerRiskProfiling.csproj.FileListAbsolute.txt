@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerRiskProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerRiskProfiling.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerRiskProfiling\obj\Debug\VoCustomerRiskProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerRiskProfiling\obj\Debug\VoCustomerRiskProfiling.pdb

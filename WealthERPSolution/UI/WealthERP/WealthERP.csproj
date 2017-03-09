@@ -1,4 +1,6 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,6 +17,17 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,42 +49,57 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="AjaxControlToolkit, Version=3.0.20820.16598, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>Libraries\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="BoAdviserPreference, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BOAssociates\bin\Debug\BOAssociates.dll</HintPath>
     </Reference>
-    <Reference Include="BoValuation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Shared, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.VSDesigner, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
     </Reference>
-    <Reference Include="DanLudwig.Controls.AspAjax.ListBox, Version=0.3.3856.27484, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="DanLudwig.Controls.AspAjax.ListBox, Version=0.3.3856.27484, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>Libraries\DanLudwig.Controls.AspAjax.ListBox.dll</HintPath>
+    </Reference>
     <Reference Include="DAOAssociates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DAOAssociates\bin\Debug\DAOAssociates.dll</HintPath>
     </Reference>
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="FusionCharts, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="FusionCharts, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>Libraries\FusionCharts.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL" />
-    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" />
+    <Reference Include="Ionic.Zip">
+      <HintPath>Libraries\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>Libraries\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -81,7 +109,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\office.dll</HintPath>
     </Reference>
-    <Reference Include="PCGMailLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -91,11 +118,14 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.DataVisualization">
+      <HintPath>Libraries\System.Web.DataVisualization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms.DataVisualization.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq">
@@ -108,8 +138,12 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="Telerik.Web.Design, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
-    <Reference Include="Telerik.Web.UI, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Web.Design, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>Libraries\Telerik.Web.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI, Version=2010.2.826.20, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>Libraries\Telerik.Web.UI.dll</HintPath>
+    </Reference>
     <Reference Include="VoAdviserPreference, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAdvisorProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -373,8 +407,28 @@
     <Content Include="Images\logo3.jpg" />
     <Content Include="Images\logo6.jpg" />
     <Content Include="Images\_MG_0267.jpg" />
+    <Content Include="Libraries\Microsoft.SqlServer.DTSPipelineWrap.dll" />
+    <Content Include="Libraries\Microsoft.SQLServer.DTSRuntimeWrap.dll" />
+    <Content Include="Libraries\Microsoft.SQLServer.ManagedDTS.dll" />
     <Content Include="LookUps\lookup.xml" />
     <Content Include="LookUps\WERPLookups.xml" />
+    <Content Include="Reports\Colorbox\colorbox.css" />
+    <Content Include="Reports\Colorbox\jquery.colorbox-min.js" />
+    <Content Include="Reports\CommonViewer.aspx" />
+    <Content Include="Reports\CustomerReportsDashBoard.ascx" />
+    <Content Include="Reports\Display.aspx" />
+    <Content Include="Reports\EmailReport.aspx" />
+    <Content Include="Reports\EquityReports.ascx" />
+    <Content Include="Reports\FinancialPlanningReport.ascx" />
+    <Content Include="Reports\FPOfflineForm.ascx" />
+    <Content Include="Reports\FPReports.ascx" />
+    <Content Include="Reports\FPSectional.ascx" />
+    <Content Include="Reports\images\controls.png" />
+    <Content Include="Reports\images\loading.gif" />
+    <Content Include="Reports\images\MailSend-loader.gif" />
+    <Content Include="Reports\MFReports.ascx" />
+    <Content Include="Reports\OfflineForm.ascx" />
+    <Content Include="Reports\PortfolioReports.ascx" />
     <Content Include="Scripts\Calender\calendar-setup.js" />
     <Content Include="Scripts\Calender\calendar.js" />
     <Content Include="Scripts\Calender\lang\calendar-en.js" />
@@ -1328,7 +1382,6 @@
     <Compile Include="Advisor\ChangeLoginId.ascx.designer.cs">
       <DependentUpon>ChangeLoginId.ascx</DependentUpon>
     </Compile>
-    <Compile Include="bin\FusionCharts.cs" />
     <Compile Include="BreadcrumbLinks.Designer.cs" />
     <Compile Include="BreadCrumbScripts.Designer.cs" />
     <Compile Include="BusinessMIS\AdviserMFTurnOverMIS.ascx.cs">
@@ -3676,11 +3729,6 @@
     <Compile Include="RegistrationConfirmation.aspx.designer.cs">
       <DependentUpon>RegistrationConfirmation.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\BranchDS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BranchDS.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Reports\CapitalGainDetails.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -3697,9 +3745,13 @@
       <DependentUpon>CommonViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ComprehensiveMFReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ComprehensiveMFReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\CustomerAssetAllocationDetails.cs">
+      <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CustomerInvestmentDetails.cs">
@@ -3714,9 +3766,9 @@
       <DependentUpon>CustomerReportsDashBoard.ascx</DependentUpon>
     </Compile>
     <Compile Include="Reports\DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\Display.aspx.cs">
       <DependentUpon>Display.aspx</DependentUpon>
@@ -3724,6 +3776,12 @@
     </Compile>
     <Compile Include="Reports\Display.aspx.designer.cs">
       <DependentUpon>Display.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\EligibleCapitalGainsDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\EligibleCapitalGainsSummary.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\EmailReport.aspx.cs">
       <DependentUpon>EmailReport.aspx</DependentUpon>
@@ -3740,10 +3798,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\EqTransactionAllDS1.Designer.cs" />
-    <Compile Include="Reports\EquityHoldingsDS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EquityHoldingsDS.xsd</DependentUpon>
+    <Compile Include="Reports\EquityHoldingWise.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\EquityReports.ascx.cs">
       <DependentUpon>EquityReports.ascx</DependentUpon>
@@ -3752,10 +3808,8 @@
     <Compile Include="Reports\EquityReports.ascx.designer.cs">
       <DependentUpon>EquityReports.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\EquityTransactionWiseDS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EquityTransactionWiseDS.xsd</DependentUpon>
+    <Compile Include="Reports\EquityTransactionWise.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\FinancialPlanning.cs">
       <SubType>Component</SubType>
@@ -3795,77 +3849,65 @@
       <DependentUpon>FPSectional.ascx</DependentUpon>
     </Compile>
     <Compile Include="Reports\FPSectionalReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>FPSectionalReport.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\FPSectionalReportDS.Designer.cs" />
     <Compile Include="Reports\Images.Designer.cs" />
     <Compile Include="Reports\IndivisualCustomerAssetAllocationDetails.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>IndivisualCustomerAssetAllocationDetails.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.Designer.cs" />
     <Compile Include="Reports\IndivisualCustomerInvestmentDetails.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>IndivisualCustomerInvestmentDetails.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\IndivisualCustomerInvestmentDetailsDS.Designer.cs" />
     <Compile Include="Reports\ISAWelcomeMessage.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ISAWelcomeMessage.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\MFComprehensiveNetworth.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>MFComprehensiveNetworth.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFComprehensiveNetworthDS.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MFComprehensiveNetworthDS.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\MFDividend.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFDividendSummary.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MFFundSummary.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\MFFundSummaryDS.cs">
-      <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
+    <Compile Include="Reports\MFOpenCloseTransaction.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\MFFundSummaryDS.Designer.cs">
-      <DependentUpon>MFFundSummaryDS.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Reports\MFOpenCloseTransactionDS.Designer.cs" />
     <Compile Include="Reports\MFOpenCloseTransactionReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>MFOpenCloseTransactionReport.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFOpenCloseTransactionReportDS.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\MFRealized.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>MFRealized.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFRealizedDS.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\MFRealizedDS.cs">
       <DependentUpon>MFRealizedDS.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\MFReports.ascx.cs">
@@ -3875,14 +3917,8 @@
     <Compile Include="Reports\MFReports.ascx.designer.cs">
       <DependentUpon>MFReports.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\MFReportsDS.cs">
-      <DependentUpon>MFReportsDS.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Reports\MFReturns.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFReturnsDS.cs">
-      <DependentUpon>MFReturnsDS.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\MFReturnsTransactions.cs">
       <SubType>Component</SubType>
@@ -3891,25 +3927,19 @@
     <Compile Include="Reports\MFSummary.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\MFTransactionDS.cs">
-      <DependentUpon>MFTransactionDS.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\MFTransactionDS.Designer.cs">
-      <DependentUpon>MFTransactionDS.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\MFTransactions.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\MFTransactionsOpeningClosingDs.Designer.cs" />
     <Compile Include="Reports\MultiAssetReport.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\MultiAssetReportDS.Designer.cs" />
     <Compile Include="Reports\MultiiAssetReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>MultiiAssetReport.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Reports\MultiiAssetReportDS.Designer.cs" />
     <Compile Include="Reports\OfflineForm.ascx.cs">
@@ -3920,20 +3950,10 @@
       <DependentUpon>OfflineForm.ascx</DependentUpon>
     </Compile>
     <Compile Include="Reports\OrderTransactionSlip.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>OrderTransactionSlip.rpt</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\OrderTransactionSlipDS.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\PerformanceCompositionDS.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
@@ -3942,21 +3962,11 @@
     <Compile Include="Reports\PortfolioReports.ascx.designer.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\ProductAssociateBrokarageReceived.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductAssociateBrokarageReceived.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\ProductBrokerageApplicationWise.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProductBrokerageApplicationWise.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Reports\SchemePerformance.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>SchemePerformance.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Research\AssetMapping.ascx.cs">
       <DependentUpon>AssetMapping.ascx</DependentUpon>
@@ -4723,12 +4733,16 @@
       <Name>BoResearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\AdvisorProfiling\BoAdvisorProfiling.csproj">
-      <Project>{57F14CB4-03CF-4E2D-B015-CBF45984F8A6}</Project>
+      <Project>{57f14cb4-03cf-4e2d-b015-cbf45984f8a6}</Project>
       <Name>BoAdvisorProfiling</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\Alerts\BoAlerts\BoAlerts.csproj">
       <Project>{75B0917B-4900-4CE1-B99D-110DBA9961AC}</Project>
       <Name>BoAlerts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoAdviserPreference\BoAdviserPreference.csproj">
+      <Project>{a557c3e7-cfc8-4bff-96a4-4a2c728c7b2d}</Project>
+      <Name>BoAdviserPreference</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoFPSuperlite\BoFPSuperlite.csproj">
       <Project>{92650A8F-D5DF-486E-9181-A00799F2C50C}</Project>
@@ -4761,6 +4775,10 @@
     <ProjectReference Include="..\..\Bo\BoSuperAdmin\BoSuperAdmin.csproj">
       <Project>{C519DA67-11AB-4966-8BFC-C3013475FDF7}</Project>
       <Name>BoSuperAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoValuation\BoValuation.csproj">
+      <Project>{189258f3-16c1-4384-83d4-b8038c04a391}</Project>
+      <Name>BoValuation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoWerpAdmin\BoWerpAdmin.csproj">
       <Project>{185F42DE-55D9-42DA-994E-F8E4DF385D0D}</Project>
@@ -4811,7 +4829,7 @@
       <Name>BoSupportData</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\Uploads\BoUploads.csproj">
-      <Project>{7FB3964A-1B3C-45BF-88CB-2693C2C3CF67}</Project>
+      <Project>{7fb3964a-1b3c-45bf-88cb-2693c2c3cf67}</Project>
       <Name>BoUploads</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\User\BoUser.csproj">
@@ -4911,8 +4929,12 @@
       <Name>DaoUser</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
-      <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PCGMailLib\PCGMailLib\PCGMailLib.csproj">
+      <Project>{3a1ebd31-ca3d-4a61-9cca-9f6c6c8ffb01}</Project>
+      <Name>PCGMailLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\VoCommisionManagement\VoCommisionManagement.csproj">
       <Project>{EAD1D6B2-CECB-4617-AB08-0F7B5F8EE981}</Project>
@@ -7901,110 +7923,8 @@
     <Content Include="Base\CSS\bootstrap.css" />
     <Content Include="Base\CSS\bootstrap.min.css" />
     <Content Include="Base\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\BoAdvisorProfiling.dll" />
-    <Content Include="bin\BoAdvisorProfiling.pdb" />
-    <Content Include="bin\BoCommisionManagement.dll" />
-    <Content Include="bin\BoCommisionManagement.pdb" />
-    <Content Include="bin\BoCommon.dll" />
-    <Content Include="bin\BoCommon.pdb" />
-    <Content Include="bin\BoCustomerPortfolio.dll" />
-    <Content Include="bin\BoCustomerPortfolio.pdb" />
-    <Content Include="bin\BoCustomerRiskProfiling.dll" />
-    <Content Include="bin\BoCustomerRiskProfiling.pdb" />
-    <Content Include="bin\BoFPSuperlite.pdb" />
-    <Content Include="bin\BoFPUtility.dll" />
-    <Content Include="bin\BoFPUtility.pdb" />
-    <Content Include="bin\BoHostConfig.dll" />
-    <Content Include="bin\BoHostConfig.pdb" />
-    <Content Include="bin\BoOfflineOrderManagement.dll" />
-    <Content Include="bin\BoOfflineOrderManagement.pdb" />
-    <Content Include="bin\BoOnlineOrderManagement.dll" />
-    <Content Include="bin\BoOnlineOrderManagement.pdb" />
-    <Content Include="bin\BoOps.dll" />
-    <Content Include="bin\BoOps.pdb" />
-    <Content Include="bin\BoReports.pdb" />
-    <Content Include="bin\BoResearch.dll" />
-    <Content Include="bin\BoResearch.pdb" />
-    <Content Include="bin\BoWerpAdmin.pdb" />
-    <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
-    <Content Include="bin\DaoAdvisorProfiling.dll" />
-    <Content Include="bin\DaoAdvisorProfiling.pdb" />
-    <Content Include="bin\DaoAlerts.pdb" />
-    <Content Include="bin\DaoCommisionManagement.dll" />
-    <Content Include="bin\DaoCommisionManagement.pdb" />
-    <Content Include="bin\DaoCommon.dll" />
-    <Content Include="bin\DaoCommon.pdb" />
-    <Content Include="bin\DaoFPSuperlite.dll" />
-    <Content Include="bin\DaoFPSuperlite.pdb" />
-    <Content Include="bin\DaoFPUtility.dll" />
-    <Content Include="bin\DaoFPUtility.pdb" />
-    <Content Include="bin\DaoOfflineOrderManagement.dll" />
-    <Content Include="bin\DaoOfflineOrderManagement.pdb" />
-    <Content Include="bin\DaoOnlineOrderManagement.dll" />
-    <Content Include="bin\DaoOnlineOrderManagement.pdb" />
-    <Content Include="bin\DaoOps.dll" />
-    <Content Include="bin\DaoOps.pdb" />
-    <Content Include="bin\DaoReports.dll" />
-    <Content Include="bin\DaoReports.pdb" />
-    <Content Include="bin\DaoResearch.dll" />
-    <Content Include="bin\DaoResearch.pdb" />
-    <Content Include="bin\DaoSuperAdmin.dll" />
-    <Content Include="bin\DaoSuperAdmin.pdb" />
-    <Content Include="bin\DaoSupportData.dll" />
-    <Content Include="bin\DaoSupportData.pdb" />
-    <Content Include="bin\Financial.dll" />
-    <Content Include="bin\FusionCharts.dll" />
-    <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
-    <Content Include="bin\Interop.SHDocVw.dll" />
-    <Content Include="bin\Ionic.Zip.dll" />
-    <Content Include="bin\itextsharp.dll" />
-    <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll" />
-    <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.pdb" />
-    <Content Include="bin\Microsoft.mshtml.dll" />
-    <Content Include="bin\Microsoft.Office.Interop.Excel.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.xml" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
-    <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
-    <Content Include="bin\Microsoft.Practices.Unity.dll" />
-    <Content Include="bin\Microsoft.Vbe.Interop.dll" />
-    <Content Include="bin\office.dll" />
-    <Content Include="bin\office.xml" />
-    <Content Include="bin\PCGMailLib.dll" />
-    <Content Include="bin\PCGMailLib.pdb" />
-    <Content Include="bin\System.Web.DataVisualization.dll" />
-    <Content Include="bin\Telerik.Web.UI.dll" />
-    <Content Include="bin\VoCommisionManagement.dll" />
-    <Content Include="bin\VoCommisionManagement.pdb" />
-    <Content Include="bin\VoCommon.dll" />
-    <Content Include="bin\VoCommon.pdb" />
-    <Content Include="bin\VoEmailSMS.dll" />
-    <Content Include="bin\VoEmailSMS.pdb" />
-    <Content Include="bin\VOFPUtilityUser.dll" />
-    <Content Include="bin\VOFPUtilityUser.pdb" />
-    <Content Include="bin\VoHostConfig.dll" />
-    <Content Include="bin\VoHostConfig.pdb" />
-    <Content Include="bin\VoOnlineOrderManagemnet.dll" />
-    <Content Include="bin\VoOnlineOrderManagemnet.pdb" />
-    <Content Include="bin\VoOps.dll" />
-    <Content Include="bin\VoOps.pdb" />
-    <Content Include="bin\VoReports.dll" />
-    <Content Include="bin\VoReports.pdb" />
-    <Content Include="bin\VoResearch.dll" />
-    <Content Include="bin\VoResearch.pdb" />
     <Content Include="Base\CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="Base\CSS\Images\splitter_bar_right_pointer.jpg" />
-    <Content Include="bin\VoSuperAdmin.dll" />
-    <Content Include="bin\VoSuperAdmin.pdb" />
-    <Content Include="bin\VoValuation.dll" />
-    <Content Include="bin\VoValuation.pdb" />
-    <Content Include="bin\WatiN.Core.dll" />
-    <Content Include="bin\WatiN.Core.XML" />
     <Content Include="BusinessMIS\AdviserMFTurnOverMIS.ascx" />
     <Content Include="BusinessMIS\AdviserMFTurnOverMIS.aspx" />
     <Content Include="BusinessMIS\AdviserNewSignupMIS.ascx" />
@@ -8529,23 +8449,6 @@
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
-    <Content Include="Reports\Colorbox\colorbox.css" />
-    <Content Include="Reports\Colorbox\jquery.colorbox-min.js" />
-    <Content Include="Reports\CommonViewer.aspx" />
-    <Content Include="Reports\CustomerReportsDashBoard.ascx" />
-    <Content Include="Reports\Display.aspx" />
-    <Content Include="Reports\EmailReport.aspx" />
-    <Content Include="Reports\EquityReports.ascx" />
-    <Content Include="Reports\FinancialPlanningReport.ascx" />
-    <Content Include="Reports\FPOfflineForm.ascx" />
-    <Content Include="Reports\FPReports.ascx" />
-    <Content Include="Reports\FPSectional.ascx" />
-    <Content Include="Reports\images\controls.png" />
-    <Content Include="Reports\images\loading.gif" />
-    <Content Include="Reports\images\MailSend-loader.gif" />
-    <Content Include="Reports\MFReports.ascx" />
-    <Content Include="Reports\OfflineForm.ascx" />
-    <Content Include="Reports\PortfolioReports.ascx" />
     <Content Include="Research\AssetMapping.ascx" />
     <Content Include="Research\Assumptions.ascx" />
     <Content Include="Research\GoalScore.ascx" />
@@ -9053,410 +8956,442 @@
     <None Include="ReferenceFiles\RTAExtractSampleFiles\SU_FATCA.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\TN.dbf" />
     <None Include="ReferenceFiles\RTAExtractSampleFiles\TN_FATCA.dbf" />
-    <None Include="Reports\BranchDS.xsc">
+    <Content Include="Reports\BranchDS.xsc">
       <DependentUpon>BranchDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\BranchDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>BranchDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\BranchDS.xss">
+    <Content Include="Reports\BranchDS.xss">
       <DependentUpon>BranchDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\CapitalGainDetailsDs.xsc">
+    </Content>
+    <Content Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\CapitalGainDetailsDs.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CapitalGainDetailsDs1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\CapitalGainDetailsDs.xss">
+    <Content Include="Reports\CapitalGainDetailsDs.xss">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\CapitalGainSummaryDS.xsc">
+    </Content>
+    <Content Include="Reports\CapitalGainSummaryDS.xsc">
       <DependentUpon>CapitalGainSummaryDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\CapitalGainSummaryDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CapitalGainSummaryDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\CapitalGainSummaryDS.xss">
+    <Content Include="Reports\CapitalGainSummaryDS.xss">
       <DependentUpon>CapitalGainSummaryDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\CustomerAssetAllocationDetails.xsc">
+    </Content>
+    <Content Include="Reports\CustomerAssetAllocationDetails.xsc">
       <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\CustomerAssetAllocationDetails.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CustomerAssetAllocationDetails1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\CustomerAssetAllocationDetails.xss">
+    <Content Include="Reports\CustomerAssetAllocationDetails.xss">
       <DependentUpon>CustomerAssetAllocationDetails.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\CustomerInvestmentDetailsDS.xsc">
+    </Content>
+    <Content Include="Reports\CustomerInvestmentDetailsDS.xsc">
       <DependentUpon>CustomerInvestmentDetailsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\CustomerInvestmentDetailsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CustomerInvestmentDetailsDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\CustomerInvestmentDetailsDS.xss">
+    <Content Include="Reports\CustomerInvestmentDetailsDS.xss">
       <DependentUpon>CustomerInvestmentDetailsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\DataSet1.xsc">
+    </Content>
+    <Content Include="Reports\DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\DataSet1.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\DataSet1.xss">
+    <Content Include="Reports\DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\EligibleCapitalGainsDetailsDS.xsc">
+    </Content>
+    <Content Include="Reports\EligibleCapitalGainsDetailsDS.xsc">
       <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\EligibleCapitalGainsDetailsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EligibleCapitalGainsDetailsDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\EligibleCapitalGainsDetailsDS.xss">
+    <Content Include="Reports\EligibleCapitalGainsDetailsDS.xss">
       <DependentUpon>EligibleCapitalGainsDetailsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\EligibleCapitalGainsSummaryDS.xsc">
+    </Content>
+    <Content Include="Reports\EligibleCapitalGainsSummaryDS.xsc">
       <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\EligibleCapitalGainsSummaryDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EligibleCapitalGainsSummaryDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\EligibleCapitalGainsSummaryDS.xss">
+    <Content Include="Reports\EligibleCapitalGainsSummaryDS.xss">
       <DependentUpon>EligibleCapitalGainsSummaryDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\EqSectorwiseDS.xsc">
+    </Content>
+    <Content Include="Reports\EqSectorwiseDS.xsc">
       <DependentUpon>EqSectorwiseDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\EqSectorwiseDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EqSectorwiseDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\EqSectorwiseDS.xss">
+    <Content Include="Reports\EqSectorwiseDS.xss">
       <DependentUpon>EqSectorwiseDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\EqTransactionAllDS.xsc">
+    </Content>
+    <Content Include="Reports\EqTransactionAllDS.xsc">
       <DependentUpon>EqTransactionAllDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\EqTransactionAllDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EqTransactionAllDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\EqTransactionAllDS.xss">
+    <Content Include="Reports\EqTransactionAllDS.xss">
       <DependentUpon>EqTransactionAllDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\EquityHoldingsDS.xsc">
+    </Content>
+    <Content Include="Reports\EquityHoldingsDS.xsc">
       <DependentUpon>EquityHoldingsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\EquityHoldingsDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EquityHoldingsDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\EquityHoldingsDS.xss">
+    <Content Include="Reports\EquityHoldingsDS.xss">
       <DependentUpon>EquityHoldingsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\EquityTransactionWiseDS.xsc">
+    </Content>
+    <Content Include="Reports\EquityTransactionWiseDS.xsc">
       <DependentUpon>EquityTransactionWiseDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\EquityTransactionWiseDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EquityTransactionWiseDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\EquityTransactionWiseDS.xss">
+    <Content Include="Reports\EquityTransactionWiseDS.xss">
       <DependentUpon>EquityTransactionWiseDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\FinancialPlanningDS.xsc">
-      <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\FinancialPlanningDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FinancialPlanningDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\FinancialPlanningDS.xss">
+    <Content Include="Reports\FinancialPlanningDS.xss">
       <DependentUpon>FinancialPlanningDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\FPDataSet.xsc">
+    </Content>
+    <Content Include="Reports\FPDataSet.xsc">
       <DependentUpon>FPDataSet.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\FPDataSet.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FPDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\FPDataSet.xss">
+    <Content Include="Reports\FPDataSet.xss">
       <DependentUpon>FPDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\FPOfflineFormDS.xsc">
+    </Content>
+    <Content Include="Reports\FPOfflineFormDS.xsc">
       <DependentUpon>FPOfflineFormDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\FPOfflineFormDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FPOfflineFormDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\FPOfflineFormDS.xss">
+    <Content Include="Reports\FPOfflineFormDS.xss">
       <DependentUpon>FPOfflineFormDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\FPSectionalReportDS.xsc">
+    </Content>
+    <Content Include="Reports\FPSectionalReportDS.xsc">
       <DependentUpon>FPSectionalReportDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\FPSectionalReportDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FPSectionalReportDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\FPSectionalReportDS.xss">
+    <Content Include="Reports\FPSectionalReportDS.xss">
       <DependentUpon>FPSectionalReportDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\Images.xsc">
+    </Content>
+    <Content Include="Reports\Images.xsc">
       <DependentUpon>Images.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\Images.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>Images1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\Images.xss">
+    <Content Include="Reports\Images.xss">
       <DependentUpon>Images.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xsc">
+    </Content>
+    <Content Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xsc">
       <DependentUpon>IndivisualCustomerAssetAllocationDetailsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>IndivisualCustomerAssetAllocationDetailsDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xss">
+    <Content Include="Reports\IndivisualCustomerAssetAllocationDetailsDS.xss">
       <DependentUpon>IndivisualCustomerAssetAllocationDetailsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\IndivisualCustomerInvestmentDetailsDS.xsc">
+    </Content>
+    <Content Include="Reports\IndivisualCustomerInvestmentDetailsDS.xsc">
       <DependentUpon>IndivisualCustomerInvestmentDetailsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\IndivisualCustomerInvestmentDetailsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>IndivisualCustomerInvestmentDetailsDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\IndivisualCustomerInvestmentDetailsDS.xss">
+    <Content Include="Reports\IndivisualCustomerInvestmentDetailsDS.xss">
       <DependentUpon>IndivisualCustomerInvestmentDetailsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFComprehensiveNetworthDS.xsc">
+    </Content>
+    <Content Include="Reports\MFComprehensiveNetworthDS.xsc">
       <DependentUpon>MFComprehensiveNetworthDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFComprehensiveNetworthDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFComprehensiveNetworthDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\MFComprehensiveNetworthDS.xss">
+    <Content Include="Reports\MFComprehensiveNetworthDS.xss">
       <DependentUpon>MFComprehensiveNetworthDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFDividendDS.xsc">
+    </Content>
+    <Content Include="Reports\MFDividendDS.xsc">
       <DependentUpon>MFDividendDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFDividendDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFDividendDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFDividendDS.xss">
+    <Content Include="Reports\MFDividendDS.xss">
       <DependentUpon>MFDividendDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFFundSummaryDS.xsc">
+    </Content>
+    <Content Include="Reports\MFFundSummaryDS.xsc">
       <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFFundSummaryDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFFundSummaryDS1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reports\MFFundSummaryDS.xss">
+      <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\MFOpenCloseTransaction.rpt" />
+    <Content Include="Reports\MFOpenCloseTransactionDS.xsc">
+      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\MFOpenCloseTransactionDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFOpenCloseTransactionDS1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFFundSummaryDS.xss">
-      <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFOpenCloseTransactionReportDS.xsc">
+    <Content Include="Reports\MFOpenCloseTransactionDS.xss">
+      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\MFOpenCloseTransactionReportDS.xsc">
       <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFOpenCloseTransactionReportDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFOpenCloseTransactionReportDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\MFOpenCloseTransactionReportDS.xss">
+    <Content Include="Reports\MFOpenCloseTransactionReportDS.xss">
       <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFRealizedDS.xsc">
+    </Content>
+    <Content Include="Reports\MFRealizedDS.xsc">
       <DependentUpon>MFRealizedDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFRealizedDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFRealizedDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\MFRealizedDS.xss">
+    <Content Include="Reports\MFRealizedDS.xss">
       <DependentUpon>MFRealizedDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFReportsDS.xsc">
+    </Content>
+    <Content Include="Reports\MFReportsDS.xsc">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFReportsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFReportsDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFReportsDS.xss">
+    <Content Include="Reports\MFReportsDS.xss">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFReturnsDS.xsc">
+    </Content>
+    <Content Include="Reports\MFReturnsDS.xsc">
       <DependentUpon>MFReturnsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFReturnsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFReturnsDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFReturnsDS.xss">
+    <Content Include="Reports\MFReturnsDS.xss">
       <DependentUpon>MFReturnsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFReturnsRealizedDS.xsc">
+    </Content>
+    <Content Include="Reports\MFReturnsRealizedDS.xsc">
       <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFReturnsRealizedDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFReturnsRealizedDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFReturnsRealizedDS.xss">
+    <Content Include="Reports\MFReturnsRealizedDS.xss">
       <DependentUpon>MFReturnsRealizedDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFReturnsTransactionsDS.xsc">
+    </Content>
+    <Content Include="Reports\MFReturnsTransactionsDS.xsc">
       <DependentUpon>MFReturnsTransactionsDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFReturnsTransactionsDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFReturnsTransactionsDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFReturnsTransactionsDS.xss">
+    <Content Include="Reports\MFReturnsTransactionsDS.xss">
       <DependentUpon>MFReturnsTransactionsDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MFTransactionDS.xsc">
+    </Content>
+    <Content Include="Reports\MFTransactionDS.xsc">
       <DependentUpon>MFTransactionDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MFTransactionDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MFTransactionDS1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reports\MFTransactionDS.xss">
+      <DependentUpon>MFTransactionDS.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\MFTransactionsOpeningClosing.rpt" />
+    <Content Include="Reports\MFTransactionsOpeningClosingDs.xsc">
+      <DependentUpon>MFTransactionsOpeningClosingDs.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\MFTransactionsOpeningClosingDs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFTransactionsOpeningClosingDs1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MFTransactionDS.xss">
-      <DependentUpon>MFTransactionDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MultiAssetReportDS.xsc">
+    <Content Include="Reports\MFTransactionsOpeningClosingDs.xss">
+      <DependentUpon>MFTransactionsOpeningClosingDs.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\MultiAssetReportDS.xsc">
       <DependentUpon>MultiAssetReportDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MultiAssetReportDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MultiAssetReportDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MultiAssetReportDS.xss">
+    <Content Include="Reports\MultiAssetReportDS.xss">
       <DependentUpon>MultiAssetReportDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\MultiiAssetReportDS.xsc">
+    </Content>
+    <Content Include="Reports\MultiiAssetReportDS.xsc">
       <DependentUpon>MultiiAssetReportDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\MultiiAssetReportDS.xsd">
+      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>MultiiAssetReportDS1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\MultiiAssetReportDS.xss">
+    <Content Include="Reports\MultiiAssetReportDS.xss">
       <DependentUpon>MultiiAssetReportDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\OrderTransactionSlipDS.xsc">
+    </Content>
+    <Content Include="Reports\OrderTransactionSlipDS.xsc">
       <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\OrderTransactionSlipDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>OrderTransactionSlipDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\OrderTransactionSlipDS.xss">
+    <Content Include="Reports\OrderTransactionSlipDS.xss">
       <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\PerformanceCompositionDS.xsc">
+    </Content>
+    <Content Include="Reports\PerformanceCompositionDS.xsc">
       <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\PerformanceCompositionDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>PerformanceCompositionDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\PerformanceCompositionDS.xss">
+    <Content Include="Reports\PerformanceCompositionDS.xss">
       <DependentUpon>PerformanceCompositionDS.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\ProductAssociateBrokarageReceived.xsc">
+    </Content>
+    <Content Include="Reports\ProductAssociateBrokarageReceived.xsc">
       <DependentUpon>ProductAssociateBrokarageReceived.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\ProductAssociateBrokarageReceived.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ProductAssociateBrokarageReceived.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\ProductAssociateBrokarageReceived.xss">
+    <Content Include="Reports\ProductAssociateBrokarageReceived.xss">
       <DependentUpon>ProductAssociateBrokarageReceived.xsd</DependentUpon>
-    </None>
-    <None Include="Reports\ProductBrokerageApplicationWise.xsc">
+    </Content>
+    <Content Include="Reports\ProductBrokerageApplicationWise.xsc">
       <DependentUpon>ProductBrokerageApplicationWise.xsd</DependentUpon>
-    </None>
+    </Content>
     <None Include="Reports\ProductBrokerageApplicationWise.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ProductBrokerageApplicationWise.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\ProductBrokerageApplicationWise.xss">
+    <Content Include="Reports\ProductBrokerageApplicationWise.xss">
       <DependentUpon>ProductBrokerageApplicationWise.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\SchemePerformance.xsc">
+      <DependentUpon>SchemePerformance.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\SchemePerformance.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchemePerformance.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
-    <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
-    <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
-    <None Include="Reports\TempReports\MFReports_634042779746287030.pdf" />
-    <None Include="Reports\TempReports\MFReports_634044430020884287.pdf" />
-    <None Include="Reports\TempReports\MFReports_634044430685103037.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044413360643130.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044414872176608.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044416120134757.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044416785286750.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044432671196787.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044434627603037.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044435305259287.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044435857446787.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044436146978037.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044436396821787.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044452301064447.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044463554070187.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044466546257687.pdf" />
-    <None Include="Reports\TempReports\PortfolioReports_634044469450163937.pdf" />
+    <Content Include="Reports\SchemePerformance.xss">
+      <DependentUpon>SchemePerformance.xsd</DependentUpon>
+    </Content>
+    <Content Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
+    <Content Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
+    <Content Include="Reports\TempReports\MFReports_634042779746287030.pdf" />
+    <Content Include="Reports\TempReports\MFReports_634044430020884287.pdf" />
+    <Content Include="Reports\TempReports\MFReports_634044430685103037.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044413360643130.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044414872176608.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044416120134757.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044416785286750.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044432671196787.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044434627603037.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044435305259287.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044435857446787.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044436146978037.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044436396821787.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044452301064447.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044463554070187.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044466546257687.pdf" />
+    <Content Include="Reports\TempReports\PortfolioReports_634044469450163937.pdf" />
     <None Include="SSRS\EQDataSet.xsc">
       <DependentUpon>EQDataSet.xsd</DependentUpon>
     </None>
@@ -9798,8 +9733,13 @@
     <Folder Include="Repository\" />
     <Folder Include="TempCustomerProof\" />
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

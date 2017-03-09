@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoAdviserPreference.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoAdviserPreference.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoAdviserPreference\obj\Debug\DaoAdviserPreference.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoAdviserPreference\obj\Debug\DaoAdviserPreference.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoAdviserPreference\obj\Debug\DaoAdviserPreference.pdb

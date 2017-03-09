@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +16,11 @@
     <SccLocalPath>.</SccLocalPath>
     <SccAuxPath>http://moon:8080/tfs/Ampsys%2520WealthERP</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,7 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -49,7 +53,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EQNetPositionBo.cs" />
@@ -64,12 +67,20 @@
     <Compile Include="Reports.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Dao\DaoReports\DaoReports.csproj">
+      <Project>{4c297977-2fad-4445-9b81-8ef884affb4e}</Project>
+      <Name>DaoReports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
-      <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoReports\VoReports.csproj">
+      <Project>{07805ad5-0780-4fff-9157-7714a5928e32}</Project>
+      <Name>VoReports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CustomerPortfolio\BoCustomerPortfolio.csproj">
-      <Project>{F166259A-BF9E-457B-97E4-7B0157427D86}</Project>
+      <Project>{f166259a-bf9e-457b-97e4-7b0157427d86}</Project>
       <Name>BoCustomerPortfolio</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +16,11 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,19 +59,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAOAssociates\DAOAssociates.csproj">
-      <Project>{0063368E-AB96-4661-9D51-EECE3EB74242}</Project>
+      <Project>{0063368e-ab96-4661-9d51-eece3eb74242}</Project>
       <Name>DAOAssociates</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
-      <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\VOAssociates\VOAssociates.csproj">
-      <Project>{BDC3E1C8-29A7-4311-8AEE-4901A0A13892}</Project>
+      <Project>{bdc3e1c8-29a7-4311-8aee-4901a0a13892}</Project>
       <Name>VOAssociates</Name>
     </ProjectReference>
     <ProjectReference Include="..\Vo\User\VoUser.csproj">
-      <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
+      <Project>{5a775261-8919-4080-81aa-545763d709db}</Project>
       <Name>VoUser</Name>
     </ProjectReference>
   </ItemGroup>

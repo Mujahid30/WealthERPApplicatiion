@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBranch" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AddBranch','login')" title="Click here to add branches"&gt;Add Branch&lt;/a&gt;</value>
+  </data>
+  <data name="AddLOB" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AddLOB','login')" title="Click here to add Line of Business"&gt;Add LOB&lt;/a&gt;</value>
+  </data>
+  <data name="AddRM" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AddRM','login')" title="Click here to add Relationship Managers"&gt;Add RM&lt;/a&gt;</value>
+  </data>
+  <data name="AdvisorHome" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('IFAAdminMainDashboard','login')" title="Click here to go to Advisor Dashboard Page"&gt;Advisor Dashboard&lt;/a&gt;</value>
+  </data>
+  <data name="AdvisorProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AdvisorProfile','login')" title="Click here to go to Advisor Profile Page"&gt;Profile&lt;/a&gt;</value>
+  </data>
+  <data name="AdvisorRegistration" xml:space="preserve">
+    <value>&lt;a href="javascript:loadcontrol('AdvisorRegistration','none')" title="Advisor Registration"&gt;Advisor Registration&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerUpload" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerUpload','login')" title="Click here to do uploads"&gt;Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="EditAdvisorProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EditAdvisorProfile','login')" title="Click here to edit profile"&gt;Edit Profile&lt;/a&gt;</value>
+  </data>
+  <data name="EditUserDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EditUserDetails','login')" title="Click here to edit user details"&gt;Edit User Details&lt;/a&gt;</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('Userlogin','none')" title="Home"&gt;Home&lt;/a&gt;</value>
+  </data>
+  <data name="RMBranchAssociation" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMBranchAssociation','login')" title="Click here to add RM Branch Association"&gt;Add Branch Association&lt;/a&gt;</value>
+  </data>
+  <data name="RMUserDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMUserDetails','login')" title="Click here to view RM Login Details"&gt;RM User Details&lt;/a&gt;</value>
+  </data>
+  <data name="SwitchRoles" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AdvisorRMBMDashBoard','none')" title="Click here to switch roles"&gt;Switch Roles&lt;/a&gt;</value>
+  </data>
+  <data name="ViewBranchAssociation" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewBranchAssociation','login')" title="Click here to view  Branch Associations"&gt;Branch Association&lt;/a&gt;</value>
+  </data>
+  <data name="ViewBranches" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewBranches','login')" title="Click here to view branches"&gt;Branches&lt;/a&gt;</value>
+  </data>
+  <data name="ViewLOB" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewLOB','login')" title="Click here to view Line of Business"&gt;LOB&lt;/a&gt;</value>
+  </data>
+  <data name="ViewRM" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewRM','login')" title="Click here to view Relationship Managers"&gt;RM&lt;/a&gt;</value>
+  </data>
+  <data name="AdvisorRMBMDashBoard" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loginloadcontrol('AdvisorRMBMDashBoard','login')" title="Click here to Switch Roles"&gt;Switch Roles&lt;/a&gt;</value>
+  </data>
+  <data name="RMDashBoard" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMDashBoard','login')" title="Click here to view RM Dashboard"&gt;RM Dashboard&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerIndividualAdd" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerIndividualAdd','none')" title="Click here to add customer details"&gt;Add Customer Details&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerNonIndividualAdd" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerNonIndividualAdd','none')" title="Click here to add customer details"&gt;Add Customer Details&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerType" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerType','none')" title="Click here to add customers"&gt;Add Customers&lt;/a&gt;</value>
+  </data>
+  <data name="RMCustomer" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMCustomer','none')" title="Click here to view list of RM customers"&gt;RM Customers&lt;/a&gt;</value>
+  </data>
+  <data name="ViewRMDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewRMDetails','none')" title="Click here to view RM profile"&gt;RM Profile&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_Col" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCollectiblesEntry', '?action=Col')" title="Click here to add Collectibles"&gt;Add Collectibles&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_CS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAccountAdd', '?action=CS')" title="Click here to add Cash &amp; Savings Account"&gt;Add Cash &amp; Savings Account&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_FI" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAccountAdd', '?action=FI')" title="Click here to add Fixed Income Account"&gt;Add Fixed Income Account&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_GoldEntry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGoldEntry', '?action=GoldEntry')" title="Click here to add Gold Assets"&gt;Add Gold Assets&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_GS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAccountAdd', '?action=GS')" title="Click here to add Government Savings Account"&gt;Add Government Savings Account&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_IN" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAccountAdd', '?action=IN')" title="Click here to add Insurance Account"&gt;Add Insurance Account&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_PG" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAccountAdd', '?action=PG')" title="Click here to add Pension &amp; Gratuities Account"&gt;Add Pension and Gratuities Account&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAccountAdd_PR" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAccountAdd', '?action=PR')" title="Click here to add Property Account"&gt;Add Property Account&lt;/a&gt;</value>
+  </data>
+  <data name="AddBankDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AddBankDetails','none')" title="Click here to add Bank Details"&gt;Add Bank Details&lt;/a&gt;</value>
+  </data>
+  <data name="AdvisorRMCustIndiDashboard" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AdvisorRMCustIndiDashboard','none')" title="Click here to view Customer Home"&gt;Customer Home&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerAssociatesAdd" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerAssociatesAdd','none')" title="Click here to add customer associates"&gt;Associate Customers&lt;/a&gt;</value>
+  </data>
+  <data name="EditCustomerIndividualProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EditCustomerIndividualProfile','none')" title="Click here to edit Customer Profile"&gt;Edit Customer Profile&lt;/a&gt;</value>
+  </data>
+  <data name="EditCustomerNonIndividualProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EditCustomerNonIndividualProfile','none')" title="Click here to edit Customer Profile"&gt;Edit Customer Profile&lt;/a&gt;</value>
+  </data>
+  <data name="FamilyDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('FamilyDetails','none')" title="Click here to add family details"&gt;Add Family Details&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioDashboard" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioDashboard','none')" title="Click here to view Customer Portfolio Dashboard"&gt;Portfolio Dashboard&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPersonalEntry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPersonalEntry', 'none')" title="Click here to add Personal Assets"&gt;Add Personal Assets&lt;/a&gt;</value>
+  </data>
+  <data name="RMCustomerIndividualDashboard" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMCustomerIndividualDashboard','none')" title="Click here to view Customer Profile Dashboard"&gt;Customer Profile Dashboard&lt;/a&gt;</value>
+  </data>
+  <data name="RMCustomerNonIndividualDashboard" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMCustomerNonIndividualDashboard','none')" title="Click here to view Customer Profile Dashboard"&gt;Customer Profile Dashboard&lt;/a&gt;</value>
+  </data>
+  <data name="ViewBankDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewBankDetails','none')" title="Click here to view Bank Details"&gt;Bank Details&lt;/a&gt;</value>
+  </data>
+  <data name="ViewCustomerFamily" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewCustomerFamily','none')" title="Click here to view customer family members"&gt;Family Details&lt;/a&gt;</value>
+  </data>
+  <data name="ViewCustomerIndividualProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewCustomerIndividualProfile','none')" title="Click here to view Customer Profile"&gt;Customer Profile&lt;/a&gt;</value>
+  </data>
+  <data name="ViewCustomerProofs" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewCustomerProofs','none')" title="Click here to view Customer Proofs"&gt;Customer Proofs&lt;/a&gt;</value>
+  </data>
+  <data name="ViewNonIndividualProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewNonIndividualProfile','none')" title="Click here to view Customer Profile"&gt;Customer Profile&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerEQAccountAdd" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerEQAccountAdd', 'none')" title="Click here to add Equity Account"&gt;Add Equity Account&lt;/a&gt;</value>
+  </data>
+  <data name="CustomerMFAccountAdd" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('CustomerMFAccountAdd', 'none')" title="Click here to add Mutual Fund folio"&gt;Add MF Folio&lt;/a&gt;</value>
+  </data>
+  <data name="EquityManualSingleTransaction" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EquityManualSingleTransaction','none')" title="Click here to add Equity transaction"&gt;Add Equity Transaction&lt;/a&gt;</value>
+  </data>
+  <data name="EquityTransactionsView" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EquityTransactionsView','none')" title="Click here to view Equity transactions"&gt;View Equity Transaction&lt;/a&gt;</value>
+  </data>
+  <data name="PensionAndGratuities_edit" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PensionAndGratuities','?action=edit')" title="Click here to edit Pension &amp; Gratuities Asset"&gt;Pension &amp; Gratuities Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PensionPortfolio" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PensionPortfolio', 'none')" title="Click here to view Pension &amp; Gratuities Assets"&gt;Pension &amp; Gratuities&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCashSavingsView" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCashSavingsView', 'none')" title="Click here to view list of Cash &amp; Savings"&gt;Cash &amp; Savings&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioFixedIncomeView" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioFixedIncomeView', 'none')" title="Click here to view Fixed Income Assets"&gt;Fixed Income Portfolio&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPersonal" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPersonal', 'none')" title="Click here to view Personal Assets"&gt;Personal Assets&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioProperty" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioProperty', 'none')" title="Click here to view Property Assets"&gt;Property&lt;/a&gt;</value>
+  </data>
+  <data name="ViewCollectiblesPortfolio" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewCollectiblesPortfolio', 'none')" title="Click here to view list of Collectibles"&gt;Collectibles&lt;/a&gt;</value>
+  </data>
+  <data name="ViewEquityPortfolios" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewEquityPortfolios', 'none')" title="Click here to view Equity Portfolio"&gt;Equity Portfolio&lt;/a&gt;</value>
+  </data>
+  <data name="ViewGoldPortfolio" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewGoldPortfolio', 'none')" title="Click here to view list of Gold Assets"&gt;Gold Assets&lt;/a&gt;</value>
+  </data>
+  <data name="ViewGovtSavings" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewGovtSavings', 'none')" title="Click here to view Government Savings Assets"&gt;Government Savings&lt;/a&gt;</value>
+  </data>
+  <data name="ViewInsuranceDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewInsuranceDetails', 'none')" title="Click here to view Insurance Assets"&gt;Insurance Portfolio&lt;/a&gt;</value>
+  </data>
+  <data name="ViewMutualFundPortfolio" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewMutualFundPortfolio', 'none')" title="Click here to view Mutual Fund Portfolio"&gt;Mutual Fund Portfolio&lt;/a&gt;</value>
+  </data>
+  <data name="MFManualSingleTran" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('MFManualSingleTran', 'none')" title="Click here to add Mutual Fund Transactions"&gt;Add MF Transactions&lt;/a&gt;</value>
+  </data>
+  <data name="PensionAndGratuities_entry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PensionAndGratuities','?action=entry')" title="Click here to add Pension &amp; Gratuities Asset"&gt;Add Pension &amp; Gratuities&lt;/a&gt;</value>
+  </data>
+  <data name="PensionAndGratuities_view" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PensionAndGratuities','?action=view'')" title="Click here to view Pension &amp; Gratuities Asset"&gt;Pension &amp; Gratuities View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCashSavingsEntry_CS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCashSavingsEntry','none')" title="Click here to add Cash &amp; Savings"&gt;Add Cash &amp; Savings&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCashSavingsEntry_EditCS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCashSavingsEntry','none')" title="Click here to view Cash &amp; Savings"&gt;Cash &amp; Savings Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCashSavingsEntry_ViewCS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCashSavingsEntry','none')" title="Click here to view Cash &amp; Savings"&gt;Cash &amp; Savings View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCollectiblesEntry_Col" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCollectiblesEntry', '?action=Col')" title="Click here to add Collectibles"&gt;Add Collectibles&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCollectiblesEntry_EditCol" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCollectiblesEntry', '?action=Col')" title="Click here to edit Collectibles"&gt;Collectibles Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioCollectiblesEntry_ViewCol" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioCollectiblesEntry', '?action=Col')" title="Click here to view Collectibles"&gt;Collectibles View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioFixedIncomeEntry_EditFI" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioFixedIncomeEntry','none')" title="Click here to edit Fixed Income Asset"&gt;Fixed Income Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioFixedIncomeEntry_FI" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioFixedIncomeEntry','none')" title="Click here to add Fixed Income Asset"&gt;Add Fixed Income&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioFixedIncomeEntry_ViewFI" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioFixedIncomeEntry','none')" title="Click here to view Fixed Income Asset"&gt;Fixed Income View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioGoldEntry_EditGold" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGoldEntry', '?action=EditGold')" title="Click here to edit Gold Assets"&gt;Gold Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioGoldEntry_GoldEntry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGoldEntry', '?action=GoldEntry')" title="Click here to add Gold Assets"&gt;Add Gold Assets&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioGoldEntry_ViewGold" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGoldEntry', '?action=ViewGold')" title="Click here to view Gold Assets"&gt;Gold View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioGovtSavingsEntry_EditGS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGovtSavingsEntry','none')" title="Click here to edit Government Savings Asset"&gt;Government Savings Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioGovtSavingsEntry_GS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGovtSavingsEntry','none')" title="Click here to add Government Savings Asset"&gt;Add Government Savings&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioGovtSavingsEntry_ViewGS" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioGovtSavingsEntry','none')" title="Click here to view Government Savings Asset"&gt;Government Savings View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioInsuranceEntry_edit" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioInsuranceEntry','?action=entry')" title="Click here to edit Insurance Asset"&gt;Insurance Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioInsuranceEntry_entry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioInsuranceEntry','?action=entry')" title="Click here to add Insurance Asset"&gt;Add Insurance&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioInsuranceEntry_view" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioInsuranceEntry','?action=view')" title="Click here to view Insurance Asset"&gt;Insurance View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPersonalEntry_edit" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPersonalEntry', 'none')" title="Click here to edit Personal Assets"&gt;Personal Assets Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPersonalEntry_view" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPersonalEntry', 'none')" title="Click here to add Personal Assets"&gt;Personal Assets View Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPropertyEntry_edit" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPropertyEntry','?action=edit')" title="Click here to edit property Asset"&gt;Property Edit Form&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPropertyEntry_entry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPropertyEntry','?action=entry')" title="Click here to add Property Asset"&gt;Add Property&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioPropertyEntry_view" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioPropertyEntry','?action=view')" title="Click here to view Property Asset"&gt;Property View Form&lt;/a&gt;</value>
+  </data>
+  <data name="TransactionsView" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('TransactionsView', 'none')" title="Click here to view Mutual Fund Transactions"&gt;View MF Transaction&lt;/a&gt;</value>
+  </data>
+  <data name="ViewMutualFundTransaction" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewMutualFundTransaction','none')" title="Click here to manage Mutual Fund Transaction"&gt;Manage MF Transaction&lt;/a&gt;</value>
+  </data>
+  <data name="ViewEquityTransaction" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewEquityTransaction', 'none')" title="Click here to view Equity Portfolio Transaction"&gt;Equity Transaction Form&lt;/a&gt;</value>
+  </data>
+  <data name="LOB" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('LOB','none')" title="Click here to view LOB Details"&gt;LOB Details&lt;/a&gt;</value>
+  </data>
+  <data name="EditLOB" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('EditLOB','login')" title="Click here to edit Line of Business"&gt;Edit LOB Details&lt;/a&gt;</value>
+  </data>
+  <data name="ViewEquityPortfolioTransactions" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewEquityPortfolioTransactions','none')" title="Click here to view equity portfolio transaction valuation"&gt;Equity Transaction Valuation&lt;/a&gt;</value>
+  </data>
+  <data name="ViewCustomerAllBankDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewCustomerAllBankDetails','none')" title="Click here to view customer bank details"&gt;Bank Complete Details&lt;/a&gt;</value>
+  </data>
+  <data name="FamilyDetailsChild" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('FamilyDetailsChild','none')" title="Click here to associate family members"&gt;Customer Family Association&lt;/a&gt;</value>
+  </data>
+  <data name="FamilyDetailsOther" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('FamilyDetailsOther','none')" title="Click here to associate family members"&gt;Customer Family Association&lt;/a&gt;</value>
+  </data>
+  <data name="FamilyDetailsSpouse" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('FamilyDetailsSpouse','none')" title="Click here to associate family members"&gt;Customer Family Association&lt;/a&gt;</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="#"&gt;User Management&lt;/a&gt;</value>
+  </data>
+  <data name="ViewUploadProcessLog" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('ViewUploadProcessLog','login')" title="Click here to view your Upload Process History"&gt;Advisor Process History&lt;/a&gt;</value>
+  </data>
+  <data name="RejectedCAMSProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RejectedCAMSProfile','login')" title="Click here to view rejected CAMS Profile Upload"&gt;Rejected CAMS Profile Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="DailyValuation" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('DailyValuation','login')" title="Click here to do Valuation"&gt;Daily Valuation&lt;/a&gt;</value>
+  </data>
+  <data name="RMCustomerUserDetails" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RMCustomerUserDetails','none')" title="Click here to view RM profile"&gt;Customer User Details&lt;/a&gt;</value>
+  </data>
+  <data name="RejectedKarvyProfle" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RejectedKarvyProfle','login')" title="Click here to view rejected CAMS Profile Upload"&gt;Rejected Karvy Profile Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="RejectedKarvyTransaction" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RejectedKarvyTransaction','login')" title="Click here to view rejected CAMS Profile Upload"&gt;Rejected Karvy Transaction Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="RejectedWERPProfile" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RejectedWERPProfile','login')" title="Click here to view rejected CAMS Profile Upload"&gt;Rejected WERP Profile Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="RejectedWERPTransaction" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RejectedWERPTransaction','login')" title="Click here to view rejected CAMS Profile Upload"&gt;Rejected WERP Transaction Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="RejectedCAMSTransaction" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('RejectedCAMSTransaction','login')" title="Click here to view rejected CAMS Transaction Upload"&gt;Rejected CAMS Transaction Uploads&lt;/a&gt;</value>
+  </data>
+  <data name="AdviserCustomer" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('AdviserCustomer','login')" title="Click here to view Customes"&gt;View Customers&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioSystematicEntry_edit" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioSystematicEntry','?action=edit')" title="Click here to edit Systematic Setup"&gt;Edit Sytematic Setup&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioSystematicEntry_entry" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioSystematicEntry','?action=entry')" title="Click here to register Systematic Setup"&gt;Register Sytematic Setup&lt;/a&gt;</value>
+  </data>
+  <data name="PortfolioSystematicEntry_view" xml:space="preserve">
+    <value>&lt;a class="aBreadCrumb" href="javascript:loadcontrol('PortfolioSystematicEntry','?action=view')" title="Click here to view Systematic Setup"&gt;View Sytematic Setup&lt;/a&gt;</value>
+  </data>
+</root>

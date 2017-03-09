@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\FPUtilityTool\bin\BoFPUtility.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\FPUtilityTool\bin\BoFPUtility.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoFPUtility\obj\Debug\BoFPUtility.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoFPUtility\obj\Debug\BoFPUtility.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoFPUtility\obj\Debug\BoFPUtility.pdb

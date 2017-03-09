@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoCommisionManagement.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoCommisionManagement.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\BoCommisionManagement\obj\Debug\BoCommisionManagement.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\BoCommisionManagement\obj\Debug\BoCommisionManagement.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\BoCommisionManagement\obj\Debug\BoCommisionManagement.pdb

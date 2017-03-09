@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\VoCommisionManagement.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\VoCommisionManagement.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\VoCommisionManagement\obj\Debug\VoCommisionManagement.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\VoCommisionManagement\obj\Debug\VoCommisionManagement.pdb

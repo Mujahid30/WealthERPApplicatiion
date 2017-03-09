@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoProductMaster.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoProductMaster.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\ProductMaster\obj\Debug\BoProductMaster.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\ProductMaster\obj\Debug\BoProductMaster.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\ProductMaster\obj\Debug\BoProductMaster.pdb

@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\FPUtilityTool\bin\VOFPUtilityUser.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\FPUtilityTool\bin\VOFPUtilityUser.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VOFPUtilityUser\obj\Debug\VOFPUtilityUser.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\VOFPUtilityUser\obj\Debug\VOFPUtilityUser.pdb

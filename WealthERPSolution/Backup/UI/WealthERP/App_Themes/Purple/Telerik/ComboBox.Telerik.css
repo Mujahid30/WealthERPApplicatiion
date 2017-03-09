@@ -1,0 +1,234 @@
+/* RadComboBox Vista skin */
+
+/*global*/
+
+.RadComboBox_Telerik,
+.RadComboBox_Telerik .rcbInput,
+.RadComboBoxDropDown_Telerik
+{
+	font: 12px "Segoe UI", Arial, sans-serif;
+	color: #333;
+}
+
+/* combobox */
+
+.RadComboBox_Telerik .rcbInputCellLeft,
+.RadComboBox_Telerik .rcbInputCellRight,
+.RadComboBox_Telerik .rcbArrowCellLeft,
+.RadComboBox_Telerik .rcbArrowCellRight
+{
+	background-image: url('ComboBox/rcbSprite.png');
+}
+
+* html .RadComboBox_Telerik .rcbInputCellLeft,
+* html .RadComboBox_Telerik .rcbInputCellRight,
+* html .RadComboBox_Telerik .rcbArrowCellLeft,
+* html .RadComboBox_Telerik .rcbArrowCellRight
+{
+	background-image: url('ComboBox/rcbSpriteIE6.png');
+}
+
+.RadComboBox_Telerik td.rcbInputCellLeft { background-position: 0 0; }
+.RadComboBox_Telerik td.rcbInputCellRight { background-position: 100% 0; }
+
+.RadComboBox_Telerik .rcbHovered .rcbInputCellLeft { background-position: 0 0; }
+.RadComboBox_Telerik .rcbHovered .rcbInputCellRight { background-position: 100% 0; }
+
+.RadComboBox_Telerik .rcbFocused .rcbInputCellLeft { background-position: 0 0; }
+.RadComboBox_Telerik .rcbFocused .rcbInputCellRight { background-position: 100% 0; }
+
+.RadComboBox_Telerik .rcbHovered .rcbReadOnly td.rcbInputCellLeft { background-position: 0 -22px; }
+.RadComboBox_Telerik .rcbHovered .rcbReadOnly td.rcbInputCellRight { background-position: 100% -22px; }
+
+.RadComboBox_Telerik .rcbFocused .rcbReadOnly td.rcbInputCellLeft { background-position: 0 -44px; }
+.RadComboBox_Telerik .rcbFocused .rcbReadOnly td.rcbInputCellRight { background-position: 100% -44px; }
+
+.RadComboBox_Telerik .rcbInputCell .rcbEmptyMessage
+{
+	color: #666;
+}
+
+.RadComboBox_Telerik .rcbHovered .rcbInputCell .rcbInput
+{
+	color: #045cb5;
+}
+
+.RadComboBox_Telerik td.rcbArrowCellLeft { background-position: -18px -88px; }
+.RadComboBox_Telerik td.rcbArrowCellRight { background-position: 0 -88px; }
+
+.RadComboBox_Telerik .rcbHovered .rcbArrowCellLeft { background-position: -54px -88px; }
+.RadComboBox_Telerik .rcbHovered .rcbArrowCellRight { background-position: -36px -88px; }
+
+.RadComboBox_Telerik .rcbFocused .rcbArrowCellLeft { background-position: -90px -88px; }
+.RadComboBox_Telerik .rcbFocused .rcbArrowCellRight { background-position: -72px -88px; }
+
+.RadComboBox_Telerik td.rcbArrowCellHidden,
+.RadComboBox_Telerik .rcbHovered td.rcbArrowCellHidden,
+.RadComboBox_Telerik .rcbFocused td.rcbArrowCellHidden { background-position: -15px -88px; }
+
+.RadComboBox_Telerik .rcbHovered .rcbReadOnly td.rcbArrowCellHidden { background-position: -51px -88px; }
+.RadComboBox_Telerik .rcbFocused .rcbReadOnly td.rcbArrowCellHidden { background-position: -87px -88px; }
+
+/* Read-only styles */
+
+.RadComboBox_Telerik .rcbReadOnly td.rcbArrowCellLeft { background-position: -18px -88px; }
+.RadComboBox_Telerik .rcbReadOnly td.rcbArrowCellRight { background-position: -2px -88px; }
+
+.RadComboBox_Telerik .rcbHovered .rcbReadOnly .rcbArrowCellLeft { background-position: -54px -88px; }
+.RadComboBox_Telerik .rcbHovered .rcbReadOnly .rcbArrowCellRight { background-position: -38px -88px; }
+
+.RadComboBox_Telerik .rcbFocused .rcbReadOnly .rcbArrowCellLeft { background-position: -90px -88px; }
+.RadComboBox_Telerik .rcbFocused .rcbReadOnly .rcbArrowCellRight { background-position: -74px -88px; }
+
+.RadComboBox_Telerik .rcbReadOnly td.rcbArrowCellHidden { background-position: -15px -88px; }
+.RadComboBox_Telerik .rcbHovered .rcbReadOnly td.rcbArrowCellHidden { background-position: -51px -88px; }
+.RadComboBox_Telerik .rcbFocused .rcbReadOnly td.rcbArrowCellHidden { background-position: -87px -88px; }
+
+/* dropdown */
+
+.RadComboBoxDropDown_Telerik .rcbHeader,
+.RadComboBoxDropDown_Telerik .rcbFooter,
+.RadComboBoxDropDown_Telerik .rcbMoreResults a
+{
+	background-image: url('ComboBox/rcbSprite.png');
+}
+
+* html .RadComboBoxDropDown_Telerik .rcbHeader,
+* html .RadComboBoxDropDown_Telerik .rcbFooter,
+* html .RadComboBoxDropDown_Telerik .rcbMoreResults a
+{
+	background-image: url('ComboBox/rcbSpriteIE6.png');
+}
+
+.RadComboBoxDropDown_Telerik
+{
+	background: #fff;
+	border-color: #c6c7d2;
+	border-top-color: #83868d;
+}
+
+.RadComboBoxDropDown_Telerik .rcbHeader,
+.RadComboBoxDropDown_Telerik .rcbFooter
+{
+	background-color: #f1f2f4;
+	background-position: 0 -110px;
+}
+
+.RadComboBoxDropDown_Telerik .rcbHeader
+{
+	border-bottom-color: #d5d5d5;
+}
+
+.RadComboBoxDropDown_Telerik .rcbFooter
+{
+	border-top-color: #d5d5d5;
+}
+
+.RadComboBoxDropDown_Telerik .rcbItem em
+{
+	background: #e5e5e5;
+}
+
+.RadComboBoxDropDown_Telerik .rcbHovered
+{
+	background: #39f;
+	color: #fff;
+}
+
+.RadComboBoxDropDown_Telerik .rcbSeparator
+{
+    color: #666;
+    background: #D3ECF9;
+}
+
+.RadComboBox_Telerik .rcbDisabled .rcbInputCell .rcbInput,
+.RadComboBoxDropDown_Telerik .rcbDisabled
+{
+	color: #999;
+}
+
+.RadComboBox_Telerik .rcbDisabled td.rcbInputCellLeft { background-position: 0 -66px; }
+.RadComboBox_Telerik .rcbDisabled td.rcbInputCellRight { background-position: 100% -66px; }
+.RadComboBox_Telerik .rcbDisabled td.rcbArrowCellLeft { background-position: -126px -88px; }
+.RadComboBox_Telerik .rcbDisabled td.rcbArrowCellRight { background-position: -108px -88px; }
+.RadComboBox_Telerik .rcbDisabled .rcbReadOnly td.rcbArrowCellRight { background-position: -110px -88px; }
+.RadComboBox_Telerik table.rcbDisabled td.rcbArrowCellHidden,
+.RadComboBox_Telerik .rcbDisabled .rcbReadOnly td.rcbArrowCellHidden { background-position: -123px -88px; }
+
+.RadComboBoxDropDown_Telerik .rcbLoading
+{
+	background: #f0f0f0;
+}
+
+.RadComboBoxDropDown_Telerik .rcbMoreResults
+{
+	border-top-color: #c6c7d2;
+	background: #fff;
+}
+
+.RadComboBoxDropDown_Telerik .rcbMoreResults a
+{
+	background-position: -157px -94px;
+}
+
+.RadComboBoxDropDown_Telerik .rcbMoreResults a:hover
+{
+	background-position: -188px -94px;
+}
+
+
+
+ div.RadComboBox_Telerik .rcbInput {
+
+	color: rgb(53, 29, 120);
+
+}
+
+ div.RadComboBox_Telerik .rcbHovered .rcbInput {
+
+	font-weight: bold;
+
+	color: rgb(66, 91, 14);
+
+}
+
+ div.RadComboBox_Telerik .rcbFocused .rcbInput {
+
+	color: rgb(29, 10, 83);
+
+	font-weight: bold;
+
+}
+
+ div.RadComboBox_Telerik .rcbDisabled .rcbInput {
+
+	color: rgb(121, 121, 121);
+
+}
+
+ div.RadComboBoxDropDown_Telerik {
+
+	background-color: rgb(228, 219, 252);
+
+}
+
+ div.RadComboBoxDropDown_Telerik .rcbHeader {
+
+	background-image: none;
+
+	background-repeat: repeat;
+
+	background-color: rgb(103, 74, 184);
+
+	color: rgb(255, 255, 255);
+
+}
+
+ div.RadComboBoxDropDown_Telerik .rcbHovered {
+
+	background-color: rgb(154, 96, 212);
+
+	font-weight: bold;
+
+}
+

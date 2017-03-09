@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerGoalProfiling\obj\Debug\DaoCustomerGoalProfiling.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerGoalProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerGoalProfiling.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerGoalProfiling\obj\Debug\DaoCustomerGoalProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerGoalProfiling\obj\Debug\DaoCustomerGoalProfiling.pdb

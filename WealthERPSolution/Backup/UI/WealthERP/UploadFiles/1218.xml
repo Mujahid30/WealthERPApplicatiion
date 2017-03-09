@@ -1,0 +1,2739 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="AMC_CODE" type="xs:string" minOccurs="0" />
+                <xs:element name="FOLIO_NO" type="xs:string" minOccurs="0" />
+                <xs:element name="PRODCODE" type="xs:string" minOccurs="0" />
+                <xs:element name="SCHEME" type="xs:string" minOccurs="0" />
+                <xs:element name="INVNAME" type="xs:string" minOccurs="0" />
+                <xs:element name="TRXNTYPE" type="xs:string" minOccurs="0" />
+                <xs:element name="TRXNNO" type="xs:string" minOccurs="0" />
+                <xs:element name="TRXNMODE" type="xs:string" minOccurs="0" />
+                <xs:element name="TRXNSTATUS" type="xs:string" minOccurs="0" />
+                <xs:element name="USERCODE" type="xs:string" minOccurs="0" />
+                <xs:element name="USERTRXNNO" type="xs:string" minOccurs="0" />
+                <xs:element name="VALUE_DATE" type="xs:string" minOccurs="0" />
+                <xs:element name="POST_DATE" type="xs:string" minOccurs="0" />
+                <xs:element name="PRICE" type="xs:string" minOccurs="0" />
+                <xs:element name="UNITS" type="xs:string" minOccurs="0" />
+                <xs:element name="AMOUNT" type="xs:string" minOccurs="0" />
+                <xs:element name="BROKCODE" type="xs:string" minOccurs="0" />
+                <xs:element name="SUBBROKCOD" type="xs:string" minOccurs="0" />
+                <xs:element name="BROK_PERC" type="xs:string" minOccurs="0" />
+                <xs:element name="BROK_COMM" type="xs:string" minOccurs="0" />
+                <xs:element name="DUMMY1" type="xs:string" minOccurs="0" />
+                <xs:element name="REP_DATE" type="xs:string" minOccurs="0" />
+                <xs:element name="DUMMY2" type="xs:string" minOccurs="0" />
+                <xs:element name="DUMMY3" type="xs:string" minOccurs="0" />
+                <xs:element name="APPL_NO" type="xs:string" minOccurs="0" />
+                <xs:element name="TRXN_NATUR" type="xs:string" minOccurs="0" />
+                <xs:element name="TAX_STATUS" type="xs:string" minOccurs="0" />
+                <xs:element name="ALT_BROKER" type="xs:string" minOccurs="0" />
+                <xs:element name="ALT_FOLIO" type="xs:string" minOccurs="0" />
+                <xs:element name="REINVEST_F" type="xs:string" minOccurs="0" />
+                <xs:element name="OLD_FOLIO" type="xs:string" minOccurs="0" />
+                <xs:element name="SEQ_NO" type="xs:string" minOccurs="0" />
+                <xs:element name="MULT_BROK" type="xs:string" minOccurs="0" />
+                <xs:element name="TAX" type="xs:string" minOccurs="0" />
+                <xs:element name="STT" type="xs:string" minOccurs="0" />
+                <xs:element name="SCHEME_TYP" type="xs:string" minOccurs="0" />
+                <xs:element name="TAX_STATUS1" type="xs:string" minOccurs="0" />
+                <xs:element name="ENTRY_LOAD" type="xs:string" minOccurs="0" />
+                <xs:element name="SCANREFNO" type="xs:string" minOccurs="0" />
+                <xs:element name="INV_IIN" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <AMC_CODE>L</AMC_CODE>
+    <FOLIO_NO>4019455</FOLIO_NO>
+    <PRODCODE>L41</PRODCODE>
+    <SCHEME>SBI - Magnum Monthly Income Plan - Monthly Dividend</SCHEME>
+    <INVNAME>B P ROOPA</INVNAME>
+    <TRXNTYPE>P2MML</TRXNTYPE>
+    <TRXNNO>530</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>B2</USERCODE>
+    <USERTRXNNO>69501</USERTRXNNO>
+    <VALUE_DATE>06-APR-2004</VALUE_DATE>
+    <POST_DATE>06-APR-2004</POST_DATE>
+    <PRICE>10.6063</PRICE>
+    <UNITS>56570.152</UNITS>
+    <AMOUNT>600000</AMOUNT>
+    <BROKCODE>ARN27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>3000</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>130968</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>2349377</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-3000</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>L</AMC_CODE>
+    <FOLIO_NO>70177259</FOLIO_NO>
+    <PRODCODE>L007</PRODCODE>
+    <SCHEME>SBI - Magnum Equity Fund-Dividend</SCHEME>
+    <INVNAME>Ashar Khatau Kalyanji</INVNAME>
+    <TRXNTYPE>PI</TRXNTYPE>
+    <TRXNNO>312926</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>MIG</USERCODE>
+    <USERTRXNNO>928730</USERTRXNNO>
+    <VALUE_DATE>23-FEB-2004</VALUE_DATE>
+    <POST_DATE>23-FEB-2004</POST_DATE>
+    <PRICE>12.9</PRICE>
+    <UNITS>77.519</UNITS>
+    <AMOUNT>1000</AMOUNT>
+    <BROKCODE>ARN27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>177259</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_BROKER>0177259</ALT_BROKER>
+    <ALT_FOLIO>177259</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <OLD_FOLIO>0177259</OLD_FOLIO>
+    <SEQ_NO>17115674</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>L</AMC_CODE>
+    <FOLIO_NO>4023348</FOLIO_NO>
+    <PRODCODE>L42</PRODCODE>
+    <SCHEME>SBI - Magnum Monthly Income Plan Quarterly Dividend</SCHEME>
+    <INVNAME>P S N SETTY</INVNAME>
+    <TRXNTYPE>PSMQL</TRXNTYPE>
+    <TRXNNO>239</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>B2</USERCODE>
+    <USERTRXNNO>26984</USERTRXNNO>
+    <VALUE_DATE>06-MAY-2004</VALUE_DATE>
+    <POST_DATE>06-MAY-2004</POST_DATE>
+    <PRICE>10.3054</PRICE>
+    <UNITS>96066.14</UNITS>
+    <AMOUNT>990000</AMOUNT>
+    <BROKCODE>ARN27305</BROKCODE>
+    <SUBBROKCOD>0</SUBBROKCOD>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>4950</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>D277641</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>155629</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-4950</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>L</AMC_CODE>
+    <FOLIO_NO>70105296</FOLIO_NO>
+    <PRODCODE>L007</PRODCODE>
+    <SCHEME>SBI - Magnum Equity Fund-Dividend</SCHEME>
+    <INVNAME>RAJAT KUMAR DAS</INVNAME>
+    <TRXNTYPE>PI</TRXNTYPE>
+    <TRXNNO>311247</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>MIG</USERCODE>
+    <USERTRXNNO>893736</USERTRXNNO>
+    <VALUE_DATE>17-FEB-2004</VALUE_DATE>
+    <POST_DATE>17-FEB-2004</POST_DATE>
+    <PRICE>13.73</PRICE>
+    <UNITS>728.332</UNITS>
+    <AMOUNT>10000</AMOUNT>
+    <BROKCODE>ARN27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>105296</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_BROKER>0105296</ALT_BROKER>
+    <ALT_FOLIO>105296</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <OLD_FOLIO>0105296</OLD_FOLIO>
+    <SEQ_NO>17115659</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>T</AMC_CODE>
+    <FOLIO_NO>280052/00</FOLIO_NO>
+    <PRODCODE>TEOD</PRODCODE>
+    <SCHEME>TATA Equity Opportunities Fund - Plan A (Dividend)</SCHEME>
+    <INVNAME>Gagan Vasant Patil</INVNAME>
+    <TRXNTYPE>P1EO</TRXNTYPE>
+    <TRXNNO>26156</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI34</USERCODE>
+    <USERTRXNNO>1798</USERTRXNNO>
+    <VALUE_DATE>17-MAR-2004</VALUE_DATE>
+    <POST_DATE>17-MAR-2004</POST_DATE>
+    <PRICE>12.7787</PRICE>
+    <UNITS>234.766</UNITS>
+    <AMOUNT>3000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.75</BROK_PERC>
+    <BROK_COMM>52.5</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>02</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>3341453</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>02</TAX_STATUS1>
+    <ENTRY_LOAD>13.51</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>T</AMC_CODE>
+    <FOLIO_NO>280052/00</FOLIO_NO>
+    <PRODCODE>TEOD</PRODCODE>
+    <SCHEME>TATA Equity Opportunities Fund - Plan A (Dividend)</SCHEME>
+    <INVNAME>Gagan Vasant Patil</INVNAME>
+    <TRXNTYPE>P1EO</TRXNTYPE>
+    <TRXNNO>32797</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SUBHADRA</USERCODE>
+    <USERTRXNNO>569</USERTRXNNO>
+    <VALUE_DATE>14-MAY-2004</VALUE_DATE>
+    <POST_DATE>14-MAY-2004</POST_DATE>
+    <PRICE>12.2339</PRICE>
+    <UNITS>245.22</UNITS>
+    <AMOUNT>3000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.75</BROK_PERC>
+    <BROK_COMM>52.5</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>02</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>3431537</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>02</TAX_STATUS1>
+    <ENTRY_LOAD>13.52</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>T</AMC_CODE>
+    <FOLIO_NO>109445/10</FOLIO_NO>
+    <PRODCODE>TYCF</PRODCODE>
+    <SCHEME>TATA Young Citizens  Fund</SCHEME>
+    <INVNAME>Gagan Vasant Patil</INVNAME>
+    <TRXNTYPE>P7Y</TRXNTYPE>
+    <TRXNNO>4532</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI34</USERCODE>
+    <USERTRXNNO>1792</USERTRXNNO>
+    <VALUE_DATE>17-MAR-2004</VALUE_DATE>
+    <POST_DATE>17-MAR-2004</POST_DATE>
+    <PRICE>12.9346</PRICE>
+    <UNITS>231.936</UNITS>
+    <AMOUNT>3000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.75</BROK_PERC>
+    <BROK_COMM>52.5</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_BROKER>YF165416</ALT_BROKER>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <OLD_FOLIO>YF165416</OLD_FOLIO>
+    <SEQ_NO>3341447</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Balanced</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-8.15</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>651404/47</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>Jayashri Bothireddy</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>9837</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS19</USERCODE>
+    <USERTRXNNO>15667</USERTRXNNO>
+    <VALUE_DATE>09-FEB-2004</VALUE_DATE>
+    <POST_DATE>09-FEB-2004</POST_DATE>
+    <PRICE>16.772</PRICE>
+    <UNITS>29811.591</UNITS>
+    <AMOUNT>500000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>7500</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3365221</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>3881010</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>2308.01</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6753</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KARTHIK</USERCODE>
+    <USERTRXNNO>1024455</USERTRXNNO>
+    <VALUE_DATE>22-FEB-2004</VALUE_DATE>
+    <POST_DATE>22-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>9.201</UNITS>
+    <AMOUNT>95.93</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4091190</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6778</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KRI</USERCODE>
+    <USERTRXNNO>118439</USERTRXNNO>
+    <VALUE_DATE>24-FEB-2004</VALUE_DATE>
+    <POST_DATE>24-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>4.141</UNITS>
+    <AMOUNT>43.18</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4105837</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>662857/26</FOLIO_NO>
+    <PRODCODE>HMISTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Growth</SCHEME>
+    <INVNAME>Gochar Commercials Pvt Ltd</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>3095</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS46</USERCODE>
+    <USERTRXNNO>4297</USERTRXNNO>
+    <VALUE_DATE>24-FEB-2004</VALUE_DATE>
+    <POST_DATE>24-FEB-2004</POST_DATE>
+    <PRICE>10.2287</PRICE>
+    <UNITS>73323.101</UNITS>
+    <AMOUNT>750000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>3750</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP536164</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>04</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4111198</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>04</TAX_STATUS1>
+    <ENTRY_LOAD>-3750</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>650552/81</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>B Sumithra Murthy</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>39664</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10054767</USERTRXNNO>
+    <VALUE_DATE>27-FEB-2004</VALUE_DATE>
+    <POST_DATE>27-FEB-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>9167.02</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>31820065</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>693255/12</FOLIO_NO>
+    <PRODCODE>HMISTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Growth</SCHEME>
+    <INVNAME>P N Sridhar</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>4627</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS53</USERCODE>
+    <USERTRXNNO>4325</USERTRXNNO>
+    <VALUE_DATE>13-APR-2004</VALUE_DATE>
+    <POST_DATE>13-APR-2004</POST_DATE>
+    <PRICE>10.4595</PRICE>
+    <UNITS>19121.373</UNITS>
+    <AMOUNT>200000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.6</BROK_PERC>
+    <BROK_COMM>1200</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP365736</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4449042</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-1200</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>696327/11</FOLIO_NO>
+    <PRODCODE>H21</PRODCODE>
+    <SCHEME>HDFC Prudence Fund - Dividend</SCHEME>
+    <INVNAME>M Swathi</INVNAME>
+    <TRXNTYPE>P2E</TRXNTYPE>
+    <TRXNNO>1290</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS19</USERCODE>
+    <USERTRXNNO>19408</USERTRXNNO>
+    <VALUE_DATE>19-APR-2004</VALUE_DATE>
+    <POST_DATE>19-APR-2004</POST_DATE>
+    <PRICE>20.365</PRICE>
+    <UNITS>1301.252</UNITS>
+    <AMOUNT>26500</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>397.5</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3559712</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>02</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4477245</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Balanced</SCHEME_TYP>
+    <TAX_STATUS1>02</TAX_STATUS1>
+    <ENTRY_LOAD>121.7</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>714771/66</FOLIO_NO>
+    <PRODCODE>H41</PRODCODE>
+    <SCHEME>HDFC Top 200 Fund - Dividend</SCHEME>
+    <INVNAME>Anil Kumar C H</INVNAME>
+    <TRXNTYPE>P1ES</TRXNTYPE>
+    <TRXNNO>5504</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>BALAK</USERCODE>
+    <USERTRXNNO>8056</USERTRXNNO>
+    <VALUE_DATE>01-JUN-2004</VALUE_DATE>
+    <POST_DATE>01-JUN-2004</POST_DATE>
+    <PRICE>17.377</PRICE>
+    <UNITS>34.528</UNITS>
+    <AMOUNT>600</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>9</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Systematic</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>11626565</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-9</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>650552/81</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>B Sumithra Murthy</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>9752</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS47</USERCODE>
+    <USERTRXNNO>2737</USERTRXNNO>
+    <VALUE_DATE>06-FEB-2004</VALUE_DATE>
+    <POST_DATE>06-FEB-2004</POST_DATE>
+    <PRICE>16.363</PRICE>
+    <UNITS>4583.512</UNITS>
+    <AMOUNT>75000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>1125</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE1885045</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>3870262</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>346.3</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6863</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KRI</USERCODE>
+    <USERTRXNNO>120030</USERTRXNNO>
+    <VALUE_DATE>29-FEB-2004</VALUE_DATE>
+    <POST_DATE>29-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>10.127</UNITS>
+    <AMOUNT>105.59</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4146133</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>R1</TRXNTYPE>
+    <TRXNNO>554</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS27</USERCODE>
+    <USERTRXNNO>21933</USERTRXNNO>
+    <VALUE_DATE>03-MAR-2004</VALUE_DATE>
+    <POST_DATE>03-MAR-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>48019.624</UNITS>
+    <AMOUNT>500681.4</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Redemption</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4172327</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>234689/56</FOLIO_NO>
+    <PRODCODE>HIFG</PRODCODE>
+    <SCHEME>HDFC Income Fund - Growth</SCHEME>
+    <INVNAME>Nagarathnamma</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>9182</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS05</USERCODE>
+    <USERTRXNNO>21632</USERTRXNNO>
+    <VALUE_DATE>06-MAY-2004</VALUE_DATE>
+    <POST_DATE>06-MAY-2004</POST_DATE>
+    <PRICE>15.8604</PRICE>
+    <UNITS>63.05</UNITS>
+    <AMOUNT>1000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.6</BROK_PERC>
+    <BROK_COMM>6</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4580559</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Bond</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-6</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>714771/66</FOLIO_NO>
+    <PRODCODE>H41</PRODCODE>
+    <SCHEME>HDFC Top 200 Fund - Dividend</SCHEME>
+    <INVNAME>Anil Kumar C H</INVNAME>
+    <TRXNTYPE>P2E</TRXNTYPE>
+    <TRXNNO>4061</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS05</USERCODE>
+    <USERTRXNNO>21759</USERTRXNNO>
+    <VALUE_DATE>14-MAY-2004</VALUE_DATE>
+    <POST_DATE>14-MAY-2004</POST_DATE>
+    <PRICE>18.457</PRICE>
+    <UNITS>352.17</UNITS>
+    <AMOUNT>6500</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>97.5</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3365220</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4636768</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>45.48</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>662857/26</FOLIO_NO>
+    <PRODCODE>HMISTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Growth</SCHEME>
+    <INVNAME>Gochar Commercials Pvt Ltd</INVNAME>
+    <TRXNTYPE>SO1</TRXNTYPE>
+    <TRXNNO>481</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI07</USERCODE>
+    <USERTRXNNO>20301</USERTRXNNO>
+    <VALUE_DATE>21-MAY-2004</VALUE_DATE>
+    <POST_DATE>21-MAY-2004</POST_DATE>
+    <PRICE>10.2511</PRICE>
+    <UNITS>73323.101</UNITS>
+    <AMOUNT>751642.44</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switchout</TRXN_NATUR>
+    <TAX_STATUS>04</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4674550</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>04</TAX_STATUS1>
+    <ENTRY_LOAD>3776.14</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>657834/60</FOLIO_NO>
+    <PRODCODE>H21</PRODCODE>
+    <SCHEME>HDFC Prudence Fund - Dividend</SCHEME>
+    <INVNAME>Bharathi</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>19291</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS35</USERCODE>
+    <USERTRXNNO>4439</USERTRXNNO>
+    <VALUE_DATE>17-FEB-2004</VALUE_DATE>
+    <POST_DATE>17-FEB-2004</POST_DATE>
+    <PRICE>21.921</PRICE>
+    <UNITS>13685.507</UNITS>
+    <AMOUNT>300000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>4500</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3398395</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4068227</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Balanced</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>1384.77</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>657621/20</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>Lalchand HUF</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>17317</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10055329</USERTRXNNO>
+    <VALUE_DATE>28-FEB-2004</VALUE_DATE>
+    <POST_DATE>28-FEB-2004</POST_DATE>
+    <PRICE>14.122</PRICE>
+    <UNITS>4060.758</UNITS>
+    <AMOUNT>57346.03</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>03</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4140500</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>03</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6884</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>TEK</USERCODE>
+    <USERTRXNNO>1000912</USERTRXNNO>
+    <VALUE_DATE>02-MAR-2004</VALUE_DATE>
+    <POST_DATE>02-MAR-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>5.065</UNITS>
+    <AMOUNT>52.81</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4160948</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>672967/57</FOLIO_NO>
+    <PRODCODE>HMISTM</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Monthly Dividend</SCHEME>
+    <INVNAME>Daswaney Hari H</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>12117</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10234974</USERTRXNNO>
+    <VALUE_DATE>30-APR-2004</VALUE_DATE>
+    <POST_DATE>30-APR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>289.57</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>32286851</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>662857/26</FOLIO_NO>
+    <PRODCODE>HLFG</PRODCODE>
+    <SCHEME>HDFC Liquid Fund - Growth</SCHEME>
+    <INVNAME>Gochar Commercials Pvt Ltd</INVNAME>
+    <TRXNTYPE>SI1</TRXNTYPE>
+    <TRXNNO>14261</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI07</USERCODE>
+    <USERTRXNNO>20301</USERTRXNNO>
+    <VALUE_DATE>21-MAY-2004</VALUE_DATE>
+    <POST_DATE>21-MAY-2004</POST_DATE>
+    <PRICE>12.6589</PRICE>
+    <UNITS>59376.6</UNITS>
+    <AMOUNT>751642.44</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switch-In</TRXN_NATUR>
+    <TAX_STATUS>04</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4674551</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>04</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>417445/32</FOLIO_NO>
+    <PRODCODE>HMISTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Growth</SCHEME>
+    <INVNAME>Gochar Commercials Pvt Ltd</INVNAME>
+    <TRXNTYPE>SO1</TRXNTYPE>
+    <TRXNNO>480</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI07</USERCODE>
+    <USERTRXNNO>20283</USERTRXNNO>
+    <VALUE_DATE>21-MAY-2004</VALUE_DATE>
+    <POST_DATE>21-MAY-2004</POST_DATE>
+    <PRICE>10.2511</PRICE>
+    <UNITS>66847.516</UNITS>
+    <AMOUNT>685260.57</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switchout</TRXN_NATUR>
+    <TAX_STATUS>04</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4674525</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>04</TAX_STATUS1>
+    <ENTRY_LOAD>3442.65</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>P23</TRXNTYPE>
+    <TRXNNO>73</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>HDFCASHWIN</USERCODE>
+    <USERTRXNNO>382</USERTRXNNO>
+    <VALUE_DATE>18-FEB-2004</VALUE_DATE>
+    <POST_DATE>18-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>47954.271</UNITS>
+    <AMOUNT>500000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CD3373458</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4073408</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>417445/32</FOLIO_NO>
+    <PRODCODE>HMISTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Growth</SCHEME>
+    <INVNAME>Gochar Commercials Pvt Ltd</INVNAME>
+    <TRXNTYPE>SI8L</TRXNTYPE>
+    <TRXNNO>2157</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS12</USERCODE>
+    <USERTRXNNO>21735</USERTRXNNO>
+    <VALUE_DATE>19-FEB-2004</VALUE_DATE>
+    <POST_DATE>19-FEB-2004</POST_DATE>
+    <PRICE>10.2566</PRICE>
+    <UNITS>66847.516</UNITS>
+    <AMOUNT>685628.23</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>3428.14</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switch-In</TRXN_NATUR>
+    <TAX_STATUS>04</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4077207</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>04</TAX_STATUS1>
+    <ENTRY_LOAD>-3428.14</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>698270/02</FOLIO_NO>
+    <PRODCODE>HMISTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Growth</SCHEME>
+    <INVNAME>Nataraja Krishnappa</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>4934</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS03</USERCODE>
+    <USERTRXNNO>19021</USERTRXNNO>
+    <VALUE_DATE>21-APR-2004</VALUE_DATE>
+    <POST_DATE>21-APR-2004</POST_DATE>
+    <PRICE>10.4784</PRICE>
+    <UNITS>14315.163</UNITS>
+    <AMOUNT>150000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.6</BROK_PERC>
+    <BROK_COMM>900</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP241900</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4491940</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-900</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>672965/63</FOLIO_NO>
+    <PRODCODE>HMISTM</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Monthly Dividend</SCHEME>
+    <INVNAME>Daswaney Renu Hari</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>12115</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10234973</USERTRXNNO>
+    <VALUE_DATE>30-APR-2004</VALUE_DATE>
+    <POST_DATE>30-APR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>289.57</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>32286849</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>109130/82</FOLIO_NO>
+    <PRODCODE>HMILTQ</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Quarterly Dividend</SCHEME>
+    <INVNAME>P S N Setty</INVNAME>
+    <TRXNTYPE>SI8L</TRXNTYPE>
+    <TRXNNO>9611</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI07</USERCODE>
+    <USERTRXNNO>15313</USERTRXNNO>
+    <VALUE_DATE>06-MAY-2004</VALUE_DATE>
+    <POST_DATE>06-MAY-2004</POST_DATE>
+    <PRICE>10.366</PRICE>
+    <UNITS>15496.81</UNITS>
+    <AMOUNT>160639.93</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.6</BROK_PERC>
+    <BROK_COMM>963.85</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switch-In</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>4577875</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-963.85</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>650389/85</FOLIO_NO>
+    <PRODCODE>H41</PRODCODE>
+    <SCHEME>HDFC Top 200 Fund - Dividend</SCHEME>
+    <INVNAME>B Sumithra Murthy</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>22972</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS42</USERCODE>
+    <USERTRXNNO>2167</USERTRXNNO>
+    <VALUE_DATE>06-FEB-2004</VALUE_DATE>
+    <POST_DATE>06-FEB-2004</POST_DATE>
+    <PRICE>21.607</PRICE>
+    <UNITS>3471.097</UNITS>
+    <AMOUNT>75000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>1125</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE1825198</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>3870030</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>346.75</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>654602/56</FOLIO_NO>
+    <PRODCODE>HMILTQ</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Quarterly Dividend</SCHEME>
+    <INVNAME>Lalchand (HUF)</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>7306</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS19</USERCODE>
+    <USERTRXNNO>16170</USERTRXNNO>
+    <VALUE_DATE>12-FEB-2004</VALUE_DATE>
+    <POST_DATE>12-FEB-2004</POST_DATE>
+    <PRICE>10.345</PRICE>
+    <UNITS>9666.506</UNITS>
+    <AMOUNT>100000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>500</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP528113</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>03</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>4039566</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>03</TAX_STATUS1>
+    <ENTRY_LOAD>-500</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6830</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>RAMAN</USERCODE>
+    <USERTRXNNO>74262</USERTRXNNO>
+    <VALUE_DATE>25-FEB-2004</VALUE_DATE>
+    <POST_DATE>25-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>4.602</UNITS>
+    <AMOUNT>47.98</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4112880</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6841</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KRI</USERCODE>
+    <USERTRXNNO>118791</USERTRXNNO>
+    <VALUE_DATE>26-FEB-2004</VALUE_DATE>
+    <POST_DATE>26-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>4.603</UNITS>
+    <AMOUNT>47.99</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4119636</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>654602/56</FOLIO_NO>
+    <PRODCODE>HMILTQ</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Quarterly Dividend</SCHEME>
+    <INVNAME>Lalchand (HUF)</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>30466</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>MANI</USERCODE>
+    <USERTRXNNO>1513538</USERTRXNNO>
+    <VALUE_DATE>31-MAR-2004</VALUE_DATE>
+    <POST_DATE>31-MAR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>2126.63</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>03</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>32240317</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>03</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>672967/57</FOLIO_NO>
+    <PRODCODE>HMISTM</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Monthly Dividend</SCHEME>
+    <INVNAME>Daswaney Hari H</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>8852</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10219856</USERTRXNNO>
+    <VALUE_DATE>31-MAR-2004</VALUE_DATE>
+    <POST_DATE>31-MAR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>289.57</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>32283681</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>417445/32</FOLIO_NO>
+    <PRODCODE>HLFG</PRODCODE>
+    <SCHEME>HDFC Liquid Fund - Growth</SCHEME>
+    <INVNAME>Gochar Commercials Pvt Ltd</INVNAME>
+    <TRXNTYPE>SI1</TRXNTYPE>
+    <TRXNNO>14260</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI07</USERCODE>
+    <USERTRXNNO>20283</USERTRXNNO>
+    <VALUE_DATE>21-MAY-2004</VALUE_DATE>
+    <POST_DATE>21-MAY-2004</POST_DATE>
+    <PRICE>12.6589</PRICE>
+    <UNITS>54132.711</UNITS>
+    <AMOUNT>685260.57</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switch-In</TRXN_NATUR>
+    <TAX_STATUS>04</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4674526</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>04</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>654714/11</FOLIO_NO>
+    <PRODCODE>HMILTQ</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Quarterly Dividend</SCHEME>
+    <INVNAME>Bharathi</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>7323</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS38</USERCODE>
+    <USERTRXNNO>4019</USERTRXNNO>
+    <VALUE_DATE>12-FEB-2004</VALUE_DATE>
+    <POST_DATE>12-FEB-2004</POST_DATE>
+    <PRICE>10.345</PRICE>
+    <UNITS>9666.506</UNITS>
+    <AMOUNT>100000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>500</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP475388</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>4039692</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-500</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6740</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KARTHIK</USERCODE>
+    <USERTRXNNO>1023662</USERTRXNNO>
+    <VALUE_DATE>20-FEB-2004</VALUE_DATE>
+    <POST_DATE>20-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>4.6</UNITS>
+    <AMOUNT>47.96</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4085130</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>660435/17</FOLIO_NO>
+    <PRODCODE>HMILTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Growth</SCHEME>
+    <INVNAME>Sumithra Devi</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>9008</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS50</USERCODE>
+    <USERTRXNNO>2761</USERTRXNNO>
+    <VALUE_DATE>20-FEB-2004</VALUE_DATE>
+    <POST_DATE>20-FEB-2004</POST_DATE>
+    <PRICE>10.3187</PRICE>
+    <UNITS>29073.43</UNITS>
+    <AMOUNT>300000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>1500</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP582304</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4089677</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-1500</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6895</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>RAJA</USERCODE>
+    <USERTRXNNO>1003365</USERTRXNNO>
+    <VALUE_DATE>03-MAR-2004</VALUE_DATE>
+    <POST_DATE>03-MAR-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>4.606</UNITS>
+    <AMOUNT>48.02</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4164816</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>669798/58</FOLIO_NO>
+    <PRODCODE>HBFG</PRODCODE>
+    <SCHEME>HDFC Balanced Fund - Growth</SCHEME>
+    <INVNAME>Vijay Balasubramaniam</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>1820</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS42</USERCODE>
+    <USERTRXNNO>3255</USERTRXNNO>
+    <VALUE_DATE>05-MAR-2004</VALUE_DATE>
+    <POST_DATE>05-MAR-2004</POST_DATE>
+    <PRICE>17.452</PRICE>
+    <UNITS>573</UNITS>
+    <AMOUNT>10000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>150</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3350389</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4185116</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Balanced</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>45.97</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>650389/85</FOLIO_NO>
+    <PRODCODE>H41</PRODCODE>
+    <SCHEME>HDFC Top 200 Fund - Dividend</SCHEME>
+    <INVNAME>B Sumithra Murthy</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>93956</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KANDAN</USERCODE>
+    <USERTRXNNO>329099</USERTRXNNO>
+    <VALUE_DATE>08-MAR-2004</VALUE_DATE>
+    <POST_DATE>08-MAR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>5206.65</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>31880701</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>672965/63</FOLIO_NO>
+    <PRODCODE>HMISTM</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Monthly Dividend</SCHEME>
+    <INVNAME>Daswaney Renu Hari</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>1359</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS44</USERCODE>
+    <USERTRXNNO>4727</USERTRXNNO>
+    <VALUE_DATE>10-MAR-2004</VALUE_DATE>
+    <POST_DATE>10-MAR-2004</POST_DATE>
+    <PRICE>10.1531</PRICE>
+    <UNITS>4826.112</UNITS>
+    <AMOUNT>49000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>245</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP425485</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>4224875</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-245</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>657834/60</FOLIO_NO>
+    <PRODCODE>H21</PRODCODE>
+    <SCHEME>HDFC Prudence Fund - Dividend</SCHEME>
+    <INVNAME>Bharathi</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>14891</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>MANI</USERCODE>
+    <USERTRXNNO>1445851</USERTRXNNO>
+    <VALUE_DATE>16-MAR-2004</VALUE_DATE>
+    <POST_DATE>16-MAR-2004</POST_DATE>
+    <PRICE>18.747</PRICE>
+    <UNITS>1095.016</UNITS>
+    <AMOUNT>20528.26</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4258773</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Balanced</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>684303/96</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>Prakash Bajaj</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>13282</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS47</USERCODE>
+    <USERTRXNNO>4046</USERTRXNNO>
+    <VALUE_DATE>29-MAR-2004</VALUE_DATE>
+    <POST_DATE>29-MAR-2004</POST_DATE>
+    <PRICE>14.237</PRICE>
+    <UNITS>3371.497</UNITS>
+    <AMOUNT>48000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>720</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3353022</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4350352</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>220.64</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>109130/82</FOLIO_NO>
+    <PRODCODE>HMILTQ</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Quarterly Dividend</SCHEME>
+    <INVNAME>P S N Setty</INVNAME>
+    <TRXNTYPE>SI8L</TRXNTYPE>
+    <TRXNNO>9610</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>SSI07</USERCODE>
+    <USERTRXNNO>15311</USERTRXNNO>
+    <VALUE_DATE>06-MAY-2004</VALUE_DATE>
+    <POST_DATE>06-MAY-2004</POST_DATE>
+    <PRICE>10.366</PRICE>
+    <UNITS>16963.687</UNITS>
+    <AMOUNT>175845.58</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.6</BROK_PERC>
+    <BROK_COMM>1055.08</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Switch-In</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>4577867</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-1055.08</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>691484/87</FOLIO_NO>
+    <PRODCODE>H01</PRODCODE>
+    <SCHEME>HDFC Equity Fund - Dividend</SCHEME>
+    <INVNAME>Vijay R Balasubramanian</INVNAME>
+    <TRXNTYPE>P1ES</TRXNTYPE>
+    <TRXNNO>8530</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>BALAK</USERCODE>
+    <USERTRXNNO>4446</USERTRXNNO>
+    <VALUE_DATE>10-MAY-2004</VALUE_DATE>
+    <POST_DATE>10-MAY-2004</POST_DATE>
+    <PRICE>21.047</PRICE>
+    <UNITS>475.127</UNITS>
+    <AMOUNT>10000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>150</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Systematic</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4600804</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-150</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>234689/56</FOLIO_NO>
+    <PRODCODE>HIFG</PRODCODE>
+    <SCHEME>HDFC Income Fund - Growth</SCHEME>
+    <INVNAME>Nagarathnamma</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>10343</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS12</USERCODE>
+    <USERTRXNNO>23602</USERTRXNNO>
+    <VALUE_DATE>20-MAY-2004</VALUE_DATE>
+    <POST_DATE>20-MAY-2004</POST_DATE>
+    <PRICE>15.8104</PRICE>
+    <UNITS>126.499</UNITS>
+    <AMOUNT>2000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.6</BROK_PERC>
+    <BROK_COMM>12</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Additional Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4671753</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Bond</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-12</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>653035/04</FOLIO_NO>
+    <PRODCODE>HMILTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Growth</SCHEME>
+    <INVNAME>Prakash Bajaj</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>7832</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS53</USERCODE>
+    <USERTRXNNO>2775</USERTRXNNO>
+    <VALUE_DATE>10-FEB-2004</VALUE_DATE>
+    <POST_DATE>10-FEB-2004</POST_DATE>
+    <PRICE>10.3278</PRICE>
+    <UNITS>4647.65</UNITS>
+    <AMOUNT>48000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>240</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP355307</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>3951261</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-240</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6728</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>RAJA</USERCODE>
+    <USERTRXNNO>1002588</USERTRXNNO>
+    <VALUE_DATE>19-FEB-2004</VALUE_DATE>
+    <POST_DATE>19-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>4.599</UNITS>
+    <AMOUNT>47.95</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4074536</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6766</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KRI</USERCODE>
+    <USERTRXNNO>118088</USERTRXNNO>
+    <VALUE_DATE>23-FEB-2004</VALUE_DATE>
+    <POST_DATE>23-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>3.681</UNITS>
+    <AMOUNT>38.38</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4093827</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6852</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>KRI</USERCODE>
+    <USERTRXNNO>119147</USERTRXNNO>
+    <VALUE_DATE>27-FEB-2004</VALUE_DATE>
+    <POST_DATE>27-FEB-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>5.063</UNITS>
+    <AMOUNT>52.79</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4126552</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>651404/47</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>Jayashri Bothireddy</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>39819</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10054824</USERTRXNNO>
+    <VALUE_DATE>27-FEB-2004</VALUE_DATE>
+    <POST_DATE>27-FEB-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>59623.18</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>31790544</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>658649/40</FOLIO_NO>
+    <PRODCODE>H56</PRODCODE>
+    <SCHEME>HDFC Cash Management Fund - Call Plan - Daily Dividend Reinvestment</SCHEME>
+    <INVNAME>Panchdhatu Associates</INVNAME>
+    <TRXNTYPE>DR1</TRXNTYPE>
+    <TRXNNO>6874</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>RAJA</USERCODE>
+    <USERTRXNNO>1002998</USERTRXNNO>
+    <VALUE_DATE>01-MAR-2004</VALUE_DATE>
+    <POST_DATE>01-MAR-2004</POST_DATE>
+    <PRICE>10.4266</PRICE>
+    <UNITS>5.065</UNITS>
+    <AMOUNT>52.81</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Reinvest</TRXN_NATUR>
+    <TAX_STATUS>13</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4148757</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Cash</SCHEME_TYP>
+    <TAX_STATUS1>13</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>691484/87</FOLIO_NO>
+    <PRODCODE>H01</PRODCODE>
+    <SCHEME>HDFC Equity Fund - Dividend</SCHEME>
+    <INVNAME>Vijay R Balasubramanian</INVNAME>
+    <TRXNTYPE>P2E</TRXNTYPE>
+    <TRXNNO>880</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS03</USERCODE>
+    <USERTRXNNO>18880</USERTRXNNO>
+    <VALUE_DATE>12-APR-2004</VALUE_DATE>
+    <POST_DATE>12-APR-2004</POST_DATE>
+    <PRICE>21.516</PRICE>
+    <UNITS>464.77</UNITS>
+    <AMOUNT>10000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>150</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE3384479</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4440162</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>46.14</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>657621/20</FOLIO_NO>
+    <PRODCODE>HGFD</PRODCODE>
+    <SCHEME>HDFC Growth Fund - Dividend</SCHEME>
+    <INVNAME>Lalchand HUF</INVNAME>
+    <TRXNTYPE>P1E</TRXNTYPE>
+    <TRXNNO>10678</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS10</USERCODE>
+    <USERTRXNNO>18323</USERTRXNNO>
+    <VALUE_DATE>17-FEB-2004</VALUE_DATE>
+    <POST_DATE>17-FEB-2004</POST_DATE>
+    <PRICE>17.438</PRICE>
+    <UNITS>28673.013</UNITS>
+    <AMOUNT>500000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>1.5</BROK_PERC>
+    <BROK_COMM>7500</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>CE1895803</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>03</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Y</REINVEST_F>
+    <SEQ_NO>4067913</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>Equity(G)</SCHEME_TYP>
+    <TAX_STATUS1>03</TAX_STATUS1>
+    <ENTRY_LOAD>2306.17</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>660434/20</FOLIO_NO>
+    <PRODCODE>HMILTG</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Growth</SCHEME>
+    <INVNAME>Ramesh Kumar HUF</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>9007</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS50</USERCODE>
+    <USERTRXNNO>2760</USERTRXNNO>
+    <VALUE_DATE>20-FEB-2004</VALUE_DATE>
+    <POST_DATE>20-FEB-2004</POST_DATE>
+    <PRICE>10.3187</PRICE>
+    <UNITS>38764.573</UNITS>
+    <AMOUNT>400000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>2000</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP637197</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>03</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>Z</REINVEST_F>
+    <SEQ_NO>4089676</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>03</TAX_STATUS1>
+    <ENTRY_LOAD>-2000</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>672967/57</FOLIO_NO>
+    <PRODCODE>HMISTM</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Monthly Dividend</SCHEME>
+    <INVNAME>Daswaney Hari H</INVNAME>
+    <TRXNTYPE>P8L</TRXNTYPE>
+    <TRXNNO>1360</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>DSS44</USERCODE>
+    <USERTRXNNO>4729</USERTRXNNO>
+    <VALUE_DATE>10-MAR-2004</VALUE_DATE>
+    <POST_DATE>10-MAR-2004</POST_DATE>
+    <PRICE>10.1531</PRICE>
+    <UNITS>4826.112</UNITS>
+    <AMOUNT>49000</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0.5</BROK_PERC>
+    <BROK_COMM>245</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <APPL_NO>MIP366803</APPL_NO>
+    <TRXN_NATUR>Fresh Purchase</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>4224877</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>-245</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>654714/11</FOLIO_NO>
+    <PRODCODE>HMILTQ</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Long Term - Quarterly Dividend</SCHEME>
+    <INVNAME>Bharathi</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>30476</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>MANI</USERCODE>
+    <USERTRXNNO>1513554</USERTRXNNO>
+    <VALUE_DATE>31-MAR-2004</VALUE_DATE>
+    <POST_DATE>31-MAR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>2126.63</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>32240327</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <AMC_CODE>H</AMC_CODE>
+    <FOLIO_NO>672965/63</FOLIO_NO>
+    <PRODCODE>HMISTM</PRODCODE>
+    <SCHEME>HDFC MF Monthly Income Plan - Short Term - Monthly Dividend</SCHEME>
+    <INVNAME>Daswaney Renu Hari</INVNAME>
+    <TRXNTYPE>DP1</TRXNTYPE>
+    <TRXNNO>8851</TRXNNO>
+    <TRXNMODE>N</TRXNMODE>
+    <TRXNSTATUS>Y</TRXNSTATUS>
+    <USERCODE>LAKNA</USERCODE>
+    <USERTRXNNO>10219855</USERTRXNNO>
+    <VALUE_DATE>31-MAR-2004</VALUE_DATE>
+    <POST_DATE>31-MAR-2004</POST_DATE>
+    <PRICE>0</PRICE>
+    <UNITS>0</UNITS>
+    <AMOUNT>289.57</AMOUNT>
+    <BROKCODE>ARN-27305</BROKCODE>
+    <BROK_PERC>0</BROK_PERC>
+    <BROK_COMM>0</BROK_COMM>
+    <DUMMY1>0</DUMMY1>
+    <REP_DATE>17-FEB-2009</REP_DATE>
+    <DUMMY2>0</DUMMY2>
+    <DUMMY3>N</DUMMY3>
+    <TRXN_NATUR>Dividend Paid</TRXN_NATUR>
+    <TAX_STATUS>01</TAX_STATUS>
+    <ALT_FOLIO>0</ALT_FOLIO>
+    <REINVEST_F>N</REINVEST_F>
+    <SEQ_NO>32283680</SEQ_NO>
+    <TAX>0</TAX>
+    <STT>0</STT>
+    <SCHEME_TYP>MIP</SCHEME_TYP>
+    <TAX_STATUS1>01</TAX_STATUS1>
+    <ENTRY_LOAD>0</ENTRY_LOAD>
+    <INV_IIN>0</INV_IIN>
+    <ProcessId>1218</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/1/2009 1:05:22 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/1/2009 1:05:22 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

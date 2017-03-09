@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoProductMaster.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoProductMaster.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\ProductMaster\obj\Debug\VoProductMaster.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\ProductMaster\obj\Debug\VoProductMaster.pdb

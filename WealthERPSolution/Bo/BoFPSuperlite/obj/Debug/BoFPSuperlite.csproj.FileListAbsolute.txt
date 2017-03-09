@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoFPSuperlite\obj\Debug\BoFPSuperlite.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoFPSuperlite.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoFPSuperlite.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoFPSuperlite\obj\Debug\BoFPSuperlite.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\BoFPSuperlite\obj\Debug\BoFPSuperlite.pdb

@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<filelist>
+    <file name="/stocks/companymaster.ace" table="AF_COMPANYMASTER">
+        <field name="FINCODE" type="int" primary="1" />
+        <field name="COMPNAME" type="nvarchar(100)" />
+        <field name="S_NAME" type="nvarchar(100)" />
+        <field name="Ind_code" type="int" />
+        <field name="Ind_Name" type="nvarchar(100)" />
+        <field name="Hse_code" type="int" />
+        <field name="Hse_Name" type="nvarchar(100)" />
+        <field name="SCRIPCODE" type="nvarchar(100)" />
+        <field name="SCRIP_GROUP" type="nvarchar(100)" />
+        <field name="SYMBOL" type="nvarchar(100)" />
+        <field name="SERIES" type="nvarchar(100)" />
+        <field name="ISIN" type="nvarchar(100)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/amc_mst.ace" table="AF_AMC_MST">
+        <field name="AMC_CODE" type="int" primary="1" />
+        <field name="AMC" type="nvarchar(100)" />
+        <field name="FUND" type="nvarchar(100)" />
+        <field name="SRNO" type="int" />
+        <field name="OFFICE_TYPE" type="nvarchar(50)" />
+        <field name="ADD1" type="nvarchar(60)" />
+        <field name="ADD2" type="nvarchar(60)" />
+        <field name="ADD3" type="nvarchar(60)" />
+        <field name="EMAIL" type="nvarchar(60)" />
+        <field name="PHONE" type="nvarchar(50)" />
+        <field name="FAX" type="nvarchar(50)" />
+        <field name="WEBSITE" type="nvarchar(100)" />
+        <field name="SETUP_DATE" type="datetime" />
+        <field name="MF_TYPE" type="nvarchar(50)" />
+        <field name="TRUSTEE_NAME" type="nvarchar(50)" />
+        <field name="SPONSOR_NAME" type="nvarchar(50)" />
+        <field name="AMC_INC_DATE" type="datetime" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/amc_keypersons.ace" table="AF_AMC_KEYPERSONS">
+        <field name="AMC_CODE" type="int" primary="1" />
+        <field name="AMCNAME" type="nvarchar(100)" />
+        <field name="SRNO" type="int" primary="1" />
+        <field name="NAME" type="nvarchar(50)" />
+        <field name="DESIG" type="nvarchar(50)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/asect_mst.ace" table="AF_ASECT_MST">
+        <field name="ASECT_CODE" type="float" primary="1" />
+        <field name="ASECT_TYPE" type="nvarchar(100)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/avg_maturity.ace" table="AF_AVG_MATURITY">
+        <field name="AMC_CODE" type="int" primary="1"/>
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="DATE" type="datetime" primary="1" />
+        <field name="INVENDDATE" type="datetime" primary="1" />
+        <field name="AVG_MAT_NUM" type="float" />
+        <field name="AVG_MAT_DAYS" type="nvarchar(10)" />
+        <field name="MOD_DUR_NUM" type="float" />
+        <field name="MOD_DUR_DAYS" type="nvarchar(10)" />
+        <field name="YTM" type="float" />
+        <field name="TURNOVER_RATIO" type="float" />
+        <field name="TR_MODE" type="nvarchar(10)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/currentnav.ace" table="AF_CURRENTNAV">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="NAVDATE" type="datetime" />
+        <field name="NAVRS" type="float" />
+        <field name="REPURPRICE" type="float" />
+        <field name="SALEPRICE" type="float" />
+        <field name="CLDATE" type="datetime" />
+        <field name="CHANGE" type="float" />
+        <field name="NETCHANGE" type="float" />
+        <field name="PREVNAV" type="float" />
+        <field name="PREVNAVDATE" type="datetime" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/cust_mst.ace" table="AF_CUST_MST">
+        <field name="CUST_CODE" type="int" primary="1" />
+        <field name="CUST_NAME" type="nvarchar(100)" />
+        <field name="SEBI_REG_NO" type="nvarchar(25)" />
+        <field name="ADD1" type="nvarchar(60)" />
+        <field name="ADD2" type="nvarchar(60)" />
+        <field name="ADD3" type="nvarchar(60)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/div_mst.ace" table="AF_DIV_MST">
+        <field name="DIV_CODE" type="float" primary="1" />
+        <field name="DIV_TYPE" type="nvarchar(30)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/divdetails.ace" table="AF_DIVDETAILS">
+        <field name="AMC_CODE" type="int" />
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="RECORDDATE" type="datetime" primary="1" />
+        <field name="DIV_CODE" type="int" />
+        <field name="EXDIVDATE" type="datetime" />
+        <field name="BONUSRATE1" type="float" />
+        <field name="BONUSRATE2" type="float" />
+        <field name="GROSS" type="float" />
+        <field name="CORPORATE" type="float" />
+        <field name="NONCORPORATE" type="float" />
+        <field name="STATUS" type="nvarchar(3)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/loadtype_mst.ace" table="AF_LOADTYPE_MST">
+        <field name="LTYPECODE" type="int" primary="1" />
+        <field name="LOAD" type="nvarchar(20)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/mf_abs_return.ace" table="AF_MF_ABS_RETURN">
+        <field name="SCHEMECODE" type="float" primary="1" />
+        <field name="C_DATE" type="datetime" />
+        <field name="P_DATE" type="datetime" />
+        <field name="C_NAV" type="float" />
+        <field name="P_NAV" type="float" />
+        <field name="[1DAYRET]" type="float" />
+        <field name="[1WEEKDATE]" type="datetime" />
+        <field name="[1WEEKNAV]" type="float" />
+        <field name="[1WEEKRET]" type="float" />
+        <field name="[1MNTHDATE]" type="datetime" />
+        <field name="[1MNTHNAV]" type="float" />
+        <field name="[1MNTHRET]" type="float" />
+        <field name="[3MNTHDATE]" type="datetime" />
+        <field name="[3MNTHNAV]" type="float" />
+        <field name="[3MNTHRET]" type="float" />
+        <field name="[6MNTHDATE]" type="datetime" />
+        <field name="[6MNTHNAV]" type="float" />
+        <field name="[6MNTHRET]" type="float" />
+        <field name="[9MNTHDATE]" type="datetime" />
+        <field name="[9MNTHNAV]" type="float" />
+        <field name="[9MNTHRET]" type="float" />
+        <field name="[1YRDATE]" type="datetime" />
+        <field name="[1YRNAV]" type="float" />
+        <field name="[1YRRET]" type="float" />
+        <field name="[2YRDATE]" type="datetime" />
+        <field name="[2YRNAV]" type="float" />
+        <field name="[2YRRET]" type="float" />
+        <field name="[3YRDATE]" type="datetime" />
+        <field name="[3YRNAV]" type="float" />
+        <field name="[3YRRET]" type="float" />
+        <field name="[4YRDATE]" type="datetime" />
+        <field name="[4YRNAV]" type="float" />
+        <field name="[4YRRET]" type="float" />
+        <field name="[5YRDATE]" type="datetime" />
+        <field name="[5YRNAV]" type="float" />
+        <field name="[5YRRET]" type="float" />
+        <field name="[INCDATE]" type="datetime" />
+        <field name="[INCNAV]" type="float" />
+        <field name="[INCRET]" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/mf_ans_return.ace" table="AF_MF_ANS_RETURN">
+        <field name="SCHEMECODE" type="float" primary="1" />
+        <field name="C_DATE" type="datetime" />
+        <field name="P_DATE" type="datetime" />
+        <field name="C_NAV" type="float" />
+        <field name="P_NAV" type="float" />
+        <field name="[1DAYRET]" type="float" />
+        <field name="[1WEEKDATE]" type="datetime" />
+        <field name="[1WEEKNAV]" type="float" />
+        <field name="[1WEEKRET]" type="float" />
+        <field name="[1MNTHDATE]" type="datetime" />
+        <field name="[1MNTHNAV]" type="float" />
+        <field name="[1MNTHRET]" type="float" />
+        <field name="[3MNTHDATE]" type="datetime" />
+        <field name="[3MNTHNAV]" type="float" />
+        <field name="[3MNTHRET]" type="float" />
+        <field name="[6MNTHDATE]" type="datetime" />
+        <field name="[6MNTHNAV]" type="float" />
+        <field name="[6MNTHRET]" type="float" />
+        <field name="[9MNTHDATE]" type="datetime" />
+        <field name="[9MNTHNAV]" type="float" />
+        <field name="[9MNTHRET]" type="float" />
+        <field name="[1YRDATE]" type="datetime" />
+        <field name="[1YRNAV]" type="float" />
+        <field name="[1YRRET]" type="float" />
+        <field name="[2YRDATE]" type="datetime" />
+        <field name="[2YRNAV]" type="float" />
+        <field name="[2YRRET]" type="float" />
+        <field name="[3YRDATE]" type="datetime" />
+        <field name="[3YRNAV]" type="float" />
+        <field name="[3YRRET]" type="float" />
+        <field name="[4YRDATE]" type="datetime" />
+        <field name="[4YRNAV]" type="float" />
+        <field name="[4YRRET]" type="float" />
+        <field name="[5YRDATE]" type="datetime" />
+        <field name="[5YRNAV]" type="float" />
+        <field name="[5YRRET]" type="float" />
+        <field name="[INCDATE]" type="datetime" />
+        <field name="[INCNAV]" type="float" />
+        <field name="[INCRET]" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/mf_portfolio.ace" table="AF_MF_PORTFOLIO">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="INVDATE" type="datetime" primary="1" />
+        <field name="INVENDDATE" type="datetime" />
+        <field name="SRNO" type="int" primary="1" />
+        <field name="FINCODE" type="int" />
+        <field name="ASECT_CODE" type="int" />
+        <field name="SECT_CODE" type="int" />
+        <field name="NOSHARES" type="numeric(18,0)" />
+        <field name="MKTVAL" type="float" />
+        <field name="AUM" type="float" />
+        <field name="HOLDPERCENTAGE" type="float" />
+        <field name="COMPNAME" type="nvarchar(255)" />
+        <field name="SECT_NAME" type="nvarchar(50)" />
+        <field name="ASECT_NAME" type="nvarchar(50)" />
+        <field name="RATING" type="nvarchar(24)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/mf_sipdetails.ace" table="AF_MF_SIPDETAILS">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="AMC_CODE" type="datetime" />
+        <field name="SIPDAYS1" type="int" />
+        <field name="SIPDAYS2" type="int" />
+        <field name="SIPDAYS3" type="int" />
+        <field name="SIPDAYS4" type="int" />
+        <field name="SIPDAYS5" type="int" />
+        <field name="SIPDAYS6" type="int" />
+        <field name="SIPDAYS7" type="int" />
+        <field name="SIPDAYSALL" type="nvarchar(10)" />
+        <field name="SIPFREQUENCY" type="nvarchar(10)" />
+        <field name="SIPMININVEST" type="float" />
+        <field name="SIPADDINVEST" type="float" />
+        <field name="SIPFREQUENCYNO" type="int" />
+        <field name="SWPDAYS1" type="int" />
+        <field name="SWPDAYS2" type="int" />
+        <field name="SWPDAYS3" type="int" />
+        <field name="SWPDAYS4" type="int" />
+        <field name="SWPDAYS5" type="int" />
+        <field name="SWPDAYS6" type="int" />
+        <field name="SWPDAYS7" type="int" />
+        <field name="SWPDAYSALL" type="nvarchar(10)" />
+        <field name="SWPFREQUENCY" type="nvarchar(10)" />
+        <field name="SWPMININVEST" type="float" />
+        <field name="SWPADDINVEST" type="float" />
+        <field name="SWPFREQUENCYNO" type="int" />
+        <field name="MAXENTRYLOAD" type="float" />
+        <field name="MAXEXITLOAD" type="float" />
+        <field name="ENTRY_REMARK" type="nvarchar(1000)" />
+        <field name="EXIT_REMARK" type="nvarchar(1000)" />
+        <field name="NOTE" type="ntext" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/navhist.ace" table="AF_NAVHIST">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="NAVDATE" type="datetime" primary="1" />
+        <field name="NAVRS" type="float" />
+        <field name="ADJNAVRS" type="float" />
+        <field name="REPURPRICE" type="float" />
+        <field name="SALEPRICE" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/option_mst.ace" table="AF_OPTION_MST">
+        <field name="OPT_CODE" type="int" primary="1" />
+        <field name="[OPTION]" type="nvarchar(30)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/plan_mst.ace" table="AF_PLAN_MST">
+        <field name="PLAN_CODE" type="int" primary="1" />
+        <field name="[PLAN]" type="nvarchar(50)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/rt_mst.ace" table="AF_RT_MST">
+        <field name="RT_CODE" type="int" primary="1" />
+        <field name="RT_NAME" type="nvarchar(100)" />
+        <field name="SEBI_REG_NO" type="nvarchar(50)" />
+        <field name="ADDRESS1" type="nvarchar(50)" />
+        <field name="ADDRESS2" type="nvarchar(50)" />
+        <field name="ADDRESS3" type="nvarchar(50)" />
+        <field name="STATE" type="nvarchar(50)" />
+        <field name="TEL" type="nvarchar(50)" />
+        <field name="FAX" type="nvarchar(50)" />
+        <field name="WEBSITE" type="nvarchar(100)" />
+        <field name="REG_ADDRESS" type="nvarchar(255)" />
+        <field name="EMAIL" type="nvarchar(255)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/scheme_assetalloc.ace" table="AF_SCHEME_ASSETALLOC">
+        <field name="SCHEMEINV_ID" type="int" />
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="INVESTMENT" type="nvarchar(100)" primary="1" />
+        <field name="MININV" type="float" />
+        <field name="MAXINV" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/scheme_details.ace" table="AF_SCHEME_DETAILS">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="AMFI_CODE" type="int" />
+        <field name="CAMS_CODE" type="nvarchar(15)" />
+        <field name="AMC_CODE" type="int" />
+        <field name="S_NAME" type="nvarchar(255)" />
+        <field name="AMFI_NAME" type="nvarchar(255)" />
+        <field name="ISIN_CODE" type="nvarchar(50)" />
+        <field name="TYPE_CODE" type="int" />
+        <field name="OPT_CODE" type="int" />
+        <field name="CLASSCODE" type="int" />
+        <field name="THEME_CODE" type="int" />
+        <field name="RT_CODE" type="int" />
+        <field name="[PLAN]" type="int" />
+        <field name="CUST_CODE" type="int" />
+        <field name="CUST_CODE2" type="int" />
+        <field name="PRICE_FREQ" type="int" />
+        <field name="INIT_PRICE" type="float" />
+        <field name="OFFERPRICE" type="float" />
+        <field name="NFO_OPEN" type="datetime" />
+        <field name="NFO_CLOSE" type="datetime" />
+        <field name="REOPEN_DT" type="datetime" />
+        <field name="ELF" type="nvarchar(1)" />
+        <field name="ETF" type="nvarchar(1)" />
+        <field name="STP" type="nvarchar(1)" />
+        <field name="PRIMARY_FUND" type="nvarchar(1)" />
+        <field name="PRIMARY_FD_CODE" type="int" />
+        <field name="SIP" type="nvarchar(1)" />
+        <field name="SWP" type="nvarchar(1)" />
+        <field name="SWITCH" type="nvarchar(1)" />
+        <field name="MININVT" type="float" />
+        <field name="MULTIPLES" type="int" />
+        <field name="INC_INVEST" type="float" />
+        <field name="ADNMULTIPLES" type="float" />
+        <field name="FUND_MGR1" type="nvarchar(100)" />
+        <field name="FUND_MGR2" type="nvarchar(100)" />
+        <field name="SINCE" type="datetime" />
+        <field name="STATUS" type="nvarchar(50)" />
+        <field name="CUTSUB" type="nvarchar(10)" />
+        <field name="CUTRED" type="nvarchar(10)" />
+        <field name="RED" type="nvarchar(10)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/scheme_master.ace" table="AF_SCHEME_MASTER">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="AMC_CODE" type="int" />
+        <field name="SCHEME_NAME" type="nvarchar(255)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/scheme_objective.ace" table="AF_SCHEME_OBJECTIVE">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="OBJECTIVE" type="ntext" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/schemeload.ace" table="AF_SCHEMELOAD">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="LDATE" type="datetime" primary="1" />
+        <field name="LTYPECODE" type="int" primary="1" />
+        <field name="LSRNO" type="int" primary="1" />
+        <field name="FROMDATE" type="datetime" />
+        <field name="TODATE" type="datetime" />
+        <field name="FRMAMOUNT" type="float" />
+        <field name="UPTOAMOUNT" type="float" />
+        <field name="MINPERIOD" type="int" />
+        <field name="MAXPERIOD" type="int" />
+        <field name="MIN" type="nvarchar(10)" />
+        <field name="MAX" type="nvarchar(10)" />
+        <field name="ENTRYLOAD" type="float" />
+        <field name="EXITLOAD" type="float" />
+        <field name="REMARKS" type="nvarchar(500)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/sclass_mst.ace" table="AF_SCLASS_MST">
+        <field name="CLASSCODE" type="int" primary="1" />
+        <field name="CLASSNAME" type="nvarchar(100)" />
+        <field name="ASSET_CODE" type="int" />
+        <field name="ASSET_TYPE" type="nvarchar(100)" />
+        <field name="CATEGORY" type="nvarchar(100)" />
+        <field name="SUB_CATEGORY" type="nvarchar(100)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/sect_allocation.ace" table="AF_SECT_ALLOCATION">
+        <field name="AMC_CODE" type="int" />
+        <field name="SCHEME_CODE" type="int" primary="1" />
+        <field name="INVDATE" type="datetime" primary="1" />
+        <field name="INVENDDATE" type="datetime" />
+        <field name="SRNO" type="int" primary="1" />
+        <field name="SECT_CODE" type="int" />
+        <field name="SECT_NAME" type="nvarchar(100)" />
+        <field name="PERC_HOLD" type="float" />
+        <field name="VALUE" type="float" />
+        <field name="AUM" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/sect_mst.ace" table="AF_SECT_MST">
+        <field name="SECT_CODE" type="float" primary="1" />
+        <field name="SECT_NAME" type="nvarchar(100)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/theme_mst.ace" table="AF_THEME_MST">
+        <field name="THEME_CODE" type="int" primary="1" />
+        <field name="THEME_TYPE" type="nvarchar(100)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/type_mst.ace" table="AF_TYPE_MST">
+        <field name="TYPE_CODE" type="int" primary="1" />
+        <field name="TYPE" type="nvarchar(50)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/expenceratio.ace" table="AF_EXPENSERATIO">
+        <field name="AMC_CODE" type="int" />
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="DATE" type="datetime" primary="1" />
+        <field name="EXRATIO" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/index_mst.ace" table="AF_INDEX_MST">
+        <field name="INDEXCODE" type="int" primary="1" />
+        <field name="FINCODE" type="int" />
+        <field name="SCRIPCODE" type="nvarchar(6)" />
+        <field name="INDEXNAME" type="nvarchar(50)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/portfolio_inout.ace" table="AF_PORTFOLIO_INOUT">
+        <field name="FINCODE" type="int" primary="1" />
+        <field name="INVDATE" type="datetime" />
+        <field name="MODE" type="nvarchar(5)" />
+        <field name="COMPNAME" type="nvarchar(100)" />
+        <field name="S_NAME" type="nvarchar(100)" />
+        <field name="MKT_VALUE" type="float" />
+        <field name="NOSHARES" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/invst_eligibility_mst.ace" table="AF_INVST_ELIGIBILITY_MST">
+        <field name="ELIG_CODE" type="int" primary="1" />
+        <field name="ELIG_LOGN_NAME" type="nvarchar(255)" />
+        <field name="ELIG_SHORT_NAME" type="nvarchar(255)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/invst_eligibility.ace" table="AF_INVST_ELIGIBILITY">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="ELIG_CODE" type="int" primary="1" />
+        <field name="AMC_CODE" type="int" />
+        <field name="REPATRIABLE" type="nvarchar(255)" />
+        <field name="DATE" type="datetime" primary="1" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/mf_ratios.ace" table="AF_MF_RATIO">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="UPDDATE" type="datetime" />
+        <field name="DATEFROM" type="datetime" />
+        <field name="DATETO" type="datetime" />
+        <field name="AVG_X" type="float" />
+        <field name="AVG_Y" type="float" />
+        <field name="SD_X" type="float" />
+        <field name="SD_Y" type="float" />
+        <field name="SEMISD_X" type="float" />
+        <field name="SEMISD_Y" type="float" />
+        <field name="BETA_X" type="float" />
+        <field name="BETA_Y" type="float" />
+        <field name="CORELATION_X" type="float" />
+        <field name="CORELATION_Y" type="float" />
+        <field name="BETACOR_X" type="float" />
+        <field name="BETACOR_Y" type="float" />
+        <field name="TREYNOR_X" type="float" />
+        <field name="TREYNOR_Y" type="float" />
+        <field name="FAMA_X" type="float" />
+        <field name="FAMA_Y" type="float" />
+        <field name="SHARPE_X" type="float" />
+        <field name="SHARPE_Y" type="float" />
+        <field name="JALPHA_X" type="float" />
+        <field name="JALPHA_Y" type="float" />
+        <field name="SORTINO_X" type="float" />
+        <field name="SORTINO_Y" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/scheme_index_part.ace" table="AF_SCHEME_INDEX_PART">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="INDEXCODE" type="int" primary="1" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/scheme_eq_details.ace" table="AF_SCHEME_EQ_DETAILS">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="MONTHEND" type="int" />
+        <field name="MCAP" type="float" />
+        <field name="PE" type="float" />
+        <field name="PB" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/benchmarkindices_return.ace" table="AF_BENCHMARKINDICES_RETURN">
+        <field name="INDEX_CODE" type="int" primary="1" />
+        <field name="SYMBOL" type="nvarchar(100)" />
+        <field name="SCRIPCODE" type="int" />
+        <field name="DATE" type="datetime" />
+        <field name="PREV_DATE" type="datetime" />
+        <field name="[CLOSE]" type="float" />
+        <field name="PREV_CLOSE" type="float" />
+        <field name="[1DAYRET]" type="float" />
+        <field name="[1WEEKDATE]" type="datetime" />
+        <field name="[1WEEKCLOSE]" type="float" />
+        <field name="[1WEEKRET]" type="float" />
+        <field name="[1MTHDATE]" type="datetime" />
+        <field name="[1MTHCLOSE]" type="float" />
+        <field name="[1MONTHRET]" type="float" />
+        <field name="[3MTHDATE]" type="datetime" />
+        <field name="[3MTHCLOSE]" type="float" />
+        <field name="[3MONTHRET]" type="float" />
+        <field name="[6MTHDATE]" type="datetime" />
+        <field name="[6MTHCLOSE]" type="float" />
+        <field name="[6MONTHRET]" type="float" />
+        <field name="[9MTHDATE]" type="datetime" />
+        <field name="[9MTHCLOSE]" type="float" />
+        <field name="[9MONTHRET]" type="float" />
+        <field name="[1YRDATE]" type="datetime" />
+        <field name="[1YRCLOSE]" type="float" />
+        <field name="[1YRRET]" type="float" />
+        <field name="[2YRDATE]" type="datetime" />
+        <field name="[2YRCLOSE]" type="float" />
+        <field name="[2YRRET]" type="float" />
+        <field name="[3YRDATE]" type="datetime" />
+        <field name="[3YRCLOSE]" type="float" />
+        <field name="[3YRRET]" type="float" />
+        <field name="[4YRDATE]" type="datetime" />
+        <field name="[4YRCLOSE]" type="float" />
+        <field name="[4YRRET]" type="float" />
+        <field name="[5YRDATE]" type="datetime" />
+        <field name="[5YRCLOSE]" type="float" />
+        <field name="[5YRRET]" type="float" />
+        <field name="[INCDATE]" type="datetime" />
+        <field name="[INCCLOSE]" type="float" />
+        <field name="[INCRET]" type="float" />
+        <field name="[2WEEKDATE]" type="datetime" />
+        <field name="[2WEEKNAV]" type="float" />
+        <field name="[2WEEKRET]" type="float" />
+        <field name="[3WEEKDATE]" type="datetime" />
+        <field name="[3WEEKNAV]" type="float" />
+        <field name="[3WEEKRET]" type="float" />
+        <field name="[2MTHDATE]" type="datetime" />
+        <field name="[2MTHNAV]" type="float" />
+        <field name="[2MONTHRET]" type="float" />
+        <field name="[YTDDATE]" type="datetime" />
+        <field name="[YTDNAV]" type="float" />
+        <field name="[YTDRET]" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/navhist_hl.ace" table="AF_NAVHIST_HL">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="[3MONTHHIGH]" type="float" />
+        <field name="[3MONTHLOW]" type="float" />
+        <field name="[3MHDATE]" type="datetime" />
+        <field name="[3MLDATE]" type="datetime" />
+        <field name="[6MONTHHIGH]" type="float" />
+        <field name="[6MONTHLOW]" type="float" />
+        <field name="[6MHDATE]" type="datetime" />
+        <field name="[6MLDATE]" type="datetime" />
+        <field name="[9MONTHHIGH]" type="float" />
+        <field name="[9MONTHLOW]" type="float" />
+        <field name="[9MHDATE]" type="datetime" />
+        <field name="[9MLDATE]" type="datetime" />
+        <field name="[52WEEKHIGH]" type="float" />
+        <field name="[52WEEKLOW]" type="float" />
+        <field name="[52WHDATE]" type="datetime" />
+        <field name="[52WLDATE]" type="datetime" />
+        <field name="[1YRHIGH]" type="float" />
+        <field name="[1YRLOW]" type="float" />
+        <field name="[1YRHDATE]" type="datetime" />
+        <field name="[1YRLDATE]" type="datetime" />
+        <field name="[2YRHIGH]" type="float" />
+        <field name="[2YRLOW]" type="float" />
+        <field name="[2YRHDATE]" type="datetime" />
+        <field name="[2YRLDATE]" type="datetime" />
+        <field name="[3YRHIGH]" type="float" />
+        <field name="[3YRLOW]" type="float" />
+        <field name="[3YRHDATE]" type="datetime" />
+        <field name="[3YRLDATE]" type="datetime" />
+        <field name="[5YRHIGH]" type="float" />
+        <field name="[5YRLOW]" type="float" />
+        <field name="[5YRHDATE]" type="datetime" />
+        <field name="[5YRLDATE]" type="datetime" />
+        <field name="[YTDHIGH]" type="float" />
+        <field name="[YTDLOW]" type="float" />
+        <field name="[YTDHDATE]" type="datetime" />
+        <field name="[YTDLDATE]" type="datetime" />
+        <field name="[SIHIGH]" type="float" />
+        <field name="[SILOW]" type="float" />
+        <field name="[SIHDATE]" type="datetime" />
+        <field name="[SILDATE]" type="datetime" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/mf_return.ace" table="AF_MF_RETURN">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="C_DATE" type="datetime" />
+        <field name="P_DATE" type="datetime" />
+        <field name="C_NAV" type="float" />
+        <field name="P_NAV" type="float" />
+        <field name="[1DAYRET]" type="float" />
+        <field name="[1WEEKDATE]" type="datetime" />
+        <field name="[1WEEKNAV]" type="float" />
+        <field name="[1WEEKRET]" type="float" />
+        <field name="[1MONTHDATE]" type="datetime" />
+        <field name="[1MNTHNAV]" type="float" />
+        <field name="[1MNTHRET]" type="float" />
+        <field name="[3MNTHDATE]" type="datetime" />
+        <field name="[3MNTHNAV]" type="float" />
+        <field name="[3MONTHRET]" type="float" />
+        <field name="[6MNTHDATE]" type="datetime" />
+        <field name="[6MNTHNAV]" type="float" />
+        <field name="[6MONTHRET]" type="float" />
+        <field name="[9MNTHDATE]" type="datetime" />
+        <field name="[9MNTHNAV]" type="float" />
+        <field name="[9MONTHRET]" type="float" />
+        <field name="[1YRDATE]" type="datetime" />
+        <field name="[1YRNAV]" type="float" />
+        <field name="[1YRRET]" type="float" />
+        <field name="[2YRDATE]" type="datetime" />
+        <field name="[2YRNAV]" type="float" />
+        <field name="[2YRRET]" type="float" />
+        <field name="[3YRDATE]" type="datetime" />
+        <field name="[3YRNAV]" type="float" />
+        <field name="[3YRRET]" type="float" />
+        <field name="[4YRDATE]" type="datetime" />
+        <field name="[4YRNAV]" type="float" />
+        <field name="[4YRRET]" type="float" />
+        <field name="[5YRDATE]" type="datetime" />
+        <field name="[5YRNAV]" type="float" />
+        <field name="[5YRRET]" type="float" />
+        <field name="[INCDATE]" type="datetime" />
+        <field name="[INCNAV]" type="float" />
+        <field name="[INCRET]" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/sip_dailydata.ace" table="AF_SIP_DAILYDATA">
+        <field name="SCHEMENAME" type="nvarchar(500)" />
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="LATNAVDATE" type="datetime" />
+        <field name="LATNAVMONTH" type="int" />
+        <field name="LATNAV" type="float" />
+        <field name="YEAR_1_DATE" type="datetime" />
+        <field name="YEAR_1_NAV" type="float" />
+        <field name="YEAR_1_UNIT" type="float" />
+        <field name="YEAR_1_INVAMOUNT" type="float" />
+        <field name="YEAR_1_AMOUNT" type="float" />
+        <field name="YEAR_2_DATE" type="datetime" />
+        <field name="YEAR_2_NAV" type="float" />
+        <field name="YEAR_2_UNIT" type="float" />
+        <field name="YEAR_2_INVAMOUNT" type="float" />
+        <field name="YEAR_2_AMOUNT" type="float" />
+        <field name="YEAR_3_DATE" type="datetime" />
+        <field name="YEAR_3_NAV" type="float" />
+        <field name="YEAR_3_UNIT" type="float" />
+        <field name="YEAR_3_INVAMOUNT" type="float" />
+        <field name="YEAR_3_AMOUNT" type="float" />
+        <field name="YEAR_4_DATE" type="datetime" />
+        <field name="YEAR_4_NAV" type="float" />
+        <field name="YEAR_4_UNIT" type="float" />
+        <field name="YEAR_4_INVAMOUNT" type="float" />
+        <field name="YEAR_4_AMOUNT" type="float" />
+        <field name="YEAR_5_DATE" type="datetime" />
+        <field name="YEAR_5_NAV" type="float" />
+        <field name="YEAR_5_UNIT" type="float" />
+        <field name="YEAR_5_INVAMOUNT" type="float" />
+        <field name="YEAR_5_AMOUNT" type="float" />
+        <field name="YEAR_10_DATE" type="datetime" />
+        <field name="YEAR_10_NAV" type="float" />
+        <field name="YEAR_10_UNIT" type="float" />
+        <field name="YEAR_10_INVAMOUNT" type="float" />
+        <field name="YEAR_10_AMOUNT" type="float" />
+        <field name="INC_DATE" type="datetime" />
+        <field name="INC_NAV" type="float" />
+        <field name="INC_UNIT" type="float" />
+        <field name="INC_INVAMOUNT" type="float" />
+        <field name="INC_AMOUNT" type="float" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/gsecmaster.ace" table="AF_GSECMASTER">
+        <field name="GSEC_CODE" type="int" primary="1" />
+        <field name="DESCRIPTION" type="nvarchar(2000)" />
+        <field name="LONGNAME" type="nvarchar(200)" />
+        <field name="STATUS" type="nvarchar(50)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/mutualfund/DDMMYYYY/fmp_yielddetails.ace" table="AF_FMP_YIELDDETAILS">
+        <field name="SCHEMECODE" type="int" primary="1" />
+        <field name="MATURITYDATE" type="datetime" />
+        <field name="TENURE_NUMBER" type="int" />
+        <field name="TENURE_OPTION" type="nvarchar(10)" />
+        <field name="NET_INTICATIVE_YIELD1" type="float" />
+        <field name="NET_INTICATIVE_YIELD2" type="float" />
+        <field name="POST_TAXYIELD_IND1" type="float" />
+        <field name="POST_TAXYIELD_IND2" type="float" />
+        <field name="POST_TAXYIELD_NONIND1" type="float" />
+        <field name="POST_TAXYIELD_NONIND2" type="float" />
+        <field name="EXIT_LOAD" type="nvarchar(30)" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+    <file name="/stocks/indices/master/comp_indexpart.ace" table="AF_COMP_INDEXPART">
+        <field name="FINCODE" type="int" primary="1" />
+        <field name="SCRIPCODE" type="nvarchar(6)" />
+        <field name="SYMBOL" type="nvarchar(20)" />
+        <field name="INDEX_CODE" type="int" primary="1" />
+        <field name="UPD_FLAG" type="nvarchar(1)" />
+    </file>
+</filelist>

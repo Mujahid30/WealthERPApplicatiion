@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoAlerts.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoAlerts.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\Alerts\BoAlerts\obj\Debug\BoAlerts.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\Alerts\BoAlerts\obj\Debug\BoAlerts.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\Alerts\BoAlerts\obj\Debug\BoAlerts.pdb

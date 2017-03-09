@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +16,11 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,11 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BoCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="BoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -54,8 +55,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="VoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBo.cs" />
@@ -80,9 +79,33 @@
     <Compile Include="SystematicSetupBo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Dao\CustomerPortfolio\DaoCustomerPortfolio.csproj">
+      <Project>{5e81a7d9-9476-428b-97ec-7f7224fee1a0}</Project>
+      <Name>DaoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerPortfolio\VoCustomerPortfolio.csproj">
+      <Project>{8250e435-88e6-4c95-824e-1bf111361708}</Project>
+      <Name>VoCustomerPortfolio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Vo\CustomerProfiling\VoCustomerProfiling.csproj">
-      <Project>{9ADEC963-65FF-407E-A710-E8DFAAE884C9}</Project>
+      <Project>{9adec963-65ff-407e-a710-e8dfaae884c9}</Project>
       <Name>VoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\User\VoUser.csproj">
+      <Project>{5a775261-8919-4080-81aa-545763d709db}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Calculator\BoCalculator.csproj">
+      <Project>{2d02b850-6eb4-439d-9754-61e2ae98bb4b}</Project>
+      <Name>BoCalculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\User\BoUser.csproj">
+      <Project>{d34f58bd-27f2-4c13-82e0-1a694ceaa430}</Project>
+      <Name>BoUser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

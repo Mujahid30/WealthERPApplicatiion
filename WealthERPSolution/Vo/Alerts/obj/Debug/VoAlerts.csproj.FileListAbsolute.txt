@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoAlerts.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoAlerts.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\Alerts\obj\Debug\VoAlerts.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\Alerts\obj\Debug\VoAlerts.pdb

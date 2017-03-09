@@ -1,30 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BoAdvisorProfiling;
 using VoUser;
 using VoAdvisorProfiling;
 using BoUser;
-using BoCommon; 
+using BoCommon;
 using System.Data;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
-using System.Configuration;
-using System.Net.Mail;
-using PCGMailLib;
-using System.IO;
 using VOAssociates;
 using BOAssociates;
-using BoCommon;
 using WealthERP.Base;
-using DanLudwig;
-using CrystalDecisions.CrystalReports.Engine;
-using System.Collections.Specialized;
 using Telerik.Web.UI;
-using System.Web.UI.HtmlControls;
 using BoCustomerProfiling;
 
 

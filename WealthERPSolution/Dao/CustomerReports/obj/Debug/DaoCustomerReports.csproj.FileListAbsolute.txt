@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerReports.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerReports.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerReports\obj\Debug\DaoCustomerReports.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerReports\obj\Debug\DaoCustomerReports.pdb

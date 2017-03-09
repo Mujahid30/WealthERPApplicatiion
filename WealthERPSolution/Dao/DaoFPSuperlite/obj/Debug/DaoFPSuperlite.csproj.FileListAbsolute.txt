@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoFPSuperlite\obj\Debug\DaoFPSuperlite.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoFPSuperlite.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoFPSuperlite.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoFPSuperlite\obj\Debug\DaoFPSuperlite.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\DaoFPSuperlite\obj\Debug\DaoFPSuperlite.pdb

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,7 +16,11 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkSubset>Full</TargetFrameworkSubset>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,15 +40,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\UI\WealthERP\bin\DaoCustomerProfiling.dll</HintPath>
-    </Reference>
-    <Reference Include="DaoCustomerRiskProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="DaoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\UI\WealthERP\bin\DaoUser.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\UI\WealthERP\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -66,15 +61,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VoCustomerPortfolio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="VoCustomerProfiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Vo\CustomerProfiling\bin\Debug\VoCustomerProfiling.dll</HintPath>
-    </Reference>
-    <Reference Include="VoUser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Vo\User\bin\Debug\VoUser.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerBankAccountBo.cs" />
@@ -92,6 +78,36 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dao\CustomerProfiling\DaoCustomerProfiling.csproj">
+      <Project>{25a93a43-71ab-4a87-b5eb-9104c6e476da}</Project>
+      <Name>DaoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\CustomerRiskProfiling\DaoCustomerRiskProfiling.csproj">
+      <Project>{38e6c00c-f53f-4329-8638-bf1f50de9508}</Project>
+      <Name>DaoCustomerRiskProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\User\DaoUser.csproj">
+      <Project>{79b272b3-d311-430c-8559-7ec324e0c9e7}</Project>
+      <Name>DaoUser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{ca477068-2337-4e11-b066-ac5b1ed36ccf}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerPortfolio\VoCustomerPortfolio.csproj">
+      <Project>{8250e435-88e6-4c95-824e-1bf111361708}</Project>
+      <Name>VoCustomerPortfolio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\CustomerProfiling\VoCustomerProfiling.csproj">
+      <Project>{9adec963-65ff-407e-a710-e8dfaae884c9}</Project>
+      <Name>VoCustomerProfiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\User\VoUser.csproj">
+      <Project>{5a775261-8919-4080-81aa-545763d709db}</Project>
+      <Name>VoUser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

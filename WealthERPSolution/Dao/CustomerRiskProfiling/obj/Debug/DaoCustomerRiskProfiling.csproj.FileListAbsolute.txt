@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerRiskProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerRiskProfiling.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerRiskProfiling\obj\Debug\DaoCustomerRiskProfiling.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerRiskProfiling\obj\Debug\DaoCustomerRiskProfiling.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerRiskProfiling\obj\Debug\DaoCustomerRiskProfiling.pdb

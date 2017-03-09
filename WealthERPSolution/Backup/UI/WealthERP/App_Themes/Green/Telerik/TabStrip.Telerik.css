@@ -1,0 +1,160 @@
+.RadTabStrip_Telerik .rtsLI,
+.RadTabStrip_Telerik .rtsLink
+{
+	color: #2b2c20;
+	font: 12px/26px "Segoe UI", Arial, sans-serif;
+}
+
+.RadTabStrip_Telerik .rtsLevel .rtsLink:hover,
+.RadTabStrip_Telerik .rtsLevel .rtsSelected,
+.RadTabStrip_Telerik .rtsLevel .rtsSelected:hover
+{
+	text-decoration: underline;
+}
+
+.RadTabStrip_Telerik .rtsLevel1 .rtsLink:hover,
+.RadTabStrip_Telerik .rtsLevel1 .rtsSelected,
+.RadTabStrip_Telerik .rtsLevel1 .rtsSelected:hover
+{
+	text-decoration: none;
+}
+
+.RadTabStripLeft_Telerik .rtsSeparator,
+.RadTabStripRight_Telerik .rtsSeparator
+{
+	background: #588A4D;
+}
+
+/* <focus cue> */
+div.RadTabStrip_Telerik a.rtsLink:focus
+{
+    outline-color: #000;
+}
+
+div.RadTabStrip_Telerik a.rtsLink:focus:after
+{
+    border-color /*\**/: #000\9;
+}
+/* </focus cue> */
+
+/* <disabled tabs> */
+.RadTabStrip_Telerik .rtsDisabled
+{
+	color: #555;
+}
+/* </disabled tabs> */
+
+/* <scrolling arrows> */
+.RadTabStrip_Telerik .rtsNextArrow,
+.RadTabStrip_Telerik .rtsPrevArrow,
+.RadTabStrip_Telerik .rtsPrevArrowDisabled,
+.RadTabStrip_Telerik .rtsNextArrowDisabled
+{
+	background-image: url('TabStrip/TabStripStates.png');
+}
+/* </scrolling arrows> */
+
+/* <tab backgrounds> */
+
+.RadTabStripTop_Telerik .rtsLevel { background: #c2d197; }
+
+.RadTabStripTop_Telerik .rtsLevel1 { background-color: transparent; }
+
+.RadTabStripTop_Telerik .rtsLevel .rtsLink,
+.RadTabStripTop_Telerik .rtsLevel .rtsOut { background-image: none; }
+
+.RadTabStripTop_Telerik .rtsLevel1 .rtsLink,
+.RadTabStripTop_Telerik .rtsLevel1 .rtsOut,
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsLink,
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsOut,
+.RadTabStripTop_Telerik_Baseline .rtsLevel1,
+.RadTabStripBottom_Telerik_Baseline .rtsLevel1 { background-image: url('TabStrip/TabStripStates.png'); }
+
+.RadTabStripLeft_Telerik .rtsLink,
+.RadTabStripRight_Telerik .rtsLink { background-image: url('TabStrip/TabStripVStates.png'); }
+
+.RadTabStripLeft_Telerik .rtsLast .rtsLink,
+.RadTabStripRight_Telerik .rtsLast .rtsLink
+{
+	border-bottom: 1px solid #898C95;
+}
+
+/* </tab backgrounds> */
+
+/* <background positioning: overlapping tabs> */
+
+/* <orientation: top> */
+
+.RadTabStripTop_Telerik .rtsLevel1 .rtsLink { background-position: 0 -52px; }
+.RadTabStripTop_Telerik .rtsLevel1 .rtsFirst .rtsLink { background-position: 0 0; }
+.RadTabStripTop_Telerik .rtsLevel1 .rtsOut { background-position: 100% -52px; }
+.RadTabStripTop_Telerik .rtsLevel1 .rtsLast .rtsOut { background-position: 100% 0; }
+
+.RadTabStripTop_Telerik .rtsLevel1 .rtsLI .rtsSelected { background-position: 0 -26px; }
+.RadTabStripTop_Telerik .rtsLevel1 .rtsSelected .rtsOut { background-position: 100% -78px; }
+.RadTabStripTop_Telerik .rtsLevel1 .rtsLI .rtsAfter { background-position: 0 -78px; }
+
+.RadTabStripTop_Telerik .rtsLevel1 .rtsLast .rtsSelected .rtsOut { background-position: 100% -26px; }
+
+.RadTabStripTop_Telerik_Baseline .rtsLevel1 { background-position: 0 100%; background-repeat: repeat-x; }
+
+/* </orientation: top> */
+
+/* <orientation: bottom> */
+
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsLink { background-position: 0 -130px; }
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsFirst .rtsLink { background-position: 0 -182px; }
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsOut { background-position: 100% -130px; }
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsLast .rtsOut { background-position: 100% -182px; }
+
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsLI .rtsSelected { background-position: 0 -156px; }
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsSelected .rtsOut { background-position: 100% -104px; }
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsLI .rtsAfter { background-position: 0 -104px; }
+
+.RadTabStripBottom_Telerik .rtsLevel1 .rtsLast .rtsSelected .rtsOut { background-position: 100% -156px; }
+
+.RadTabStripBottom_Telerik_Baseline .rtsLevel1 { background-position: 0 -599px; background-repeat: repeat-x; }
+
+/* </orientation: bottom> */
+
+/* <orientation: right> */
+
+.RadTabStripRight_Telerik .rtsUL .rtsLink,
+.RadTabStripRight_Telerik .rtsUL .rtsLI .rtsDisabled:hover { background-position: 100% 0; text-align: left; }
+.RadTabStripRight_Telerik .rtsUL .rtsLink:hover { background-position: 100% -200px; }
+.RadTabStripRight_Telerik .rtsUL .rtsSelected,
+.RadTabStripRight_Telerik .rtsUL .rtsSelected:hover { background-position: 100% -400px; }
+
+/* </orientation: right> */
+
+/* <orientation: top (RTL)> */
+
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLink
+{
+	padding-left: 0;
+	padding-right: 9px;
+}
+
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsOut
+{
+	padding-left: 9px;
+	padding-right: 0;
+}
+
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLink,
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsOut { background-image: url('TabStrip/TabStripStates_rtl.png'); }
+
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLink { background-position: 100% -52px; }
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsFirst .rtsLink { background-position: 100% 0; }
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsOut { background-position: 0 -52px; }
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLast .rtsOut { background-position: 0 0; }
+
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLI .rtsSelected { background-position: 100% -26px; }
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsSelected .rtsOut { background-position: 0 -78px; }
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLI .rtsAfter { background-position: 100% -78px; }
+
+.RadTabStripTop_Telerik_rtl .rtsLevel1 .rtsLast .rtsSelected .rtsOut { background-position: 0 -26px; }
+
+/* </orientation: top (RTL)> */
+
+/* </background positioning: overlapping tabs> */

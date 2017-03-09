@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerPortfolio.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoCustomerPortfolio.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerPortfolio\obj\Debug\VoCustomerPortfolio.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerPortfolio\obj\Debug\VoCustomerPortfolio.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\CustomerPortfolio\obj\Debug\VoCustomerPortfolio.pdb

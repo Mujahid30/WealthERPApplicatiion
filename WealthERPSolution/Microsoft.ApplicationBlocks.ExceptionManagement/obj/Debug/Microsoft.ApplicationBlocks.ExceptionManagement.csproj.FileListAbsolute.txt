@@ -1,0 +1,6 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Microsoft.ApplicationBlocks.ExceptionManagement\obj\Debug\Microsoft.ApplicationBlocks.ExceptionManagement.ExceptionManagerInstaller.resources
+C:\git-tf\WealthERPApplication\WealthERPSolution\Microsoft.ApplicationBlocks.ExceptionManagement\obj\Debug\Microsoft.ApplicationBlocks.ExceptionManagement.csproj.GenerateResource.Cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Microsoft.ApplicationBlocks.ExceptionManagement\obj\Debug\Microsoft.ApplicationBlocks.ExceptionManagement.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Microsoft.ApplicationBlocks.ExceptionManagement\obj\Debug\Microsoft.ApplicationBlocks.ExceptionManagement.pdb

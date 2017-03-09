@@ -1,0 +1,239 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="C_FirstName" type="xs:string" minOccurs="0" />
+                <xs:element name="C_MiddleName" type="xs:string" minOccurs="0" />
+                <xs:element name="C_LastName" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Gender" type="xs:string" minOccurs="0" />
+                <xs:element name="C_DOB" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Type" type="xs:string" minOccurs="0" />
+                <xs:element name="C_SubType" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Salutation" type="xs:string" minOccurs="0" />
+                <xs:element name="C_PANNum" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1Line1" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1Line2" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1Line3" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1PinCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1City" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1State" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr1Country" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2Line1" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2Line2" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2Line3" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2PinCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2City" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2State" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Adr2Country" type="xs:string" minOccurs="0" />
+                <xs:element name="C_ResISDCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_ResSTDCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_ResPhoneNum" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcISDCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcSTDCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcPhoneNum" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Email" type="xs:string" minOccurs="0" />
+                <xs:element name="C_AltEmail" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Mobile1" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Mobile2" type="xs:string" minOccurs="0" />
+                <xs:element name="C_ISDFax" type="xs:string" minOccurs="0" />
+                <xs:element name="C_STDFax" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Fax" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcFax" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcFaxISD" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcFaxSTD" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Occupation" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Qualification" type="xs:string" minOccurs="0" />
+                <xs:element name="C_MarriageDate" type="xs:string" minOccurs="0" />
+                <xs:element name="C_MaritalStatus" type="xs:string" minOccurs="0" />
+                <xs:element name="C_Nationality" type="xs:string" minOccurs="0" />
+                <xs:element name="C_RBIRefNum" type="xs:string" minOccurs="0" />
+                <xs:element name="C_RBIApprovalDate" type="xs:string" minOccurs="0" />
+                <xs:element name="C_CompanyName" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrLine1" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrLine2" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrLine3" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrPinCode" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrCity" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrState" type="xs:string" minOccurs="0" />
+                <xs:element name="C_OfcAdrCountry" type="xs:string" minOccurs="0" />
+                <xs:element name="C_RegistrationDate" type="xs:string" minOccurs="0" />
+                <xs:element name="C_CommencementDate" type="xs:string" minOccurs="0" />
+                <xs:element name="C_RegistrationPlace" type="xs:string" minOccurs="0" />
+                <xs:element name="C_RegistrationNum" type="xs:string" minOccurs="0" />
+                <xs:element name="C_CompanyWebsite" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BankName" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_AccountType" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_AccountNum" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_XMOH_ModeOfHoldingCode" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchName" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrLine1" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrLine2" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrLine3" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrPinCode" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrCity" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrState" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_BranchAdrCountry" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_MICR" type="xs:string" minOccurs="0" />
+                <xs:element name="CB_IFSC" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFA_FolioNum" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFA_AccountOpeningDate" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFA_XMOH_ModeOfHoldingCode" type="xs:string" minOccurs="0" />
+                <xs:element name="PA_AMCCode" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <C_FirstName>Rakesh </C_FirstName>
+    <C_LastName>Jha</C_LastName>
+    <C_Gender>Male</C_Gender>
+    <C_DOB>2/12/1984 12:00:00 AM</C_DOB>
+    <C_Type>IND</C_Type>
+    <C_SubType>RES</C_SubType>
+    <C_PANNum>LKIDF23454</C_PANNum>
+    <C_Adr1Line1>5A, 5TH FLR</C_Adr1Line1>
+    <C_Adr1Line2>BAKHTAWAR</C_Adr1Line2>
+    <C_Adr1Line3>229 NARIMAN POINT</C_Adr1Line3>
+    <C_Adr1PinCode>400021</C_Adr1PinCode>
+    <C_Adr1City>MUMBAI</C_Adr1City>
+    <C_Adr1Country>India</C_Adr1Country>
+    <C_ResPhoneNum>56384444</C_ResPhoneNum>
+    <C_OfcPhoneNum>56384444</C_OfcPhoneNum>
+    <C_Email>rajesg@mail.com</C_Email>
+    <CB_BankName>ABN Amro</CB_BankName>
+    <CB_AccountNum>40827273</CB_AccountNum>
+    <CB_BranchAdrLine1>5A, 5TH FLR</CB_BranchAdrLine1>
+    <CB_BranchAdrLine2>BAKHTAWAR</CB_BranchAdrLine2>
+    <CB_BranchAdrLine3>229 NARIMAN POINT</CB_BranchAdrLine3>
+    <CMFA_FolioNum>43443545</CMFA_FolioNum>
+    <PA_AMCCode>4</PA_AMCCode>
+    <ProcessId>1306</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 8:24:40 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 8:24:40 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_FirstName>S </C_FirstName>
+    <C_MiddleName>Aravind </C_MiddleName>
+    <C_LastName>Sitaraman</C_LastName>
+    <C_DOB>2/13/1984 12:00:00 AM</C_DOB>
+    <C_Type>Ind</C_Type>
+    <C_SubType>RES</C_SubType>
+    <C_Adr1Line1>No 25 Nimbekkaipura Road</C_Adr1Line1>
+    <C_Adr1Line2>Vir Gonagar Post</C_Adr1Line2>
+    <C_Adr1PinCode>560049</C_Adr1PinCode>
+    <C_Adr1City>Bangalore</C_Adr1City>
+    <C_Adr1Country>India</C_Adr1Country>
+    <CB_BankName>ICICI</CB_BankName>
+    <CB_BranchAdrLine1>No 25 Nimbekkaipura Road</CB_BranchAdrLine1>
+    <CB_BranchAdrLine2>Vir Gonagar Post</CB_BranchAdrLine2>
+    <CMFA_FolioNum>5177157/72</CMFA_FolioNum>
+    <PA_AMCCode>34</PA_AMCCode>
+    <ProcessId>1306</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 8:24:40 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 8:24:40 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_FirstName>Rajan </C_FirstName>
+    <C_MiddleName>Tarachand </C_MiddleName>
+    <C_LastName>Bhavnani</C_LastName>
+    <C_DOB>2/14/1984 12:00:00 AM</C_DOB>
+    <C_Type>Ind</C_Type>
+    <C_SubType>RES</C_SubType>
+    <C_PANNum>KDSFD34243</C_PANNum>
+    <C_Adr1Line1>301 Avensdale No 5</C_Adr1Line1>
+    <C_Adr1Line2>Moyenville Road</C_Adr1Line2>
+    <C_Adr1PinCode>560025</C_Adr1PinCode>
+    <C_Adr1City>Bangalore</C_Adr1City>
+    <C_Adr1Country>India</C_Adr1Country>
+    <C_ResPhoneNum>22129772</C_ResPhoneNum>
+    <CB_BankName>ABN Amro</CB_BankName>
+    <CB_BranchAdrLine1>301 Avensdale No 5</CB_BranchAdrLine1>
+    <CB_BranchAdrLine2>Moyenville Road</CB_BranchAdrLine2>
+    <CMFA_FolioNum>5175669/74</CMFA_FolioNum>
+    <PA_AMCCode>26</PA_AMCCode>
+    <ProcessId>1306</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 8:24:40 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 8:24:40 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_FirstName>Sushila</C_FirstName>
+    <C_MiddleName> Tarachand </C_MiddleName>
+    <C_LastName>Bhavnani</C_LastName>
+    <C_Gender>Female</C_Gender>
+    <C_DOB>2/15/1984 12:00:00 AM</C_DOB>
+    <C_Type>Ind</C_Type>
+    <C_SubType>RES</C_SubType>
+    <C_PANNum>PP73287423</C_PANNum>
+    <C_Adr1Line1>No 301 Avensdale No 5</C_Adr1Line1>
+    <C_Adr1Line2>Moyenville Road</C_Adr1Line2>
+    <C_Adr1Line3>Langford Town</C_Adr1Line3>
+    <C_Adr1PinCode>560025</C_Adr1PinCode>
+    <C_Adr1City>Bangalore</C_Adr1City>
+    <C_Adr1Country>India</C_Adr1Country>
+    <C_OfcPhoneNum>22129772</C_OfcPhoneNum>
+    <C_Email>sushila@mail.com</C_Email>
+    <CB_BankName>ICICI</CB_BankName>
+    <CB_AccountNum>38339003</CB_AccountNum>
+    <CB_BranchAdrLine1>No 301 Avensdale No 5</CB_BranchAdrLine1>
+    <CB_BranchAdrLine2>Moyenville Road</CB_BranchAdrLine2>
+    <CB_BranchAdrLine3>Langford Town</CB_BranchAdrLine3>
+    <CMFA_FolioNum>339529/10</CMFA_FolioNum>
+    <PA_AMCCode>7</PA_AMCCode>
+    <ProcessId>1306</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 8:24:40 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 8:24:40 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <C_FirstName>Sushila </C_FirstName>
+    <C_MiddleName>Tarachand </C_MiddleName>
+    <C_LastName>Bhavnani</C_LastName>
+    <C_DOB>2/16/1984 12:00:00 AM</C_DOB>
+    <C_Type>Ind</C_Type>
+    <C_SubType>RES</C_SubType>
+    <C_PANNum>PP73287423</C_PANNum>
+    <C_Adr1Line1>301 Avensdale No 5</C_Adr1Line1>
+    <C_Adr1Line2>Moyenville Road</C_Adr1Line2>
+    <C_Adr1Line3>Langfora Town</C_Adr1Line3>
+    <C_Adr1PinCode>560025</C_Adr1PinCode>
+    <C_Adr1City>Bangalore</C_Adr1City>
+    <C_Adr1Country>India</C_Adr1Country>
+    <C_OfcPhoneNum>22129772</C_OfcPhoneNum>
+    <CB_BankName>ABN Amro</CB_BankName>
+    <CB_BranchAdrLine1>301 Avensdale No 5</CB_BranchAdrLine1>
+    <CB_BranchAdrLine2>Moyenville Road</CB_BranchAdrLine2>
+    <CB_BranchAdrLine3>Langfora Town</CB_BranchAdrLine3>
+    <CMFA_FolioNum>43545435</CMFA_FolioNum>
+    <ProcessId>1306</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/6/2009 8:24:40 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/6/2009 8:24:40 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

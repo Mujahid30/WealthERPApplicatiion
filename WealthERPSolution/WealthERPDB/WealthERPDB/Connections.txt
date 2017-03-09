@@ -1,0 +1,10 @@
+DBRefFolders found in your dbp file
+Connect String: Data Source=moon;Initial Catalog=WealthERP_DEV;User ID=platinum
+Provider: Microsoft SQL Server
+
+Connect String: Data Source=192.168.0.2;Initial Catalog=wealthERPQA;User ID=sa
+Provider: Microsoft SQL Server
+
+Connect String: Data Source=server;Initial Catalog=wealtherpV2;User ID=sa
+Provider: Microsoft SQL Server
+

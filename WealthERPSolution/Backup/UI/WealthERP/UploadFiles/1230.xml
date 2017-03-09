@@ -1,0 +1,243 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CMFT_TransactionNumber" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_TransactionDate" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_BuySell" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_DividendRate" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_NAV" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_Price" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_Amount" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_Units" type="xs:string" minOccurs="0" />
+                <xs:element name="WMTT_TransactionClassificationCode" type="xs:string" minOccurs="0" />
+                <xs:element name="CMFT_STT" type="xs:string" minOccurs="0" />
+                <xs:element name="Folio" type="xs:string" minOccurs="0" />
+                <xs:element name="PASP_SchemePlanCode" type="xs:string" minOccurs="0" />
+                <xs:element name="ProcessId" type="xs:string" minOccurs="0" />
+                <xs:element name="AdviserId" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="CreatedOn" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedBy" type="xs:string" minOccurs="0" />
+                <xs:element name="ModifiedOn" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <CMFT_TransactionNumber>1123</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2008</CMFT_TransactionDate>
+    <CMFT_BuySell>B</CMFT_BuySell>
+    <CMFT_DividendRate>2.25</CMFT_DividendRate>
+    <CMFT_NAV>30.142</CMFT_NAV>
+    <CMFT_Price>30.142</CMFT_Price>
+    <CMFT_Amount>55465</CMFT_Amount>
+    <CMFT_Units>132.705</CMFT_Units>
+    <WMTT_TransactionClassificationCode>DVP</WMTT_TransactionClassificationCode>
+    <Folio>5177157/72</Folio>
+    <PASP_SchemePlanCode>1001</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1124</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2008</CMFT_TransactionDate>
+    <CMFT_BuySell>B</CMFT_BuySell>
+    <CMFT_NAV>53.145</CMFT_NAV>
+    <CMFT_Price>53.145</CMFT_Price>
+    <CMFT_Amount>14.831</CMFT_Amount>
+    <CMFT_Units>94.082</CMFT_Units>
+    <WMTT_TransactionClassificationCode>DVR</WMTT_TransactionClassificationCode>
+    <Folio>5175669/74</Folio>
+    <PASP_SchemePlanCode>1021</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1125</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2008</CMFT_TransactionDate>
+    <CMFT_BuySell>S</CMFT_BuySell>
+    <CMFT_NAV>39.92</CMFT_NAV>
+    <CMFT_Price>39.92</CMFT_Price>
+    <CMFT_Amount>4000</CMFT_Amount>
+    <CMFT_Units>25.05</CMFT_Units>
+    <WMTT_TransactionClassificationCode>BUY</WMTT_TransactionClassificationCode>
+    <Folio>11233585</Folio>
+    <PASP_SchemePlanCode>1087</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1126</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2008</CMFT_TransactionDate>
+    <CMFT_BuySell>B</CMFT_BuySell>
+    <CMFT_NAV>12.4</CMFT_NAV>
+    <CMFT_Price>12.4</CMFT_Price>
+    <CMFT_Amount>5000</CMFT_Amount>
+    <CMFT_Units>14.831</CMFT_Units>
+    <WMTT_TransactionClassificationCode>SEL</WMTT_TransactionClassificationCode>
+    <Folio>339529/10</Folio>
+    <PASP_SchemePlanCode>6696</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1127</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2009</CMFT_TransactionDate>
+    <CMFT_BuySell>B</CMFT_BuySell>
+    <CMFT_NAV>30.142</CMFT_NAV>
+    <CMFT_Price>30.142</CMFT_Price>
+    <CMFT_Amount>1000</CMFT_Amount>
+    <WMTT_TransactionClassificationCode>SIP</WMTT_TransactionClassificationCode>
+    <Folio>43545435</Folio>
+    <PASP_SchemePlanCode>6696</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1128</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2010</CMFT_TransactionDate>
+    <CMFT_BuySell>S</CMFT_BuySell>
+    <CMFT_NAV>53.145</CMFT_NAV>
+    <CMFT_Price>53.145</CMFT_Price>
+    <CMFT_Amount>183.9</CMFT_Amount>
+    <WMTT_TransactionClassificationCode>STB</WMTT_TransactionClassificationCode>
+    <Folio>5175669/74</Folio>
+    <PASP_SchemePlanCode>3701</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1129</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2011</CMFT_TransactionDate>
+    <CMFT_BuySell>B</CMFT_BuySell>
+    <CMFT_NAV>39.92</CMFT_NAV>
+    <CMFT_Price>39.92</CMFT_Price>
+    <CMFT_Amount>4000</CMFT_Amount>
+    <WMTT_TransactionClassificationCode>STS</WMTT_TransactionClassificationCode>
+    <Folio>11233585</Folio>
+    <PASP_SchemePlanCode>1140</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1130</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2012</CMFT_TransactionDate>
+    <CMFT_BuySell>S</CMFT_BuySell>
+    <CMFT_NAV>12.4</CMFT_NAV>
+    <CMFT_Price>12.4</CMFT_Price>
+    <CMFT_Amount>5000</CMFT_Amount>
+    <WMTT_TransactionClassificationCode>SWB</WMTT_TransactionClassificationCode>
+    <Folio>339529/10</Folio>
+    <PASP_SchemePlanCode>3701</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1131</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2013</CMFT_TransactionDate>
+    <CMFT_BuySell>S</CMFT_BuySell>
+    <CMFT_NAV>12.4</CMFT_NAV>
+    <CMFT_Price>12.4</CMFT_Price>
+    <CMFT_Amount>14.831</CMFT_Amount>
+    <CMFT_Units>15</CMFT_Units>
+    <WMTT_TransactionClassificationCode>SWP</WMTT_TransactionClassificationCode>
+    <Folio>5175669/74</Folio>
+    <PASP_SchemePlanCode>1087</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber>1132</CMFT_TransactionNumber>
+    <CMFT_TransactionDate>14-JUN-2014</CMFT_TransactionDate>
+    <WMTT_TransactionClassificationCode>SWS</WMTT_TransactionClassificationCode>
+    <Folio>11233585</Folio>
+    <PASP_SchemePlanCode>1140</PASP_SchemePlanCode>
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber />
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber />
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber />
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+  <Table1>
+    <CMFT_TransactionNumber />
+    <ProcessId>1230</ProcessId>
+    <AdviserId>1051</AdviserId>
+    <CreatedBy>20900</CreatedBy>
+    <CreatedOn>7/2/2009 1:09:24 PM</CreatedOn>
+    <ModifiedBy>20900</ModifiedBy>
+    <ModifiedOn>7/2/2009 1:09:24 PM</ModifiedOn>
+  </Table1>
+</NewDataSet>

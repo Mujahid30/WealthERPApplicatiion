@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="WealthERP.ServiceFacade.WERPCommonLookupServiceFacade" CodeBehind="WealthERP.ServiceFacade.WERPCommonLookupServiceFacade.cs" %>

@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoSupportData.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\BoSupportData.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\SupportData\obj\Debug\BoSupportData.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Bo\SupportData\obj\Debug\BoSupportData.pdb

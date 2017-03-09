@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="da1365bd-a3a2-408c-94f5-31203a77461f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://bsestarmfdemo.bseindia.com/MFUploadService/MFUploadService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MFUploadService.xsd" MetadataType="Schema" ID="69221b2c-827f-40c9-b4cb-2ed25b985ed7" SourceId="1" SourceUrl="http://bsestarmfdemo.bseindia.com/MFUploadService/MFUploadService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MFUploadService1.xsd" MetadataType="Schema" ID="068fbf60-b1a5-4eea-8617-123f069d9a10" SourceId="1" SourceUrl="http://bsestarmfdemo.bseindia.com/MFUploadService/MFUploadService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MFUploadService.wsdl" MetadataType="Wsdl" ID="9f7e1ae5-dbf4-4fef-9bbe-5d823e3fc1bd" SourceId="1" SourceUrl="http://bsestarmfdemo.bseindia.com/MFUploadService/MFUploadService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="MFUploadService.disco" MetadataType="Disco" ID="62d82595-ff5d-4e08-b7b0-b9a59cc0d66a" SourceId="1" SourceUrl="http://bsestarmfdemo.bseindia.com/MFUploadService/MFUploadService.svc?disco" />
+    <MetadataFile FileName="MFUploadService1.wsdl" MetadataType="Wsdl" ID="1d4797f7-3982-479b-bdce-003a3ebfb641" SourceId="1" SourceUrl="http://bsestarmfdemo.bseindia.com/MFUploadService/MFUploadService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoMarketFeeds.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\VoMarketFeeds.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\MarketFeeds\obj\Debug\VoMarketFeeds.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Vo\MarketFeeds\obj\Debug\VoMarketFeeds.pdb

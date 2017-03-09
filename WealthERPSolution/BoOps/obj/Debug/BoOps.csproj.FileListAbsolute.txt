@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoOps.dll
+C:\git-tf\WealthERPApplication\UI\WealthERP\bin\BoOps.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\BoOps\obj\Debug\BoOps.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\BoOps\obj\Debug\BoOps.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\BoOps\obj\Debug\BoOps.pdb

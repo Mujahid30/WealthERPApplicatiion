@@ -11,7 +11,6 @@ using System.Data.Common;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using Microsoft.Practices.EnterpriseLibrary.Common;
-using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 using System.Data.SqlClient;
 using System.Configuration;
 

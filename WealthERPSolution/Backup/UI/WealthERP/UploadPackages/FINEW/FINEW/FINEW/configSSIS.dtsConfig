@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<DTSConfiguration>
+  <DTSConfigurationHeading>
+    <DTSConfigurationFileInfo GeneratedBy="AMP\gobinda" GeneratedFromPackageName="ExecTest" GeneratedFromPackageID="{E4D8DAC0-B64E-405D-AF4D-2BB80108A61F}" GeneratedDate="9/10/2013 11:22:05 PM"/>
+  </DTSConfigurationHeading>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[server.sa].Properties[InitialCatalog]" ValueType="String">
+    <ConfiguredValue>WealthERP_DEV</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[server.sa].Properties[Password]" ValueType="String">
+    <ConfiguredValue>crystal93#</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[server.sa].Properties[ServerName]" ValueType="String">
+    <ConfiguredValue>moon</ConfiguredValue>
+  </Configuration>
+  <Configuration ConfiguredType="Property" Path="\Package.Connections[server.sa].Properties[UserName]" ValueType="String">
+    <ConfiguredValue>platinum</ConfiguredValue>
+  </Configuration>
+</DTSConfiguration>

@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\PCGMailLib.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\PCGMailLib.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\PCGMailLib\PCGMailLib\obj\Debug\PCGMailLib.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\PCGMailLib\PCGMailLib\obj\Debug\PCGMailLib.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\PCGMailLib\PCGMailLib\obj\Debug\PCGMailLib.pdb

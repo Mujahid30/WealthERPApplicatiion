@@ -1,0 +1,4 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\VOAssociates\bin\Debug\VOAssociates.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\VOAssociates\bin\Debug\VOAssociates.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\VOAssociates\obj\Debug\VOAssociates.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\VOAssociates\obj\Debug\VOAssociates.pdb

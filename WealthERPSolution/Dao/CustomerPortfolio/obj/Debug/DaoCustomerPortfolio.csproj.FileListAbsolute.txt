@@ -1,0 +1,5 @@
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerPortfolio.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\UI\WealthERP\bin\DaoCustomerPortfolio.pdb
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerPortfolio\obj\Debug\DaoCustomerPortfolio.csprojResolveAssemblyReference.cache
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerPortfolio\obj\Debug\DaoCustomerPortfolio.dll
+C:\git-tf\WealthERPApplication\WealthERPSolution\Dao\CustomerPortfolio\obj\Debug\DaoCustomerPortfolio.pdb
