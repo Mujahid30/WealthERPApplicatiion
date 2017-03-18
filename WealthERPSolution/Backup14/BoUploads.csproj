@@ -17,7 +17,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>C:\git-tf\WealthERPApplication\WealthERPSolution\Backup15\</UpgradeBackupLocation>
+    <UpgradeBackupLocation>C:\git-tf\WealthERPApplication\WealthERPSolution\Backup13\</UpgradeBackupLocation>
     <OldToolsVersion>14.0</OldToolsVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
